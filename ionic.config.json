@@ -1,0 +1,7 @@
+{
+  "name": "cabuto",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
