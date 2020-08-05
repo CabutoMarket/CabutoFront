@@ -14,7 +14,11 @@ const routes: Routes = [
   {
     path: 'page-splash',
     loadChildren: () => import('./page-splash/page-splash.module').then( m => m.PageSplashPageModule)
+  },  {
+    path: 'page-producto',
+    loadChildren: () => import('./page-producto/page-producto.module').then( m => m.PageProductoPageModule)
   },
+
 ];
 
 @NgModule({
