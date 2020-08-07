@@ -1,0 +1,81 @@
+ion-toolbar{
+    --background: linear-gradient(to left top,#FE3A00,#FFA801);
+}
+ion-title{
+    width: auto;
+    --color: #fff;
+}
+ion-item{
+    padding: 14px;
+    --background: #e7e7e7;
+    --color: rgb(112, 106, 106);
+}
+
+ion-button{
+    --background: #FE3A00;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.Condicion{
+    --background: #fff;
+    --color: #FE3A00;
+}
+
+.contenedor{
+    width: auto;
+}
+
+.regresar{
+    display: flex;
+    justify-content: start;
+    /*align-content: start;
+    align-items: start;*/
+    --background: linear-gradient(to left top,#FE3A00,#FFA801);
+    font-size: 30px;
+    display: inline-block;
+
+    padding: 20px;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    /*align-content: center;
+    align-items: center;*/
+    
+    display: inline-block;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.registro{
+    display: flex;
+    justify-content: end;
+    /*align-content: center;
+    align-items: center;*/
+    display: inline-block;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.nav {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav li {
+    display: inline-block;
+    font-size: 20px;
+    padding: 20px;
+  }
+  .perfil{
+    text-align: center;
+  }
