@@ -3,13 +3,18 @@
 
 /** Ionic CSS Variables **/
 :root {
-  /** primary **/
-  --ion-color-primary: #FE3A00;
-  --ion-color-primary-rgb: 254,93,0;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #FFA801;
-  --ion-color-primary-tint: #FE3A00;
+
+
+  --ion-color-naranja-oscuro: #FE3A00;
+  --ion-color-naranja-claro: #FFA801;
+  --ion-color-azul-oscuro: #0F195E;
+  --ion-color-azul-claro: #2153FF;
+  --ion-color-gris-oscuro: #87868A;
+  --ion-color-gris-claro: #D8D9DD;
+  --ion-letra-font: "Lato";
+
+
+
 
   /** secondary **/
   --ion-color-secondary: #3dc2ff;
@@ -83,12 +88,17 @@
    */
 
   body {
-    --ion-color-primary: #428cff;
-    --ion-color-primary-rgb: 66,140,255;
-    --ion-color-primary-contrast: #ffffff;
-    --ion-color-primary-contrast-rgb: 255,255,255;
-    --ion-color-primary-shade: #3a7be0;
-    --ion-color-primary-tint: #5598ff;
+
+    /*variables globales de la app*/
+  
+    --ion-color-naranja-oscuro: #FE3A00;
+    --ion-color-naranja-claro: #FFA801;
+    --ion-color-azul-oscuro: #0F195E;
+    --ion-color-azul-claro: #2153FF;
+    --ion-color-gris-oscuro: #87868A;
+    --ion-color-gris-claro: #D8D9DD;
+    --ion-font-family: "Lato";
+
 
     --ion-color-secondary: #50c8ff;
     --ion-color-secondary-rgb: 80,200,255;
@@ -191,7 +201,7 @@
    * Material Design Dark Theme
    * -------------------------------------------
    */
-
+/*
   .md body {
     --ion-background-color: #121212;
     --ion-background-color-rgb: 18,18,18;
@@ -229,4 +239,22 @@
 
     --ion-card-background: #1e1e1e;
   }
+
+  */
+}
+
+
+
+@font-face{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../assets/font/Roboto-Bold.ttf');
+}
+
+@font-face{
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../assets/font/Lato-Bold.ttf');
 }
