@@ -39,17 +39,31 @@
                 <img src="../assets/img/buscar.png" class="icono">
             </div>
             <div class="contenedor-filtro">
-                <div class="contenedor-selector">
+                <div class="contenedor-selector" >
                     <ion-label class="subtitulo">Filtrar por:</ion-label>
                     <select class="selector">
                         <option value="vendidos">Más vendidos</option>
-                        <option value="blonde">$-$$$</option>
-                        <option value="black">$$$-$</option>
-                        <option value="red">A a Z</option>
-                        <option value="red">Z a A</option>
+                        <option value="menor">$-$$$</option>
+                        <option value="mayor">$$$-$</option>
+                        <option value="ascendente">A a Z</option>
+                        <option value="descendente">Z a A</option>
                     </select>
                 </div>
             </div>
+
+            <tbody>
+    <tr *ngFor="let productos of producto">
+      <td>{{productos.nombre}}</td>
+      <td>{{productos.descripcion}}</td>
+    </tr>
+  </tbody>
+          
+
+           
+
+
+
+
         </div>
     </div>
 </ion-content>
