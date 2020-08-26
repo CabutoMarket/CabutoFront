@@ -1,0 +1,52 @@
+ion-toolbar{
+    --background: linear-gradient(to right, #FFA801, #FE3A00);
+}
+
+
+.col_menu{
+    text-align: center;
+}
+
+.menu_burguer{
+    text-align: center;
+    padding: 50% 0% 0% 40%;
+    margin:auto;
+
+}
+
+.menu_hamburguesa > img{
+    width: 120%;
+    height: 180%;
+    padding: 50% 0% 0% 40%;
+}
+
+.col_logo{
+    text-align: center;
+}
+
+.logo{
+    text-align: center;
+    padding: 5% 0% 0% 0%;
+    margin: auto;
+}
+
+.logo > img{
+    margin: auto;
+    width: 80%;
+    height: 120%;
+}
+
+.col_carrito{
+    text-align: center;
+}
+
+.carrito_logo{
+    text-align: center;
+    padding: 50% 40% 0% 0%;
+    margin:auto;
+}
+
+.carrito_logo > img{
+    width: 90%;
+    height: 150%;
+}
