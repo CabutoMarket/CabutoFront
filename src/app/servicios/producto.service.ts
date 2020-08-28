@@ -35,6 +35,30 @@ baseUrl :string= "http://localhost:8000/";
 
 
   getProductosByFiltro(filtro: String){
-
+    switch (filtro) {
+      case "vendidos":
+        return this.http.get(this.baseUrl+'producto/orderAsc')      
+        break;
+      case "menor":
+      return this.http.get(this.baseUrl+'producto/precioMayor')      
+        break;
+      case "mayor":
+      return this.http.get(this.baseUrl+'producto/precioMenor')      
+        break;
+      case "ascendente":
+      return this.http.get(this.baseUrl+'producto/orderAsc');
+        break;
+      case "descendente":
+      return this.http.get(this.baseUrl+'producto/orderDesc')      
+        break;
+      default:
+       return this.http.get(this.baseUrl+'producto/')      
+        break;
+    }
   }
+
+
+
+
+
 }

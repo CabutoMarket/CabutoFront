@@ -10,7 +10,11 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./producto.page.scss'],
 })
 export class ProductoPage implements OnInit {
+    opcion: string  = '0';
+
   producto : {};
+    verSeleccion: string = '';
+
   constructor(
     public productoService: ProductoService
 
@@ -29,10 +33,29 @@ this.ionViewDidLoad();
         //console.log("esta es la data "+data["nombre"])
        
        this.producto=data;
-        
+      console.log(this.producto);
 
       },(error)=>{
       	console.error(error);
-      })      
+      }) }
 
-}}
+
+
+    capturar(){
+      this.verSeleccion = this.opcion;
+      //console.log(this.verSeleccion);
+      this.productoService.getProductosByFiltro(this.opcion).subscribe(data => {
+        //console.log("esta es la data "+data["nombre"])
+       
+       this.producto=data;
+        console.log(this.producto);
+
+      },(error)=>{
+        console.error(error);
+      }) }
+
+
+
+
+
+  }

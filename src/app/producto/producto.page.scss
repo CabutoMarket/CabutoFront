@@ -73,3 +73,46 @@ padding: 10px 20px;
     font-weight: lighter;
     padding: 0px 10px 0px 0px;
 }
+
+.div-producto{
+    display: flex;
+     flex-flow: row nowrap; /* Align on the same line */
+  justify-content: space-around; 
+vertical-align: middle;
+    box-shadow: 0px 10px 58px 0px rgba(51,45,51,1);
+//padding: 20px 0px;
+    border-radius: 10px;
+    height: 120px;
+
+
+}
+.producto-carrito{
+    display: flex;
+    vertical-align: bottom;
+    justify-content: end;
+    width: 100%;
+}
+
+.btn-producto{
+vertical-align: middle;}
+
+.estilo-cantidad{
+    width: 20px;
+    height: 20px;
+}
+.contener-producto{
+    padding:20px 0px;
+        // height:  100px;
+
+}
+
+.contener-columna{
+    // display: inline;
+}
+
+.nombre-producto{
+     font-family: var(--ion-font-family);
+    font-weight: bold;
+    font-size: medium;
+    color: var(--ion-color-azul-oscuro);
+}
