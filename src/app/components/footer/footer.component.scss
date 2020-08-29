@@ -1,0 +1,38 @@
+.container_footer{
+       background: linear-gradient(to right, #2153FF, #0F195E);
+}
+
+.perfil{
+    text-align: center;
+    padding: 10% 0% 10% 0%;
+    --background-activated: white;
+
+}
+
+.perfil > ion-img {
+    margin: auto;
+    width: 20%;
+    height: 30%;
+}
+
+.notifications{
+    text-align: center;
+    padding: 10% 0% 10% 0%;
+}
+
+.notifications > ion-img {
+    margin: auto;
+    width: 20%;
+    height: 30%;
+}
+
+.home{
+    text-align: center;
+    padding: 10% 0% 10% 0%;
+}
+
+.home > ion-img {
+    margin:auto;
+    width: 20%;
+    height: 30%;
+}
