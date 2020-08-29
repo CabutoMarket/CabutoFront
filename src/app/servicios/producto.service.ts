@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import {Producto} from '../modelo/producto';
@@ -59,6 +59,13 @@ baseUrl :string= "http://localhost:8000/";
 
 
 
+  getProductoBuscar(filtro: string){
+    let parametro= new HttpParams().set('nombre',filtro);
 
+    console.log("este es el filtro",filtro);
+    console.log(this.baseUrl+'producto/?nombre='+filtro)
+        return this.http.get(this.baseUrl+'producto/',{params:parametro});
+
+  }
 
 }

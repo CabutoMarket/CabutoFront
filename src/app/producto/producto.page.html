@@ -34,9 +34,8 @@
         <!-- Default Searchbar -->
         <div class="contenedor">
             <div class="contenedor-searchbar">
-                <ion-input placeholder="¿Qué necesitas?">
-                </ion-input>
-                <img src="../assets/img/buscar.png" class="icono">
+                <ion-input placeholder="¿Qué necesitas?" [(ngModel)]="textInput"></ion-input>
+                <img src="../assets/img/buscar.png" class="icono"  (click)="buscarProducto()">
             </div>
             <div class="contenedor-filtro">
                 <div class="contenedor-selector">

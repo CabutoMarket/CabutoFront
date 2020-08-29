@@ -11,7 +11,8 @@ import 'rxjs/add/operator/map';
 })
 export class ProductoPage implements OnInit {
     opcion: string  = '0';
-
+textInput: string = null;
+productoInput: string ='';
   producto : {};
     verSeleccion: string = '';
 
@@ -55,7 +56,16 @@ this.ionViewDidLoad();
       }) }
 
 
+      buscarProducto(){
+        this.productoInput= this.textInput;
+        this.productoService.getProductoBuscar(this.productoInput).subscribe(data => {
+        //console.log("esta es la data "+data["nombre"])
+       
+       this.producto=data;
+        console.log(this.producto);
 
-
+      },(error)=>{
+        console.error(error);
+      }) }
 
   }
