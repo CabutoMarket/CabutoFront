@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProductoPageRoutingModule } from './producto-routing.module';
+import { ShoppingCartPageRoutingModule } from './shopping-cart-routing.module';
 
-import { ProductoPage } from './producto.page';
+import { ShoppingCartPage } from './shopping-cart.page';
 import { ComponentsModule } from '../components/components.module';
+
 
 
 @NgModule({
@@ -15,10 +16,9 @@ import { ComponentsModule } from '../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ProductoPageRoutingModule,
+    ShoppingCartPageRoutingModule,
     ComponentsModule
-
   ],
-  declarations: [ProductoPage]
+  declarations: [ShoppingCartPage]
 })
-export class ProductoPageModule {}
+export class ShoppingCartPageModule {}
