@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ShoppingCartPageRoutingModule } from './shopping-cart-routing.module';
 
 import { ShoppingCartPage } from './shopping-cart.page';
+
 import { ComponentsModule } from '../components/components.module';
 
 
