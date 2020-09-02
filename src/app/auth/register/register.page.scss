@@ -1,5 +1,5 @@
 ion-toolbar{
-    --background: linear-gradient(to left top,#FE3A00,#FFA801);
+    --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
 }
 ion-title{
     width: auto;
@@ -12,7 +12,7 @@ ion-item{
 }
 
 ion-button{
-    --background: #FE3A00;
+    --background: var(--ion-color-naranja-oscuro);
 }
 
 .form{
@@ -23,8 +23,8 @@ ion-button{
 }
 
 .Condicion{
-    --background: #fff;
-    --color: #FE3A00;
+    --background: var(--ion-color-primary-contrast);
+    --color:var(--ion-color-naranja-oscuro);
 }
 
 .contenedor{
@@ -36,7 +36,7 @@ ion-button{
     justify-content: start;
     /*align-content: start;
     align-items: start;*/
-    --background: linear-gradient(to left top,#FE3A00,#FFA801);
+    --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
     font-size: 30px;
     display: inline-block;
 

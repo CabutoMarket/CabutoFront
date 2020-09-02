@@ -10,12 +10,20 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingCartPageModule } from './shopping-cart/shopping-cart.module';
 
+import { HttpClientModule } from '@angular/common/http';
+
+import {ProductoService} from '../app/servicios/producto.service';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ShoppingCartPageModule],
+
+  imports: [BrowserModule,
+  HttpClientModule,
+   IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
+    ProductoService,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
