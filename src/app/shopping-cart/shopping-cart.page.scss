@@ -12,6 +12,7 @@
     font-style: oblique;
     vertical-align: middle;
     line-height: 90px;
+    font-size: 80%;
 }
 
 .A_pagar{
@@ -23,8 +24,13 @@
     line-height: 90px;
 }
 
-.cantidad{
+.agregar{
     margin: auto;
+}
+
+.col_unitario{
+    margin: auto;
+    text-align: center;
 }
 
 .unitario{
@@ -38,28 +44,47 @@
 
 }
 
-.foto_producto{
-    height: 100%;
-    width: 100%;
+.col_foto_producto{
     text-align: center;
     vertical-align: middle;
     line-height: 90px;
+    margin: auto;
+    padding: 0% 0% 0% 0%;
 }
+
+.foto_producto{
+    height: 120%;
+    width: 120%;
+    padding: 0% 15% 0% 0%;
+}
+
+.borrar_content{
+    width: 20%;
+    height: 20%;
+    margin: 0% 0% 0% 80%;
+}
+
 
 .nombre_producto{
     font-family: Arial;
     font-weight: bold;
     color: #0F195E;
-    font-size: 120%;
-    text-align: center;
-    padding: 0% 0% 0% 0%;
-    vertical-align: middle;
-    line-height: 50px; 
-
+    font-size: 115%;
+    display: inline-flex;
 }
 
-.producto{
-    display: flow;
+.cantidad{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+    border: black 1px solid;
+    margin: auto;
+}
+
+.cantidad_content{
+    margin: auto;
+    text-align: center;
+    display: inline-flex;
 }
 
 .pagar{
@@ -69,19 +94,38 @@
     margin: 0% 5% 0% 0%;
     height: 15%;
     width: 15%;
-
 }
 
-.mas{
-    text-align: center;
-    vertical-align: middle;
-    line-height: 90px;
+.restar{
+    width: 10%;
+    height: 10%;
 }
 
-.menos{
-    text-align: center;
+
+.restar_content{
+    margin:auto;
     vertical-align: middle;
     line-height: 90px;
+    text-align: center;
+    display: inline-flex;
+}
+
+.sumar{
+    width: 20%;
+    height: 20%;
+}
+
+.sumar_content{
+    margin:auto;
+    vertical-align: middle;
+    line-height: 90px;
+    text-align: center;
+    display: inline-flex;
+}
+
+
+.row_detalles{
+    display: inline-flex;
 }
 
 
