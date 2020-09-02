@@ -10,37 +10,33 @@ import { ModalController } from '@ionic/angular';
 export class ShoppingCartPage implements OnInit {
 
 
-/*  constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
+//constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
+constructor(){}
 
   ngOnInit() {
-    this.cart=this.productCartService.getCart();
+//    this.cart=this.productCartService.getCart();
   }
 
   decreaseCartItem(product){
-    this.productCartService.decreaseProduct(product);
+//    this.productCartService.decreaseProduct(product);
   }
 
   increaseCartItem(product){
-    this.productCartService.addProduct(product);
+//    this.productCartService.addProduct(product);
   }
 
   removeCartItem(product){
-    this.productCartService.removeProduct(product);
+//    this.productCartService.removeProduct(product);
   }
 
   getTotal(){
-    return this.cart.reduce((i,j) => j.price * j.amount, 0);
+//    return this.cart.reduce((i,j) => j.price * j.amount, 0);
   }
 
   checkout(){
 
-  }*/
-
-  constructor(){}
-
-  ngOnInit(){
-
   }
+
 
 
 }

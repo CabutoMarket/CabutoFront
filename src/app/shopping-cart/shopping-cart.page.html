@@ -1,59 +1,49 @@
 <app-header></app-header>
 
 <ion-content>
-    <ion-list>
-        <ion-item *ngFor="let p of cart" class="ion-text-wrap">
-          <ion-grid>
-            <ion-row class="ion-align-items-center">
-              <ion-col size="2" class="ion-align-self-center">
-                <ion-button color="medium" fill="clear" (click)="decreaseCartItem(p)">
-                  <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
-                </ion-button>
-              </ion-col>
-   
-              <ion-col size="2" class="ion-align-self-center">
-                {{ p.amount }}
-              </ion-col>
-   
-              <ion-col size="2" class="ion-align-self-center">
-                <ion-button color="medium" fill="clear" (click)="increaseCartItem(p)">
-                  <ion-icon name="add-circle" slot="icon-only"></ion-icon>
-                </ion-button>
-              </ion-col>
-   
-              <ion-col size="2" offset="5">
-                <ion-button color="medium" fill="clear" (click)="removeCartItem(p)">
-                  <ion-icon name="close-circle" slot="icon-only"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="9">
-                <b>{{ p.name }}</b>
-              </ion-col>
-              <ion-col size="3" class="ion-text-end">
-                {{ p.amount * p.price | currency:'USD' }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-        <ion-item>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="9">
-                Total:
-              </ion-col>
-              <ion-col size="3" class="ion-text-end">
-                {{ getTotal() | currency:'USD' }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-list>
-   
-      <ion-button expand="full" (click)="checkout()">
-        Checkout
-      </ion-button>
-  </ion-content>
+<h2 class="Titulo">Carrito</h2>
+<ion-row class="Total">
+  <ion-col size=8 class="A_pagar_header">Total a Pagar:</ion-col>
+  <ion-col size=4 class="A_pagar">$ 3,65</ion-col>
+</ion-row>
+<ion-list>
+  <ion-card>
+
+
+      <ion-row class="agregar" size=5>
+
+        <ion-col size=3>
+          <ion-img src="../assets/img/comida.png" class="foto_producto"></ion-img>
+        </ion-col>
+  
+        <ion-card-title class="nombre_producto">
+          Carne
+        </ion-card-title>
+
+        <ion-col size=2 >
+          <ion-button color="medium" fill="clear" (click)="decreaseCartItem(p)" class="mas">
+            <ion-img src="../assets/img/agregar.png"></ion-img>
+          </ion-button>
+        </ion-col>
+
+        <ion-label class="cantidad" size=2>
+                  1
+        </ion-label>
+
+        <ion-col size=2 >
+          <ion-button color="medium" fill="clear" (click)="increaseCartItem(p)" class="menos">
+            <ion-img src="../assets/img/restar.png" ></ion-img>
+          </ion-button>
+        </ion-col>
+        <ion-col size=2 class="unitario">
+          $1,16
+        </ion-col>
+      </ion-row>
+  
+    
+  </ion-card>
+</ion-list>
+  <ion-img src="../assets/img/pagar.png" class="pagar"></ion-img>
+</ion-content>
 
 <app-footer></app-footer>
