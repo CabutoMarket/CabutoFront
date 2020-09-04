@@ -23,8 +23,7 @@ productoInput: string ='';
 
   ngOnInit() {
 
-this.ionViewDidLoad();
-
+    this.ionViewDidLoad();
 
   }
 

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar> 
+      <ion-row class = "container" justify-content-center>
+        <!--<ion-col class= "col_back" size=1>
+          <div class= "regresar"> <ion-icon name="chevron-back-outline"></ion-icon></div>        
+        </ion-col>-->
+        <!--<ion-col class= "col_logo" size= 12 >-->
+          <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div> 
+        <!--</ion-col>-->
+        <!--<ion-col class="col_title" size=3>
+          <div class= "registro">REGISTRO</div>
+        </ion-col>-->
+      </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class= "Formulario">
+   <form  #form="ngForm" (ngSubmit)="verificar(form)"> 
+    <ion-grid >
+      <div class="form" >
+        <ion-col align-self-center size-md="5" size-lg="10" size-xs="10"> 
+            <ion-item >
+              <ion-input name="correo" type="email" placeholder="Correo Electronico" ngModel required></ion-input>
+            </ion-item>  
+            <ion-item>
+              <ion-input name="contrasena" type="password" placeholder="contraseña" ngModel required></ion-input>
+            </ion-item>
+            <a routerLink='/register'>¿Olvidaste tu contraseña?</a>
+        </ion-col>
+      </div>
+    </ion-grid>
+    <div class="Registro">¿Eres nuevo? Registrate<a routerLink='/register'>aquí</a></div>
+    <ion-footer>
+  <ion-toolbar >
+    <div>
+      <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Iniciar Sesión</ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+
+  </form>
+</ion-content>

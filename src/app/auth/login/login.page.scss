@@ -1,0 +1,47 @@
+ion-toolbar{
+    --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    height: 120%;
+}
+ion-header{
+    height: 30%;
+}
+ion-title{
+    /*width: auto;*/
+    --color: #fff;
+    width: 100%; 
+    position: absolute; 
+    left: 0; 
+    height: 0%;
+}
+ion-item{
+    padding: 17px;
+    --background: #e7e7e7;
+    --color: rgb(112, 106, 106);
+}
+
+ion-button{
+    --background: var(--ion-color-naranja-oscuro);
+}
+
+.logo{
+    /*text-align: center;*/
+    padding: 70px;
+    width: 300%;
+}
+
+.logo > img{
+    margin: auto;
+    width: 300%;
+    height: 180%;
+}
+
+.Formulario{
+    padding: 75px px 75px 0px;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
