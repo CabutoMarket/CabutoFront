@@ -21,6 +21,7 @@ const httpOptions = {
 })
 export class AuthService {
 	AUTH_SERVER_ADDRESS:  string  =  'http://127.0.0.1:8000';
+  /**AUTH_SERVER_ADDRESS:  string  =  'http://cabutoshop.pythonanywhere.com';*/
 	authSubject  =  new  BehaviorSubject(false);
 
   constructor(private  httpClient:  HttpClient, private  storage:  Storage) { }

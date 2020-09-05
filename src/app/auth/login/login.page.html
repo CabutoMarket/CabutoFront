@@ -1,44 +1,179 @@
 <ion-header>
   <ion-toolbar> 
       <ion-row class = "container" justify-content-center>
-        <!--<ion-col class= "col_back" size=1>
-          <div class= "regresar"> <ion-icon name="chevron-back-outline"></ion-icon></div>        
-        </ion-col>-->
-        <!--<ion-col class= "col_logo" size= 12 >-->
           <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div> 
-        <!--</ion-col>-->
-        <!--<ion-col class="col_title" size=3>
-          <div class= "registro">REGISTRO</div>
-        </ion-col>-->
+      </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<!--
+
+<ion-content class="animated fadeIn login auth-page inicio">
+    <div class="padding-contenido">
+        <div padding-horizontal text-center class="animated fadeInDown">
+            <div class="logo"></div>
+        </div>
+
+        <form  #form="ngForm" (ngSubmit)="verificar(form)">
+        <ion-item id="correo">
+          <ion-input name="correo" type="email" placeholder="Correo Electronico" ngModel required></ion-input>
+        </ion-item><br>
+
+        <ion-item id="contrasena">
+          <ion-input name="contrasena" type="password" placeholder="contraseña" ngModel required></ion-input>
+          <ion-button  (click)="togglePasswordClick()">
+          <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
+        </ion-button>
+        </ion-item><br>
+          <p class=ion-text-right ion-text  tappable (click)="forgotPass()">
+            <ion-label style="color: var(--ion-color-naranja-oscuro);">¿Olvidaste tu contraseña?</ion-label>
+        </p><br>
+        
+
+        <div class="ion-text-center" color:white>
+            <div text-center class = "fb" size = 10>
+                <ion-button size="large" expand="block" class="centrar-control2" style="background-color: #1b5583" (click)="loginFacebook()">
+                  <ion-row class = "container">
+                    <ion-col class= "col_fb" size=3>        
+                      <div class= "btn_fb"> <img src="../assets/img/facebook.png"></div>  
+                    </ion-col>
+                    <ion-col class="col_label" size=2>
+                      <div class= "label"> <p text-center ion-text color="primary">
+                  <strong class="fuente-color">Ingresa con Facebook </strong> 
+                </p></div>
+                    </ion-col>
+                  </ion-row>
+                
+              </ion-button>
+            </div>
+        </div>
+ 
+   
+        <div class=ion-text-center >
+            <span ion-text class="fuente-colores" style="color: var(--ion-color-naranja-oscuro);" tappable >¿Eres nuevo?
+        <a routerLink='/register' style="color: var(--ion-color-naranja-oscuro);"><strong class="fuente-colores">Regístrate aquí</strong></a></span>
+        </div>
+    </div>
+    <div>
+          <ion-button class="btn"  size="large" icon-start block class="boton-session" tappable style="--background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)); " type="submit" [disabled]="form.invalid" expand="full">
+            Iniciar Sesión
+          </ion-button>
+    </div>
+  </form>
+</ion-content> 
+
+-->
+
+<!--<ion-header>
+  <ion-toolbar> 
+      <ion-row class = "container" justify-content-center>
+          <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div> 
       </ion-row>
   </ion-toolbar>
 </ion-header>
 
 
+<ion-content class="animated fadeIn login auth-page inicio">
+  <div class="padding-contenido">
+        
+    <div padding-horizontal text-center class="animated fadeInDown">
+         <div class="logo"></div>
+  </div>
+ 
+    <form  #form="ngForm" (ngSubmit)="verificar(form)">
+      <ion-item id="correo">
+          <ion-input name="correo" type="email" placeholder="Correo Electronico" ngModel required></ion-input>
+        </ion-item><br>
+        <ion-item id="contrasena">
+          <ion-input name="contrasena" type="password" placeholder="contraseña" ngModel required></ion-input>
+          <ion-button  (click)="togglePasswordClick()">
+          <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
+        </ion-button>
+        </ion-item><br>
+        <p class=ion-text-right ion-text  tappable (click)="forgotPass()">
+            <ion-label style="color: var(--ion-color-naranja-oscuro);">¿Olvidaste tu contraseña?</ion-label>
+        </p><br>
 
-<ion-content class= "Formulario">
+        <div class="ion-text-center" color:white>
+            <div text-center class = "fb" size = 10>
+                <ion-button size="large" expand="block" class="centrar-control2" style="background-color: #1b5583" (click)="loginFacebook()">
+                  <ion-row class = "container">
+                    <ion-col class= "col_fb" size=3>        
+                      <div class= "btn_fb"> <img src="../assets/img/facebook.png"></div>  
+                    </ion-col>
+                    <ion-col class="col_label" size=2>
+                      <div class= "label"> <p text-center ion-text color="primary">
+                  <strong class="fuente-color">Ingresa con Facebook </strong> 
+                </p></div>
+                    </ion-col>
+                  </ion-row>
+                
+              </ion-button>
+            </div>
+        </div>
+
+        <div class=ion-text-center >
+            <span ion-text class="fuente-colores" style="color: var(--ion-color-naranja-oscuro);" tappable >¿Eres nuevo?
+        <a routerLink='/register' style="color: var(--ion-color-naranja-oscuro);"><strong class="fuente-colores">Regístrate aquí</strong></a></span>
+        </div>
+    </div>
+
+    <div>
+          <ion-button class="btn"  size="large" icon-start block class="boton-session" tappable style="--background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)); " (click)="login()" expand="full" type="submit" [disabled]="form.invalid">
+            Iniciar Sesión
+          </ion-button>
+    </div>
+    </form>
+  </div>
+-->
+  <ion-content class="animated fadeIn login auth-page inicio">
+    <div class="padding-contenido">
+        <!-- Logo -->
+        <div padding-horizontal text-center class="animated fadeInDown">
+            <div class="logo"></div>
+            <!--<div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div>--> 
+        </div>
    <form  #form="ngForm" (ngSubmit)="verificar(form)"> 
     <ion-grid >
       <div class="form" >
         <ion-col align-self-center size-md="5" size-lg="10" size-xs="10"> 
             <ion-item >
               <ion-input name="correo" type="email" placeholder="Correo Electronico" ngModel required></ion-input>
-            </ion-item>  
+            </ion-item><br>  
             <ion-item>
               <ion-input name="contrasena" type="password" placeholder="contraseña" ngModel required></ion-input>
             </ion-item>
-            <a routerLink='/register'>¿Olvidaste tu contraseña?</a>
+            <!--<a routerLink='/register'>¿Olvidaste tu contraseña?</a>-->
+            <p class=ion-text-right ion-text  tappable (click)="forgotPass()">
+            <ion-label style="color: var(--ion-color-naranja-oscuro);">¿Olvidaste tu contraseña?</ion-label>
+        </p><br>
         </ion-col>
       </div>
-    </ion-grid>
-    <div class="Registro">¿Eres nuevo? Registrate<a routerLink='/register'>aquí</a></div>
+      <div class="ion-text-center" color:white>
+            <div text-center class = "fb" size = 10>
+                <ion-button size="large" expand="block" class="centrar-control2" style="background-color: #1b5583" (click)="loginFacebook()">
+                  <ion-row class = "container">
+                    <ion-col class= "col_fb" size=3>        
+                      <div class= "btn_fb"> <img src="../assets/img/facebook.png"></div>  
+                    </ion-col>
+                    <ion-col class="col_label" size=2>
+                      <div class= "label"> <p text-center ion-text color="primary">
+                  <strong class="fuente-color">Ingresa con Facebook </strong> 
+                </p></div>
+                    </ion-col>
+                  </ion-row>
+              </ion-button>
+            </div>
+        </div><br>
+    </ion-grid >
+    <div class="ion-text-center" style="color: var(--ion-color-naranja-oscuro);" >¿Eres nuevo? <strong class="fuente-color" ><a style="color: var(--ion-color-naranja-oscuro);" routerLink='/register'>Registrate aquí</a></strong></div>
     <ion-footer>
   <ion-toolbar >
     <div>
-      <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Iniciar Sesión</ion-button>
+      <ion-button size="large" type="submit" [disabled]="form.invalid" expand="full">Iniciar Sesión</ion-button>
     </div>
   </ion-toolbar>
 </ion-footer>
-
   </form>
-</ion-content>
+  </div>
+</ion-content> 
