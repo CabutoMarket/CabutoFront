@@ -21,10 +21,19 @@ export class LoginPage implements OnInit {
   verificar(form){
 	form = form.value
 	console.log(form)
+  console.log(form.correo)
+  console.log(form.contrasena)
 	this.authService.VerificarUser(form).subscribe(data=> {
-    this.validacion=data;
-    console.log(this.validacion)
-		this.router.navigateByUrl('/producto');
+    /*this.validacion=data;*/
+    console.log(data.valid)
+    if (data.valid == "OK"){
+      this.router.navigateByUrl('/producto');
+    }
+    else{
+      this.mensaje("Acceso Incorrecto","Su correo o contraseña están incorrectos");
+      this.router.navigateByUrl('/login');
+    }
+		
 	  })
   }
 
@@ -98,7 +107,22 @@ async mensaje(titulo:string,mensaje:string) {
     await alert.present();
   }
 
+/*
+async loginFacebook() {
 
+    const res = await this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+
+    const user = res.user;
+
+    console.log(user);
+
+    this.picture = user.photoURL;
+
+    this.name = user.displayName;
+
+    this.email = user.email;
+
+}*/
 
 
 }
