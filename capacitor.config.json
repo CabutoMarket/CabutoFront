@@ -3,7 +3,7 @@
   "appName": "Cabuto",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www",
+  "webDir": "https://www",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
