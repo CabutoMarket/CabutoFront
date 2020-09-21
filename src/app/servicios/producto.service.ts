@@ -20,10 +20,6 @@ baseUrl :string= "http://cabutoshop.pythonanywhere.com/";
             {
                             'Access-Control-Allow-Origin':'*',
 "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-           //   'Accept': 'application/json',
-              // 'Access-Control-Request-Headers': '*',
-             //              'content-type': 'application/json'
-
             });
     //console.log('getProducto '+this.baseUrl + '/producto')
     //return this.http.get<Producto[]>(this.baseUrl + 'producto')
