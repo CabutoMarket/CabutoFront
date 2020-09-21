@@ -60,16 +60,16 @@
                 <div class="contener-producto"  *ngFor="let productos of producto">
                     <div class="div-producto">
                         <div class="contener-columna">
-                            <div>
-                                <img src="../assets/img/deja.png" width="100" height="80">
+                            <div class="producto">
+                                <img src="../assets/img/deja.png"  width="90" height="100">
                             </div>
-                            <div>
-                                <h6>Ver detalle</h6>
-                            </div>
+                            
+                                <h6 class="detalle">Ver detalle</h6>
+                            
                         </div>
                         <div class="contener-columna">
-                            <div>
-                                <h6 class="nombre-producto">{{productos.nombre}}</h6>
+                            <div class="nombre">
+                                <h6 class="nombre-producto" >{{productos.nombre}}</h6>
                             </div>
                             <div class="producto-carrito">
                                 <img src="../assets/img/agregar.png" width="20" height="20" class="btn-producto">
@@ -79,9 +79,9 @@
                         </div>
                         <div class="contener-columna">
                             <div>
-                                <h6>$ {{productos.precio}}</h6>
+                                <h6 class="precio">$ {{productos.precio}}</h6>
                             </div>
-                            <div>
+                            <div class="carrito">
                                 <img src="../assets/img/carrito_activo.png" width="30" height="30">
                             </div>
                         </div>

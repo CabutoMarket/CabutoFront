@@ -8,7 +8,7 @@ import {Producto} from '../modelo/producto';
   providedIn: 'root'
 })
 export class ProductoService {
-baseUrl :string= "http://localhost:8000/";
+baseUrl :string= "http://cabutoshop.pythonanywhere.com/";
 
   constructor(
     private http: HttpClient
