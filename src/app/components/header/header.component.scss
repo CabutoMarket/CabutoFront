@@ -1,5 +1,6 @@
 ion-toolbar{
     --background: linear-gradient(to left,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+
 }
 
 
@@ -49,4 +50,8 @@ ion-toolbar{
 .carrito_logo > img{
     width: 90%;
     height: 150%;
+}
+.half-circle {
+   display: grid;
+   
 }

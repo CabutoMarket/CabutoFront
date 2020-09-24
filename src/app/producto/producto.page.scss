@@ -9,6 +9,10 @@
 }
 */
 
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+
 .titulo{
     font-family: var(--ion-font-family);
     font-weight: bold;
@@ -87,18 +91,37 @@ vertical-align: middle;
 
 }
 .producto-carrito{
-    display: flex;
-    vertical-align: bottom;
-    justify-content: end;
-    width: 100%;
+    // display: flex;
+    // vertical-align: bottom;
+    // justify-content: end;
+    // width: 100%;
+    position: relative;
+    left: 100px;
+    bottom:15px;
 }
 
 .btn-producto{
-vertical-align: middle;}
+vertical-align: middle;
+
+}
+
+#mas{
+    margin-right:  12px;
+}
+#menos{
+        margin-left:  12px;
+
+}
 
 .estilo-cantidad{
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    border: solid 1px gray;
+    vertical-align: middle;
+    font-size: 12px;
+    text-align: center;
+
 }
 .contener-producto{
     padding:20px 0px;
@@ -113,10 +136,10 @@ vertical-align: middle;}
 .nombre-producto{
      font-family: var(--ion-font-family);
     font-weight: bold;
-    font-size: medium;
     color: var(--ion-color-azul-oscuro);
-            font-size: small;
-
+    font-size: 14px;
+    position: relative;
+    top:20px;
 }
 
 .producto{
@@ -126,10 +149,10 @@ vertical-align: middle;}
 
 .detalle{
     position: relative;
-    bottom: 30px;
+    bottom: 25px;
     text-align: center;
     font-style: italic;
-    font-size: small;
+    font-size: smaller;
     color: #2153FF;
 }
 
