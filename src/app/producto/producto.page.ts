@@ -46,7 +46,7 @@ productoInput: string ='';
       //console.log(this.verSeleccion);
       this.productoService.getProductosByFiltro(this.opcion).subscribe(data => {
         //console.log("esta es la data "+data["nombre"])
-       
+       console.log(data);
        this.producto=data;
         console.log(this.producto);
 
