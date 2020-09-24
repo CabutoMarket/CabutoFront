@@ -9,12 +9,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'producto',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
-    path: 'register',
-    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
+    path: 'registro',
+    loadChildren: () => import('./auth/registro/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
     path: 'producto',
@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./auth/login/login/login.module').then( m => m.LoginPageModule)
   },
 
 ];

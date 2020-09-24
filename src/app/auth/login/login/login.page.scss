@@ -24,19 +24,30 @@ ion-button.inicio{
 }
 
 .logo{
-    /*text-align: center;*/
+    /*text-align: center;
     padding: 70px;
-    width: 300%;
+    width: 300%;*/
+    text-align: center;
+    padding: 5% 0% 0% 0%;
+    margin: auto;
 }
 
-.logo > img{
-    margin: auto;
+.logo2{
+    text-align: center;
+    padding: 68px;
     width: 300%;
-    height: 180%;
+}
+.logo > img{
+    //margin: auto;
+    //width: 300%;
+    //height: 180%;
+    margin: auto;
+    width: 80%;
+    height: 120%;
 }
 
 .Formulario{
-    padding: 75px px 75px 0px;
+    padding: 75px 0px 75px 0px;
 }
 
 .form{
@@ -47,27 +58,33 @@ ion-button.inicio{
 }
 
 .col_fb{
-    padding: 10px 5px 5px 5px;
+    padding: 3px 3px 3px 3px;
 }
 
-.central_control{
-    position: absolute;
-  top: 50%;
-  margin-top: -50px;
-}
 
 .logo{
     width: 100%
 }
 
 div.ion-text-center{
-    padding: 0px 40px 0px 40px;
+    padding: 0px 37px 0px 37px;
+    margin: auto;
 }
 .fuente-colores{
     padding: 50px 0px 50px 0px;
+    margin: auto;
 }
 
-
+.btn_fb{
+    margin: auto;
+}
 .fb{
     width: 100%;
+    margin: auto;
+}
+.label{
+    padding:  5px 5px 5px 5px;
+    font-size: 13px;
+    margin: auto;
+
 }
