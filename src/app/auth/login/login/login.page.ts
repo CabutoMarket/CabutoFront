@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from  "@angular/router";
 import { AuthService } from '../../servicios/auth.service';
 import { LoadingController } from '@ionic/angular';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController,Platform } from '@ionic/angular';
 /*import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import * as firebase from 'firebase/app';
 
 import { Platform } from '@ionic/angular';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';*/
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+*/
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginPage implements OnInit {
   constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
+    private platform: Platform,
     /*private afAuth: AngularFireAuth,
     private afAuth2: AngularFireAuthModule,
     private platform: Platform,
@@ -126,8 +128,15 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     await alert.present();
   }
 
-  loginFacebook(){
+  facebook(){
+    this.router.navigateByUrl('/registro-fb');
+  }
+  loginFacebook(RUC:string){
     this.authService.loginwithFacebook().then(res=>{
+      const usuario = res.user;
+      var mail = usuario.email;
+      var contra = usuario.displayName;
+      var ced = RUC;
       this.router.navigateByUrl('/producto');
     }).catch(err =>{
       this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");

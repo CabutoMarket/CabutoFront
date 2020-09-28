@@ -35,13 +35,13 @@ register(form){
       this.router.navigateByUrl('/login');
     }else{
       this.mensaje("Error", "Parece que algo ha ocurrido");
-      this.router.navigateByUrl('/register'); 
+      this.router.navigateByUrl('/registro'); 
     }
 
   })
   }else if (contra!= conf){
     this.mensaje("Registro Fallido","Las contraseñas no coinciden");
-    this.router.navigateByUrl('/register'); 
+    this.router.navigateByUrl('/registro'); 
   }
   
 }

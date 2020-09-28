@@ -9,6 +9,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { auth } from 'firebase';
+import * as firebase from 'firebase/app';
 
 const httpOptions = {
   headers: new HttpHeaders({
