@@ -20,7 +20,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProductoService {
-baseUrl :string= "http://cabutoshop.pythonanywhere.com/";
+baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(
     private http: HttpClient

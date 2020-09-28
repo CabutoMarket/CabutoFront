@@ -96,7 +96,7 @@ vertical-align: middle;
     // justify-content: end;
     // width: 100%;
     position: relative;
-    left: 100px;
+    left: 75px;
     bottom:15px;
 }
 
@@ -130,7 +130,7 @@ vertical-align: middle;
 }
 
 .contener-columna{
-    // display: inline;
+    display: block;
 }
 
 .nombre-producto{
@@ -140,6 +140,7 @@ vertical-align: middle;
     font-size: 14px;
     position: relative;
     top:20px;
+    right: 10px;
 }
 
 .producto{
@@ -167,12 +168,21 @@ vertical-align: middle;
     color: var(--ion-color-naranja-oscuro);
     font-weight: bold;
     font-size: large;
-     position: relative;
-    right: 16px;
+    position: relative;
+    right:  5px;
 }
 
-.carrito{
+div.precio h6{
+        text-align: left;
+}
+
+div.carrito img{
     position: relative;
     top: 38px;
-    right: 16px;
+    right:  1px;
+
+}
+
+.centrar{
+    width: 60px;
 }
