@@ -11,7 +11,8 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ProductoPage implements OnInit {
     opcion: string  = '0';
-
+textInput: string = null;
+productoInput: string ='';
   producto : {};
     verSeleccion: string = '';
 
@@ -22,8 +23,7 @@ export class ProductoPage implements OnInit {
 
   ngOnInit() {
 
-this.ionViewDidLoad();
-
+    this.ionViewDidLoad();
 
   }
 
@@ -46,7 +46,7 @@ this.ionViewDidLoad();
       //console.log(this.verSeleccion);
       this.productoService.getProductosByFiltro(this.opcion).subscribe(data => {
         //console.log("esta es la data "+data["nombre"])
-       
+       console.log(data);
        this.producto=data;
         console.log(this.producto);
 
@@ -55,7 +55,16 @@ this.ionViewDidLoad();
       }) }
 
 
+      buscarProducto(){
+        this.productoInput= this.textInput;
+        this.productoService.getProductoBuscar(this.productoInput).subscribe(data => {
+        //console.log("esta es la data "+data["nombre"])
+       
+       this.producto=data;
+        console.log(this.producto);
 
-
+      },(error)=>{
+        console.error(error);
+      }) }
 
   }

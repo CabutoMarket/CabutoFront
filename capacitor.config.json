@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "io.cabutos.starter",
   "appName": "cabuto",
   "bundledWebRuntime": false,
   "npmClient": "npm",

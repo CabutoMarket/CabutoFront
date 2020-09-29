@@ -7,14 +7,19 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
-  {
+  // {
+  //   path: '',
+  //   redirectTo: 'login',
+  //   pathMatch: 'full'
+  // },
+   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'producto',
     pathMatch: 'full'
   },
   {
-    path: 'register',
-    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
+    path: 'registro',
+    loadChildren: () => import('./auth/registro/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
 
@@ -27,6 +32,10 @@ const routes: Routes = [
     loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
   },
   
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/login/login/login.module').then( m => m.LoginPageModule)
+  },
 
 ];
 
