@@ -22,6 +22,8 @@
 
 
 .icono{
+    position: relative;
+    right: 15px;
     width: 20px;
     height: 20px;
 }
@@ -166,23 +168,23 @@ vertical-align: middle;
 
 .precio{
     color: var(--ion-color-naranja-oscuro);
-    font-weight: bold;
-    font-size: large;
+    font-weight: bolder;
+    //font-size: small;
     position: relative;
-    right:  5px;
+    //right:  5px;
 }
 
-div.precio h6{
+div.precio h4{
         text-align: left;
+
 }
 
 div.carrito img{
     position: relative;
     top: 38px;
-    right:  1px;
-
+    left: 5px;
 }
 
 .centrar{
-    width: 60px;
+    width: 70px;
 }
