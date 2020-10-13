@@ -48,11 +48,6 @@ export class RegistroFbPage implements OnInit {
       var mail = usuario.email;
       var contra = usuario.displayName;
       this.productoInput= this.textInput;
-      //this.router.navigateByUrl('/producto');
-      const log=  {'correo': mail,
-        'contrasena': contra
-      }
-      console.log(log);
       const logR=  {
         'cedula': this.productoInput,
         'email': mail,
@@ -60,29 +55,16 @@ export class RegistroFbPage implements OnInit {
         'apellido': contra,
         'contrasena': contra
       }
-      console.log(logR);
-      this.authService.VerificarUser(log).subscribe(data=> {
-        /*this.validacion=data;*/
-        console.log(data.valid)
-        if (data.valid == "OK"){
+      this.authService.addUser(logR).subscribe(data=> {
+        console.log("imprimiendo data",data, logR)
+        if(data.valid == "OK"){
+          this.mensaje("Registro","Registro","Registro exitoso");
           this.router.navigateByUrl('/producto');
+        }else{
+          this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
+          this.router.navigateByUrl('/login'); 
         }
-        else{
-          this.authService.addUser(logR).subscribe(data=> {
-            console.log("imprimiendo data",data, logR)
-            if(data.valid == "OK"){
-              this.mensaje("Registro","Registro","Registro exitoso");
-              this.router.navigateByUrl('/producto');
-            }else{
-              this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
-              this.router.navigateByUrl('/login'); 
-            }
-        
-          })
-          this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
-          this.router.navigateByUrl('/login');
-        }
-        
+      console.log(logR);
         })
       
     }).catch(err =>{

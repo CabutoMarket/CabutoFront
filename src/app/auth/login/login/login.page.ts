@@ -129,124 +129,33 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
   }
 
   facebook(){
-    this.router.navigateByUrl('/registro-fb');
-  }
-  loginFacebook(RUC:string){
+    //this.router.navigateByUrl('/registro-fb');
     this.authService.loginwithFacebook().then(res=>{
       const usuario = res.user;
       var mail = usuario.email;
       var contra = usuario.displayName;
-      var ced = RUC;
-      this.router.navigateByUrl('/producto');
-    }).catch(err =>{
-      this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
-    })
-  }
-/*
-login() {
-    this.fb.login(['public_profile', 'user_friends', 'email'])
-      .then(res => {
-        console.log(res)
-        if(res.status === "connected") {
-          this.getUserDetails(res.authResponse.userID)
-        } else {
-          
+      
+      //this.router.navigateByUrl('/producto');
+      const log=  {'correo': mail,
+        'contrasena': contra
+      }
+      this.authService.VerificarUser(log).subscribe(data=> {
+        console.log(data.valid)
+        if (data.valid == "OK"){
+          this.router.navigateByUrl('/producto');
         }
+        else{
+          this.router.navigateByUrl('/registro-fb');
+        }
+        
       })
-      .catch(e => console.log('Error logging into Facebook', e));
-  }
-
-  getUserDetails(userid) {
-    this.fb.api("/"+userid+"/?fields=id,email,name,picture",["public_profile"])
-      .then(res => {
-        this.isLoggedIn = true
-        this.user = res
-        console.log(this.user)
+      
+      }).catch(err =>{
+        this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
       })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-*/
-
-/*
-async loginFacebook() {
-
-    const res = await this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
-
-    const user = res.user;
-
-    console.log(user);
-
-    this.picture = user.photoURL;
-
-    this.name = user.displayName;
-
-    this.email = user.email;
-
-}*/
-/*
-
- loginFacebook() {
-
-    if (this.platform.is('capacitor')) {
-
-      this.loginFacebookAndroid();
-
-    } else {
-
-      this.loginFacebookWeb();
-
     }
-
   }
 
- 
 
-  async loginFacebookAndroid() {
 
-    const res: FacebookLoginResponse = await this.fb.login(['public_profile', 'email']);
-
-    const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-
-    const resConfirmed = await this.afAuth.auth.signInWithCredential(facebookCredential);
-
-    const user = resConfirmed.user;
-
-    var picture = user.photoURL;
-
-    var name = user.displayName;
-
-    var email = user.email;
-
-    console.log(picture)
-    console.log(name)
-    console.log(email)
-
-  }
-
- 
-
-  async loginFacebookWeb() {
-
-    const res = await this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
-
-    const user = res.user;
-
-    console.log(user);
-
-    var picture = user.photoURL;
-
-    var name = user.displayName;
-
-    var email = user.email;
-
-    console.log(picture)
-    console.log(name)
-    console.log(email)
-
-  }
-
-*/
-}
 

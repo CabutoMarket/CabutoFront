@@ -22,7 +22,7 @@ const httpOptions = {
 })
 export class AuthService {
 	/*AUTH_SERVER_ADDRESS:  string  =  'http://127.0.0.1:8000'; cabutoshop.pythonanywhere.com/movil/login*/
-  AUTH_SERVER_ADDRESS:  string  =  'http://cabutoshop.pythonanywhere.com/movil/';
+  AUTH_SERVER_ADDRESS:  string  =  'http://cabutoshop.pythonanywhere.com/movil';
 
   constructor(private  httpClient:  HttpClient, private AFauth: AngularFireAuth, private db: AngularFirestore,
               private fb: Facebook ) { }
