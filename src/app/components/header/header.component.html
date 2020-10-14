@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-toolbar class="half-circle"> 
+
+      <ion-row class = "container">
+        <ion-col class= "col_menu" size=2>        
+          <div class= "menu_hamburguesa"> <img src="../assets/img/menu_lateral.png"></div>  
+        </ion-col>
+        <ion-col class= "col_logo" size= 8>
+          <div class= "logo"> <img src="../assets/img/cabuto.png"></div> 
+        </ion-col>
+        <ion-col class="col_carrito" size=2>
+          <div class= "carrito_logo"> <ion-img [src]="carrito" (click)="change_car()"></ion-img></div>
+        </ion-col>
+      </ion-row>
+
+  </ion-toolbar>
+
+      
+</ion-header>

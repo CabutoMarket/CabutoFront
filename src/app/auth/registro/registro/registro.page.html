@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar> 
+      <ion-row class = "container">
+        <ion-col class= "col_back" size=1>
+          <div class= "regresar"> <ion-icon name="chevron-back-outline" routerLink='/login'></ion-icon></div>          
+        </ion-col>
+        <ion-col class= "col_logo" size= 8>
+          <div class= "logo"> <img src="../assets/img/cabuto.png"></div> 
+        </ion-col>
+        <ion-col class="col_title" size=3>
+          <div class= "registro">REGISTRO</div>
+        </ion-col>
+      </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class= "Formulario">
+  <form  #form="ngForm" (ngSubmit)="register(form)"> 
+   <ion-grid >
+     <div class="form" >
+       <ion-col align-self-center size-md="4" size-lg="10" size-xs="10">
+         <div class= "perfil"> <img src="../assets/img/avatar_perfil.png" width="170" height="100"></div> 
+           <ion-item >
+             <ion-input  name="cedula" type="text" placeholder="RUC/Cedula" ngModel required></ion-input>
+           </ion-item>
+           <ion-item >
+             <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
+           </ion-item>
+           <ion-item>
+             <ion-input  name="nombre" type="text" placeholder="Nombre" ngModel required></ion-input>
+           </ion-item>
+           <ion-item>
+             <ion-input  name="apellido" type="text" placeholder="Apellido" ngModel required></ion-input>
+           </ion-item>  
+           <ion-item>
+             <ion-input name="contrasena" type="password" placeholder="Contraseña" ngModel required></ion-input>
+           </ion-item>
+           <ion-item>
+             <ion-input name="confirmar" type="password" placeholder="Repetir Contraseña" ngModel required></ion-input>
+           </ion-item>
+         <ion-radio-group >
+           <ion-item class = "Condicion">
+             <ion-label >Acepto Términos y Condiciones</ion-label>
+             <ion-radio slot="start" value="acepto Términos y Condiciones"></ion-radio>
+           </ion-item>
+         </ion-radio-group>
+       </ion-col>
+     </div>
+   </ion-grid>
+   <ion-footer>
+ <ion-toolbar >
+   <div>
+     <ion-button   size="large" type="submit" [disabled]="form.invalid" expand="block">Registrarse</ion-button>
+   </div>
+ </ion-toolbar>
+</ion-footer>
+
+ </form>
+</ion-content>

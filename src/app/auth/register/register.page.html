@@ -1,31 +1,62 @@
+<ion-header>
+  <ion-toolbar> 
+      <ion-row class = "container">
+        <ion-col class= "col_back" size=1>
+          <div class= "regresar"> <ion-icon name="chevron-back-outline" routerLink='/login'></ion-icon></div>          
+        </ion-col>
+        <ion-col class= "col_logo" size= 8>
+          <div class= "logo"> <img src="../assets/img/cabuto.png"></div> 
+        </ion-col>
+        <ion-col class="col_title" size=3>
+          <div class= "registro">REGISTRO</div>
+        </ion-col>
+      </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<!--
 <ion-header >
   <ion-toolbar>
     <ion-title >
         <ion-row class = contenedor>
-      <div class= "regresar"><ion-icon name="chevron-back-outline"></ion-icon></div>  
-      <div class= "logo"> <img src="../assets/img/cabuto.png" width="150" height="70"></div> 
-      <div class= "registro">REGISTRO</div> 
+          <ion-col class= "col_back" size=2>  
+            <div class= "regresar"><ion-icon name="chevron-back-outline"></ion-icon></div>
+          </ion-col>
+          <ion-col class= "col_logo" size= 8>
+            <div class= "logo"> <img src="../assets/img/cabuto.png"></div> 
+          </ion-col>
+          <ion-col class="col_title" size=2>
+            <div class= "registro">REGISTRO</div>
+          </ion-col>
         </ion-row>
   </ion-title>
   </ion-toolbar>
 </ion-header>
+-->
+<!--
+<div class= "logo"> <img src="../assets/img/cabuto.png" width="150" height="70"></div>
+-->
 <ion-content class= "Formulario">
-  <form #form="ngForm" (ngSubmit)="register(form)">
+   <form  #form="ngForm" (ngSubmit)="register(form)"> 
     <ion-grid >
       <div class="form" >
         <ion-col align-self-center size-md="4" size-lg="10" size-xs="10">
           <div class= "perfil"> <img src="../assets/img/avatar_perfil.png" width="170" height="100"></div> 
             <ion-item >
-              <ion-input  name="RUC/Cedula" type="text" placeholder="RUC/Cedula" ngModel required></ion-input>
+              <ion-input  name="cedula" type="text" placeholder="RUC/Cedula" ngModel required></ion-input>
+            </ion-item>
+            <ion-item >
+              <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input  name="Nombres" type="text" placeholder="Nombres" ngModel required></ion-input>
+              <ion-input  name="nombre" type="text" placeholder="Nombre" ngModel required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input  name="Apellidos" type="text" placeholder="Apellidos" ngModel required></ion-input>
+              <ion-input  name="apellido" type="text" placeholder="Apellido" ngModel required></ion-input>
             </ion-item>  
             <ion-item>
-              <ion-input name="Contraseña" type="password" placeholder="Contraseña" ngModel required></ion-input>
+              <ion-input name="contrasena" type="password" placeholder="Contraseña" ngModel required></ion-input>
             </ion-item>
             <ion-item>
               <ion-input name="confirmar" type="password" placeholder="Repetir Contraseña" ngModel required></ion-input>
@@ -39,12 +70,13 @@
         </ion-col>
       </div>
     </ion-grid>
-  </form>
-</ion-content>
-<ion-footer>
+    <ion-footer>
   <ion-toolbar >
     <div>
-      <ion-button   size="large" type="submit"  expand="block">Registrarse</ion-button>
+      <ion-button   size="large" type="submit" [disabled]="form.invalid" expand="block">Registrarse</ion-button>
     </div>
   </ion-toolbar>
 </ion-footer>
+
+  </form>
+</ion-content>

@@ -9,12 +9,34 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { HttpClientModule } from '@angular/common/http';
+
+import {ProductoService} from '../app/servicios/producto.service';
+import { AuthModule } from  './auth/auth.module';
+
+import { ServiciosModule } from  './auth/servicios/servicios.module';
+
+import { AngularFirestoreModule } from "@angular/fire/firestore"; //Modulo Firestore (BD)
+import { AngularFireAuthModule } from "@angular/fire/auth";  //Modulo de authenticacion
+import { AngularFireModule } from "@angular/fire";            //Modulo para inicializar y que todo funcione bien vergas
+import { firebaseConfig} from "../environments/environment";     // aqui se encuentra una variable de configuracion para inicializar firebase
+
+import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'; //Modulo de Facebook
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+  HttpClientModule,
+   IonicModule.forRoot(), AppRoutingModule, AuthModule,ServiciosModule],
   providers: [
     StatusBar,
+    ProductoService,
+    Facebook,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
