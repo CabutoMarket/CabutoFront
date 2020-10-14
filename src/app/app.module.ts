@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ShoppingCartPageModule } from './shopping-cart/shopping-cart.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -27,6 +28,7 @@ import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
+
   imports: [BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,

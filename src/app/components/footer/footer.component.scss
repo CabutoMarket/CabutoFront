@@ -1,12 +1,10 @@
-.container_footer{
-       background: linear-gradient(to right, #2153FF, #0F195E);
+ion-toolbar{
+       --background: linear-gradient(to right, #0F195E, #2153FF);
 }
 
 .perfil{
     text-align: center;
     padding: 10% 0% 10% 0%;
-    --background-activated: white;
-
 }
 
 .perfil > ion-img {

@@ -1,0 +1,131 @@
+.Titulo{
+    padding: 5% 0% 0% 5%;
+    color: #0F195E;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.A_pagar_header{
+    color: #0F195E;
+    text-align: right;
+    font-style: oblique;
+    vertical-align: middle;
+    line-height: 90px;
+    font-size: 80%;
+}
+
+.A_pagar{
+    color:#FE3A00;
+    font-size: 160%;
+    text-align: left;
+    font-weight: bold;
+    vertical-align: middle;
+    line-height: 90px;
+}
+
+.agregar{
+    margin: auto;
+}
+
+.col_unitario{
+    margin: auto;
+    text-align: center;
+}
+
+.unitario{
+    color:#FE3A00;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 120%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+
+}
+
+.col_foto_producto{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+    margin: auto;
+    padding: 0% 0% 0% 0%;
+}
+
+.foto_producto{
+    height: 120%;
+    width: 120%;
+    padding: 0% 15% 0% 0%;
+}
+
+.borrar_content{
+    width: 20%;
+    height: 20%;
+    margin: 0% 0% 0% 80%;
+}
+
+
+.nombre_producto{
+    font-family: Arial;
+    font-weight: bold;
+    color: #0F195E;
+    font-size: 115%;
+    display: inline-flex;
+}
+
+.cantidad{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+    border: black 1px solid;
+    margin: auto;
+}
+
+.cantidad_content{
+    margin: auto;
+    text-align: center;
+    display: inline-flex;
+}
+
+.pagar{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0% 5% 0% 0%;
+    height: 15%;
+    width: 15%;
+}
+
+.restar{
+    width: 10%;
+    height: 10%;
+}
+
+
+.restar_content{
+    margin:auto;
+    vertical-align: middle;
+    line-height: 90px;
+    text-align: center;
+    display: inline-flex;
+}
+
+.sumar{
+    width: 20%;
+    height: 20%;
+}
+
+.sumar_content{
+    margin:auto;
+    vertical-align: middle;
+    line-height: 90px;
+    text-align: center;
+    display: inline-flex;
+}
+
+
+.row_detalles{
+    display: inline-flex;
+}
+
+

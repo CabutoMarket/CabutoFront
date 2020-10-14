@@ -27,15 +27,23 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./auth/login/login/login.module').then( m => m.LoginPageModule)
-  },  {
+  },
+  {
     path: 'registro-fb',
     loadChildren: () => import('./auth/registro-fb/registro-fb.module').then( m => m.RegistroFbPageModule)
   },
+  {
+    path: 'shopping-cart',
+    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
+  },
+  
+
+];
 
   
 
 
-];
+
 
 @NgModule({
   imports: [
