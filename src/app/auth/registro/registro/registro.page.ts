@@ -27,6 +27,10 @@ register(form){
   console.log(form.contrasena)
   var contra = form.contrasena;
   var conf = form.confirmar
+  var cedula =form.cedula
+  var num = form.cedula.length
+  console.log(cedula);
+  console.log(num);
   if(contra == conf){
     this.authService.addUser(form).subscribe(data=> {
     console.log("imprimiendo data",data, form)
