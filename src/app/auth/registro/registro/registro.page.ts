@@ -12,14 +12,15 @@ import { AlertController, ToastController } from '@ionic/angular';
 
 
 export class RegistroPage implements OnInit {
+  url: string = '' ;
 	constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
     /*private emailComposer: EmailComposer,*/) { }
 	
   ngOnInit() {
-  }
-
+  } 
+  
 register(form){
 	form = form.value
 	console.log(form)
@@ -68,5 +69,25 @@ async mensaje(titulo:string,mensaje:string) {
 
     await alert.present();
   }
+  
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = this.ab2str(event.target.result);
+      }
+    }
+  }
+  public delete(){
+    this.url = null;
+  }
+
+  ab2str(buf) {
+    return String.fromCharCode.apply(null, new Uint16Array(buf));
+  }
+  
 
 }
