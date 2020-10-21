@@ -28,7 +28,9 @@ export class LoginPage implements OnInit {
 
   isLoggedIn: boolean = false
   user: any
-
+  public type = "password"; 
+  passwordToggleIcon = 'eye';
+  public showPass = false; 
   constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
@@ -154,6 +156,24 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
       })
     }
+
+    togglePasswordClick():void{
+      this.showPass=!this.showPass;   
+      if(this.passwordToggleIcon == 'eye'){
+        this.passwordToggleIcon = 'eye-off';
+      }else{
+        this.passwordToggleIcon = 'eye';
+      }
+    }
+    showPassword() {
+      this.showPass = !this.showPass;
+            if(this.showPass){
+                this.type = "text";
+                 } else {
+           this.type = "password";
+         }
+       }
+
   }
 
 

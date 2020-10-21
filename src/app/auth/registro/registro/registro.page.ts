@@ -13,6 +13,9 @@ import { AlertController, ToastController } from '@ionic/angular';
 
 export class RegistroPage implements OnInit {
   url: string = '' ;
+  public type = "password"; 
+  passwordToggleIcon = 'eye';
+  public showPass = false; 
 	constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
@@ -36,26 +39,26 @@ register(form){
     this.authService.addUser(form).subscribe(data=> {
     console.log("imprimiendo data",data, form)
     if(data.valid == "OK"){
-      this.mensaje("Registro","Registro exitoso");
+      this.mensaje("Registro","Registro exitoso","Registro Completado");
       this.router.navigateByUrl('/login');
     }else{
-      this.mensaje("Error", "Parece que algo ha ocurrido");
+      this.mensaje("Error", "Parece que algo ha ocurrido","Numero de cedula/Ruc o correo Invalido");
       this.router.navigateByUrl('/registro'); 
     }
 
   })
   }else if (contra!= conf){
-    this.mensaje("Registro Fallido","Las contraseñas no coinciden");
+    this.mensaje("Registro Fallido","Las contraseñas no coinciden","Verifique que las contraseñas sean iguales");
     this.router.navigateByUrl('/registro'); 
   }
   
 }
 
-async mensaje(titulo:string,mensaje:string) {
+async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     const alert = await this.alert.create({
       cssClass: titulo,
       header: titulo,
-      subHeader: 'Subtitle',
+      subHeader: subtitulo,
       message: mensaje,
       buttons: [
         {
@@ -89,5 +92,23 @@ async mensaje(titulo:string,mensaje:string) {
     return String.fromCharCode.apply(null, new Uint16Array(buf));
   }
   
+
+  togglePasswordClick():void{
+    this.showPass=!this.showPass;   
+    if(this.passwordToggleIcon == 'eye'){
+      this.passwordToggleIcon = 'eye-off';
+    }else{
+      this.passwordToggleIcon = 'eye';
+    }
+  }
+  showPassword() {
+    this.showPass = !this.showPass;
+          if(this.showPass){
+              this.type = "text";
+               } else {
+         this.type = "password";
+       }
+     }
+
 
 }

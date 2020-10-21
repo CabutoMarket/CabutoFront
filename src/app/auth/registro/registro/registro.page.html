@@ -46,10 +46,16 @@
              <ion-input  name="apellido" type="text" placeholder="Apellido" ngModel required></ion-input>
            </ion-item>  
            <ion-item>
-             <ion-input name="contrasena" type="password" placeholder="Contraseña" ngModel required></ion-input>
+             <ion-input name="contrasena" type="{{showPass ? 'text' : 'password'}}" placeholder="Contraseña" ngModel required></ion-input>
+             <button ion-button type="button" clear color="dark" item-right (click)="togglePasswordClick()">
+              <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
+            </button>
            </ion-item>
            <ion-item>
-             <ion-input name="confirmar" type="password" placeholder="Repetir Contraseña" ngModel required></ion-input>
+             <ion-input name="confirmar" type="{{showPass ? 'text' : 'password'}}" placeholder="Repetir Contraseña" ngModel required></ion-input>
+             <button ion-button type="button" clear color="dark" item-right (click)="togglePasswordClick()">
+              <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
+            </button>
            </ion-item>
          <ion-radio-group >
            <ion-item class = "Condicion">

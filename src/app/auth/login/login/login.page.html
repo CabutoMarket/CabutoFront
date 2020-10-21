@@ -14,7 +14,7 @@
           <div class="logo"></div>
           <!--<div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div>--> 
       </div>
- <form  #form="ngForm" (ngSubmit)="verificar(form)"> 
+ <form class = "centro" #form="ngForm" (ngSubmit)="verificar(form)"> 
   <ion-grid >
     <div class="form" >
       <ion-col align-self-center size-md="5" size-lg="10" size-xs="10"> 
@@ -22,7 +22,10 @@
             <ion-input name="correo" type="email" placeholder="Correo Electronico" ngModel required></ion-input>
           </ion-item><br>  
           <ion-item>
-            <ion-input name="contrasena" type="password" placeholder="contraseña" ngModel required></ion-input>
+            <ion-input name="contrasena" type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña" ngModel required></ion-input>
+            <button ion-button type="button" clear color="dark" item-right (click)="togglePasswordClick()">
+              <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
+            </button>
           </ion-item>
           <!--<a routerLink='/register'>¿Olvidaste tu contraseña?</a>-->
           <p class=ion-text-right ion-text  tappable (click)="forgotPass()">
