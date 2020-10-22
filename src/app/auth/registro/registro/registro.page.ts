@@ -12,7 +12,8 @@ import { AlertController, ToastController } from '@ionic/angular';
 
 
 export class RegistroPage implements OnInit {
-  url: string = '' ;
+  url= '' ;
+  x = '';
   public type = "password"; 
   passwordToggleIcon = 'eye';
   public showPass = false; 
@@ -80,18 +81,36 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = this.ab2str(event.target.result);
+        console.log(event.target.result);
+        //console.log(this.ab2str(event.target.result))
+        //this.url = this.url + event.target.result
+        //this.converTo(event.target.result,this.x)
+        //this.url = event.target.result
+        //this.converTo(event.target.result,this.url)
+        this.url = this.convert(event.target.result,this.url)
+        
       }
+
     }
   }
   public delete(){
-    this.url = null;
+    this.url = '';
   }
 
-  ab2str(buf) {
-    return String.fromCharCode.apply(null, new Uint16Array(buf));
+  converTo(buff,buff2){
+    for (var i=0, strLen=buff.length; i < strLen; i++) {
+      buff2= buff2 + buff[i];
+    }
+    console.log(buff2)
   }
-  
+
+  convert(buff,buff2){
+    for (var i=0, strLen=buff.length; i < strLen; i++) {
+      buff2= buff2 + buff[i];
+    }
+    console.log(buff2)
+    return buff2;
+  }
 
   togglePasswordClick():void{
     this.showPass=!this.showPass;   
