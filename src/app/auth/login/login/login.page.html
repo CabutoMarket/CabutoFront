@@ -1,11 +1,107 @@
-<ion-header>
-  <ion-toolbar> 
-      <ion-row class = "container" justify-content-center>
-          <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div> 
-      </ion-row>
-  </ion-toolbar>
-</ion-header>
+<!--<div class= "part0">
+  <ion-header>
+      <ion-toolbar> 
+          <ion-row class = "container" justify-content-center>
+              <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div> 
+          </ion-row>
+      </ion-toolbar>
+       <table class="egt">
+      <tr>
+      <td class ="celda1">Celda 1</td>
+      <td class = "celda2" >Celda 2</td>
+      <td class = "celda3" >Celda 3</td>
+    </tr>
+  </table>  
+    </ion-header>  -->
+   
+  <!--<div class ="super">Esto debe estar por encima</div>-->
+  
 
+<!--
+<ion-header>
+  <div class= "part0">
+    <ion-toolbar> 
+        <ion-row class = "container" justify-content-center>
+            <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div> 
+        </ion-row>
+    </ion-toolbar>
+   <div class ="super">Esto debe estar por encima</div>
+      <table class="egt">
+      <tr>
+      <td class ="celda1">Celda 1</td>
+      <td class = "celda2" >Celda 2</td>
+      <td class = "celda3" >Celda 3</td>
+    </tr>
+  </table> 
+  </div>
+</ion-header>-->
+<!--
+<ion-header>
+ -<ion-toolbar class="Arriba">
+    <ion-row class = "container" justify-content-center>
+      <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div> 
+    </ion-row>
+  </ion-toolbar>-->
+  
+  <!--<ion-toolbar class="borde">
+    <div class ="div1">1</div>
+    <div class ="div2">2</div>
+    <div class ="div3">3</div>
+    </ion-toolbar>-->
+  <!--<div class= "too">
+    
+    <ion-toolbar></ion-toolbar>
+    <ion-toolbar></ion-toolbar>
+    <ion-toolbar></ion-toolbar>
+    <ion-toolbar class="borde">
+    <div class ="div1">1</div>
+    <div class ="div2">2</div>
+    <div class ="div3">3</div>
+    </ion-toolbar>
+  </div>-->
+<!--</ion-header>-->
+<!--
+  <ion-header>
+  <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div>
+  <div class ="div4">4</div>
+  <div class ="div5">6</div>
+  <div class ="fondo">xx</div>
+  
+  
+  <ion-toolbar class="Arriba">
+    <ion-row class = "container" justify-content-center>
+      <div class= "logo" > <img src="../assets/img/cabuto.png" size= 12></div> 
+    </ion-row>
+  </ion-toolbar>
+  
+  <ion-toolbar class="borde">
+    <div class ="div1">1</div>
+    <div class ="div2">2</div>
+    <div class ="div3">3</div>
+    </ion-toolbar>
+  <div class= "too">
+    
+    <ion-toolbar></ion-toolbar>
+    <ion-toolbar></ion-toolbar>
+    <ion-toolbar></ion-toolbar>
+    <ion-toolbar class="borde">
+    <div class ="div1">1</div>
+    <div class ="div2">2</div>
+    <div class ="div3">3</div>
+    </ion-toolbar>
+  </div>
+</ion-header>-->
+<!--<table class="egt">
+  <tr>
+    <td class ="celda1">Celda 1</td>
+    <td class = "celda2" >Celda 2</td>
+    <td class = "celda3" >Celda 3</td>
+  </tr>-->
+<!--</table>-->
+
+<ion-header>
+  <div class= "logo" > <img src="../assets/img/header_login.png" size= 12></div>
+</ion-header>
 
 <ion-content class="animated fadeIn login auth-page inicio">
   <div class="padding-contenido">
@@ -33,7 +129,13 @@
       </p><br>
       </ion-col>
     </div>
-    <div class="ion-text-center" size = 15>
+    <div class="ion-text-center" >
+      <ion-button size="large" expand = "block" class = "button-fb" (click)="facebook()">
+        <img src="../assets/img/btn_fb.png" >
+      </ion-button>
+    </div><br>
+    <!--
+    <div class="ion-text-center" size = 12>
           <div text-center class = "fb" size = 10>
               <ion-button size="large" expand="block" class="centrar-control2" style="background-color: #1b5583" (click)="facebook()">
                 <ion-row class = "container">
@@ -48,7 +150,9 @@
                 </ion-row>
             </ion-button>
           </div>
-      </div><br>
+          <ion-button size="large" expand="block" class="centrar-control2" style="background-color: white" (click)="facebook()">
+            <img src="../assets/img/btn_fb.png" size= 15></ion-button>
+      </div><br> -->
   </ion-grid >
   <div class="ion-text-center" style="color: var(--ion-color-naranja-oscuro);" >¿Eres nuevo? <strong class="fuente-color" ><a style="color: var(--ion-color-naranja-oscuro);" routerLink='/registro'>Registrate aquí</a></strong></div>
   <ion-footer>

@@ -4,10 +4,25 @@
 
 ion-toolbar{
     --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
-    height: 120%;
+    //height: 120%;
+}
+.Arriba{
+    --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    border-bottom-left-radius: 200px;
+    border-bottom-right-radius: 200px;
+    width: 100%;
 }
 ion-header{
-    height: 30%;
+    
+    border-style:none;
+    --background: white;
+    /*border-bottom-left-radius: 200px;
+    border-bottom-right-radius: 200px;
+    //width: 100%;
+    width:100%;
+    height: 45%;*/
+    //height: 50%;
+    //background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));   
 }
 ion-title{
     /*width: auto;*/
@@ -27,13 +42,24 @@ ion-button.inicio{
     --background: var(--ion-color-naranja-oscuro);
 }
 
+ion-button.button-fb{
+    --background: white;
+    border-style: none;
+}
+
+.button-fb > img {
+    width: 100%;
+}
+
 .logo{
     /*text-align: center;
     padding: 70px;
     width: 300%;*/
-    text-align: center;
-    padding: 5% 0% 0% 0%;
-    margin: auto;
+    //text-align: center;
+    //padding: 5% 0% 0% 0%;
+    //margin: auto;
+    
+
 }
 
 .logo2{
@@ -42,12 +68,13 @@ ion-button.inicio{
     width: 300%;
 }
 .logo > img{
+    margin: 0 auto;
     //margin: auto;
     //width: 300%;
     //height: 180%;
-    margin: auto;
-    width: 80%;
-    height: 120%;
+    //margin: auto;
+    //width: 80%;
+    //height: 120%;
 }
 
 .Formulario{
@@ -69,16 +96,51 @@ ion-button.inicio{
 
 
 .logo{
-    width: 100%
+    z-index:1;
+    //width: 100%
 }
 
+.logos{
+    z-index: 0;
+}
+.parte0{
+    z-index: 0;
+    position:relative;
+    height: 120%;
+}
+
+.super{
+    margin: 0 auto;
+    size: 20 px;
+    z-index:1;
+    position: relative;
+    /*
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;*
+    float: left;
+      width: 150px;
+      height: 150px;
+      margin: 20px;
+      shape-outside: circle(50% at 30%);
+      clip-path: circle(50% at 0%);*/
+      //float: left;
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+    shape-outside: ellipse(50% 30%);
+    clip-path: ellipse(50% 30%);
+    background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+}
 div.ion-text-center{
     padding: 0px 37px 0px 37px;
-    margin: auto;
+    margin: 0 auto;
+    --background:white;
 }
 .fuente-colores{
     padding: 60px 0px 60px 0px;
     margin: auto;
+    
 }
 
 .btn_fb{
@@ -98,4 +160,132 @@ div.ion-text-center{
 
 .centro{
     padding: 0px 0px 0px 0px;
+}
+
+.celda1{
+    //border: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) 5px solid;
+    border: PowderBlue 5px solid;
+    border-top-right-radius: 20px;
+   //width: auto;
+ }
+ .celda2{
+   //border: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) 5px solid;
+   border: PowderBlue 5px solid;
+   border-radius: 20px;
+   //width: auto;
+   background: orange;
+ }
+ .celda3{
+   //border: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro))   5px solid;
+   border: PowderBlue 5px solid;
+   border-top-left-radius: 20px;
+  // width: auto;
+   
+ }
+ .egt{
+     width: 100%;
+    //background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+ }
+
+ .too{
+    padding:0px;
+ }
+
+ .div1{
+     float:left;
+     //border: orangered 5px solid;
+     //border-color: white black white white;
+     //border: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) 5px solid;
+     //border: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro))   5px solid;
+     border-top-right-radius: 200px;
+     border-bottom-right-radius: 200px;
+     //border-radius: 200px;
+     width: 32%; 
+     background-color:white;
+     color:white;
+     height: 300px;
+     //margin-top:20px;
+ }
+
+ .div2{
+    //display: grid; 
+    float:left;
+    //border:black 5px solid;
+    //border: orangered 5px solid;
+    //border: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) 5px solid;
+    //background-color: orangered;
+    //--background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    //background:linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro))   5px solid;;
+   //border-radius: 200px;
+   border-bottom-left-radius: 200px;
+  border-bottom-right-radius: 200px;
+   //background: white;
+    width: 35%;
+   //color:linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    //width: 40px;
+    //height: 45px;
+    //margin: 20px;
+    //shape-outside: circle();
+    //clip-path: circle();
+    //shape-outside: ellipse(50% 30%);
+    //clip-path: ellipse(50% 30%);
+    //background: lightblue;
+    color: #fe5d00  ;
+    //margin: 0 1em 1em 0;
+    height: 80px;
+    margin-top:30px;
+}
+
+.div3{
+    //margin-top:20px;
+    float:left;
+    //border: orangered 5px solid;
+    //border: black 5px solid;
+    //border: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) 5px solid;
+    //border: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) 5px solid;
+   border-top-left-radius: 200px;
+   border-bottom-left-radius: 200px;
+   width: 32%;
+   background-color:white;
+   color:white;
+   text-align: center;
+   height: 300px;   
+}
+
+.borde{
+    //--background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    --background: #fe5d00;
+    //--background: white;
+    height: 80px;
+} 
+
+
+.div4{
+   // border:black 5px solid;
+    float:left;
+    border-top-right-radius: 200px;
+     border-bottom-right-radius: 200px;
+     height: 200px;
+     width: 35%;
+    //background:  #fe5d00;
+    background: white;
+    margin: 0 3em 0 0;
+}
+/*
+.Arriba{
+    //dasd
+}*/
+.div5{
+    //border:black 5px solid;
+    float: left;
+    border-top-left-radius: 200px;
+   border-bottom-left-radius: 200px;
+   height: 200px;
+   width: 35%;
+   //background: #fe5d00;
+   background: white;
+   margin: 0 0 0 4.5em ;
+}
+.fondo{
+    z-index:0;
 }
