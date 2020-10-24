@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductoService} from '../servicios/producto.service';
 import {Producto} from '../modelo/producto';
 import { Observable, Subject } from 'rxjs';
-//import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-producto',
@@ -68,3 +68,5 @@ productoInput: string ='';
       }) }
 
   }
+
+  
