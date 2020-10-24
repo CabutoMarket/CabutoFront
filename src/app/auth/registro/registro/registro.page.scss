@@ -1,6 +1,22 @@
+*{
+  font-family: 'MyriadProSemibold' !important;
+}
+
 ion-toolbar{
     --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
 }
+
+ion-header{
+  margin: 0 auto;
+}
+
+.btn_regresar{
+  float:left;
+  position:absolute;
+  top:10px;
+  left:10px;
+}
+
 ion-title{
     /*width: auto;*/
     --color: #fff;
@@ -10,10 +26,12 @@ ion-title{
     height: 0%;
 }
 ion-item{
-    padding: 14px;
+    padding: 10px;
     --background: #e7e7e7;
     --color: rgb(112, 106, 106);
+    border-radius: 30%;
 }
+
 
 ion-button{
     --background: var(--ion-color-naranja-oscuro);
@@ -112,22 +130,36 @@ ion-button{
 
   .perfil{
     text-align: center;
+    height: 20%;
   }
 
   .select-profile-picture{
     text-align: left;
     font-size: 12px;
+    margin: 0 auto;
   }
 
   p {
     font-family: Lato;
   }
   
-  img {
+  .btn_regresar >img{
+    height: 10%;
+    width: 10%;
+    float:left;
+  }
+  .header > img {
     height: 100%;
     width: 100%;
     //border-radius: 50%;
-    padding-left: 50px;
+    //padding-left: 30px;
+    margin: 0 auto;
+  }
+
+  .hoverable > img {
+    height: 75%;
+    width: 75%;
+    padding: 0%;
   }
   .hoverable{
     position: relative;
@@ -137,14 +169,16 @@ ion-button{
     width: 200px;
     //border: 5px solid #000;
     border-radius: 50%;
+    margin: 0 auto;
   }
   .hoverable .hover-text{
     position: absolute;
     display: none;
-    top: 50%;
+    //top: 30%;
     left:  50%;
     transform: translate(-50%,-50%);   
     z-index: 2;
+    margin: 0 auto;
   }
   .hoverable .background{
     position: absolute;
@@ -157,14 +191,18 @@ ion-button{
     pointer-events: none;
     border-radius: 50%;
     z-index: 1;
+    margin: 0 auto;
   }
   .hoverable:hover .hover-text{
     display: block;
+    margin: 0 auto;
   }
   .hoverable:hover .background{
     display: block;
+    margin: 0 auto;
   }
   
   #fileInput{
     display: none;
+    height: 20%;
   }

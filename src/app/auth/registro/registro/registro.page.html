@@ -1,4 +1,4 @@
-<ion-header>
+<!--<ion-header>
   <ion-toolbar> 
       <ion-row class = "container">
         <ion-col class= "col_back" size=1>
@@ -12,6 +12,10 @@
         </ion-col>
       </ion-row>
   </ion-toolbar>
+</ion-header>-->
+<ion-header>
+  <div class ="btn_regresar"> <img src="../assets/img/atras.png"  routerLink='/login'> </div>
+  <div class= "header" > <img src="../assets/img/header_registro.png" size= 12></div>
 </ion-header>
 
 <ion-content class= "Formulario">
@@ -20,16 +24,11 @@
      <div class="form" >
        <ion-col align-self-center size-md="4" size-lg="10" size-xs="10">
          <div class= "perfil"> 
-          <!-- 
-          <img [src]="url ? url : '../assets/img/avatar_perfil.png'" width="160" height="100">
-           <input type='file' (change)="onSelectFile($event)" class="select-profile-picture">
-          -->
            <label class="hoverable" for="fileInput">
             <img [src]="url ? url : '../assets/img/avatar_perfil.png'"> 
             <div class="hover-text">Choose file</div>
             <div class="background"></div>
           </label>
-          <br/>
           <input id="fileInput" type='file' (change)="onSelectFile($event)">
           <button *ngIf="url" (click)="delete()" >delete</button>
           </div> 
@@ -57,10 +56,10 @@
               <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
             </button>
            </ion-item>
-         <ion-radio-group >
+         <ion-radio-group  >
            <ion-item class = "Condicion">
              <ion-label >Acepto Términos y Condiciones</ion-label>
-             <ion-radio slot="start" value="acepto Términos y Condiciones"></ion-radio>
+             <ion-radio slot="start" value="acepto" [disabled]="form.invalid"></ion-radio>
            </ion-item>
          </ion-radio-group>
        </ion-col>
