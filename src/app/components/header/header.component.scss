@@ -3,6 +3,9 @@ ion-toolbar{
 
 }
 
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
 
 .col_menu{
     text-align: center;
@@ -16,9 +19,12 @@ ion-toolbar{
 }
 
 .menu_hamburguesa > img{
-    width: 120%;
+    /*width: 120%;
     height: 180%;
-    padding: 50% 0% 0% 40%;
+    padding: 50% 0% 0% 40%;*/
+    height: 6%;
+    width: 6%;
+    float:left;
 }
 
 .col_logo{
@@ -42,16 +48,29 @@ ion-toolbar{
 }
 
 .carrito_logo{
-    text-align: center;
+    /*text-align: center;
     padding: 50% 40% 0% 0%;
-    margin:auto;
+    margin:auto;*/
+    float: right;;
+    position:absolute;
+    top:25px;
+    right:25px;
 }
 
 .carrito_logo > img{
-    width: 90%;
-    height: 150%;
+    /*width: 90%;
+    height: 150%;*/
+    height: 6%;
+    width: 6%;
+    float: right;;
 }
 .half-circle {
    display: grid;
    
+}
+.menu_hamburguesa{
+  float:left;
+  position:absolute;
+  top:25px;
+  left:25px;
 }
