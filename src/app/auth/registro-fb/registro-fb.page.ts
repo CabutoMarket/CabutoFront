@@ -13,8 +13,8 @@ export class RegistroFbPage implements OnInit {
   opcion: string  = '0';
   textInput: string = null;
   verSeleccion: string = '';
-  producto : {};
-  productoInput: string ='';
+  Registro : {};
+  RegistroInput: string ='';
 
   constructor(private  authService:  AuthService,private  router:  Router, private loading: LoadingController,
     private alert: AlertController,
@@ -47,28 +47,34 @@ export class RegistroFbPage implements OnInit {
       const usuario = res.user;
       var mail = usuario.email;
       var contra = usuario.displayName;
-      this.productoInput= this.textInput;
-      const logR=  {
-        'cedula': this.productoInput,
-        'email': mail,
-        'nombre': contra,
-        'apellido': contra,
-        'contrasena': contra
-      }
-      this.authService.addUser(logR).subscribe(data=> {
-        console.log("imprimiendo data",data, logR)
-        if(data.valid == "OK"){
-          this.mensaje("Registro","Registro","Registro exitoso");
-          this.router.navigateByUrl('/producto');
-        }else{
-          this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
-          this.router.navigateByUrl('/login'); 
+      this.Registro= this.textInput;
+      var int_length = (''+this.RegistroInput).length;
+      if(int_length == 10 || int_length == 13){
+        const logR ={
+          'cedula': this.RegistroInput,
+          'email': mail,
+          'nombre': contra,
+          'apellido': contra,
+          'contrasena': contra
+
         }
-      console.log(logR);
-        })
+        this.authService.addUser(logR).subscribe(data=> {
+          console.log("imprimiendo data",data, logR)
+          if(data.valid == "OK"){
+            this.mensaje("Registro","Registro","Registro exitoso");
+            this.router.navigateByUrl('/producto');
+          }else{
+            this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
+            this.router.navigateByUrl('/login'); 
+          }
+        console.log(logR);
+          })
+      }
+      
+      
       
     }).catch(err =>{
-      this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
+      this.mensaje("Fallo de conexión","algo salio mal","No se pudo Registrar");
     })
   }
 }
