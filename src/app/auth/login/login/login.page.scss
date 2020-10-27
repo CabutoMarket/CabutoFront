@@ -14,7 +14,7 @@ ion-toolbar{
 }
 ion-header{
     
-    border-style:none;
+    border-style:none !important;
     --background: white;
     /*border-bottom-left-radius: 200px;
     border-bottom-right-radius: 200px;
@@ -43,24 +43,24 @@ ion-button.inicio{
 }
 
 ion-button.button-fb{
-    --background: white;
-    border-style: none;
+    --background: #4e71ba!important;
+    border-style: none !important;
 }
 
 .button-fb > img {
     width: 100%;
 }
-
+/*
 .logo{
-    /*text-align: center;
+    text-align: center;
     padding: 70px;
-    width: 300%;*/
+    width: 300%;
     //text-align: center;
     //padding: 5% 0% 0% 0%;
     //margin: auto;
     
 
-}
+}*/
 
 .logo2{
     text-align: center;
@@ -135,7 +135,8 @@ ion-button.button-fb{
 div.ion-text-center{
     padding: 0px 37px 0px 37px;
     margin: 0 auto;
-    --background:white;
+    //--background:white !important; 
+    width:100%;
 }
 .fuente-colores{
     padding: 60px 0px 60px 0px;

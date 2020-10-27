@@ -47,7 +47,7 @@ export class RegistroFbPage implements OnInit {
       const usuario = res.user;
       var mail = usuario.email;
       var contra = usuario.displayName;
-      this.Registro= this.textInput;
+      //this.Registro= this.textInput;
       var int_length = (''+this.RegistroInput).length;
       if(int_length == 10 || int_length == 13){
         const logR ={

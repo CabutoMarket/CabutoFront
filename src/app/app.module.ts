@@ -23,11 +23,12 @@ import { AngularFireModule } from "@angular/fire";            //Modulo para inic
 import { firebaseConfig} from "../environments/environment";     // aqui se encuentra una variable de configuracion para inicializar firebase
 
 import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'; //Modulo de Facebook
+import {ModalPage} from '././modal/modal.page';
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,ModalPage],
+  entryComponents: [ModalPage],
 
   imports: [BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -42,6 +43,6 @@ import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from  "@angular/router";
 import { AuthService } from '../../servicios/auth.service';
 import { LoadingController } from '@ionic/angular';
-import { AlertController, ToastController,Platform } from '@ionic/angular';
+import { AlertController, ToastController,Platform, ModalController } from '@ionic/angular';
+import {ModalPage} from './../../../modal/modal.page';
 /*import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -35,6 +36,7 @@ export class LoginPage implements OnInit {
     private alert: AlertController,
     private toast: ToastController,
     private platform: Platform,
+    public modalCtrl: ModalController,
     /*private afAuth: AngularFireAuth,
     private afAuth2: AngularFireAuthModule,
     private platform: Platform,
@@ -44,6 +46,15 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  async contrasena(){
+    //let modal = this.modalCtrl.create(ModalPage);
+    const modal = await this.modalCtrl.create({
+      component: ModalPage,
+      cssClass: 'custom-modal'
+    });
+    return await modal.present();
+  }
+  
   verificar(form){
 	form = form.value
 	console.log(form)
@@ -172,8 +183,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
                  } else {
            this.type = "password";
          }
-       }
-
+       } 
   }
 
 

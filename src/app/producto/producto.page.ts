@@ -67,6 +67,14 @@ productoInput: string ='';
         console.error(error);
       }) }
 
+      agregar(){
+        //sd
+      }
+
+      quitar(){
+        //asd
+      }
+
   }
 
   

@@ -5,6 +5,7 @@ import { tap } from  'rxjs/operators';
 import { Observable, BehaviorSubject } from  'rxjs';
 import { User } from  './user';
 import { Auth } from  './auth';
+//import { Correo } from  './correo';
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
@@ -55,4 +56,16 @@ export class AuthService {
     })
   }
 
+  enviarCorreo(correo:String){
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+
+    const body = JSON.stringify(correo);
+    console.log(body)
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/cambioContra/`,body,{'headers':headers})
+  }
+
 }
+  

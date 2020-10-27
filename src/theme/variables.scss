@@ -4,6 +4,25 @@
 /** Ionic CSS Variables **/
 :root {
 
+  .custom-modal .modal-wrapper{
+    // add modal styling here
+    width: 600px;
+    height: 200px; 
+    *{
+      font-family:'MyriadProSemibold' !important ;
+    }
+
+    .confirmar{
+      float: right;
+      
+    }
+    .cancelar{
+      float: left;
+      
+    }
+
+  }
+
 
   --ion-color-naranja-oscuro: #FE3A00;
   --ion-color-naranja-claro: #FFA801;
@@ -265,3 +284,4 @@
   font-weight: bold;
   src: url('../assets/font/Myriad Pro Semibold.ttf');
 }
+
