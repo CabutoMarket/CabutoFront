@@ -35,15 +35,15 @@
            <ion-item >
              <ion-input  name="cedula" type="number" placeholder="RUC/Cedula" ngModel required></ion-input>
            </ion-item>
-           <ion-item >
-             <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
-           </ion-item>
            <ion-item>
              <ion-input  name="nombre" type="text" placeholder="Nombre" ngModel required></ion-input>
            </ion-item>
            <ion-item>
              <ion-input  name="apellido" type="text" placeholder="Apellido" ngModel required></ion-input>
-           </ion-item>  
+           </ion-item>
+           <ion-item >
+            <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
+          </ion-item>  
            <ion-item>
              <ion-input name="contrasena" type="{{showPass ? 'text' : 'password'}}" placeholder="Contraseña" ngModel required></ion-input>
              <button ion-button type="button" clear color="dark" item-right (click)="togglePasswordClick()">
