@@ -22,11 +22,11 @@ export class ModalPage implements OnInit {
     if(this.validarEmail(this.textInput)){
       console.log(this.textInput)
       this.authService.enviarCorreo(this.textInput).subscribe(data=> {
-        if(data.valid == 'OK'){
+        /*if(data.valid == 'OK'){
           this.modalCtrl.dismiss();
         }else{
           this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo  están incorrectos");
-        }
+        }*/
       })
     }else{
       this.mensaje("Correo","Correo incorrecto","esto no sigue la forma correcta de un correo")

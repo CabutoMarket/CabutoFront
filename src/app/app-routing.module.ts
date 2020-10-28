@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'producto',
     pathMatch: 'full'
   },
   {
@@ -39,7 +39,8 @@ const routes: Routes = [
   {
     path: 'modal',
     loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
-  },  {
+  },
+  {
     path: 'registro-exitoso',
     loadChildren: () => import('./auth/registro/registro-exitoso/registro-exitoso.module').then( m => m.RegistroExitosoPageModule)
   },

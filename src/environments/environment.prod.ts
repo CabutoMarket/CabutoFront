@@ -11,3 +11,7 @@ export const firebaseConfig={
   appId: "1:535520824503:web:97c4525d2cca993337d132"
 
 };
+
+export const login = {
+  login: false
+};
