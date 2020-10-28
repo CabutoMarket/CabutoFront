@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {ProductoService} from '../servicios/producto.service';
 import {Producto} from '../modelo/producto';
 import { Observable, Subject } from 'rxjs';
+import {login} from  './../global'
 import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
+import { AlertController} from '@ionic/angular';
+//FrontFinal\final\CabutoFront\src\app\global.ts
 
 @Component({
   selector: 'app-producto',
@@ -17,7 +21,7 @@ productoInput: string ='';
     verSeleccion: string = '';
 
   constructor(
-    public productoService: ProductoService
+    public productoService: ProductoService, private  router:  Router,private alert: AlertController
 
   	) { }
 
@@ -68,11 +72,49 @@ productoInput: string ='';
       }) }
 
       agregar(){
-        //sd
+        var cantidad = document.getElementById('cantidad');
+        var num  = cantidad.getAttribute('value')
+        //var num2 = parseInt(num)+1
+        //var numS=String(num2);
+        cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
+        
       }
 
       quitar(){
-        //asd
+        var cantidad = document.getElementById('cantidad');
+        cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))-1));
+      }
+
+      carrito(){
+        if(login.login ==false){
+          this.router.navigateByUrl('/login');
+        }else{
+          var cantidad = document.getElementById('cantidad');
+          if(parseInt(cantidad.getAttribute('value')) > 0){
+            this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
+          }else{
+            this.mensaje("Agregar Producto","No hay cantidad","No ha escogido la cantidad para agregar");
+          }
+        }
+      }
+
+      async mensaje(titulo:string,subtitulo:string,mensaje:string) {
+        const alert = await this.alert.create({
+          cssClass: titulo,
+          header: titulo,
+          subHeader: subtitulo,
+          message: mensaje,
+          buttons: [
+            {
+              text: 'OK',
+              role: 'cancel',
+              handler: () => {
+              }
+            }
+          ]
+        });
+      
+        await alert.present();
       }
 
   }

@@ -73,7 +73,7 @@
                             </div>
                             <div class="producto-carrito">
                                 <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar()>
-                                <input type="text" name="" id="" class="estilo-cantidad" value="1">
+                                <input type="text" name="" id="cantidad" class="estilo-cantidad" placeholder="0" value  = "0" >
                                 <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar()>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                 <h4>${{productos.precio}}</h4>
                             </div>
                             <div class="carrito">
-                                <img src="../assets/img/carrito_activo.png" width="25" height="25">
+                                <img src="../assets/img/carrito_activo.png" width="25" height="25" (click)=carrito()>
                             </div>
                         </div>
                     </div>
