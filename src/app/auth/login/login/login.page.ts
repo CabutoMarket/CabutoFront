@@ -4,6 +4,7 @@ import { AuthService } from '../../servicios/auth.service';
 import { LoadingController } from '@ionic/angular';
 import { AlertController, ToastController,Platform, ModalController } from '@ionic/angular';
 import {ModalPage} from './../../../modal/modal.page';
+import {login} from  '../../../global'
 /*import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -65,6 +66,7 @@ export class LoginPage implements OnInit {
     console.log(data.valid)
     if (data.valid == "OK"){
       //this.router.navigateByUrl('/producto');
+      login.login = true;
       this.router.navigateByUrl('/producto');
     }
     else{
@@ -147,6 +149,14 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       const usuario = res.user;
       var mail = usuario.email;
       var contra = usuario.displayName;
+      const logR ={
+        'cedula': " ",
+        'email': mail,
+        'nombre': contra,
+        'apellido': contra,
+        'contrasena': contra
+
+      }
       
       //this.router.navigateByUrl('/producto');
       const log=  {'correo': mail,
@@ -158,7 +168,18 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
           this.router.navigateByUrl('/producto');
         }
         else{
-          this.router.navigateByUrl('/registro-fb');
+          this.authService.addUser(logR).subscribe(data=> {
+            
+            console.log("imprimiendo data",data, logR)
+            if(data.valid == "OK"){
+              this.mensaje("Registro","Registro","Registro exitoso");
+              this.router.navigateByUrl('/producto');
+            }else{
+              this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
+              this.router.navigateByUrl('/login'); 
+            }
+          console.log(logR);
+            })
         }
         
       })
