@@ -56,7 +56,7 @@ export class AuthService {
     })
   }
 
-  enviarCorreo(correo:String){
+  enviarCorreo(correo:String):Observable<any>{
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'

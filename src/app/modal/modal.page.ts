@@ -21,12 +21,15 @@ export class ModalPage implements OnInit {
     console.log(typeof(this.textInput))
     if(this.validarEmail(this.textInput)){
       console.log(this.textInput)
+      console.log("Voy a enviar datos")
       this.authService.enviarCorreo(this.textInput).subscribe(data=> {
-        /*if(data.valid == 'OK'){
+        console.log("Recibi respuesta");
+        console.log(data)
+        if(data.valid == 'OK'){
           this.modalCtrl.dismiss();
         }else{
           this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo  están incorrectos");
-        }*/
+        }
       })
     }else{
       this.mensaje("Correo","Correo incorrecto","esto no sigue la forma correcta de un correo")
