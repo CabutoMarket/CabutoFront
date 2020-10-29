@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ShoppingCartPage } from 'src/app/shopping-cart/shopping-cart.page';
+import {login} from  './../../global'
 
 
 @Component({
@@ -18,13 +20,23 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  constructor(private modalCtrl: ModalController, private shoppingCartPage: ShoppingCartPage ) { }
+  constructor(private modalCtrl: ModalController, private shoppingCartPage: ShoppingCartPage,private  router:  Router,private alert: AlertController
+    ) { }
 
   ngOnInit() {}
 
   async openCart(){
-    let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
-    modal.present();
+    if(login.login ==false){
+      this.router.navigateByUrl('/login');
+    }else{
+      let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
+      modal.present();
+    }
+    /*let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
+    modal.present();*/
   }
+
+  
+
 
 }
