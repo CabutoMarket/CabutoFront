@@ -32,56 +32,67 @@ register(form){
   console.log(form.contrasena)
   var contra = form.contrasena;
   var conf = form.confirmar
-  var cedula =String(form.cedula)
-  var int_length = (''+cedula).length;
-  console.log(typeof(form.nombre));
-  console.log(typeof(form.apellido));
-  console.log(isNaN(form.apellido));
+  var cedula =form.cedula
+  //var int_length = (''+cedula).length;
+  console.log(typeof(cedula));
+  console.log(cedula);
+  //console.log(typeof(form.nombre));
+  //console.log(typeof(form.apellido));
+  //console.log(isNaN(form.apellido));
 
-  console.log(int_length);
-  console.log(this.validarEmail(form.email));
-  
-  if(int_length<10 ){
-    this.mensaje("Error","Revisar cedula","Recuerde que si ingresa cedula deben ser 10 dígitos ");
-  }else if((int_length<10 && int_length <13 )|| int_length >13){
-    this.mensaje("Error","Revisar RUC","Recuerde que si ingresa cedula deben ser  RUC 13 dígitos");
-  }
-  if(this.validarEmail(form.email) == false){
-    this.mensaje("Error","Revisar correo","Escriba de su correo de manera correcta");
-    //this.router.navigateByUrl('/registro'); 
-  }
-  if (contra!= conf){
-    this.mensaje("Registro Fallido","Las contraseñas no coinciden","Verifique que las contraseñas sean iguales");
-    //this.router.navigateByUrl('/registro'); 
-  }
-  console.log("voy a comparar");
-      console.log(this.isEqual(form.nombre,form.apellido));
-  
-  if(contra == conf && (int_length == 10 || int_length == 13)&& this.validarEmail(form.email) == true){
-    if(isNaN(form.nombre) && isNaN(form.apellido)){
-      console.log("voy a comparar");
-      console.log(this.isEqual(form.nombre,form.apellido));
-      if(this.isEqual(form.nombre,form.apellido)){
-        this.mensaje("Registro Fallido","Las problemas con nombre ","el nombre y apellido registrado son iguales");
+  //console.log(int_length);
+  //console.log(this.validarEmail(form.email));
+  console.log(isNaN(cedula));
+
+  if(isNaN(cedula) == false){
+    //var int_length = (''+cedula).length;
+    var int_length = cedula.length;
+    console.log(int_length);
+    if(int_length<10 ){
+      this.mensaje("Error","Revisar cedula","Recuerde que si ingresa cedula deben ser 10 dígitos ");
+    }else if((int_length<10 && int_length <13 )|| int_length >13){
+      this.mensaje("Error","Revisar RUC","Recuerde que si ingresa cedula deben ser  RUC 13 dígitos");
+    }
+    if(this.validarEmail(form.email) == false){
+      this.mensaje("Error","Revisar correo","Escriba de su correo de manera correcta");
+      //this.router.navigateByUrl('/registro'); 
+    }
+    if (contra!= conf){
+      this.mensaje("Registro Fallido","Las contraseñas no coinciden","Verifique que las contraseñas sean iguales");
+      //this.router.navigateByUrl('/registro'); 
+    }
+    console.log("voy a comparar");
+        console.log(this.isEqual(form.nombre,form.apellido));
+    
+    if(contra == conf && (int_length == 10 || int_length == 13)&& this.validarEmail(form.email) == true){
+      if(isNaN(form.nombre) && isNaN(form.apellido)){
+        console.log("voy a comparar");
+        console.log(this.isEqual(form.nombre,form.apellido));
+        if(this.isEqual(form.nombre,form.apellido)){
+          this.mensaje("Registro Fallido","Las problemas con nombre ","el nombre y apellido registrado son iguales");
+        }else{
+          this.authService.addUser(form).subscribe(data=> {
+            console.log("imprimiendo data",data, form)
+            if(data.valid == "OK"){
+              this.mensaje("Registro","Registro exitoso","Registro Completado");
+              this.router.navigateByUrl('/login');
+            }else{
+              this.mensaje("Error", "Parece que algo ha ocurrido","Numero de cedula/Ruc o correo Invalido");
+              this.router.navigateByUrl('/registro'); 
+            }
+        
+          })
+        }
       }else{
-        this.authService.addUser(form).subscribe(data=> {
-          console.log("imprimiendo data",data, form)
-          if(data.valid == "OK"){
-            this.mensaje("Registro","Registro exitoso","Registro Completado");
-            this.router.navigateByUrl('/login');
-          }else{
-            this.mensaje("Error", "Parece que algo ha ocurrido","Numero de cedula/Ruc o correo Invalido");
-            this.router.navigateByUrl('/registro'); 
-          }
-      
-        })
+        this.mensaje("Registro Fallido","Las problemas con nombre ","Por favor ingrese un nombre y apellido de manera  correcta");         
       }
-    }else{
-      this.mensaje("Registro Fallido","Las problemas con nombre ","Por favor ingrese un nombre y apellido de manera  correcta");      
+      
     }
     
+  }else{
+    this.mensaje("Registro Fallido","RUC/cedula ","Su Ruc/Cedula solo debe contener valores numericos");
+    
   }
-  
   
 }
 
