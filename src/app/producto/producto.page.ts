@@ -98,7 +98,8 @@ productoInput: string ='';
         if(login.login ==false){
           this.router.navigateByUrl('/login');  
         }else{
-          var cantidad = document.getElementById('id');
+          var cantidad = document.getElementById(id);
+          console.log(cantidad)
           if(parseInt(cantidad.getAttribute('value')) > 0){
             this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
           }else{
