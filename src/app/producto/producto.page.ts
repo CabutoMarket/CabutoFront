@@ -19,6 +19,7 @@ textInput: string = null;
 productoInput: string ='';
   producto : {};
     verSeleccion: string = '';
+    n = 0;
 
   constructor(
     public productoService: ProductoService, private  router:  Router,private alert: AlertController
@@ -71,8 +72,11 @@ productoInput: string ='';
         console.error(error);
       }) }
 
-      agregar(){
-        var cantidad = document.getElementById('cantidad');
+      agregar(id:string){
+        //console.log(id)
+        
+        var cantidad = document.getElementById(id);
+        console.log(cantidad)
         var num  = cantidad.getAttribute('value')
         //var num2 = parseInt(num)+1
         //var numS=String(num2);
@@ -80,9 +84,14 @@ productoInput: string ='';
         
       }
 
-      quitar(){
-        var cantidad = document.getElementById('cantidad');
-        cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))-1));
+      quitar(id:string){
+        var cantidad = document.getElementById(id);
+        var num  = cantidad.getAttribute('value')
+        if((parseInt(num)-1)< 0){
+          cantidad.setAttribute('value',String(parseInt(num)));
+        }else{
+          cantidad.setAttribute('value',String(parseInt(num)-1));
+        } 
       }
 
       carrito(){

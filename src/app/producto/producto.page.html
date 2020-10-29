@@ -72,9 +72,9 @@
                                 <h6 class="nombre-producto" >{{productos.nombre}}</h6>
                             </div>
                             <div class="producto-carrito">
-                                <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar()>
-                                <input type="text" name="" id="cantidad" class="estilo-cantidad" placeholder="0" value  = "0" >
-                                <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar()>
+                                <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.nombre)>
+                                <input type="text" tag = "barra" name="" id="{{productos.nombre}}" class="estilo-cantidad" placeholder="0" value  = "0" >
+                                <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.nombre)>
                             </div>
                         </div>
                         <div class="contener-columna centrar">

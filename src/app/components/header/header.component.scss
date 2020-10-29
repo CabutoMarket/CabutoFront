@@ -1,7 +1,12 @@
 ion-toolbar{
     --background: linear-gradient(to left,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    border: none!important; 
 
+} 
+ion-header{
+    border: 0!important;
 }
+
 
 *{
     font-family: 'MyriadProSemibold' !important;
@@ -73,4 +78,8 @@ ion-toolbar{
   position:absolute;
   top:25px;
   left:25px;
+}
+
+.header{
+    height: 10%;
 }
