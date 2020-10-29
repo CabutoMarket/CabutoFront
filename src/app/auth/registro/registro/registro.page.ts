@@ -32,7 +32,7 @@ register(form){
   console.log(form.contrasena)
   var contra = form.contrasena;
   var conf = form.confirmar
-  var cedula =form.cedula
+  var cedula =String(form.cedula)
   var int_length = (''+cedula).length;
   console.log(typeof(form.nombre));
   console.log(typeof(form.apellido));
