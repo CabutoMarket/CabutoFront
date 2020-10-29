@@ -94,11 +94,11 @@ productoInput: string ='';
         } 
       }
 
-      carrito(){
+      carrito(id:string){
         if(login.login ==false){
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/login');  
         }else{
-          var cantidad = document.getElementById('cantidad');
+          var cantidad = document.getElementById('id');
           if(parseInt(cantidad.getAttribute('value')) > 0){
             this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
           }else{
