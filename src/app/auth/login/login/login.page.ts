@@ -61,20 +61,23 @@ export class LoginPage implements OnInit {
 	console.log(form)
   console.log(form.correo)
   console.log(form.contrasena)
-	this.authService.VerificarUser(form).subscribe(data=> {
-    /*this.validacion=data;*/
-    console.log(data.valid)
-    if (data.valid == "OK"){
-      //this.router.navigateByUrl('/producto');
-      login.login = true;
-      this.router.navigateByUrl('/producto');
-    }
-    else{
-      this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
-      this.router.navigateByUrl('/login');
-    }
-		
-	  })
+	if(form.correo == "" || form.contrasena == "" ){
+    this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
+  }else{
+    this.authService.VerificarUser(form).subscribe(data=> {
+      console.log(data.valid)
+      if (data.valid == "OK"){
+        //this.router.navigateByUrl('/producto');
+        login.login = true;
+        this.router.navigateByUrl('/producto');
+      }
+      else{
+        this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
+        this.router.navigateByUrl('/login');
+      }
+      
+      })
+  }
   }
 
 
