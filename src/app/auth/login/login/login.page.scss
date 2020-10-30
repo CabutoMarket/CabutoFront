@@ -7,7 +7,7 @@
     height: 43%;
 }
 ion-footer{
-    height: 100%;
+    margin: 0 auto;
 }
 
 ion-toolbar{
@@ -31,12 +31,9 @@ ion-item{
     --color: rgb(112, 106, 106);
     border-radius: 10px;
     font-size: 0.8rem;
-    
-}ion-input{
-    height: 10%;
+    height:30% !important;
+    --highlight-height: 0.5px !important;
 }
-
-
 ion-button.inicio{
     padding: 0px 0px 0px 0px !important;
     --background: var(--ion-color-naranja-oscuro);
@@ -76,7 +73,8 @@ ion-button.button-fb{
     justify-content: center;
     align-content: center;
     align-items: center;
-    padding: 40px 0px 40px 0px;
+    padding: 35px 0px 19px 0px;
+    //padding: 40px 0px 40px 0px;
 
 }
 
@@ -122,4 +120,20 @@ div.ion-text-center{
 
 ion-content{
     padding: 0px 0px 0px 0px !important;
+}
+
+.espacio{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sesion{
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.contenedor-footer{
+    height: 100%;
+    margin: 0 auto;
 }

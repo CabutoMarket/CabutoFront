@@ -21,7 +21,7 @@
               <ion-icon class="icono-input" text-right  id="iconIntro" [name]="passwordToggleIcon" style="zoom:2.0;"></ion-icon>
             </button>
           </ion-item>
-          <p style="color: var(--ion-color-naranja-oscuro); padding: 0px;" class=ion-text-right (click)="contrasena()">
+          <p style="color: var(--ion-color-naranja-oscuro);" class=ion-text-right (click)="contrasena()">
           <!--<ion-label style="color: var(--ion-color-naranja-oscuro);">-->¿Olvidaste tu contraseña?<!--/ion-label-->
       </p>
       </ion-col>
@@ -35,12 +35,14 @@
     </div><br>
   </ion-grid >
   <!--<div class="ion-text-center" style="color: var(--ion-color-naranja-oscuro);" ><p class = "letras">¿Eres nuevo? <strong class="fuente-color" ><a style="color: var(--ion-color-naranja-oscuro);" routerLink='/registro'>Registrate aquí</a></strong></p></div>-->
+  <div class = "espacio">
   <div class="ion-text-center"  ><p class = "letras">¿Eres nuevo? <a class= "ruta" routerLink='/registro'>Registrate aquí</a></p></div>
+  </div>
   <ion-footer>
     <!--<router-link class="routerLink" to='/registro'>Registrate aquí</router-link>-->
 <!--<ion-toolbar >-->
-  <div>
-    <ion-button class = "inicio" size="large" type="submit"  expand="full">Iniciar Sesión</ion-button>
+  <div class="contenedor-footer">
+    <ion-button class = "inicio" size="large" type="submit"  expand="full"><p class = "sesion">Iniciar Sesión</p></ion-button>
   </div>
 <!--</ion-toolbar>-->
 </ion-footer>
