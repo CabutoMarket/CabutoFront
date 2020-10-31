@@ -71,9 +71,13 @@ productoInput: string ='';
        
        this.producto=data;
         console.log(this.producto);
+        if(Object.keys(this.producto).length === 0){
+          this.mensaje("Producto No encontrado","Intente de nuevo","No se ha podido encontrar el producto")
+        }
 
       },(error)=>{
         console.error(error);
+        this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
       }) }
 
       agregar(id:string){
@@ -178,7 +182,7 @@ productoInput: string ='';
           } 
            setTimeout(() => {   
              loading.dismiss();  
-           }, 3000 );   
+           }, 2000 );   
           });  
         } 
         showLoading2() {  
@@ -190,7 +194,7 @@ productoInput: string ='';
             } 
              setTimeout(() => {   
                loading.dismiss();  
-             }, 3000 );   
+             }, 2000 );   
             });  
           } 
           showLoading3() {  
@@ -202,7 +206,7 @@ productoInput: string ='';
               } 
                setTimeout(() => {   
                  loading.dismiss();  
-               }, 3000 );   
+               }, 2000 );   
               });  
             }
 }
