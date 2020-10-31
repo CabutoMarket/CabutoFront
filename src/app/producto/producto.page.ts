@@ -74,10 +74,12 @@ productoInput: string ='';
 
       agregar(id:string){
         //console.log(id)
-        
+      
         var cantidad = document.getElementById(id);
         console.log(cantidad)
         var num  = cantidad.getAttribute('value')
+        console.log(typeof(num))
+        //if(isNaN(String(num)) == false){
         //var num2 = parseInt(num)+1
         //var numS=String(num2);
         cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));

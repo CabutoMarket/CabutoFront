@@ -38,13 +38,13 @@
                 <ion-input placeholder="¿Qué necesitas?" [(ngModel)]="textInput"></ion-input>
                 <img src="../assets/img/buscar.png" class="icono"  (click)="buscarProducto()">
             </div>
-            <div class="contenedor-filtro">
+            <div class="contenedor-filtro"> 
                 <div class="contenedor-selector">
                     <ion-label class="subtitulo">Filtrar por:</ion-label>
                     <select [(ngModel)]="opcion" class="selector" (change)="capturar()">
                         <option value="vendidos">Más vendidos</option>
-                        <option value="menor">$-$$$</option>
-                        <option value="mayor">$$$-$</option>
+                        <option value="menor">Precio: más bajo</option>
+                        <option value="mayor">Precio: más alto</option>
                         <option value="ascendente">A a Z</option>
                         <option value="descendente">Z a A</option>
                     </select>
@@ -59,9 +59,9 @@
             <div>
                 <div class="contener-producto"  *ngFor="let productos of producto">
                     <div class="div-producto">
-                        <div class="contener-columna">
+                        <div class="contener-columnaI">
                             <div class="producto">
-                                <img src="../assets/img/deja.png"  width="90" height="100">
+                                <img src="../assets/img/deja-final.png" width="90" height="100" >
                             </div>
                             
                                 <h6 class="detalle">Ver detalle</h6>
@@ -73,11 +73,11 @@
                             </div>
                             <div class="producto-carrito">
                                 <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.nombre)>
-                                <input type="text" tag = "barra" name="" id="{{productos.nombre}}" class="estilo-cantidad" placeholder="0" value  = "0" >
+                                <input type="number" tag = "barra" name="" id="{{productos.nombre}}" class="estilo-cantidad" placeholder="0" value  = "0" >
                                 <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.nombre)>
                             </div>
                         </div>
-                        <div class="contener-columna centrar">
+                        <div class="contener-columna-centrar">
                             <div class="precio">
                                 <h4>${{productos.precio}}</h4>
                             </div>
