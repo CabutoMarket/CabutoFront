@@ -1,16 +1,23 @@
-<ion-header >
-  <ion-toolbar style="--background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) !important;">
-    <ion-title style = "color:white" >Recuperación de contraseña</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class = 'header'>
+  <div class= "logo" > <img src="../assets/img/header_login.png" size= 12></div>
+</div>
 
 <ion-content padding text-center>
   <div class = "contendor-mail">
-    <div class= "correo">Escriba su correo</div> 
-    <ion-input name="email" type="email" placeholder="your@email.com" [(ngModel)]="textInput"></ion-input>
+    <div class= "correo">Ingrese su correo electrónico para recuperar su contraseña</div> 
+    <ion-item >
+    <ion-input style="--background: #e7e7e7;
+    padding-top: 30px;
+    --color: rgb(112, 106, 106);
+    font-size: 0.8rem;
+    border-radius: 5px;" name="email" type="email" placeholder="    Correo Electrónico" [(ngModel)]="textInput"></ion-input>
+    </ion-item>
   </div>
   <div class = "btn">
-  <div class = "confirmar" ><ion-button class = "btn_cnf" style="--background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) !important;" (click)="enviar()" >Enviar</ion-button></div>
-  <div class = "cancelar" ><ion-button class = "btn_cnl" style="--background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) !important;" (click)="dismiss()">Cancelar</ion-button></div>
+  <!--<div class = "confirmar" ><ion-button class = "btn_cnf" style="--background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro)) !important;" (click)="enviar()" >Enviar</ion-button></div>-->
+  <div class = "cancelar" ><img src="../assets/img/atras.png"  (click)="dismiss()"></div>
   </div>
 </ion-content>
+<div>
+  <ion-button style="--background:var(--ion-color-naranja-oscuro);" class = "recuperar" size="large"  expand="full" (click)="showLoadingE()">Recuperar</ion-button>
+</div>
