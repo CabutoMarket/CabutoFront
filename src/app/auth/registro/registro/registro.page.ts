@@ -208,4 +208,17 @@ showLoading(form) {
      }, 2000 );   
     });  
   }
+
+  showLoadingR() {  
+    this.loading.create({  
+      message: 'Loading.....'   
+      }).then((loading) => {  
+       loading.present();{
+        this.router.navigateByUrl('/login');
+      } 
+       setTimeout(() => {   
+         loading.dismiss();  
+       }, 1000 );   
+      });  
+    }
 }

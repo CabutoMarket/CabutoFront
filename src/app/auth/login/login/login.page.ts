@@ -222,6 +222,46 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
            }, 2000 );   
           });  
         }
+
+        showLoadingC() {  
+          this.loading.create({  
+            message: 'Loading.....'   
+            }).then((loading) => {  
+             loading.present();{
+              this.contrasena();
+            } 
+             setTimeout(() => {   
+               loading.dismiss();  
+             }, 1000 );   
+            });  
+          }
+
+          showLoadingF() {  
+            this.loading.create({  
+              message: 'Loading.....'   
+              }).then((loading) => {  
+               loading.present();{
+                this.facebook();
+              } 
+               setTimeout(() => {   
+                 loading.dismiss();  
+               }, 1000 );   
+              });  
+            }
+
+
+            showLoadingR() {  
+              this.loading.create({  
+                message: 'Loading.....'   
+                }).then((loading) => {  
+                 loading.present();{
+                  this.router.navigateByUrl('/registro');
+                } 
+                 setTimeout(() => {   
+                   loading.dismiss();  
+                 }, 1000 );   
+                });  
+              }
       
   }
 

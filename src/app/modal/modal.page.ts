@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavController, NavParams, ModalController, AlertController, LoadingController} from '@ionic/angular';
 import { AuthService } from 'src/app/auth/servicios/auth.service';
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from 'src/app/auth/servicios/auth.service';
 })
 export class ModalPage implements OnInit {
   textInput = "";
-  constructor(public navCtrol: NavController, public navParams: NavParams,
+  constructor(public navCtrol: NavController, public navParams: NavParams,private  router:  Router,
     public modalCtrl: ModalController,private alert: AlertController,private  authService:  AuthService,private loading: LoadingController) { }
 
   ngOnInit() {
@@ -74,6 +75,17 @@ showLoadingE() {
      }, 2000 );   
     });  
   }
-
+  showLoadingD() {  
+    this.loading.create({  
+      message: 'Loading.....'   
+      }).then((loading) => {  
+       loading.present();{
+        this.dismiss()
+      } 
+       setTimeout(() => {   
+         loading.dismiss();  
+       }, 1000 );   
+      });  
+    }
 }
 
