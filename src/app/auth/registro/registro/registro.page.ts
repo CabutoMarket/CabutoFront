@@ -20,6 +20,7 @@ export class RegistroPage implements OnInit {
 	constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
+    
     /*private emailComposer: EmailComposer,*/) { }
 	
   ngOnInit() {
@@ -44,56 +45,61 @@ register(form){
   //console.log(int_length);
   //console.log(this.validarEmail(form.email));
   console.log(isNaN(cedula));
-
-  if(isNaN(cedula) == false){
-    //var int_length = (''+cedula).length;
-    var int_length = cedula.length;
-    console.log(int_length);
-    if(int_length<10 ){
-      this.mensaje("Error","Revisar cedula","Recuerde que si ingresa cedula deben ser 10 dígitos ");
-    }else if((int_length<10 && int_length <13 )|| int_length >13){
-      this.mensaje("Error","Revisar RUC","Recuerde que si ingresa cedula deben ser  RUC 13 dígitos");
-    }
-    if(this.validarEmail(form.email) == false){
-      this.mensaje("Error","Revisar correo","Escriba de su correo de manera correcta");
-      //this.router.navigateByUrl('/registro'); 
-    }
-    if (contra!= conf){
-      this.mensaje("Registro Fallido","Las contraseñas no coinciden","Verifique que las contraseñas sean iguales");
-      //this.router.navigateByUrl('/registro'); 
-    }
-    console.log("voy a comparar");
-        console.log(this.isEqual(form.nombre,form.apellido));
-    
-    if(contra == conf && (int_length == 10 || int_length == 13)&& this.validarEmail(form.email) == true){
-      if(isNaN(form.nombre) && isNaN(form.apellido)){
-        console.log("voy a comparar");
-        console.log(this.isEqual(form.nombre,form.apellido));
-        if(this.isEqual(form.nombre,form.apellido)){
-          this.mensaje("Registro Fallido","Las problemas con nombre ","el nombre y apellido registrado son iguales");
+  if(form.cedula == ''|| form.nombre == '' || form.apellido == '' ||form.correo == "" || form.contrasena == "" ||form.confirmar == "" ){
+    this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
+  }else{
+    if(isNaN(cedula) == false){
+      //var int_length = (''+cedula).length;
+      var int_length = cedula.length;
+      console.log(int_length);
+      if(int_length<10 ){
+        this.mensaje("Error","Revisar cedula","Recuerde que si ingresa cedula deben ser 10 dígitos ");
+      }else if((int_length<10 && int_length <13 )|| int_length >13){
+        this.mensaje("Error","Revisar RUC","Recuerde que si ingresa cedula deben ser  RUC 13 dígitos");
+      }
+      if(this.validarEmail(form.email) == false){
+        this.mensaje("Error","Revisar correo","Escriba de su correo de manera correcta");
+        //this.router.navigateByUrl('/registro'); 
+      }
+      if (contra!= conf){
+        this.mensaje("Registro Fallido","Las contraseñas no coinciden","Verifique que las contraseñas sean iguales");
+        //this.router.navigateByUrl('/registro'); 
+      }
+      console.log("voy a comparar");
+          console.log(this.isEqual(form.nombre,form.apellido));
+      
+      if(contra == conf && (int_length == 10 || int_length == 13)&& this.validarEmail(form.email) == true){
+        if(isNaN(form.nombre) && isNaN(form.apellido)){
+          console.log("voy a comparar");
+          console.log(this.isEqual(form.nombre,form.apellido));
+          if(this.isEqual(form.nombre,form.apellido)){
+            this.mensaje("Registro Fallido","Las problemas con nombre ","el nombre y apellido registrado son iguales");
+          }else{
+            this.authService.addUser(form).subscribe(data=> {
+              console.log("imprimiendo data",data, form)
+              if(data.valid == "OK"){
+                this.mensaje("Registro","Registro exitoso","Registro Completado");
+                this.router.navigateByUrl('/login');
+              }else{
+                this.mensaje("Error", "Parece que algo ha ocurrido","Numero de cedula/Ruc o correo Invalido");
+                this.router.navigateByUrl('/registro'); 
+              }
+          
+            })
+          }
         }else{
-          this.authService.addUser(form).subscribe(data=> {
-            console.log("imprimiendo data",data, form)
-            if(data.valid == "OK"){
-              this.mensaje("Registro","Registro exitoso","Registro Completado");
-              this.router.navigateByUrl('/login');
-            }else{
-              this.mensaje("Error", "Parece que algo ha ocurrido","Numero de cedula/Ruc o correo Invalido");
-              this.router.navigateByUrl('/registro'); 
-            }
-        
-          })
+          this.mensaje("Registro Fallido","Las problemas con nombre ","Por favor ingrese un nombre y apellido de manera  correcta");         
         }
-      }else{
-        this.mensaje("Registro Fallido","Las problemas con nombre ","Por favor ingrese un nombre y apellido de manera  correcta");         
+        
       }
       
+    }else{
+      this.mensaje("Registro Fallido","RUC/cedula ","Su Ruc/Cedula solo debe contener valores numericos");
+      
     }
-    
-  }else{
-    this.mensaje("Registro Fallido","RUC/cedula ","Su Ruc/Cedula solo debe contener valores numericos");
-    
   }
+
+  
   
 }
 
@@ -188,4 +194,18 @@ cargar(){
 }
 //https://www.youtube.com/watch?v=dPUmskG_-y0
 //https://forum.ionicframework.com/t/how-i-can-change-my-app-name/20458/14
+
+
+showLoading(form) {  
+  this.loading.create({  
+    message: 'Loading.....'   
+    }).then((loading) => {  
+     loading.present();{
+      this.register(form);
+    } 
+     setTimeout(() => {   
+       loading.dismiss();  
+     }, 2000 );   
+    });  
+  }
 }

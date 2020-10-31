@@ -6,7 +6,7 @@
 <!--</ion-header>[disabled]="form.invalid"-->
 
 <ion-content class="animated fadeIn login auth-page inicio">
-  <form  #form="ngForm" (ngSubmit)="register(form)"> 
+  <form  #form="ngForm" (ngSubmit)="showLoading(form)"> 
    <ion-grid >
      <div class="form" >
        <ion-col align-self-center size-md="3" size-lg="5" size-xs="10">
