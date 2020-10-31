@@ -36,12 +36,12 @@
         <div class="contenedor">
             <div class="contenedor-searchbar">
                 <ion-input placeholder="¿Qué necesitas?" [(ngModel)]="textInput"></ion-input>
-                <img src="../assets/img/buscar.png" class="icono"  (click)="buscarProducto()">
+                <img src="../assets/img/buscar.png" class="icono"  (click)="showLoading2()">
             </div>
             <div class="contenedor-filtro"> 
                 <div class="contenedor-selector">
                     <ion-label class="subtitulo">Filtrar por:</ion-label>
-                    <select [(ngModel)]="opcion" class="selector" (change)="capturar()">
+                    <select [(ngModel)]="opcion" class="selector" (change)="showLoading3()">
                         <option value="vendidos">Más vendidos</option>
                         <option value="menor">Precio: más bajo</option>
                         <option value="mayor">Precio: más alto</option>
@@ -82,7 +82,7 @@
                                 <h4>${{productos.precio}}</h4>
                             </div>
                             <div class="carrito">
-                                <img src="../assets/img/carrito_activo.png" width="25" height="25" (click)=carrito(productos.nombre)>
+                                <img src="../assets/img/carrito_activo.png" width="25" height="25" (click)=showLoading(productos.nombre)>
                             </div>
                         </div>
                     </div>

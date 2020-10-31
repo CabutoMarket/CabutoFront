@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import {login} from  './../global'
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
-import { AlertController} from '@ionic/angular';
+import { AlertController, LoadingController} from '@ionic/angular';
 //FrontFinal\final\CabutoFront\src\app\global.ts
 
 @Component({
@@ -20,9 +20,11 @@ productoInput: string ='';
   producto : {};
     verSeleccion: string = '';
     n = 0;
+    loaderToShow: any;
 
   constructor(
-    public productoService: ProductoService, private  router:  Router,private alert: AlertController
+    public productoService: ProductoService, private  router:  Router,private alert: AlertController,
+    public loadingCtrl: LoadingController
 
   	) { }
 
@@ -61,7 +63,9 @@ productoInput: string ='';
 
 
       buscarProducto(){
+        
         this.productoInput= this.textInput;
+        console.log(this.productoInput)
         this.productoService.getProductoBuscar(this.productoInput).subscribe(data => {
         //console.log("esta es la data "+data["nombre"])
        
@@ -128,7 +132,79 @@ productoInput: string ='';
       
         await alert.present();
       }
+      /*
 
-  }
+      loader() {  
+        this.loadingCtrl.create({  
+          message: 'Por favor espere',  
+          duration: 4000  
+        }).then((res) => { 
+          this.mensaje("Algo Esta pasando","Esta cargando","Fallo algo")  
+          res.present();  
+        res.onDidDismiss().then((dis) => {  
+          console.log('Loading dismissed! after four Seconds');  
+          this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
+        });  
+      });  
+    } 
+
+
+
+    showLoader()
+    {  
+         this.loaderToShow = this.loadingCtrl.create({  
+           message: 'Loader will Not Hide'  
+         }).then((res) => {   
+           res.present();  
+           res.onDidDismiss().then((dis) => {  
+             console.log('Loading dismissed!');  
+           });  
+         });   
+         this.hideLoader();  
+       }  
+       hideLoader() {  
+         setTimeout(() => {   
+           this.loadingCtrl.dismiss();  
+         }, 5000);   
+       }  
+        */
+     
+       showLoading(id:string) {  
+        this.loadingCtrl.create({  
+          message: 'Loading.....'   
+          }).then((loading) => {  
+           loading.present();{
+            this.carrito(id);
+          } 
+           setTimeout(() => {   
+             loading.dismiss();  
+           }, 3000 );   
+          });  
+        } 
+        showLoading2() {  
+          this.loadingCtrl.create({  
+            message: 'Loading.....'   
+            }).then((loading) => {  
+             loading.present();{
+              this.buscarProducto();
+            } 
+             setTimeout(() => {   
+               loading.dismiss();  
+             }, 3000 );   
+            });  
+          } 
+          showLoading3() {  
+            this.loadingCtrl.create({  
+              message: 'Loading.....'   
+              }).then((loading) => {  
+               loading.present();{
+                this.capturar();
+              } 
+               setTimeout(() => {   
+                 loading.dismiss();  
+               }, 3000 );   
+              });  
+            }
+}
 
   
