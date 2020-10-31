@@ -240,7 +240,7 @@ input[placeholder]::after{
   padding-right: 10px!important;
   float: left;
   padding-left: 10px !important; 
-  width: 12%;
+  width: 2.5rem;
 }
 .delete{
   justify-content: left;
@@ -262,4 +262,22 @@ input[placeholder]::after{
   border-radius: 20px;
   background-color: transparent;
   text-align:start!important;
+}
+
+ion-button.btn-registro{
+  height: 100%!important;
+}
+
+.button-content{
+  height: 100%!important;
+  margin: 0 auto;
+}
+ion-footer{
+  margin: 0 auto!important;
+}
+
+.registro{
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
