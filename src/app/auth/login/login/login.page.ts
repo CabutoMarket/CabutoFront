@@ -208,7 +208,23 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
            this.type = "password";
          }
        } 
+
+
+       showLoading(form) {  
+        this.loading.create({  
+          message: 'Loading.....'   
+          }).then((loading) => {  
+           loading.present();{
+            this.verificar(form);
+          } 
+           setTimeout(() => {   
+             loading.dismiss();  
+           }, 2000 );   
+          });  
+        }
+      
   }
+
 
 
 
