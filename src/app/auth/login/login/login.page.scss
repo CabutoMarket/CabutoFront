@@ -118,9 +118,9 @@ div.ion-text-center{
     width:80%;
 }
 
-ion-content{
+//ion-content{
     //padding: 0px 0px 0px 0px !important;
-}
+//}
 
 .espacio{
     padding-top: 10px;
@@ -136,4 +136,8 @@ ion-content{
 .contenedor-footer{
     height: 100%;
     margin: 0 auto;
+}
+
+ion-button.inicio{
+    height: 100%;
 }
