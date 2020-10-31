@@ -23,6 +23,7 @@ export class RegistroPage implements OnInit {
     /*private emailComposer: EmailComposer,*/) { }
 	
   ngOnInit() {
+    
   } 
   
 register(form){
@@ -138,13 +139,6 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     this.url = '';
   }
 
-  converTo(buff,buff2){
-    for (var i=0, strLen=buff.length; i < strLen; i++) {
-      buff2= buff2 + buff[i];
-    }
-    console.log(buff2)
-  }
-
   convert(buff,buff2){
     for (var i=0, strLen=buff.length; i < strLen; i++) {
       buff2= buff2 + buff[i];
@@ -180,4 +174,18 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     isEqual(str1, str2){
     return str1.toUpperCase() === str2.toUpperCase()
 }
+
+cargar(){
+  var valor = 1;
+  /*while(valor < 7){
+     var dato = document.getElementById(String(valor));
+    console.log(dato);
+  }*/
+  var dato = document.getElementById(String(valor));
+  var d = dato.getAttribute('placeholder')
+  console.log(d)
+  dato.setAttribute('placeholder',"*");
+}
+//https://www.youtube.com/watch?v=dPUmskG_-y0
+//https://forum.ionicframework.com/t/how-i-can-change-my-app-name/20458/14
 }

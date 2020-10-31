@@ -1,10 +1,12 @@
 *{
   font-family: 'MyriadProSemibold' !important;
 }
+.header{
+  height: 15%;
+}
 
 ion-toolbar{
-    --background: linear-gradient(to left top,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
-}
+  --background: var(--ion-color-naranja-oscuro);}
 
 ion-header{
   margin: 0 auto;
@@ -13,7 +15,7 @@ ion-header{
 .btn_regresar{
   float:left;
   position:absolute;
-  top:10px;
+  top:20px;
   left:10px;
 }
 
@@ -25,16 +27,21 @@ ion-title{
     left: 0; 
     height: 0%;
 }
+
 ion-item{
-    padding: 10px;
+  padding: 0px 0px 16px 0px;
     --background: #e7e7e7;
     --color: rgb(112, 106, 106);
-    border-radius: 30%;
+    font-size: 0.8rem;
+    border-radius: 10px;
+  width:100%;
+    --highlight-height: 0.5px !important;
 }
 
 
 ion-button{
     --background: var(--ion-color-naranja-oscuro);
+    font-size: 0.8rem;
 }
 
 .form{
@@ -45,8 +52,9 @@ ion-button{
 }
 
 .Condicion{
-    --background: var(--ion-color-primary-contrast);
-    --color:var(--ion-color-naranja-oscuro);
+    //--background: var(--ion-color-primary-contrast);
+    color:var(--ion-color-naranja-oscuro);
+    padding: 10px 0px 30px 0px;
 }
 
 .contenedor{
@@ -99,7 +107,7 @@ ion-button{
 }*/
 .logo{
     text-align: right;
-    padding: 5% 0% 0% 0%;
+    //padding: 5% 0% 0% 0%;
     margin: auto;
 }
 
@@ -114,23 +122,9 @@ ion-button{
     text-align: left;
 }
 
-.registro{
-    /*display: flex;
-    justify-content: end;
-    align-content: center;
-    align-items: center;
-    display: inline-block;
-    font-size: 20px;
-    padding: 20px;*/
-    text-align: left;
-    padding: 50% 40% 0% 0%;
-    margin:auto;
-    width: 190%;
-}
 
   .perfil{
     text-align: center;
-    height: 20%;
   }
 
   .select-profile-picture{
@@ -138,14 +132,10 @@ ion-button{
     font-size: 12px;
     margin: 0 auto;
   }
-
-  p {
-    font-family: Lato;
-  }
   
   .btn_regresar >img{
-    height: 10%;
-    width: 10%;
+    height: 100%;
+    width: 100%;
     float:left;
   }
   .header > img {
@@ -157,20 +147,23 @@ ion-button{
   }
 
   .hoverable > img {
-    height: 75%;
-    width: 75%;
+    height: 100%;
+    width: 100%;
     padding: 0%;
+    border-radius: 50%;
   }
   .hoverable{
-    position: relative;
-    display: block;
+    //position: relative;
+    display: inline-block;
     cursor: pointer;
-    height: 200px;
-    width: 200px;
+    height: 140px;
+    width: 120px;
     //border: 5px solid #000;
     border-radius: 50%;
     margin: 0 auto;
+    padding-bottom: 25px;
   }
+  /*
   .hoverable .hover-text{
     position: absolute;
     display: none;
@@ -179,7 +172,9 @@ ion-button{
     transform: translate(-50%,-50%);   
     z-index: 2;
     margin: 0 auto;
-  }
+    border-radius: 50%;
+  }*/
+  /*
   .hoverable .background{
     position: absolute;
     display: none;
@@ -192,17 +187,80 @@ ion-button{
     border-radius: 50%;
     z-index: 1;
     margin: 0 auto;
-  }
-  .hoverable:hover .hover-text{
+  }*/
+  /*.hoverable:hover .hover-text{
     display: block;
     margin: 0 auto;
   }
   .hoverable:hover .background{
     display: block;
     margin: 0 auto;
-  }
+  }*/
   
   #fileInput{
     display: none;
     height: 20%;
+    padding-top: 0px; 
   }
+  
+/*
+  .x{
+    z-index: 3;
+    display: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }*/
+
+ /** ion-input{
+    --placeholder-color: red;
+    --placeholder-opacity: 1;
+    --content: "*";
+}*/
+/*
+input{
+  background: #e7e7e7;
+  border: none!important;
+}*/
+/*
+:-ms-input-placeholder::after{
+  color:red;
+  content: "*"!important;
+}
+::placeholder:after{color:red!important;content:" *"!important;}
+input[placeholder]::after{
+  content: attr("*");
+}
+*/
+.terminos{
+  font-family: "MyriadPro-Light"!important;
+  font-size: 0.8rem;
+  //padding-left: 5px !important;
+}
+.radio{
+  padding-right: 10px!important;
+  float: left;
+  padding-left: 10px !important; 
+  width: 12%;
+}
+.delete{
+  justify-content: left;
+    align-content: left;
+    align-items: left;
+    text-align: start;
+}
+#button {
+  line-height: 12px;
+  width: 30px;
+  height: 30px;
+  font-size: 20pt;
+  margin-top: 1px;
+  margin-right: 95px;
+  position:absolute;
+  top:0;
+  right:0;
+  border:none!important;
+  border-radius: 20px;
+  background-color: transparent;
+  text-align:start!important;
+}
