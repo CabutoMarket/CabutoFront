@@ -78,8 +78,8 @@ register(form){
             this.authService.addUser(form).subscribe(data=> {
               console.log("imprimiendo data",data, form)
               if(data.valid == "OK"){
-                this.mensaje("Registro","Registro exitoso","Registro Completado");
-                this.router.navigateByUrl('/login');
+                //this.mensaje("Registro","Registro exitoso","Registro Completado");
+                this.router.navigateByUrl('/registro-exitoso');
               }else{
                 this.mensaje("Error", "Parece que algo ha ocurrido","Numero de cedula/Ruc o correo Invalido");
                 this.router.navigateByUrl('/registro'); 
@@ -94,7 +94,7 @@ register(form){
       }
       
     }else{
-      this.mensaje("Registro Fallido","RUC/cedula ","Su Ruc/Cedula solo debe contener valores numericos");
+      this.mensaje("Registro Fallido","Correo ","Este correo ya ha sido registrado");
       
     }
   }

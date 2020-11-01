@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro-exitoso',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistroExitosoPage implements OnInit {
 
-  constructor() { }
+  constructor( private loading: LoadingController, private  router:  Router,) { }
 
   ngOnInit() {
   }
+
+
+  showLoading() {  
+    this.loading.create({  
+      message: 'Loading.....'   
+      }).then((loading) => {  
+       loading.present();{
+        this.router.navigateByUrl('/login');
+      } 
+       setTimeout(() => {   
+         loading.dismiss();  
+       }, 1000 );   
+      });  
+    }
+
 
 }
