@@ -109,11 +109,19 @@ productoInput: string ='';
       carrito(id:string){
         var datos = this.nativeStorage.getItem('user')
         .then(
-          data => console.log(data),
+          //datos => console.log(datos),
           error => console.error(error)
         );
+        var dato2 = this.nativeStorage.keys()
+        .then(
+          dato2 => console.log(datos),
+          error => console.error(error)
+        );
+        console.log("Datos 1")
         console.log(datos)
-        if(login.login ==false && datos == null){
+        console.log("Datos 2")
+        console.log(dato2)
+        if(login.login ==false && dato2 == null){
           this.router.navigateByUrl('/login');  
         }else{
           var cantidad = document.getElementById(id);

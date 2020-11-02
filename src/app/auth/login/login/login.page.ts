@@ -75,11 +75,13 @@ export class LoginPage implements OnInit {
         console.log(nombre)
         console.log(apellido)
         login.login = true;
-        this.nativeStorage.setItem('user', {nombre: nombre, apellido: apellido, correo: form.correo})
+        this.platform.ready().then(() => {
+          this.nativeStorage.setItem('user', {nombre: nombre, apellido: apellido, correo: form.correo})
           .then(
             () => console.log('Stored item!'),
             error => console.error('Error storing item', error)
-        );
+          ); });
+        
         this.router.navigateByUrl('/producto');
       }
       else{
