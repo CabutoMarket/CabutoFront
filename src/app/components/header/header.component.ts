@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ShoppingCartPage } from 'src/app/shopping-cart/shopping-cart.page';
 import {login} from  './../../global'
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-header',
@@ -20,13 +20,25 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  constructor(private modalCtrl: ModalController, private shoppingCartPage: ShoppingCartPage,private  router:  Router,private alert: AlertController
+  constructor(private modalCtrl: ModalController,
+    private storage: Storage, 
+    private shoppingCartPage: ShoppingCartPage,private  router:  Router,private alert: AlertController
     ) { }
 
   ngOnInit() {}
 
   async openCart(){
-    if(login.login ==false){
+    var bool =false
+    this.storage.get('name').then((nombre) => {
+      console.log('Name is', nombre);
+      if( nombre == null ){
+        bool = false;
+      }else{
+        bool = true;
+      } 
+      });
+
+    if(login.login ==false && bool == null ){
       this.router.navigateByUrl('/login');
     }else{
       let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
