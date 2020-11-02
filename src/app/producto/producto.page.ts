@@ -6,6 +6,7 @@ import {login} from  './../global'
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController} from '@ionic/angular';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 //FrontFinal\final\CabutoFront\src\app\global.ts
 
 @Component({
@@ -24,7 +25,8 @@ productoInput: string ='';
 
   constructor(
     public productoService: ProductoService, private  router:  Router,private alert: AlertController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private nativeStorage: NativeStorage
 
   	) { }
 
@@ -105,7 +107,13 @@ productoInput: string ='';
       }
 
       carrito(id:string){
-        if(login.login ==false){
+        var datos = this.nativeStorage.getItem('user')
+        .then(
+          data => console.log(data),
+          error => console.error(error)
+        );
+        console.log(datos)
+        if(login.login ==false && datos == null){
           this.router.navigateByUrl('/login');  
         }else{
           var cantidad = document.getElementById(id);

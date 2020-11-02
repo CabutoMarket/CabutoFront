@@ -24,6 +24,7 @@ import { firebaseConfig} from "../environments/environment";     // aqui se encu
 
 import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'; //Modulo de Facebook
 import {ModalPage} from '././modal/modal.page';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {ModalPage} from '././modal/modal.page';
     ProductoService,
     Facebook,
     SplashScreen,
+    NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],
