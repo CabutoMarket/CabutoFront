@@ -21,6 +21,10 @@ const routes: Routes = [
     loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule)
   },
   {
+    path: 'establecimiento',
+    loadChildren: () => import('./establecimiento/establecimiento.module').then( m => m.EstablecimientoPageModule)
+  },
+  {
     path: 'shopping-cart',
     loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
   },
@@ -44,6 +48,11 @@ const routes: Routes = [
     path: 'registro-exitoso',
     loadChildren: () => import('./auth/registro/registro-exitoso/registro-exitoso.module').then( m => m.RegistroExitosoPageModule)
   },
+  {
+    path: 'establecimiento',
+    loadChildren: () => import('./establecimiento/establecimiento.module').then( m => m.EstablecimientoPageModule)
+  },
+
 
 
   
