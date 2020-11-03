@@ -118,10 +118,19 @@ ion-footer{
 
 .sesion{
     border-top: white!important; 
-    border-top-width: 2em!important;
+    border-top-width: 10px!important;
     border-top-color: white!important;
 
 }
 ion-app {
  --background: #4a4ae4 !important;   
+}
+
+ion-content{
+    margin: o auto;
+    padding: 0px 0px 0px 0px ;
+}
+ion-list{
+    margin: o auto;
+    padding: 0px 0px 0px 0px ;
 }
