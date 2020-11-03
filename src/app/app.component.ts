@@ -40,11 +40,10 @@ export class AppComponent {
 
   getStorage(){
 		this.storage.get('name').then((val) => {
-                     this.name=val;
-                     this.name.concat("\n");
+                     this.name=val.toUpperCase();
       console.log('name: ',this.name);
       this.storage.get('apellido').then((val) => {
-        this.lastname=val;
+        this.lastname=val.toUpperCase();
         console.log('apellido: ',this.lastname);
         //this.fullname = this.name.concat(this.lastname.toString());
         console.log(this.fullname)

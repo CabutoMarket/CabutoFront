@@ -37,12 +37,12 @@
         <div class = "twitter"><a href="https://twitter.com/cabutos1?lang=es"><img src="../assets/img/twitter.png"></a></div>
         <div class = "instagram"><a href="https://www.instagram.com/cabutos/?hl=es-la"><img src="../assets/img/instagram.png"></a></div>
       </div>
+      <ion-footer>
+        <ion-menu-toggle auto-hide="true">
+          <ion-button (click)="showLoading()" ><div class="sesion"> Cerrar Sesión</div></ion-button>
+        </ion-menu-toggle> 
+      </ion-footer>
     </ion-content>
-    <ion-footer>
-      <ion-menu-toggle auto-hide="true">
-        <ion-button (click)="showLoading()" ><div class="sesion"> Cerrar Sesión</div></ion-button>
-      </ion-menu-toggle> 
-    </ion-footer>
   </ion-menu>
   
   <ion-router-outlet id="principal"></ion-router-outlet>
