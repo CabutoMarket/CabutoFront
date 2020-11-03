@@ -1,3 +1,43 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu menuId="main-menu" side="start" contentId="principal" class="menu">
+    <div class="header-content">
+      <img src="../assets/img/avatar.png" alt="">
+      <h2>Dario</h2>
+    </div>
+    <ion-content >
+      <ion-list>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item  routerLink="shopping-cart">Perfil</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item class="menu-items" routerLink="producto">Locales</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="producto">Cupones</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="producto">Historial de Compras</ion-item>
+        </ion-menu-toggle>  
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="producto">Reclamos y Sugerencias</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="producto">Contáctanos</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="producto">Políticas de Privacidad</ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+      <div class="social-media" style="background: #4a4ae4 !important;">
+        <a><img src="../assets/img/facebook.png"></a>
+        <a><img src="../assets/img/twitter.png"></a>
+        <a><img src="../assets/img/instagram.png"></a>
+      </div>
+    </ion-content>
+    <ion-footer>
+      Cerrar Sesión
+    </ion-footer>
+  </ion-menu>
+  
+  <ion-router-outlet id="principal"></ion-router-outlet>
 </ion-app>

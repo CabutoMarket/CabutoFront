@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, MenuController, ModalController } from '@ionic/angular';
 import { ShoppingCartPage } from 'src/app/shopping-cart/shopping-cart.page';
 import {login} from  './../../global'
 import { Storage } from '@ionic/storage';
@@ -22,7 +22,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private modalCtrl: ModalController,
     private storage: Storage, 
-    private shoppingCartPage: ShoppingCartPage,private  router:  Router,private alert: AlertController
+    private shoppingCartPage: ShoppingCartPage,private  router:  Router,private alert: AlertController,
+    private menuCtrl: MenuController
     ) { }
 
   ngOnInit() {}
@@ -46,6 +47,10 @@ export class HeaderComponent implements OnInit {
     }
     /*let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
     modal.present();*/
+  }
+
+  toggleMenu(){
+    this.menuCtrl.toggle();
   }
 
   
