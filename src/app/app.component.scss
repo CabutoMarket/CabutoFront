@@ -121,27 +121,19 @@ ion-item{
 ion-footer{
     --background: #2153FF !important;
     color: white;
-    text-align: center;
     padding-top: 1rem;
-    width: max-content;
-    margin-left: 4rem;
+    margin: auto;
 
 }
 
 .sesion{
-    --background:#2153FF !important;
+    background:#2153FF !important;
     font-size: 1rem;
-    text-align: center;
-
-}
-
-ion-button{
-    --background:#2153FF !important;
     padding-bottom: 1.5rem;
-    --border-style: none;
-    text-align: center;
-
+    width: max-content;
+    margin:auto;
 }
+
 
 ion-app {
  --background: #2153FF !important;   
