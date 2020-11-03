@@ -5,8 +5,9 @@ import { LoadingController } from '@ionic/angular';
 import { AlertController, ToastController,Platform, ModalController } from '@ionic/angular';
 import {ModalPage} from './../../../modal/modal.page';
 import {login} from  '../../../global'
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
-/*import { AngularFireAuth } from '@angular/fire/auth';
+import { Storage } from '@ionic/storage';
+/*import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import * as firebase from 'firebase/app';
@@ -39,8 +40,9 @@ export class LoginPage implements OnInit {
     private toast: ToastController,
     private platform: Platform,
     public modalCtrl: ModalController,
-    private nativeStorage: NativeStorage
-    /*private afAuth: AngularFireAuth,
+    private storage: Storage,
+    /*private nativeStorage: NativeStorage
+    private afAuth: AngularFireAuth,
     private afAuth2: AngularFireAuthModule,
     private platform: Platform,
     private googlePlus: GooglePlus,
@@ -75,11 +77,17 @@ export class LoginPage implements OnInit {
         console.log(nombre)
         console.log(apellido)
         login.login = true;
-        this.nativeStorage.setItem('user', {nombre: nombre, apellido: apellido, correo: form.correo})
+        this.storage.set('name', nombre);
+        this.storage.set('apellido', apellido);
+        this.storage.set('correo', form.correo);
+        
+        /*this.platform.ready().then(() => {
+          this.nativeStorage.setItem('user', {nombre: nombre, apellido: apellido, correo: form.correo})
           .then(
             () => console.log('Stored item!'),
             error => console.error('Error storing item', error)
-        );
+          ); });*/
+        
         this.router.navigateByUrl('/producto');
       }
       else{

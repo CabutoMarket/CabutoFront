@@ -1,9 +1,8 @@
 export interface User {
+    foto:File
     cedula: string;
-    email: string;
     nombre: string;
     apellido: string;
+    email: string;
     contrasena: string;
-
-
 }

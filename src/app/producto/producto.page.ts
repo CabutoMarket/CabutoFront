@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {ProductoService} from '../servicios/producto.service';
 import {Producto} from '../modelo/producto';
 import { Observable, Subject } from 'rxjs';
-import {login} from  './../global'
+  import {login} from  './../global'
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController} from '@ionic/angular';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage';
+//import { NativeStorage } from '@ionic-native/native-storage/ngx';
 //FrontFinal\final\CabutoFront\src\app\global.ts
 
 @Component({
@@ -26,7 +27,8 @@ productoInput: string ='';
   constructor(
     public productoService: ProductoService, private  router:  Router,private alert: AlertController,
     public loadingCtrl: LoadingController,
-    private nativeStorage: NativeStorage
+    private storage: Storage,
+    //private nativeStorage: NativeStorage
 
   	) { }
 
@@ -107,23 +109,36 @@ productoInput: string ='';
       }
 
       carrito(id:string){
-        var datos = this.nativeStorage.getItem('user')
+        /*var datos = this.nativeStorage.getItem('user')
         .then(
-          data => console.log(data),
+          //datos => console.log(datos),
           error => console.error(error)
         );
+        var dato2 = this.nativeStorage.keys()
+        .then(
+          dato2 => console.log(datos),
+          error => console.error(error)
+        );
+        console.log("Datos 1")
         console.log(datos)
-        if(login.login ==false && datos == null){
-          this.router.navigateByUrl('/login');  
-        }else{
-          var cantidad = document.getElementById(id);
-          console.log(cantidad)
-          if(parseInt(cantidad.getAttribute('value')) > 0){
-            this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
+        console.log("Datos 2")
+        console.log(dato2)*/
+        
+         this.storage.get('name').then((nombre) => {
+          console.log('Name is', nombre);
+          if(login.login ==false && nombre == null ){
+            this.router.navigateByUrl('/login');  
           }else{
-            this.mensaje("Agregar Producto","No hay cantidad","No ha escogido la cantidad para agregar");
+            var cantidad = document.getElementById(id);
+            console.log(cantidad)
+            if(parseInt(cantidad.getAttribute('value')) > 0){
+              this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
+            }else{
+              this.mensaje("Agregar Producto","No hay cantidad","No ha escogido la cantidad para agregar");
+            }
           }
-        }
+          });
+        
       }
 
       async mensaje(titulo:string,subtitulo:string,mensaje:string) {

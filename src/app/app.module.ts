@@ -25,7 +25,7 @@ import { firebaseConfig} from "../environments/environment";     // aqui se encu
 import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'; //Modulo de Facebook
 import {ModalPage} from '././modal/modal.page';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent,ModalPage],
@@ -36,7 +36,10 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     AngularFirestoreModule,
     AngularFireAuthModule,
   HttpClientModule,
-   IonicModule.forRoot(), AppRoutingModule, AuthModule,ServiciosModule],
+   IonicModule.forRoot(), IonicStorageModule.forRoot({
+    name: '__mydb',
+driverOrder: ['indexeddb', 'sqlite', 'websql']
+  }),AppRoutingModule, AuthModule,ServiciosModule],
   providers: [
     StatusBar,
     ProductoService,
