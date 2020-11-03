@@ -45,7 +45,7 @@
 }*/
 
 .header-content{
-    background-color: #4a4ae4 !important;
+    background-color: #2153FF !important;
     height: 250px;
     width: 350px;
     text-align: center;
@@ -70,51 +70,56 @@
 }
 
 ion-menu{
-    --background: #4a4ae4 !important;
+    --background: #2153FF !important;
 }
 
 
 
 ion-item{
-    --background: #4a4ae4 !important;
-    background: #4a4ae4 !important;
+    --background: #2153FF !important;
+    background: #2153FF !important;
     padding-left: 1rem;
     color: white;
+    font-size: 1.2rem;
     padding-right: 1.5rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
 
 
 .social-media {
     //display: inline-block!important;
     text-align: center;
-    background: #4a4ae4 !important;
-    
+    background: #2153FF !important;
     display: flex;
     justify-content: center;
-    padding-top:20px;
+    padding-top:40px;
     padding-bottom: 10px;
 
     img {
-        height: 2rem;
-        width: 3rem;
+        height: 2.5rem;
+        width: 3.5rem;
         text-align: center;
-        background: #4a4ae4 !important;
+        background: #2153FF !important;
         padding: 0px 10px 0px 10px;
     }
 }
 
 .list-ios {
-    background: #4a4ae4 !important;
+    background: #2153FF !important;
     text-align:center;
 }
 
 ion-footer{
-    background: #4a4ae4 !important;
+    --background: #2153FF !important;
     color: white;
     text-align: center;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    border-top:white 1px solid;
+    height: 4rem;
     
+
 }
 
 .sesion{
@@ -122,17 +127,27 @@ ion-footer{
     border-top-width: 10px!important;
     border-top-color: white!important;
     border: 10px white!important;
-
+    --background:#2153FF !important;
+    font-size: 1.3rem;
+    
 }
+
+ion-button{
+    --background:#2153FF !important;
+    --border-top: white;
+    width: 20rem;
+    padding-bottom: 1.5rem;
+}
+
 ion-app {
- --background: #4a4ae4 !important;   
+ --background: #2153FF !important;   
 }
 
 ion-content{
-    margin: o auto;
+    margin: 0 auto;
     padding: 0px 0px 0px 0px ;
 }
 ion-list{
-    margin: o auto;
-    padding: 0px 0px 0px 0px ;
+    margin: 0 auto;
+    padding: 0px 0px 20px 0px ;
 }

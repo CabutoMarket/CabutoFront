@@ -31,9 +31,26 @@ export class AppComponent {
     });
   }
 
-  private name : String = this.storage.get('name').then().toString();
-  private lastname: String = this.storage.get('apellido').toString();
-  private fullname = this.name.concat(this.lastname.toString());
+  private name : String="";
+  private lastname: String=""; 
+  
+
+  getStorage(){
+		this.storage.get('name').then((val) => {
+                     this.name=val;
+			console.log('name: ',this.name);
+    });
+    this.storage.get('apellido').then((val) => {
+      this.name=val;
+      console.log('apellido: ',this.lastname);
+    });
+
+    return this.name.concat(this.lastname.toString());
+  
+  }
+  
+
+  private fullname = this.getStorage();
 
   logout() {
     this.storage.get('name')
