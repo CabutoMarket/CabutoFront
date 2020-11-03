@@ -116,7 +116,7 @@ register(form){
       }
       
     }else{
-      this.mensaje("Registro Fallido","Correo ","Este correo ya ha sido registrado");
+      this.mensaje("Registro Fallido","Ruc/Cedula ","Su Cedula debe contener solo numeros");
       
     }
   }
