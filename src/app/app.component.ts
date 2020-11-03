@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import {login} from  '././global'
 
 @Component({
   selector: 'app-root',
@@ -28,35 +29,42 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.getStorage();
     });
   }
 
   private name : String="";
   private lastname: String=""; 
+  private fullname:String="";
   
 
   getStorage(){
 		this.storage.get('name').then((val) => {
                      this.name=val;
-			console.log('name: ',this.name);
+                     this.name.concat("\n");
+      console.log('name: ',this.name);
+      this.storage.get('apellido').then((val) => {
+        this.lastname=val;
+        console.log('apellido: ',this.lastname);
+        //this.fullname = this.name.concat(this.lastname.toString());
+        console.log(this.fullname)
+      });
     });
-    this.storage.get('apellido').then((val) => {
-      this.name=val;
-      console.log('apellido: ',this.lastname);
-    });
-
-    return this.name.concat(this.lastname.toString());
+    //console.log("Aqui se ssupone que tnego todo")
+    //console.log("nombre",this.name,"apellido",this.lastname)
+    //return this.name.concat(this.lastname.toString());
   
   }
   
-
-  private fullname = this.getStorage();
+  
+  
 
   logout() {
-    this.storage.get('name')
+    this.storage.clear()
       .then(
         data => {
           console.log(data)
+          login.login =false;
           this.router.navigateByUrl('/producto');
         },
         error => console.error(error)

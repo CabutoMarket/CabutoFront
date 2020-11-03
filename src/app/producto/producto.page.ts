@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductoService} from '../servicios/producto.service';
 import {Producto} from '../modelo/producto';
 import { Observable, Subject } from 'rxjs';
-import {login} from  './../global'
+  import {login} from  './../global'
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController} from '@ionic/angular';
