@@ -31,9 +31,11 @@ export class AuthService {
       'Content-Type': 'application/json'
     }
 
-    const body = JSON.stringify(user);
-    console.log(body)
-    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/registro/`,body,{'headers':headers})
+    //const body = JSON.stringify(user);
+    //console.log(body)
+    console.log("No esto transformando nada")
+    console.log(user)
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/registro/`,user,{'headers':headers})
   }
 
   VerificarUser(auth:Auth):Observable<any>{

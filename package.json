@@ -31,6 +31,7 @@
     "@ionic/storage": "^2.3.1",
     "angularfire2": "^5.4.2",
     "firebase": "^7.23.0",
+    "ng2-file-upload": "^1.4.0",
     "rxjs": "~6.5.1",
     "rxjs-compat": "^6.6.2",
     "tslib": "^1.10.0",
