@@ -6,6 +6,7 @@ import { AlertController, ToastController,Platform, ModalController } from '@ion
 import {ModalPage} from './../../../modal/modal.page';
 import {login} from  '../../../global'
 import { Storage } from '@ionic/storage';
+import {AppComponent} from  '../../../app.component'
 /*import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -41,6 +42,7 @@ export class LoginPage implements OnInit {
     private platform: Platform,
     public modalCtrl: ModalController,
     private storage: Storage,
+    private component: AppComponent,
     /*private nativeStorage: NativeStorage
     private afAuth: AngularFireAuth,
     private afAuth2: AngularFireAuthModule,
@@ -87,7 +89,8 @@ export class LoginPage implements OnInit {
             () => console.log('Stored item!'),
             error => console.error('Error storing item', error)
           ); });*/
-        
+          this.component.name=nombre;
+          this.component.lastname = apellido;
         this.router.navigateByUrl('/producto');
       }
       else{

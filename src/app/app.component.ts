@@ -33,27 +33,31 @@ export class AppComponent {
     });
   }
 
-  private name : String="";
-  private lastname: String=""; 
+  public name : String="";
+  public lastname: String=""; 
   private fullname:String="";
   
 
   getStorage(){
 		this.storage.get('name').then((val) => {
-                     this.name=val.toUpperCase();
-      console.log('name: ',this.name);
-      this.storage.get('apellido').then((val) => {
-        this.lastname=val.toUpperCase();
-        console.log('apellido: ',this.lastname);
-        //this.fullname = this.name.concat(this.lastname.toString());
-        console.log(this.fullname)
-      });
-    });
-    //console.log("Aqui se ssupone que tnego todo")
-    //console.log("nombre",this.name,"apellido",this.lastname)
-    //return this.name.concat(this.lastname.toString());
-  
+      if(val ==null){
+        this.name = "";
+      }else{
+        this.name=val.toUpperCase();
+        console.log('name: ',this.name);
+        this.storage.get('apellido').then((val) => {
+          if(val == null){
+            this.lastname = "";
+          }else{
+            this.lastname=val.toUpperCase();
+            console.log('apellido: ',this.lastname);
+            console.log(this.fullname)
+          }
+        });
+      }
+  });
   }
+
   
   
   
@@ -64,6 +68,9 @@ export class AppComponent {
         data => {
           console.log(data)
           login.login =false;
+          //this.ngOnInit()
+          this.name = "";
+          this.lastname= "";
           this.router.navigateByUrl('/producto');
         },
         error => console.error(error)
