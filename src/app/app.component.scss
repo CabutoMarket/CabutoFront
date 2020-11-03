@@ -45,12 +45,12 @@
 }*/
 
 *{
-    font-family: 'arial' !important;
+    font-family: 'MyriadProSemibold' !important;
 }   
 
 .header-content{
     background-color: #2153FF !important;
-    height: 200px;
+    height: 180px;
     text-align: center;
     display: inline-flex;
     padding-left: 0.5rem;
@@ -131,12 +131,16 @@ ion-footer{
 .sesion{
     --background:#2153FF !important;
     font-size: 1rem;
+    text-align: center;
+
 }
 
 ion-button{
     --background:#2153FF !important;
     padding-bottom: 1.5rem;
-    width: max-content;
+    border-color: transparent;
+    text-align: center;
+
 }
 
 ion-app {
