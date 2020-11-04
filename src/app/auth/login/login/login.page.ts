@@ -172,7 +172,8 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         'email': mail,
         'nombre': contra,
         'apellido': " ",
-        'contrasena': contra
+        'contrasena': contra,
+        'confirmar': contra
 
       }
       
@@ -184,16 +185,15 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         console.log(data.valid)
         if (data.valid == "OK"){
           var nombre = data.nombre;
-        var apellido = data.apellido;
-        console.log(nombre)
-        console.log(apellido)
-        login.login = true;
-        this.storage.set('name', nombre);
-        this.storage.set('apellido', apellido);
-        this.storage.set('correo', mail);
-        this.component.name=nombre;
-        this.component.lastname = apellido;
-        this.router.navigateByUrl('/producto');
+          var apellido = data.apellido;
+          console.log(nombre)
+          console.log(apellido)
+          login.login = true;
+          this.storage.set('name', nombre);
+          this.storage.set('apellido', apellido);
+          this.storage.set('correo', mail);
+          this.component.name=nombre;
+          this.component.lastname = apellido;
           this.router.navigateByUrl('/producto');
         }
         else{
@@ -202,6 +202,16 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
             console.log("imprimiendo data",data, logR)
             if(data.valid == "OK"){
               this.mensaje("Registro","Registro","Registro exitoso");
+              var nombre = data.nombre;
+              var apellido = data.apellido;
+              console.log(nombre)
+              console.log(apellido)
+              login.login = true;
+              this.storage.set('name', nombre);
+              this.storage.set('apellido', apellido);
+              this.storage.set('correo', mail);
+              this.component.name=nombre;
+              this.component.lastname = apellido;
               this.router.navigateByUrl('/producto');
             }else{
               this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
