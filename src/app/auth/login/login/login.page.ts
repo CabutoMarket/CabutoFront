@@ -178,7 +178,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         'cedula': " ",
         'email': mail,
         'nombre': contra,
-        'apellido': contra,
+        'apellido': " ",
         'contrasena': contra
 
       }
