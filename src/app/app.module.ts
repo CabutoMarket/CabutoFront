@@ -28,7 +28,8 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
-  declarations: [AppComponent,ModalPage],
+//  declarations: [AppComponent,ModalPage],
+  declarations: [AppComponent],
   entryComponents: [ModalPage],
 
   imports: [BrowserModule,
