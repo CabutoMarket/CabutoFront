@@ -82,15 +82,8 @@ export class LoginPage implements OnInit {
         this.storage.set('name', nombre);
         this.storage.set('apellido', apellido);
         this.storage.set('correo', form.correo);
-        
-        /*this.platform.ready().then(() => {
-          this.nativeStorage.setItem('user', {nombre: nombre, apellido: apellido, correo: form.correo})
-          .then(
-            () => console.log('Stored item!'),
-            error => console.error('Error storing item', error)
-          ); });*/
-          this.component.name=nombre;
-          this.component.lastname = apellido;
+        this.component.name=nombre;
+        this.component.lastname = apellido;
         this.router.navigateByUrl('/producto');
       }
       else{
@@ -190,6 +183,17 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       this.authService.VerificarUser(log).subscribe(data=> {
         console.log(data.valid)
         if (data.valid == "OK"){
+          var nombre = data.nombre;
+        var apellido = data.apellido;
+        console.log(nombre)
+        console.log(apellido)
+        login.login = true;
+        this.storage.set('name', nombre);
+        this.storage.set('apellido', apellido);
+        this.storage.set('correo', mail);
+        this.component.name=nombre;
+        this.component.lastname = apellido;
+        this.router.navigateByUrl('/producto');
           this.router.navigateByUrl('/producto');
         }
         else{
