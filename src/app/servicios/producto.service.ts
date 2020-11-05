@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 import {Producto} from '../modelo/producto';
 const httpOptions = {
           headers: new HttpHeaders({
-                          'Accept': 'application/json, text/plain',
-
+              "Accept": "application/json, text/plain",
               "Content-Type": "application/x-www-form-urlencoded; charset=utf-8", 
               "cache-control": "no-cache", 
               "Access-Control-Allow-Origin": "*", 

@@ -17,9 +17,9 @@ import { Storage } from '@ionic/storage';
 })
 export class ProductoPage implements OnInit {
     opcion: string  = '0';
-textInput: string = null;
-productoInput: string ='';
-  producto : {};
+    textInput: string = null;
+    productoInput: string ='';
+    producto : {};
     verSeleccion: string = '';
     n = 0;
     loaderToShow: any;
@@ -56,7 +56,7 @@ productoInput: string ='';
       this.verSeleccion = this.opcion;
       //console.log(this.verSeleccion);
       this.productoService.getProductosByFiltro(this.opcion).subscribe(data => {
-        //console.log("esta es la data "+data["nombre"])
+      console.log("esta es la data "+data["imagen"])
        console.log(data);
        this.producto=data;
         console.log(this.producto);

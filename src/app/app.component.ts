@@ -30,13 +30,14 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.getStorage();
+      this.getImage();
     });
   }
 
   public name : String="";
   public lastname: String=""; 
   private fullname:String="";
-  
+  private image:String="";
 
   getStorage(){
 		this.storage.get('name').then((val) => {
@@ -59,7 +60,15 @@ export class AppComponent {
   }
 
   
-  
+  getImage(){
+    this.storage.get('name').then((val) => {
+      if(val ==null){
+        this.image = "../assets/img/avatar.png";
+      }else{
+        this.image=val;
+      }
+    });
+  }
   
 
   logout() {
