@@ -19,6 +19,7 @@ export class AppComponent {
     private router: Router,
     private storage: Storage,
     private loadingCtrl: LoadingController,
+    private alert: AlertController,
   ) {
     this.initializeApp();
   }
@@ -71,14 +72,18 @@ export class AppComponent {
   private action: String ="Iniciar Sesión";
   
   initOrOut(){
-    if(login.login){
-      this.showLoadingOut();
-      this.action="Iniciar Sesión";
-    }else{ 
-      this.showLoadingIn();
-      this.action="Cerrar Sesión";
-    }
+    this.storage.get('name').then((nombre) => {
+      if(login.login ==false && nombre == null ){
+        this.showLoadingOut();
+        this.action="Iniciar Sesión";
+      }else{ 
+        this.showLoadingIn();
+        this.action="Cerrar Sesión";
+      }
+    }); 
   }
+
+  
 
   logout() {
     this.storage.clear()
@@ -104,7 +109,7 @@ export class AppComponent {
       } 
        setTimeout(() => {   
          loading.dismiss();  
-       }, 2000 );   
+       }, 1000 );   
       });  
     }
 
@@ -117,7 +122,28 @@ export class AppComponent {
         } 
          setTimeout(() => {   
            loading.dismiss();  
-         }, 2000 );   
+         }, 1000 );   
         });  
       }
+
+
+
+async mensaje(titulo:string,subtitulo:string,mensaje:string) {
+    const alert = await this.alert.create({
+      cssClass: titulo,
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }
