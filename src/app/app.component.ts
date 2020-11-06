@@ -71,7 +71,7 @@ export class AppComponent {
     });
   }
 
-  private action: String =" ";
+  public action: String =" ";
   
   initOrOut(){
     console.log("Estado del login",login.login)
@@ -112,7 +112,8 @@ export class AppComponent {
           //this.ngOnInit()
           this.name = "";
           this.lastname= "";
-          this.mensaje("Cerrar Sesion","", "Sesion cerrada exitosamente")
+          this.action="Iniciar Sesión";
+          
           this.router.navigateByUrl('/producto');
         },
         error => console.error(error)
@@ -125,6 +126,7 @@ export class AppComponent {
       }).then((loading) => {  
        loading.present();{
         this.logout();
+        this.mensaje("Cerrar Sesion","", "Sesion cerrada exitosamente")
       } 
        setTimeout(() => {   
          loading.dismiss();  

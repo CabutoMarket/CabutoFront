@@ -89,6 +89,7 @@ export class LoginPage implements OnInit {
         this.storage.set('correo', form.correo);
         this.component.name=nombre;
         this.component.lastname = apellido;
+        this.component.action="Cerrar Sesión";
         this.router.navigateByUrl('/producto');
       }
       else{
@@ -198,6 +199,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
           this.storage.set('correo', mail);
           this.component.name=nombre;
           this.component.lastname = apellido;
+          this.component.action="Cerrar Sesión";
           this.router.navigateByUrl('/producto');
         }
         else{
