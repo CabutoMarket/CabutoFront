@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -7,7 +6,6 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import {login} from  '././global'
-
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -20,7 +18,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     private storage: Storage,
-    private loadingCtrl: LoadingController  
+    private loadingCtrl: LoadingController,
   ) {
     this.initializeApp();
   }
@@ -45,14 +43,14 @@ export class AppComponent {
         this.name = "";
       }else{
         this.name=val.toUpperCase();
-        console.log('name: ',this.name);
+        console.log('name: ',this.name.toUpperCase());
         this.storage.get('apellido').then((val) => {
           if(val == null){
             this.lastname = "";
           }else{
             this.lastname=val.toUpperCase();
-            console.log('apellido: ',this.lastname);
-            console.log(this.fullname)
+            console.log('apellido: ',this.lastname.toUpperCase());
+            console.log(this.fullname.toUpperCase())
           }
         });
       }
@@ -69,7 +67,18 @@ export class AppComponent {
       }
     });
   }
+
+  private action: String ="Iniciar Sesión";
   
+  initOrOut(){
+    if(login.login){
+      this.showLoadingOut();
+      this.action="Iniciar Sesión";
+    }else{ 
+      this.showLoadingIn();
+      this.action="Cerrar Sesión";
+    }
+  }
 
   logout() {
     this.storage.clear()
@@ -86,7 +95,7 @@ export class AppComponent {
       );
   }
 
-  showLoading() {  
+  showLoadingOut() {  
     this.loadingCtrl.create({  
       message: 'Loading.....'   
       }).then((loading) => {  
@@ -98,4 +107,17 @@ export class AppComponent {
        }, 2000 );   
       });  
     }
+
+    showLoadingIn() {  
+      this.loadingCtrl.create({  
+        message: 'Loading.....'   
+        }).then((loading) => {  
+         loading.present();{
+          this.router.navigateByUrl('/login');
+        } 
+         setTimeout(() => {   
+           loading.dismiss();  
+         }, 2000 );   
+        });  
+      }
 }
