@@ -78,10 +78,10 @@ export class AppComponent {
     this.storage.get('name').then((nombre) => {
       console.log("Estoy por definir el boton del menu",nombre)
       if(this.action == "Iniciar Sesión"){
-        this.showLoadingOut();
+        this.showLoadingIn();
         //this.action="Iniciar Sesión";
       }else{ 
-        this.showLoadingIn();
+        this.showLoadingOut();
         //this.action="Cerrar Sesión";
       }
     }); 
