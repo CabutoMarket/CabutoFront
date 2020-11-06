@@ -167,6 +167,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       const usuario = res.user;
       var mail = usuario.email;
       var contra = usuario.displayName;
+      var foto = usuario.photoURL;
       const logR ={
         'cedula': " ",
         'email': mail,
