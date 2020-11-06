@@ -70,6 +70,11 @@ export class LoginPage implements OnInit {
 	if(form.correo == "" || form.contrasena == "" ){
     this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
   }else{
+    this.show(form)
+  }
+  }
+
+  verificarB(form){
     this.authService.VerificarUser(form).subscribe(data=> {
       console.log(data.valid)
       if (data.valid == "OK"){
@@ -93,8 +98,6 @@ export class LoginPage implements OnInit {
       
       })
   }
-  }
-
 
   async forgotPass() {
     const forgot = await this.alert.create({
@@ -299,8 +302,21 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
                  }, 1000 );   
                 });  
               }
-      
+
+              
+  show(form){
+    this.loading.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present();{
+        this.verificarB(form);
+      }
+      setTimeout(() => { 
+        loading.dismiss();  
+      }, 1000 );  
+    }); 
   }
+}
 
 
 
