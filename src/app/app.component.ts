@@ -30,6 +30,7 @@ export class AppComponent {
       this.splashScreen.hide();
       this.getStorage();
       this.getImage();
+      this.cargarBtn();
     });
   }
 
@@ -39,6 +40,7 @@ export class AppComponent {
   private image:String="";
 
   getStorage(){
+    console.log(login.login)  
 		this.storage.get('name').then((val) => {
       if(val ==null){
         this.name = "";
@@ -69,20 +71,35 @@ export class AppComponent {
     });
   }
 
-  private action: String ="Iniciar Sesión";
+  private action: String =" ";
   
   initOrOut(){
+    console.log("Estado del login",login.login)
     this.storage.get('name').then((nombre) => {
-      if(login.login ==false && nombre == null ){
+      console.log("Estoy por definir el boton del menu",nombre)
+      if(this.action == "Iniciar Sesión"){
         this.showLoadingOut();
-        this.action="Iniciar Sesión";
+        //this.action="Iniciar Sesión";
       }else{ 
         this.showLoadingIn();
-        this.action="Cerrar Sesión";
+        //this.action="Cerrar Sesión";
       }
     }); 
   }
 
+  cargarBtn(){
+    console.log("Estado del login",login.login)
+    this.storage.get('name').then((nombre) => {
+      console.log("Estoy por definir el boton del menu",nombre)
+      if(login.login ==false && nombre == null ){
+        //this.showLoadingOut();
+        this.action="Iniciar Sesión";
+      }else{ 
+        //this.showLoadingIn();
+        this.action="Cerrar Sesión";
+      }
+    }); 
+  }
   
 
   logout() {
@@ -91,9 +108,11 @@ export class AppComponent {
         data => {
           console.log(data)
           login.login =false;
+          console.log(login.login)
           //this.ngOnInit()
           this.name = "";
           this.lastname= "";
+          this.mensaje("Cerrar Sesion","", "Sesion cerrada exitosamente")
           this.router.navigateByUrl('/producto');
         },
         error => console.error(error)
