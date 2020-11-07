@@ -207,7 +207,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
             
             console.log("imprimiendo data",data, logR)
             if(data.valid == "OK"){
-              this.mensaje("Registro","Registro","Registro exitoso");
+              //this.mensaje("Registro","Registro","Registro exitoso");
               var nombre = data.nombre;
               var apellido = data.apellido;
               console.log(nombre)
@@ -218,7 +218,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
               this.storage.set('correo', mail);
               this.component.name=nombre;
               this.component.lastname = apellido;
-              this.router.navigateByUrl('/producto');
+              this.router.navigateByUrl('/registro-exitoso');
             }else{
               this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
               this.router.navigateByUrl('/login'); 
