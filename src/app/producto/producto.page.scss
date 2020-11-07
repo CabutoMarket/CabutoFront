@@ -173,11 +173,13 @@ vertical-align: middle;
     position: relative;
     bottom: 20px;
     height: 5rem;
-    width: 5rem;
+    width: 8rem;
 }
 
 .producto >img {
-    box-shadow: 3px 3px 3px 3px #c2c2c2;
+    height:120px!important ;
+    width: 150px!important;
+    //box-shadow: 3px 3px 3px 3px #c2c2c2;
 }
 
 .detalle{
@@ -252,7 +254,8 @@ div.carrito img{
 .contener-columnaI{
     float: right;
     position: relative;
-    padding-left: 20px;
+    //paddin-left: 20px;
+    padding-left: 0px;
     text-align: right;
     justify-content: flex-end;
 }
