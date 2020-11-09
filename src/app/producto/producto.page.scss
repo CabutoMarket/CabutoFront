@@ -41,20 +41,17 @@ ion-toolbar{
 
 .contenedor-searchbar{
     display: flex;
-align-items: center;
+    align-items: center;
     background: var(--ion-color-gris-claro);
     color: var(--ion-color-gris-oscuro);
     border-radius: 5px;  
-    height: 30px; 
-    width: 103%;
+    height: 40px; 
+    width: 100%;
     font-size: 1rem;
-
-
-
 }
 
 .contenedor{
-    padding: 30px 0px;
+    padding: 20px 0px;
 }
 
 ion-input{
@@ -80,12 +77,12 @@ ion-input{
     font-size: medium;
     color: var(--ion-color-azul-oscuro);
     background: var(--ion-color-gris-claro);
-padding: 5px 20px 5px 20px;
+    padding: 5px 20px 5px 20px;
     border-radius: 5px;  
     vertical-align: middle;
     height: 40px;
     font-size: 1rem;
-    width: 70%;
+    width: 60%;
 
 }
 
@@ -98,7 +95,7 @@ padding: 5px 20px 5px 20px;
 .subtitulo{
     color: var(--ion-color-gris-oscuro);
     font-weight: lighter;
-    padding: 10px 0px 0px 0px;
+    padding: 10px 0px 0px 10px;
     font-size: 0.8rem!important;
     padding-right: 5px;
     vertical-align: middle;
@@ -176,11 +173,14 @@ vertical-align: middle;
     position: relative;
     bottom: 20px;
     height: 5rem;
-    width: 5rem;
+    width: 8rem;
 }
 
 .producto >img {
-    box-shadow: 3px 3px 3px 3px #c2c2c2;
+    height:120px!important ;
+    width: 150px!important;
+    padding-bottom: 5px;
+    //box-shadow: 3px 3px 3px 3px #c2c2c2;
 }
 
 .detalle{
@@ -255,7 +255,8 @@ div.carrito img{
 .contener-columnaI{
     float: right;
     position: relative;
-    padding-left: 20px;
+    //paddin-left: 20px;
+    padding-left: 0px;
     text-align: right;
     justify-content: flex-end;
 }
@@ -263,6 +264,7 @@ div.carrito img{
     padding-left: 0px;
     padding-right: 30px;
 }
+
 /*
 *{
     font-family: 'MyriadProSemibold' !important;

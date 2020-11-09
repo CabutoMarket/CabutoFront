@@ -97,17 +97,7 @@ register(form){
           if(this.isEqual(form.nombre,form.apellido)){
             this.mensaje("Registro Fallido","Las problemas con nombre ","el nombre y apellido registrado son iguales");
           }else{
-            this.authService.addUser(formR).subscribe(data=> {
-              console.log("imprimiendo data",data, form)
-              if(data.valid == "OK"){
-                //this.mensaje("Registro","Registro exitoso","Registro Completado");
-                this.router.navigateByUrl('/registro-exitoso');
-              }else{
-                this.mensaje("Error", "No se ha podido completar el registro","El correo ya esta registrado");
-                this.router.navigateByUrl('/registro'); 
-              }
-          
-            })
+            this.showLoading(formR)
           }
         }else{
           this.mensaje("Registro Fallido","Las problemas con nombre ","Por favor ingrese un nombre y apellido de manera  correcta");         
@@ -123,6 +113,25 @@ register(form){
 
   
   
+}
+
+
+registroR(formR){
+  this.authService.addUser(formR).subscribe(data=> {
+    console.log("imprimiendo data",data, formR)
+    if(data.valid == "OK"){
+      //this.mensaje("Registro","Registro exitoso","Registro Completado");
+      this.router.navigateByUrl('/registro-exitoso');
+    }else if(data.valid == 'CED'){
+      this.mensaje("Error", "No se ha podido completar el registro","La cedula ya se encuentra registrada");
+      this.router.navigateByUrl('/registro'); 
+    }
+    else{
+      this.mensaje("Error", "No se ha podido completar el registro","El correo ya esta registrado");
+      this.router.navigateByUrl('/registro'); 
+    }
+
+  })
 }
 
 async mensaje(titulo:string,subtitulo:string,mensaje:string) {
@@ -219,17 +228,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     return str1.toUpperCase() === str2.toUpperCase()
 }
 
-cargar(){
-  var valor = 1;
-  /*while(valor < 7){
-     var dato = document.getElementById(String(valor));
-    console.log(dato);
-  }*/
-  var dato = document.getElementById(String(valor));
-  var d = dato.getAttribute('placeholder')
-  console.log(d)
-  dato.setAttribute('placeholder',"*");
-}
+
 //https://www.youtube.com/watch?v=dPUmskG_-y0
 //https://forum.ionicframework.com/t/how-i-can-change-my-app-name/20458/14
 
@@ -239,7 +238,7 @@ showLoading(form) {
     message: 'Loading.....'   
     }).then((loading) => {  
      loading.present();{
-      this.register(form);
+      this.registroR(form);
     } 
      setTimeout(() => {   
        loading.dismiss();  

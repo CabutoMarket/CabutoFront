@@ -1,7 +1,7 @@
 <ion-app style="--background: #2153FF !important;">
   <ion-menu style="--background: #2153FF !important;" menuId="main-menu" side="start" contentId="principal" class="menu">
     <div class="header-content">
-      <img src="../assets/img/avatar.png" alt="">
+      <img [src]="url ? url : '../assets/img/avatar.png'" alt="">
       <div class = "fullname">
         <h2 >{{name}}</h2>
         <h2 >{{lastname}}</h2>
@@ -39,7 +39,7 @@
       </div>
       <ion-footer>
         <ion-menu-toggle auto-hide="true">
-          <div class="sesion" (click)="showLoading()"> Cerrar Sesión</div>
+          <div class="sesion" (click)="initOrOut()">{{action}}</div>
         </ion-menu-toggle> 
       </ion-footer>
     </ion-content>

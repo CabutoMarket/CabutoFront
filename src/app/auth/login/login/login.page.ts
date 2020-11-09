@@ -6,6 +6,7 @@ import { AlertController, ToastController,Platform, ModalController } from '@ion
 import {ModalPage} from './../../../modal/modal.page';
 import {login} from  '../../../global'
 import { Storage } from '@ionic/storage';
+import {AppComponent} from  '../../../app.component'
 /*import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -41,6 +42,7 @@ export class LoginPage implements OnInit {
     private platform: Platform,
     public modalCtrl: ModalController,
     private storage: Storage,
+    private component: AppComponent,
     /*private nativeStorage: NativeStorage
     private afAuth: AngularFireAuth,
     private afAuth2: AngularFireAuthModule,
@@ -68,6 +70,11 @@ export class LoginPage implements OnInit {
 	if(form.correo == "" || form.contrasena == "" ){
     this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
   }else{
+    this.show(form)
+  }
+  }
+
+  verificarB(form){
     this.authService.VerificarUser(form).subscribe(data=> {
       console.log(data.valid)
       if (data.valid == "OK"){
@@ -80,14 +87,9 @@ export class LoginPage implements OnInit {
         this.storage.set('name', nombre);
         this.storage.set('apellido', apellido);
         this.storage.set('correo', form.correo);
-        
-        /*this.platform.ready().then(() => {
-          this.nativeStorage.setItem('user', {nombre: nombre, apellido: apellido, correo: form.correo})
-          .then(
-            () => console.log('Stored item!'),
-            error => console.error('Error storing item', error)
-          ); });*/
-        
+        this.component.name=nombre;
+        this.component.lastname = apellido;
+        this.component.action="Cerrar Sesión";
         this.router.navigateByUrl('/producto');
       }
       else{
@@ -97,8 +99,6 @@ export class LoginPage implements OnInit {
       
       })
   }
-  }
-
 
   async forgotPass() {
     const forgot = await this.alert.create({
@@ -171,12 +171,14 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       const usuario = res.user;
       var mail = usuario.email;
       var contra = usuario.displayName;
+      var foto = usuario.photoURL;
       const logR ={
         'cedula': " ",
         'email': mail,
         'nombre': contra,
-        'apellido': contra,
-        'contrasena': contra
+        'apellido': " ",
+        'contrasena': contra,
+        'confirmar': contra
 
       }
       
@@ -187,6 +189,17 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       this.authService.VerificarUser(log).subscribe(data=> {
         console.log(data.valid)
         if (data.valid == "OK"){
+          var nombre = data.nombre;
+          var apellido = data.apellido;
+          console.log(nombre)
+          console.log(apellido)
+          login.login = true;
+          this.storage.set('name', nombre);
+          this.storage.set('apellido', apellido);
+          this.storage.set('correo', mail);
+          this.component.name=nombre;
+          this.component.lastname = apellido;
+          this.component.action="Cerrar Sesión";
           this.router.navigateByUrl('/producto');
         }
         else{
@@ -194,8 +207,18 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
             
             console.log("imprimiendo data",data, logR)
             if(data.valid == "OK"){
-              this.mensaje("Registro","Registro","Registro exitoso");
-              this.router.navigateByUrl('/producto');
+              //this.mensaje("Registro","Registro","Registro exitoso");
+              var nombre = data.nombre;
+              var apellido = data.apellido;
+              console.log(nombre)
+              console.log(apellido)
+              login.login = true;
+              this.storage.set('name', nombre);
+              this.storage.set('apellido', apellido);
+              this.storage.set('correo', mail);
+              this.component.name=nombre;
+              this.component.lastname = apellido;
+              this.router.navigateByUrl('/registro-exitoso');
             }else{
               this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
               this.router.navigateByUrl('/login'); 
@@ -281,8 +304,21 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
                  }, 1000 );   
                 });  
               }
-      
+
+              
+  show(form){
+    this.loading.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present();{
+        this.verificarB(form);
+      }
+      setTimeout(() => { 
+        loading.dismiss();  
+      }, 1000 );  
+    }); 
   }
+}
 
 
 
