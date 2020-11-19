@@ -1,3 +1,4 @@
+
 <app-header></app-header>
 <ion-content>
   <div class="contenedor-page">
@@ -6,12 +7,12 @@
     <div class="contenedor">
       <div class="contenedor-searchbar">
         <ion-input placeholder="Zona" [(ngModel)]="textInput"></ion-input>
-        <div class="contenedor-img" (click)="showLoading2()">
+        <div class="contenedor-img" (click)="buscar()">
           <img src="../assets/img/buscar.png" class="icono" >
         </div>
       </div>
       <div class="contener-establecimiento" *ngFor="let establecimiento of establecimientos">
-        <div class="div-establecimiento">
+        <div class="div-establecimiento" (click)="presentModal(establecimiento.latitud, establecimiento.longitud)">
           <div class="contener-columnaI">
             <img src="../assets/img/locales.png">
           </div>

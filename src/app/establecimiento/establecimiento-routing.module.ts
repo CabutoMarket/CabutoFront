@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: EstablecimientoPage
+  },
+  {
+    path: 'modal-mapa',
+    loadChildren: () => import('./modal-mapa/modal-mapa.module').then( m => m.ModalMapaPageModule)
   }
 ];
 
