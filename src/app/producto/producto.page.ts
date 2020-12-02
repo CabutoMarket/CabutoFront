@@ -5,8 +5,9 @@ import { Observable, Subject } from 'rxjs';
   import {login} from  './../global'
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController} from '@ionic/angular';
+import { AlertController, LoadingController,ModalController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import {DetallesProductosPage} from '../detalles-productos/detalles-productos.page';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 //FrontFinal\final\CabutoFront\src\app\global.ts
 
@@ -28,6 +29,7 @@ export class ProductoPage implements OnInit {
     public productoService: ProductoService, private  router:  Router,private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
+    public modalCtrl: ModalController,
     //private nativeStorage: NativeStorage
 
   	) { }
@@ -232,6 +234,20 @@ export class ProductoPage implements OnInit {
                }, 2000 );   
               });  
             }
+
+  async detalle(imagen:string,nombre:string,descripcion:string,precio:string){
+    const modal = await this.modalCtrl.create({
+      component: DetallesProductosPage,
+      cssClass: 'DetallesProducto',
+      componentProps: {
+        'imagen': imagen,
+        'nombre': nombre,
+        'descripcion': descripcion,
+        'precio':precio
+      }
+    });
+    return await modal.present();
+  }
 }
 
   

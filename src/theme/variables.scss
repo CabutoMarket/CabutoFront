@@ -4,9 +4,19 @@
 /** Ionic CSS Variables **/
 :root {
 
+  .DetallesProducto .modal-wrapper{
+    padding-top: 50px;
+    width: 300px;
+    height: 380px; 
+    border-radius: 10px;
+    *{
+      font-family:'MyriadProSemibold' !important ;
+    }
+  }
+
   .custom-modal .modal-wrapper{
     // add modal styling here
-    //width: 600px;
+    //width: 600px
     //height: 200px; 
     *{
       font-family:'MyriadProSemibold' !important ;
