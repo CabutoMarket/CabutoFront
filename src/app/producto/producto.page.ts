@@ -129,12 +129,14 @@ export class ProductoPage implements OnInit {
          this.storage.get('name').then((nombre) => {
           console.log('Name is', nombre);
           if(login.login ==false && nombre == null ){
+            login.producto = true;
             this.router.navigateByUrl('/login');  
           }else{
             var cantidad = document.getElementById(id);
             console.log(cantidad)
             if(parseInt(cantidad.getAttribute('value')) > 0){
               this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
+              /* aqui debers enviar el producto y cantidad al carrito */
             }else{
               this.mensaje("Agregar Producto","No hay cantidad","No ha escogido la cantidad para agregar");
             }

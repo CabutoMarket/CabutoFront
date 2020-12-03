@@ -1,3 +1,6 @@
 export const login = {
-    login: false
+    login: false,
+    oferta:false,
+    producto:false,
+    combo:false,
   };

@@ -90,7 +90,12 @@ export class LoginPage implements OnInit {
         this.component.name=nombre;
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
-        this.router.navigateByUrl('/producto');
+        if(login.oferta == true && (login.producto =false)){
+          this.router.navigateByUrl('/ofertas');
+        }else if (login.producto == true){
+          this.router.navigateByUrl('/producto');
+        }
+        //this.router.navigateByUrl('/producto');
       }
       else{
         this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
