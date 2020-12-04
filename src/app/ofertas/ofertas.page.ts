@@ -5,7 +5,7 @@ import { AlertController, LoadingController,ModalController} from '@ionic/angula
 import { Storage } from '@ionic/storage';
 import {login} from  './../global';
 import { Router } from '@angular/router';
-
+import {CorrectoPage} from '../aviso/correcto/correcto.page';
 @Component({
   selector: 'app-ofertas',
   templateUrl: './ofertas.page.html',
@@ -57,7 +57,24 @@ cargaPantalla() {
         var cantidad = document.getElementById(id);
         console.log(cantidad)
         /* Aqui tienes que enviar los datos que se obtengan de cantidad para el carrito*/
+        this.mensajeCorrecto("Agregada al carrito","La oferta ha sido añadida al carrito")
       }
     });
   }
+
+
+  async mensajeCorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoOferta',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
+  
 }
+

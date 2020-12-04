@@ -7,6 +7,8 @@ import {ModalPage} from './../../../modal/modal.page';
 import {login} from  '../../../global'
 import { Storage } from '@ionic/storage';
 import {AppComponent} from  '../../../app.component'
+import {CorrectoPage} from '../../../aviso/correcto/correcto.page';
+import {IncorrectoPage} from '../../../aviso/incorrecto/incorrecto.page';
 /*import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -68,7 +70,8 @@ export class LoginPage implements OnInit {
   console.log(form.correo)
   console.log(form.contrasena)
 	if(form.correo == "" || form.contrasena == "" ){
-    this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
+    //this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
+    this.mensajeIncorrecto("Campos Incompletos","Por favor complete los campos");
   }else{
     this.show(form)
   }
@@ -98,7 +101,8 @@ export class LoginPage implements OnInit {
         //this.router.navigateByUrl('/producto');
       }
       else{
-        this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
+        //this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
+        this.mensajeIncorrecto("Acceso Incorrecto","Algo salió mal su correo o contraseña están incorrectos");
         this.router.navigateByUrl('/login');
       }
       
@@ -225,7 +229,8 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
               this.component.lastname = apellido;
               this.router.navigateByUrl('/registro-exitoso');
             }else{
-              this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
+              //this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
+              this.mensajeIncorrecto("Error de Registro","Parece que algo ha ocurrido");
               this.router.navigateByUrl('/login'); 
             }
           console.log(logR);
@@ -235,7 +240,8 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       })
       
       }).catch(err =>{
-        this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
+        //this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
+        this.mensajeIncorrecto("Fallo de conexión","Algo salio mal no se pudo iniciar sesión");
       })
     }
 
@@ -322,6 +328,31 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         loading.dismiss();  
       }, 1000 );  
     }); 
+  }
+
+  async mensajeCorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+        }
+      });
+      return await modal.present();
+  }
+    
+    
+  async mensajeIncorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+        }
+      });
+      return await modal.present();
   }
 }
 

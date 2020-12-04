@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController,ModalController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import {DetallesProductosPage} from '../detalles-productos/detalles-productos.page';
+import {CorrectoPage} from '../aviso/correcto/correcto.page';
+import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 //FrontFinal\final\CabutoFront\src\app\global.ts
 
@@ -36,9 +38,11 @@ export class ProductoPage implements OnInit {
 
   ngOnInit() {
 
-    this.ionViewDidLoad();
+    this.cargaPantalla();
 
   }
+
+  
 
  ionViewDidLoad(){
  	console.log("refresh");
@@ -53,6 +57,18 @@ export class ProductoPage implements OnInit {
       }) }
 
 
+      cargaPantalla() {  
+        this.loadingCtrl.create({  
+          message: 'Loading.....'   
+        }).then((loading) => {  
+          loading.present();{
+            this.ionViewDidLoad();
+        } 
+        setTimeout(() => {   
+          loading.dismiss();  
+        }, 1000 );   
+        });  
+        } 
 
     capturar(){
       this.verSeleccion = this.opcion;
@@ -78,12 +94,14 @@ export class ProductoPage implements OnInit {
        this.producto=data;
         console.log(this.producto);
         if(Object.keys(this.producto).length === 0){
-          this.mensaje("Producto No encontrado","Intente de nuevo","No se ha podido encontrar el producto")
+          //this.mensaje("Producto No encontrado","Intente de nuevo","No se ha podido encontrar el producto")
+          this.mensajeIncorrecto("Producto no encontrado","No se ha podido encontrar el producto, intente de nuevo")
         }
 
       },(error)=>{
         console.error(error);
-        this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
+        //this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
+        this.mensajeIncorrecto("Algo Salio mal","Fallo en la conexión")
       }) }
 
       agregar(id:string){
@@ -135,10 +153,12 @@ export class ProductoPage implements OnInit {
             var cantidad = document.getElementById(id);
             console.log(cantidad)
             if(parseInt(cantidad.getAttribute('value')) > 0){
-              this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
+              //this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
+              this.mensajeCorrecto("Agregar Producto","el producto se ha agregado al carrito");
               /* aqui debers enviar el producto y cantidad al carrito */
             }else{
-              this.mensaje("Agregar Producto","No hay cantidad","No ha escogido la cantidad para agregar");
+              //this.mensaje("Agregar Producto","No hay cantidad","No ha escogido la cantidad para agregar");
+              this.mensajeIncorrecto("Agregar Producto","No ha escogido la cantidad para agregar");
             }
           }
           });
@@ -163,42 +183,6 @@ export class ProductoPage implements OnInit {
       
         await alert.present();
       }
-      /*
-
-      loader() {  
-        this.loadingCtrl.create({  
-          message: 'Por favor espere',  
-          duration: 4000  
-        }).then((res) => { 
-          this.mensaje("Algo Esta pasando","Esta cargando","Fallo algo")  
-          res.present();  
-        res.onDidDismiss().then((dis) => {  
-          console.log('Loading dismissed! after four Seconds');  
-          this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
-        });  
-      });  
-    } 
-
-
-
-    showLoader()
-    {  
-         this.loaderToShow = this.loadingCtrl.create({  
-           message: 'Loader will Not Hide'  
-         }).then((res) => {   
-           res.present();  
-           res.onDidDismiss().then((dis) => {  
-             console.log('Loading dismissed!');  
-           });  
-         });   
-         this.hideLoader();  
-       }  
-       hideLoader() {  
-         setTimeout(() => {   
-           this.loadingCtrl.dismiss();  
-         }, 5000);   
-       }  
-        */
      
        showLoading(id:string) {  
         this.loadingCtrl.create({  
@@ -209,7 +193,7 @@ export class ProductoPage implements OnInit {
           } 
            setTimeout(() => {   
              loading.dismiss();  
-           }, 2000 );   
+           }, 1000 );   
           });  
         } 
         showLoading2() {  
@@ -221,7 +205,7 @@ export class ProductoPage implements OnInit {
             } 
              setTimeout(() => {   
                loading.dismiss();  
-             }, 2000 );   
+             }, 1000 );   
             });  
           } 
           showLoading3() {  
@@ -233,7 +217,7 @@ export class ProductoPage implements OnInit {
               } 
                setTimeout(() => {   
                  loading.dismiss();  
-               }, 2000 );   
+               }, 1000 );   
               });  
             }
 
@@ -250,6 +234,33 @@ export class ProductoPage implements OnInit {
     });
     return await modal.present();
   }
+
+  async mensajeCorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
+
+  async mensajeIncorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
 }
+
+
 
   

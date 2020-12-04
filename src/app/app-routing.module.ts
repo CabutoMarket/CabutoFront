@@ -60,6 +60,14 @@ const routes: Routes = [
     path: 'detalles-productos',
     loadChildren: () => import('./detalles-productos/detalles-productos.module').then( m => m.DetallesProductosPageModule)
   },
+  {
+    path: 'incorrecto',
+    loadChildren: () => import('./aviso/incorrecto/incorrecto.module').then( m => m.IncorrectoPageModule)
+  },
+  {
+    path: 'correcto',
+    loadChildren: () => import('./aviso/correcto/correcto.module').then( m => m.CorrectoPageModule)
+  },
 
 ];
 
