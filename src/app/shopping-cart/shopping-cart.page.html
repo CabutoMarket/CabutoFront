@@ -5,11 +5,11 @@
   <ion-col size=8 class="A_pagar_header">Total a Pagar:</ion-col>
   <ion-col size=4 class="A_pagar">$ 3,65</ion-col>
 </ion-row>
-<ion-list>
-  <ion-card>
+<ion-list >
+  <ion-card *ngFor="let productos of cart">
       <ion-row class="agregar">
         <ion-col size=3 class="col_foto_producto">
-          <ion-img src="../assets/img/deja.png" class="foto_producto"></ion-img>
+          <ion-img src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}" class="foto_producto"></ion-img>
         </ion-col>
         <ion-col size=9 class="detalle">
           <ion-row >
@@ -19,26 +19,24 @@
           </ion-row>
           <ion-row>
             <ion-card-title class="nombre_producto">
-              Deja
+              {{productos.nombre}}
             </ion-card-title>
           </ion-row>
           <ion-row>
             <ion-col size=8>
               <ion-row class="row_detalles">
                   <ion-button class="restar_content" color="medium" fill="clear">
-                    <ion-img src="../assets/img/restar.png" class="restar"></ion-img>
+                    <ion-img src="../assets/img/restar.png" class="restar" (click)= quitar(productos.nombre)></ion-img>
                   </ion-button>
-                  <ion-button class="cantidad" color="medium" fill="clear">
-                    20
-                  </ion-button>
+                  <input type="text" tag = "barra" name="" id="{{productos.nombre}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value  = "{{productos.cantidad}}" >
                   <ion-button  class="sumar_content" color="medium" fill="clear">
-                    <ion-img src="../assets/img/agregar.png" class="sumar"></ion-img>
+                    <ion-img src="../assets/img/agregar.png" class="sumar" (click)= agregar(productos.nombre)></ion-img>
                   </ion-button>
               </ion-row>
             </ion-col>
             <ion-col size=4 class= "col_unitario">
               <ion-label class="unitario">
-                $30,16
+                ${{productos.subtotal}}
               </ion-label>
             </ion-col> 
           </ion-row>

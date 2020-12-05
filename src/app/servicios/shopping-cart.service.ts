@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {Producto_Carrito} from '../modelo/producto_carrito';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,28 +25,26 @@ export class ShoppingCartService {
 
   constructor(private http: HttpClient) { }
 
-  addProduct(id: number):Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-          'Accept': 'application/json, text/plain',
-          'Content-Type':  'application/json',
-        })
-     };
+  addProduct(producto_carrito: Producto_Carrito):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
     console.log("sin transformar")
-    console.log(id)
-    const body = JSON.stringify(id);
+    console.log(producto_carrito)
+    const body = JSON.stringify(producto_carrito);
     console.log("Transformar")
     console.log(body)
-    return this.http.post(this.baseUrl+/productoCarrito/,id)
+    return this.http.post(this.baseUrl+'producto/',producto_carrito,{'headers':headers})
   }
 
   showCart(){
-    const httpOptions = {
-          headers: new HttpHeaders({
-              'Accept': 'application/json, text/plain',
-              'Content-Type':  'application/json',
-            })
-         };
+    let headers=
+         new HttpHeaders(
+           {
+              'Access-Control-Allow-Origin':'*',
+              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+           });
     return this.http.get(this.baseUrl+'carrito/');
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductoService} from '../servicios/producto.service';
 import {Producto} from '../modelo/producto';
+import {Producto_Carrito} from '../modelo/producto_carrito';
 import { Observable, Subject } from 'rxjs';
   import {login} from  './../global'
 import 'rxjs/add/operator/map';
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController,ModalController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import {DetallesProductosPage} from '../detalles-productos/detalles-productos.page';
+import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
@@ -26,20 +28,21 @@ export class ProductoPage implements OnInit {
     verSeleccion: string = '';
     n = 0;
     loaderToShow: any;
+    private correo:String="";
 
   constructor(
     public productoService: ProductoService, private  router:  Router,private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
     public modalCtrl: ModalController,
-    //private nativeStorage: NativeStorage
+    private shoppingCart: ShoppingCartService
 
   	) { }
 
   ngOnInit() {
 
     this.cargaPantalla();
-
+    this.getCorreo();
   }
 
   
@@ -47,9 +50,8 @@ export class ProductoPage implements OnInit {
  ionViewDidLoad(){
  	console.log("refresh");
     this.productoService.getProducto().subscribe(data => {
-        //console.log("esta es la data "+data["nombre"])
-       
-       this.producto=data;
+      //console.log("esta es la data "+data["nombre"])
+      this.producto=data;
       console.log(this.producto);
 
       },(error)=>{
@@ -151,10 +153,21 @@ export class ProductoPage implements OnInit {
             this.router.navigateByUrl('/login');  
           }else{
             var cantidad = document.getElementById(id);
-            console.log(cantidad)
             if(parseInt(cantidad.getAttribute('value')) > 0){
+              const prodxcant={
+                'nombre': id,
+                'cantidad': parseInt(cantidad.getAttribute('value')),
+                'correo': this.correo
+              }
+              this.shoppingCart.addProduct(prodxcant).subscribe(data =>{
+                if(data.valid == "OK"){
+                  this.mensajeCorrecto("Agregar Producto","El producto se ha agregado al carrito");
+                }else if (data.valid == "NOT"){
+                  this.mensajeIncorrecto("Agregar Producto","Ha ocurrido un error, revise su conexión");
+
+                }
+              })
               //this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
-              this.mensajeCorrecto("Agregar Producto","el producto se ha agregado al carrito");
               /* aqui debers enviar el producto y cantidad al carrito */
             }else{
               //this.mensaje("Agregar Producto","No hay cantidad","No ha escogido la cantidad para agregar");
@@ -164,6 +177,16 @@ export class ProductoPage implements OnInit {
           });
         
       }
+
+  getCorreo(){
+    console.log(login.login)  
+		this.storage.get('correo').then((val) => {
+      this.correo=val;
+      console.log('name: ',this.correo);
+      
+  });
+
+  }
 
       async mensaje(titulo:string,subtitulo:string,mensaje:string) {
         const alert = await this.alert.create({

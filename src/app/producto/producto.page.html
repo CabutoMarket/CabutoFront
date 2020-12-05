@@ -61,7 +61,7 @@
                     <div class="div-producto">
                         <div class="contener-columnaI">
                             <div class="producto">
-                                <img src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}"  >
+                                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}"  >
                             </div>
                             
                                 <h6 class="detalle" (click)=detalle(productos.imagen,productos.nombre,productos.descripcion,productos.precio)>Ver detalle</h6>
@@ -69,17 +69,17 @@
                         </div>
                         <div class="contener-columna">
                             <div class="nombre">
-                                <h6 class="nombre-producto" >{{productos.nombre}}</h6>
+                                <h6 class="nombre-producto" name="nombre">{{productos.nombre}}</h6>
                             </div>
                             <div class="producto-carrito">
                                 <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.nombre)>
-                                <input type="text" tag = "barra" name="" id="{{productos.nombre}}" disabled="true" class="estilo-cantidad" placeholder="0" value  = "0" >
+                                <input type="text" tag = "barra" name="cantidad" id="{{productos.nombre}}" disabled="true" class="estilo-cantidad" placeholder="0" value  = "0" >
                                 <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.nombre)>
                             </div>
                         </div>
                         <div class="contener-columna-centrar">
                             <div class="precio">
-                                <h4>${{productos.precio}}</h4>
+                                <h4 name="precio">${{productos.precio}}</h4>
                             </div>
                             <div class="carrito">
                                 <img src="../assets/img/carrito_activo.png" width="25" height="25" (click)=carrito(productos.nombre)>
