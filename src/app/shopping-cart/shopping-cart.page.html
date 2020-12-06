@@ -3,13 +3,13 @@
 <ion-content>
 <h2 class="Titulo">Carrito</h2>
 <ion-row class="Total">
-  <ion-col size=8 class="A_pagar_header">Total a Pagar:</ion-col>
-  <ion-col size=4 class="A_pagar">$ 3,65</ion-col>
+  <ion-col size=7 class="A_pagar_header">Total a Pagar:</ion-col>
+  <ion-col size=5 class="A_pagar">$ {{total}}</ion-col>
 </ion-row>
 
 
-<div>
-  <div class="contener-producto"  *ngFor="let productos of cart">
+<div *ngIf="prodLen > 0">
+  <div class="contener-producto"  *ngFor="let productos of products">
       <div class="div-producto">
         <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
           <div class="contener-columnaI">
@@ -32,6 +32,50 @@
           <div class="contener-columna-centrar">
               <div class="precio">
                   <h4 name="precio">${{productos.subtotal}}</h4>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div *ngIf="oferLen > 0">
+  <div class="contener-producto"  *ngFor="let ofert of oferts">
+      <div class="div-producto">
+        <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
+          <div class="contener-columnaI">
+              <div class="producto">
+                  <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{ofert.imagen_oferta}}"  >
+              </div>
+          </div>
+          <div class="contener-columna">
+              <div class="nombre">
+                  <h6 class="nombre-producto" name="nombre">{{ofert.nombre_oferta}}</h6>
+              </div>
+          </div>
+          <div class="contener-columna-centrar">
+              <div class="precio">
+                  <h4 name="precio">${{ofert.precio_oferta}}</h4>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div *ngIf="comdLen > 0">
+  <div class="contener-producto"  *ngFor="let combo of combos">
+      <div class="div-producto">
+        <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
+          <div class="contener-columnaI">
+              <div class="producto">
+                  <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{combo.imagen}}"  >
+              </div>
+          </div>
+          <div class="contener-columna">
+              <div class="nombre">
+                  <h6 class="nombre-producto" name="nombre">{{combo.nombre}}</h6>
+              </div>
+          </div>
+          <div class="contener-columna-centrar">
+              <div class="precio">
+                  <h4 name="precio">${{combo.precio}}</h4>
               </div>
           </div>
       </div>

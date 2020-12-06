@@ -15,6 +15,13 @@ import {HeaderComponent} from '../components/header/header.component'
 export class ShoppingCartPage implements OnInit {
 
 cart: {};
+products: {};
+oferts: {};
+combos: {};
+total:number=0;
+prodLen:number=0;
+oferLen:number=0;
+comLen:number=0;
 //constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
 constructor(private modalCtrl: ModalController,  private  router:  Router, 
   private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
@@ -28,7 +35,14 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   mostrarCarrito(){
     this.shoppingService.showCart().subscribe(data=>{
       this.cart=data;
-      console.log(this.cart);
+      this.products=this.cart[0]['productos'];
+      this.oferts=this.cart[0]['ofertas'];
+      this.combos=this.cart[0]['combos'];
+      console.log(this.cart[0]['productos']);
+      console.log(this.cart[0]['ofertas']);
+      console.log(this.cart[0]['combos']);
+      this.total=this.getTotal();
+      console.log(this.total);
       console.log("Ya salio alv");
     },(error)=>{
       console.error(error);
@@ -78,7 +92,53 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
   getTotal(){
-//    return this.cart.reduce((i,j) => j.price * j.amount, 0);
+    var ptotal=0;
+    var ototal=0;
+    var ctotal=0;
+    var ttotal=0;
+    
+    for (let i=0; i< this.getProductLen(); i++){
+      ptotal=ptotal + parseFloat((this.products[i]['subtotal']).toPrecision(4));
+      console.log(ptotal);
+    }
+    for (let i=0; i< this.getOfertaLen(); i++){
+      ototal=ototal + parseFloat((this.oferts[i]['precio_oferta']).toPrecision(4));
+      console.log(ototal);
+    }
+    for (let i=0; i< this.getComboLen(); i++){
+      ctotal=ctotal + parseFloat((this.combos[i]['precio']).toPrecision(4));
+      console.log(ctotal);
+    }
+    console.log(this.products[0]['subtotal'])
+    ttotal=ototal+ctotal+ptotal;
+    return ttotal;
+  }
+
+  getProductLen(){
+    var pindex=0;
+    for(let p in this.products){
+      pindex=+p+1;
+    }
+    this.prodLen=pindex;
+    return pindex;
+  }
+
+  getComboLen(){
+    var cindex=0;
+    for (let c in this.combos){
+      cindex=+c+1;
+    }
+    this.comLen=cindex;
+    return cindex;
+  }
+
+  getOfertaLen(){
+    var oindex=0;
+    for (let o in this.oferts){
+      oindex=+o+1;
+    }
+    this.oferLen=oindex;
+    return oindex;
   }
 
   checkout(){
