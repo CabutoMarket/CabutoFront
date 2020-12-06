@@ -42,8 +42,9 @@ export class HeaderComponent implements OnInit {
     if(login.login ==false && bool == null ){
       this.router.navigateByUrl('/login');
     }else{
-      let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
-      modal.present();
+      this.router.navigateByUrl('/shopping-cart');
+      /*let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
+      modal.present();*/
     }
     /*let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
     modal.present();*/
