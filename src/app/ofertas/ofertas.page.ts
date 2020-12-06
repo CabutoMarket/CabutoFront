@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import {login} from  './../global';
 import { Router } from '@angular/router';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
+import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
+
 @Component({
   selector: 'app-ofertas',
   templateUrl: './ofertas.page.html',
@@ -14,11 +16,13 @@ import {CorrectoPage} from '../aviso/correcto/correcto.page';
 export class OfertasPage implements OnInit {
 
   oferta : {};
+  private correo:String="";
   constructor(public productoService: ProductoService,public modalCtrl: ModalController, public loadingCtrl: LoadingController, 
     private alert: AlertController,private storage: Storage,private  router:  Router) { }
 
   ngOnInit() {
     this.cargaPantalla();
+    this.getCorreo();
   }
 
   ionViewDidLoad(){
@@ -56,8 +60,18 @@ cargaPantalla() {
       }else{
         var cantidad = document.getElementById(id);
         console.log(cantidad)
+        const oferta={
+          'nombre': id,
+          'correo': this.correo
+        }
+        this.productoService.addOferta(oferta).subscribe(data =>{
+          if(data.valid == "OK"){
+            this.mensajeCorrecto("Agregar Oferta","El producto se ha agregado al carrito");
+          }else if (data.valid == "NOT"){
+            this.mensajeIncorrecto("Agregar Oferta","Ha ocurrido un error, revise su conexión"); 
+          }  
+        })
         /* Aqui tienes que enviar los datos que se obtengan de cantidad para el carrito*/
-        this.mensajeCorrecto("Agregada al carrito","La oferta ha sido añadida al carrito")
       }
     });
   }
@@ -67,6 +81,28 @@ cargaPantalla() {
     const modal = await this.modalCtrl.create({
       component: CorrectoPage,
       cssClass: 'CorrectoOferta',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
+  getCorreo(){
+    console.log(login.login)  
+		this.storage.get('correo').then((val) => {
+      this.correo=val;
+      console.log('name: ',this.correo);
+      
+  });
+
+  }
+
+  async mensajeIncorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
       componentProps: {
         'titulo': titulo,
         'mensaje': mensaje

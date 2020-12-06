@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import {Producto} from '../modelo/producto';
+import {Oferta} from '../modelo/oferta';
+
 const httpOptions = {
           headers: new HttpHeaders({
               "Accept": "application/json, text/plain",
@@ -55,6 +56,19 @@ baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
    return this.http.get(this.baseUrl+'ofertasData/')      
          
      
+ }
+
+ addOferta(oferta: Oferta):Observable<any>{
+  const headers = {
+    'Accept': 'application/json, text/plain',
+    'Content-Type': 'application/json'
+  }
+  console.log("sin transformar")
+  console.log(oferta)
+  const body = JSON.stringify(oferta);
+  console.log("Transformar")
+  console.log(body)
+  return this.http.post(this.baseUrl+'ofertasData/',oferta,{'headers':headers})
  }
 
 
