@@ -13,10 +13,12 @@ import { Storage } from '@ionic/storage';
 })
 export class HeaderComponent implements OnInit {
 
-  carrito:String="../assets/img/carrito.png";
+  //public carrito:String="../assets/img/carrito.png";
+  public carrito:String="";
 
   changeCart(){
     this.carrito="../assets/img/carrito_activo.png";
+    this.openCart();
   }
 
 
@@ -24,7 +26,7 @@ export class HeaderComponent implements OnInit {
     private storage: Storage, 
     private shoppingCartPage: ShoppingCartPage,private  router:  Router,private alert: AlertController,
     private menuCtrl: MenuController
-    ) { }
+    ) {}
 
   ngOnInit() {}
 
@@ -42,6 +44,7 @@ export class HeaderComponent implements OnInit {
     if(login.login ==false && bool == null ){
       this.router.navigateByUrl('/login');
     }else{
+      this.carrito="../assets/img/carrito_activo.png";
       this.router.navigateByUrl('/shopping-cart');
       /*let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
       modal.present();*/

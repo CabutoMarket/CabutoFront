@@ -4,6 +4,7 @@ import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import { AlertController, LoadingController,ModalController} from '@ionic/angular';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
+import {HeaderComponent} from '../components/header/header.component'
 
 @Component({
   selector: 'app-shopping-cart',
@@ -16,7 +17,8 @@ export class ShoppingCartPage implements OnInit {
 cart: {};
 //constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
 constructor(private modalCtrl: ModalController,  private  router:  Router, 
-  private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController){}
+  private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
+  /*private header: HeaderComponent*/){}
 
   ngOnInit() {
 //    this.cart=this.productCartService.getCart();
@@ -86,6 +88,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
   regresar() {
     this.modalCtrl.dismiss();
+    
     this.router.navigateByUrl('/producto');
   }
 
