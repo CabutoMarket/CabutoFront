@@ -3,9 +3,12 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController} from '@ionic/angular';
+import { AlertController, LoadingController,ModalController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import {login} from  '././global'
+import {CorrectoPage} from './aviso/correcto/correcto.page';
+import {IncorrectoPage} from './aviso/incorrecto/incorrecto.page';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -20,6 +23,7 @@ export class AppComponent {
     private storage: Storage,
     private loadingCtrl: LoadingController,
     private alert: AlertController,
+    private modalCtrl: ModalController,
   ) {
     this.initializeApp();
   }
@@ -126,7 +130,7 @@ export class AppComponent {
       }).then((loading) => {  
        loading.present();{
         this.logout();
-        this.mensaje("Cerrar Sesion","", "Sesion cerrada exitosamente")
+        this.mensajeCorrecto("Cerrar Sesion", "Sesion cerrada exitosamente")
       } 
        setTimeout(() => {   
          loading.dismiss();  
@@ -166,5 +170,30 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     });
 
     await alert.present();
+  }
+
+  async mensajeCorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
+
+  async mensajeIncorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
   }
 }

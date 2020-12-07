@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   public carrito:String="";
 
   changeCart(){
-    this.carrito="../assets/img/carrito_activo.png";
+    //this.carrito="../assets/img/carrito_activo.png";
     this.openCart();
   }
 
@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
     if(login.login ==false && bool == null ){
       this.router.navigateByUrl('/login');
     }else{
-      this.carrito="../assets/img/carrito_activo.png";
+      //this.carrito="../assets/img/carrito.png";
       this.router.navigateByUrl('/shopping-cart');
       /*let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
       modal.present();*/
