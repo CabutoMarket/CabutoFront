@@ -48,6 +48,6 @@ export class ShoppingCartService {
     const body = JSON.stringify(auth);
     console.log("Transformar")
     console.log(body)
-    return this.http.post(this.baseUrl+'producto/',auth,{'headers':headers})
+    return this.http.post(this.baseUrl+'carrito/',auth,{'headers':headers})
   }
 }
