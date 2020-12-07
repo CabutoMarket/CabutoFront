@@ -46,8 +46,12 @@
 }
 
 .contener-columna-centrar{
-    //padding: left 0.2rem;
-    padding-right: 10px;
+    float: right;
+    position: relative;
+    width: 30%;
+    padding: 0px 0px 0px 0px;
+    text-align: right;
+    justify-content: flex-end;
 }
 
 .precio{
