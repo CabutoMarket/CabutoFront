@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Producto_Carrito} from '../modelo/producto_carrito';
-
+import { Auth } from '../auth/servicios/auth';
 const httpOptions = {
   headers: new HttpHeaders({
       "Accept": "application/json, text/plain",
@@ -38,13 +38,16 @@ export class ShoppingCartService {
     return this.http.post(this.baseUrl+'producto/',producto_carrito,{'headers':headers})
   }
 
-  showCart(){
-    let headers=
-         new HttpHeaders(
-           {
-              'Access-Control-Allow-Origin':'*',
-              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-           });
-    return this.http.get(this.baseUrl+'carrito/');
+  showCart(auth:Auth):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    console.log("sin transformar")
+    console.log(auth)
+    const body = JSON.stringify(auth);
+    console.log("Transformar")
+    console.log(body)
+    return this.http.post(this.baseUrl+'producto/',auth,{'headers':headers})
   }
 }

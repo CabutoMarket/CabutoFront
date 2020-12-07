@@ -4,7 +4,12 @@ import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import { AlertController, LoadingController,ModalController} from '@ionic/angular';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
-import {HeaderComponent} from '../components/header/header.component'
+import {HeaderComponent} from '../components/header/header.component';
+import { Storage } from '@ionic/storage';
+import {login} from  './../global';
+import { AuthService } from '../auth/servicios/auth.service';
+
+
 
 @Component({
   selector: 'app-shopping-cart',
@@ -22,34 +27,63 @@ total:number=0;
 prodLen:number=0;
 oferLen:number=0;
 comLen:number=0;
+private correo:string="";
 //constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
 constructor(private modalCtrl: ModalController,  private  router:  Router, 
   private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
+  private storage: Storage, private shoppingCart: ShoppingCartService, private auth: AuthService
   /*private header: HeaderComponent*/){}
 
   ngOnInit() {
 //    this.cart=this.productCartService.getCart();
       this.showLoading();
+      this.getCorreo();
   }
 
+/*  getClient(){
+      const user={
+        'correo': this.correo,
+        'contrasena': 'xxxxx'
+      };
+      this.auth.getUser(user).subscribe(data=>{
+      console.log(data)
+      });
+          //this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
+          /* aqui debers enviar el producto y cantidad al carrito */
+//  }
+
   mostrarCarrito(){
-    this.shoppingService.showCart().subscribe(data=>{
-      this.cart=data;
-      this.products=this.cart[0]['productos'];
-      this.oferts=this.cart[0]['ofertas'];
-      this.combos=this.cart[0]['combos'];
-      console.log(this.cart[0]['productos']);
-      console.log(this.cart[0]['ofertas']);
-      console.log(this.cart[0]['combos']);
-      this.total=this.getTotal();
-      console.log(this.total);
-      console.log("Ya salio alv");
-    },(error)=>{
-      console.error(error);
+    this.storage.get('name').then((nombre) => {
+      console.log('Name is', nombre);
+      if(login.login ==false && nombre == null ){
+        login.producto = true;
+        this.router.navigateByUrl('/login');  
+      }else{
+        const user={
+          'correo': this.correo,
+          'contrasena': 'xxxxx'
+        };
+        console.log(user)
+      this.shoppingService.showCart(user).subscribe(data=>{
+        this.cart=data;
+        this.products=this.cart[0]['productos'];
+        this.oferts=this.cart[0]['ofertas'];
+        this.combos=this.cart[0]['combos'];
+        console.log(this.cart[0]['productos']);
+        console.log(this.cart[0]['ofertas']);
+        console.log(this.cart[0]['combos']);
+        this.total=this.getTotal();
+        console.log(this.total);
+        console.log("Ya salio alv");
+      },(error)=>{
+        console.error(error);
       //this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
-      this.mensajeIncorrecto("Algo Salio mal","Fallo en la conexión")
-    })
+        this.mensajeIncorrecto("Algo Salio mal","Fallo en la conexión")
+      });
+      }
+    });
   }
+
 
   showLoading() {  
     this.loadingCtrl.create({  
@@ -150,6 +184,16 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     this.modalCtrl.dismiss();
     
     this.router.navigateByUrl('/producto');
+  }
+
+  getCorreo(){
+    console.log(login.login)  
+		this.storage.get('correo').then((val) => {
+      this.correo=val;
+      console.log('name: ',this.correo);
+      
+  });
+
   }
 
   async mensajeCorrecto(titulo:string,mensaje:string){
