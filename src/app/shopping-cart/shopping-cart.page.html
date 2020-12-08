@@ -1,6 +1,8 @@
 <app-header></app-header>
 <!---->
 <ion-content>
+  <div class ="btn_regresar"> <img src="../assets/img/atras.png" class="atras" (click)="regresar()"> </div>
+  <!--<ion-button style="--background: var(--ion-color-naranja-oscuro)" (click)= regresar()>Regresar</ion-button>-->
 <h2 class="Titulo">Carrito</h2>
 <ion-row class="Total">
   <ion-col size=7 class="A_pagar_header">Total a Pagar:</ion-col>
@@ -82,7 +84,7 @@
   </div>
 </div>
 <div class ="btns">
-  <div class ="btn-regresar"><ion-button style="--background: var(--ion-color-naranja-oscuro)" (click)= regresar()>Regresar</ion-button></div>
+  <div class ="btn-regresar"></div>
   <div class = "espacio"></div>
   <div class ="btns-pago"><img src="../assets/img/pagar.png" class="pagar"><!--</ion-img>--></div>
 </div>
