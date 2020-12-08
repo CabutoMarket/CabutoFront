@@ -84,20 +84,24 @@ cargaPantalla() {
       }else{
         var cantidad = document.getElementById(id);
         console.log(cantidad)
-        const oferta={
-          'nombre': id,
-          'correo': this.correo,
-          'cantidad': parseInt(cantidad.getAttribute('value'))
+        if(parseInt(cantidad.getAttribute('value')) > 0){
+          const oferta={
+            'nombre': id,
+            'correo': this.correo,
+            'cantidad': parseInt(cantidad.getAttribute('value'))
+          }
+          this.productoService.addOferta(oferta).subscribe(data =>{
+            if(data.valid == "OK"){
+              this.mensajeCorrecto("Agregar Oferta","El producto se ha agregado al carrito");
+            }else if (data.valid == "NOT"){
+              this.mensajeIncorrecto("Agregar Oferta","Ha ocurrido un error, revise su conexión"); 
+            }  
+          })
+          /* Aqui tienes que enviar los datos que se obtengan de cantidad para el carrito*/
+        }else{
+          this.mensajeIncorrecto("Agregar Producto","No ha escogido la cantidad para agregar");
         }
-        this.productoService.addOferta(oferta).subscribe(data =>{
-          if(data.valid == "OK"){
-            this.mensajeCorrecto("Agregar Oferta","El producto se ha agregado al carrito");
-          }else if (data.valid == "NOT"){
-            this.mensajeIncorrecto("Agregar Oferta","Ha ocurrido un error, revise su conexión"); 
-          }  
-        })
-        /* Aqui tienes que enviar los datos que se obtengan de cantidad para el carrito*/
-      }
+        }
     });
   }
 
