@@ -86,7 +86,8 @@ cargaPantalla() {
         console.log(cantidad)
         const oferta={
           'nombre': id,
-          'correo': this.correo
+          'correo': this.correo,
+          'cantidad': parseInt(cantidad.getAttribute('value'))
         }
         this.productoService.addOferta(oferta).subscribe(data =>{
           if(data.valid == "OK"){

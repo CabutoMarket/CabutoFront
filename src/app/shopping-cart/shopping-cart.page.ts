@@ -72,7 +72,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         console.log(this.cart[0]['productos']);
         console.log(this.cart[0]['ofertas']);
         console.log(this.cart[0]['combos']);
-        this.total=this.getTotal();
+        this.total=parseFloat(this.getTotal());
         console.log(this.total);
         console.log("Ya salio alv");
       },(error)=>{
@@ -98,28 +98,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       });  
     } 
 
-  decreaseCartItem(id:string){
-    var cantidad = document.getElementById(id);
-    var num  = cantidad.getAttribute('value')
-    if((parseInt(num)-1)< 0){
-      cantidad.setAttribute('value',String(parseInt(num)));
-    }else{
-      cantidad.setAttribute('value',String(parseInt(num)-1));
-    } 
-//    this.productCartService.decreaseProduct(product);
-  }
-
-  increaseCartItem(id:string){
-    var cantidad = document.getElementById(id);
-    console.log(cantidad)
-    var num  = cantidad.getAttribute('value')
-    console.log(typeof(num))
-        //if(isNaN(String(num)) == false){
-        //var num2 = parseInt(num)+1
-        //var numS=String(num2);
-    cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
-//    this.productCartService.addProduct(product);
-  }
 
   removeCartItem(product){
 //    this.productCartService.removeProduct(product);
@@ -145,7 +123,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
     console.log(this.products[0]['subtotal'])
     ttotal=ototal+ctotal+ptotal;
-    return ttotal;
+    return ttotal.toPrecision(4);
   }
 
   getProductLen(){
