@@ -51,6 +51,30 @@ cargaPantalla() {
   } 
 
   agregar(id:string){
+    //console.log(id)
+  
+    var cantidad = document.getElementById(id);
+    console.log(cantidad)
+    var num  = cantidad.getAttribute('value')
+    console.log(typeof(num))
+    //if(isNaN(String(num)) == false){
+    //var num2 = parseInt(num)+1
+    //var numS=String(num2);
+    cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
+    
+  }
+
+  quitar(id:string){
+    var cantidad = document.getElementById(id);
+    var num  = cantidad.getAttribute('value')
+    if((parseInt(num)-1)< 0){
+      cantidad.setAttribute('value',String(parseInt(num)));
+    }else{
+      cantidad.setAttribute('value',String(parseInt(num)-1));
+    } 
+  }
+
+  carrito(id:string){
     console.log("voy a enviar la oferta al carrito")
     this.storage.get('name').then((nombre) =>{
       console.log('Name is', nombre);
