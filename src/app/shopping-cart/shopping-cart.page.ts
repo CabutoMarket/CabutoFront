@@ -18,7 +18,8 @@ import { AuthService } from '../auth/servicios/auth.service';
 })
 
 export class ShoppingCartPage implements OnInit {
-
+cantidadInput:number=0;
+act:number=0;
 cart: {};
 products: {};
 oferts: {};
@@ -114,7 +115,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       console.log(ptotal);
     }
     for (let i=0; i< this.getOfertaLen(); i++){
-      ototal=ototal + parseFloat((this.oferts[i]['precio_oferta']).toPrecision(4));
+      ototal=ototal + parseFloat((this.oferts[i]['subtotal']).toPrecision(4));
       console.log(ototal);
     }
     for (let i=0; i< this.getComboLen(); i++){
@@ -200,28 +201,58 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     return await modal.present();
   }
 
-  agregar(id:string){
+  agregar(id:string,cant:string){
     //console.log(id)
-  
     var cantidad = document.getElementById(id);
     console.log(cantidad)
-    var num  = cantidad.getAttribute('value')
+    var num  = cantidad.getAttribute('value');
+    cantidad.setAttribute('value',String(parseInt(num)+1));
+    /*var cantidad = document.getElementById(id);
+    console.log(cantidad)
+    console.log(cant)
+    var place  = cantidad.getAttribute('placeholder')
+    var valor = parseInt(cant);
+    var total  = valor +1;
+    var valor2 =parseInt(place);
+    var total2 = valor2+1;
+    cantidad.setAttribute('placeholder',String(total2));
+    cantidad.setAttribute('value',String(total));*/
+    /*console.log(cantidad)
+    var st  = cantidad.getAttribute('value')
+    console.log(st)
+    var num = String(st)
+    console.log(num)
+    var place  = cantidad.getAttribute('placeholder')
     console.log(typeof(num))
+    var valor = parseInt(num);
+    var total  = valor +1;
+    var valor2 =parseInt(place);
+    var total2 = valor2+1;
+    cantidad.setAttribute('placeholder',String(total2));
     //if(isNaN(String(num)) == false){
     //var num2 = parseInt(num)+1
     //var numS=String(num2);
-    cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
+    cantidad.setAttribute('value',String(total));*/
     
   }
 
   quitar(id:string){
     var cantidad = document.getElementById(id);
     var num  = cantidad.getAttribute('value')
+
     if((parseInt(num)-1)< 0){
       cantidad.setAttribute('value',String(parseInt(num)));
     }else{
       cantidad.setAttribute('value',String(parseInt(num)-1));
     } 
+  }
+
+  transformar(id:string,cant:string){
+    console.log(cant)
+    var cantidad = document.getElementById(id);
+    var num  = cantidad.getAttribute('value')
+    var total  = parseInt(num)+ parseInt(cant)
+    cantidad.setAttribute('value',String(total));
   }
 }
 

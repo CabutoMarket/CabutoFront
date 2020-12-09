@@ -12,7 +12,7 @@
 
 <div *ngIf="prodLen > 0">
   <div class="contener-producto"  *ngFor="let productos of products">
-      <div class="div-producto">
+      <div class="div-producto" >
         <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
           <div class="contener-columnaI">
               <div class="producto">
@@ -28,6 +28,7 @@
             <div class="producto-carrito">
               <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.nombre_producto)>
               <input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value  = "{{productos.cantidad}}" >
+             <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{cantidadInput}}" value  = "{{cantidadInput}}" >-->
               <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.nombre_producto)>
           </div>
           </div>
@@ -41,7 +42,7 @@
 </div>
 <div *ngIf="oferLen > 0">
   <div class="contener-producto"  *ngFor="let ofert of oferts">
-      <div class="div-producto">
+      <div class="div-producto" (onload) ="transformar(ofert.nombre_oferta)" >
         <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
           <div class="contener-columnaI">
               <div class="producto">
@@ -55,9 +56,9 @@
           </div>
           <div class = "contenedor-centro">
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.nombre_oferta)>
-              <input type="text" tag = "barra" name="" id="{{ofert.nombre_oferta}}" disabled="true" class="cantidad" placeholder="{{ofert.cantidad_oferta}}" value  = "{{ofert.cantidad_oferta}}" >
-              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.nombre_oferta)>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.nombre_oferta,ofert.cantidad_oferta)>
+              <input type="text" tag = "barra" name="" id="{{ofert.nombre_oferta}}" disabled="true" class="cantidad" placeholder="{{ofert.cantidad_oferta}}" value="{{ofert.cantidad_oferta}}" >
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.nombre_oferta,ofert.cantidad_oferta)>
           </div>
           </div>
           <div class="contener-columna-centrar">
