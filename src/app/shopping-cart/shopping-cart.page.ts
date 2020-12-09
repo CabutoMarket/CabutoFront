@@ -123,6 +123,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
     console.log(this.products[0]['subtotal'])
     ttotal=ototal+ctotal+ptotal;
+    console.log(ttotal)
     return ttotal.toPrecision(4);
   }
 
