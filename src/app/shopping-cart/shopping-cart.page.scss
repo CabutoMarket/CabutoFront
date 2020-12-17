@@ -103,13 +103,14 @@ ion-row{
 }
 
 .cantidad{
-    width: 22px;
-    height: 22px;
+    width: 30px !important;
+    height: 30px !important;
     border-radius: 5px;
     border: solid 1px gray;
-    vertical-align: middle;
+    vertical-align: middle !important;
     font-size: 12px;
-    text-align: center;
+    text-align: center !important;
+    padding-top: 0.4rem;
 }
 
 .cantidad_content{
@@ -203,11 +204,11 @@ ion-input{
 
 .div-producto{
     display: flex;
-     flex-flow: row nowrap; /* Align on the same line */
-  justify-content: space-around; 
-vertical-align: middle;
-box-shadow: 5px 5px 5px 5px #c2c2c2;
-padding: 0px 0px 0px 0px;
+    flex-flow: row nowrap; /* Align on the same line */
+    justify-content: space-around; 
+    vertical-align: middle;
+    box-shadow: 5px 5px 5px 5px #c2c2c2;
+    padding: 0px 0px 0px 0px;
     border-radius: 20px;
     height: 130px;
 
@@ -220,6 +221,9 @@ padding: 0px 0px 0px 0px;
     // width: 100%;
     top:1.5rem;
     position: relative;
+    display: -webkit-inline-box;
+    text-align: center;
+    vertical-align: middle;
     //left: 12rem;
     //right: 30px;
     //bottom:150px;
@@ -314,8 +318,9 @@ vertical-align: middle;
     position: relative;
     //right:  3px;
     padding-left: 0rem;
-    //padding-right: 30px;
+    padding-right: 25px;
     text-align: center;
+    display: inline-flex;
     
 }
 

@@ -92,6 +92,8 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       }).then((loading) => {  
        loading.present();{
         this.mostrarCarrito();
+        this.total=this.getTotalCart();
+
       } 
        setTimeout(() => {   
          loading.dismiss();  
@@ -203,10 +205,18 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
   agregar(id:string,cant:string){
     //console.log(id)
-    var cantidad = document.getElementById(id);
-    console.log(cantidad)
-    var num  = cantidad.getAttribute('value');
-    cantidad.setAttribute('value',String(parseInt(num)+1));
+    /*var cantidad = document.getElementById(id);
+    console.log(cantidad.innerText)
+    cantidad.innerText=String(parseInt(cantidad.innerText)+1);*/
+    var cantidad= document.querySelectorAll('#'+id);
+    console.log(cantidad[0].innerHTML)
+    console.log(parseInt(cantidad[1].innerHTML)+1)
+    cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
+    var precio_unitario=this.getPrecioUnitario(id);
+    console.log(precio_unitario)
+    cantidad[1].innerHTML=String(parseInt(cantidad[1].innerHTML)+precio_unitario);
+    this.total=this.getTotalCart();
+    //cantidad.setAttribute('value',String(parseInt(cantidad.innerText)+1));
     /*var cantidad = document.getElementById(id);
     console.log(cantidad)
     console.log(cant)
@@ -237,14 +247,40 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
   quitar(id:string){
-    var cantidad = document.getElementById(id);
-    var num  = cantidad.getAttribute('value')
+    var cantidad= document.querySelectorAll('#'+id);
+    console.log(cantidad[0].innerHTML)
+    console.log(parseInt(cantidad[1].innerHTML)-1)
 
-    if((parseInt(num)-1)< 0){
-      cantidad.setAttribute('value',String(parseInt(num)));
+    //var cantidad = document.getElementById(id);
+    //var num  = cantidad.getAttribute('value')
+
+    if((parseInt(cantidad[0].innerHTML)-1)< 0){
+      cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
     }else{
-      cantidad.setAttribute('value',String(parseInt(num)-1));
+      cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
+      var precio_unitario=this.getPrecioUnitario(id);
+      console.log(precio_unitario)
+      cantidad[1].innerHTML=String(parseInt(cantidad[1].innerHTML)-precio_unitario);
+      this.total=this.getTotalCart();
     } 
+  }
+
+  getPrecioUnitario(id:string){
+    for (let i=0; i< this.getProductLen(); i++){
+      if(id===this.products[i]['nombre_producto']){
+        return this.products[i]['precio_producto'];
+      }
+    }
+    for (let i=0; i< this.getOfertaLen(); i++){
+      if(id===this.oferts[i]['nombre_oferta']){
+        return this.oferts[i]['precio_oferta'];
+      }
+    }
+    for (let i=0; i< this.getComboLen(); i++){
+      if(id===this.combos[i]['nombre']){
+        return this.combos[i]['precio'];
+      }
+    }
   }
 
   transformar(id:string,cant:string){
@@ -253,6 +289,19 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     var num  = cantidad.getAttribute('value')
     var total  = parseInt(num)+ parseInt(cant)
     cantidad.setAttribute('value',String(total));
+  }
+
+  getTotalCart(){
+    var total=document.getElementById('A_pagar');
+    var subtotal=document.getElementsByClassName('subtotal');
+    var tot=0;
+    for(var i=0;i<subtotal.length;i++){
+      console.log(subtotal[i])
+      tot=tot+parseFloat(subtotal[i].innerHTML);
+    }
+    //total.innerHTML=String(tot);
+    //this.total=tot;
+    return tot;
   }
 }
 
