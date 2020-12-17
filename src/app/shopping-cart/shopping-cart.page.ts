@@ -73,7 +73,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         console.log(this.cart[0]['productos']);
         console.log(this.cart[0]['ofertas']);
         console.log(this.cart[0]['combos']);
-        this.total=parseFloat(this.getTotal());
+        this.total=this.getTotal();
         console.log(this.total);
         console.log("Ya salio alv");
       },(error)=>{
@@ -92,8 +92,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       }).then((loading) => {  
        loading.present();{
         this.mostrarCarrito();
-        this.total=this.getTotalCart();
-
       } 
        setTimeout(() => {   
          loading.dismiss();  
@@ -113,21 +111,21 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     var ttotal=0;
     
     for (let i=0; i< this.getProductLen(); i++){
-      ptotal=ptotal + parseFloat((this.products[i]['subtotal']).toPrecision(4));
+      ptotal=ptotal + parseFloat((this.products[i]['subtotal']));
       console.log(ptotal);
     }
-    for (let i=0; i< this.getOfertaLen(); i++){
-      ototal=ototal + parseFloat((this.oferts[i]['subtotal']).toPrecision(4));
+    /*for (let i=0; i< this.getOfertaLen(); i++){
+      ototal=ototal + parseFloat((this.oferts[i]['subtotal']));
       console.log(ototal);
-    }
-    for (let i=0; i< this.getComboLen(); i++){
-      ctotal=ctotal + parseFloat((this.combos[i]['precio']).toPrecision(4));
+    }*/
+    /*for (let i=0; i< this.getComboLen(); i++){
+      ctotal=ctotal + parseFloat((this.combos[i]['precio']));
       console.log(ctotal);
-    }
+    }*/
     console.log(this.products[0]['subtotal'])
     ttotal=ototal+ctotal+ptotal;
     console.log(ttotal)
-    return ttotal.toPrecision(4);
+    return ttotal;
   }
 
   getProductLen(){
