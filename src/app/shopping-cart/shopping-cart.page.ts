@@ -114,14 +114,15 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       ptotal=ptotal + parseFloat((this.products[i]['subtotal']));
       console.log(ptotal);
     }
-    /*for (let i=0; i< this.getOfertaLen(); i++){
-      ototal=ototal + parseFloat((this.oferts[i]['subtotal']));
+    for (let i=0; i< this.getOfertaLen(); i++){
+      console.log(this.oferts[i]['subtotal_oferta']);
+      ototal=ototal + parseFloat((this.oferts[i]['subtotal_oferta']));
       console.log(ototal);
-    }*/
-    /*for (let i=0; i< this.getComboLen(); i++){
+    }
+    for (let i=0; i< this.getComboLen(); i++){
       ctotal=ctotal + parseFloat((this.combos[i]['precio']));
       console.log(ctotal);
-    }*/
+    }
     console.log(this.products[0]['subtotal'])
     ttotal=ototal+ctotal+ptotal;
     console.log(ttotal)
