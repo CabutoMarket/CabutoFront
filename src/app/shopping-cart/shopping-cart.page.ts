@@ -8,6 +8,7 @@ import {HeaderComponent} from '../components/header/header.component';
 import { Storage } from '@ionic/storage';
 import {login} from  './../global';
 import { AuthService } from '../auth/servicios/auth.service';
+import 'rxjs/add/operator/map';
 
 
 
@@ -36,9 +37,9 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   /*private header: HeaderComponent*/){}
 
   ngOnInit() {
+    this.showLoading(); 
+    this.getCorreo();
 //    this.cart=this.productCartService.getCart();
-      this.showLoading();
-      this.getCorreo();
   }
 
 /*  getClient(){
@@ -79,7 +80,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       },(error)=>{
         console.error(error);
       //this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
-        this.mensajeIncorrecto("Algo Salio mal","Fallo en la conexión")
+        this.mensajeIncorrecto("Algo Salio mal","Fallo en en el carrito.")
       });
       }
     });

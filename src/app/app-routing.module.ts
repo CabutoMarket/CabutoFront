@@ -26,7 +26,8 @@ const routes: Routes = [
   },
   {
     path: 'shopping-cart',
-    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
+    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule),
+  
   },
   {
     path: 'login',
