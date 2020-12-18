@@ -208,12 +208,11 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     console.log(cantidad.innerText)
     cantidad.innerText=String(parseInt(cantidad.innerText)+1);*/
     var cantidad= document.querySelectorAll('#'+id);
-    console.log(cantidad[0].innerHTML)
-    console.log(parseInt(cantidad[1].innerHTML)+1)
+    console.log(parseFloat(cantidad[1].innerHTML)+1)
     cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
     var precio_unitario=this.getPrecioUnitario(id);
     console.log(precio_unitario)
-    cantidad[1].innerHTML=String(parseInt(cantidad[1].innerHTML)+precio_unitario);
+    cantidad[1].innerHTML=String(parseFloat(cantidad[1].innerHTML)+precio_unitario);
     this.total=this.getTotalCart();
     //cantidad.setAttribute('value',String(parseInt(cantidad.innerText)+1));
     /*var cantidad = document.getElementById(id);
@@ -247,8 +246,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
   quitar(id:string){
     var cantidad= document.querySelectorAll('#'+id);
-    console.log(cantidad[0].innerHTML)
-    console.log(parseInt(cantidad[1].innerHTML)-1)
+    console.log(parseFloat(cantidad[1].innerHTML)-1)
 
     //var cantidad = document.getElementById(id);
     //var num  = cantidad.getAttribute('value')
@@ -259,7 +257,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
       var precio_unitario=this.getPrecioUnitario(id);
       console.log(precio_unitario)
-      cantidad[1].innerHTML=String(parseInt(cantidad[1].innerHTML)-precio_unitario);
+      cantidad[1].innerHTML=String(parseFloat(cantidad[1].innerHTML)-precio_unitario);
       this.total=this.getTotalCart();
     } 
   }
@@ -280,14 +278,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         return this.combos[i]['precio'];
       }
     }
-  }
-
-  transformar(id:string,cant:string){
-    console.log(cant)
-    var cantidad = document.getElementById(id);
-    var num  = cantidad.getAttribute('value')
-    var total  = parseInt(num)+ parseInt(cant)
-    cantidad.setAttribute('value',String(total));
   }
 
   getTotalCart(){
