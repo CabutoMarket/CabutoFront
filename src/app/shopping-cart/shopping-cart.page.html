@@ -46,7 +46,7 @@
 </div>
 <div *ngIf="oferLen > 0">
   <div class="contener-producto"  *ngFor="let ofert of oferts">
-      <div class="div-producto" (onload) ="transformar(ofert.nombre_oferta)" >
+      <div class="div-producto" >
         <div class = "borrar_content" (click)="eliminar()"><img src="../assets/img/borrar.png" class="borrar"></div>
           <div class="contener-columnaI">
               <div class="producto">
