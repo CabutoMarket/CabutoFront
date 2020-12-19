@@ -23,6 +23,8 @@ export class OfertasPage implements OnInit {
   ngOnInit() {
     this.cargaPantalla();
     this.getCorreo();
+    this.storage.set('producto', false);
+    this.storage.set('oferta', true);
   }
 
   ionViewDidLoad(){

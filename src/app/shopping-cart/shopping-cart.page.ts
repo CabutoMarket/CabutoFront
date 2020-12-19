@@ -29,6 +29,7 @@ total:number=0;
 prodLen:number=0;
 oferLen:number=0;
 comLen:number=0;
+public edited = true;
 private correo:string="";
 //constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
 constructor(private modalCtrl: ModalController,  private  router:  Router, 
@@ -68,15 +69,22 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         console.log(user)
       this.shoppingService.showCart(user).subscribe(data=>{
         this.cart=data;
-        this.products=this.cart[0]['productos'];
-        this.oferts=this.cart[0]['ofertas'];
-        this.combos=this.cart[0]['combos'];
-        console.log(this.cart[0]['productos']);
-        console.log(this.cart[0]['ofertas']);
-        console.log(this.cart[0]['combos']);
-        this.total=this.getTotal();
-        console.log(this.total);
-        console.log("Ya salio alv");
+        console.log(data)
+        console.log("esto va a tener el carrito");
+        console.log(this.cart[0]);
+        if(this.cart[0] != null){
+          this.products=this.cart[0]['productos'];
+          this.oferts=this.cart[0]['ofertas'];
+          this.combos=this.cart[0]['combos'];
+          console.log(this.cart[0]['productos']);
+          console.log(this.cart[0]['ofertas']);
+          console.log(this.cart[0]['combos']);
+          this.total=this.getTotal();
+          console.log(this.total);
+          console.log("Ya salio alv");
+        }else{
+          this.mensajeIncorrecto("Carrito vacío","No tiene nada en su carrito");
+        }
       },(error)=>{
         console.error(error);
       //this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
@@ -161,12 +169,34 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
   }
 
-
+/*
+  volver(){
+    this.storage.get('oferta').then((oferta) =>{});
+    this.storage.get('oferta').then((oferta) =>{});
+  }
+*/
   regresar() {
-    this.modalCtrl.dismiss();
+    //this.modalCtrl.dismiss();
     
     //this.router.navigateByUrl('/producto');
+    this.storage.get('producto').then((producto) => {
+      if(producto == true){
+        this.router.navigateByUrl('/producto');
+      }else{
+        this.storage.get('oferta').then((oferta) =>{
+          if(oferta == true){
+            this.router.navigateByUrl('/ofertas');
+          }else{
+            this.router.navigateByUrl('/producto');
+          }
+        });
+      }
+    });
+
+
+
   }
+
 
   getCorreo(){
     console.log(login.login)  
@@ -292,6 +322,12 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     //total.innerHTML=String(tot);
     //this.total=tot;
     return tot;
+  }
+
+
+  eliminar(){
+    console.log("vamos a elminar");
+    this.mensajeCorrecto("eliminar","vamor a eliminarnos");
   }
 }
 

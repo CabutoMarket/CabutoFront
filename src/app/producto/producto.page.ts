@@ -43,6 +43,8 @@ export class ProductoPage implements OnInit {
 
     this.cargaPantalla();
     this.getCorreo();
+    this.storage.set('oferta', false);
+    this.storage.set('producto', true);
   }
 
   
