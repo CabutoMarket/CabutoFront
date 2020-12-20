@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import {login} from  './../global';
 import { AuthService } from '../auth/servicios/auth.service';
 import 'rxjs/add/operator/map';
+import { stringify } from '@angular/compiler/src/util';
 
 
 
@@ -347,14 +348,52 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
 
-  eliminar(id:string){
+  eliminar(id:string,c:string,cantidad:string){
+    var tot=this.getTotalCart();
+    var subtot = 0
     var div= document.getElementById(id);
-    console.log(div)
-    console.log("Primer parametro ",id)
-    console.log("voy a esconger")
+    var total=document.getElementById('A_pagar');
+    var total2=document.getElementsByClassName('A_pagar');
+    var subtotal=document.getElementsByClassName('subtotal');
+    var compara = c.replace(/ /g, "_");
+    console.log(total)
+    console.log(total2[0].innerHTML)
+    console.log("estilo del display",div.style.display)
+    console.log("aqui esta el elemento que voy a eliminar",compara)
+    for(var i=0;i<subtotal.length;i++){
+      var name = subtotal[i].getAttribute('id')
+      //console.log(name)
+      if(String(name)== compara){
+        //console.log("esto es lo que voy a sumar",subtotal[i])
+        tot=tot-parseFloat(subtotal[i].innerHTML);
+        subtot=subtot+parseFloat(subtotal[i].innerHTML);
+        subtotal[i].innerHTML = "0";
+      }
+      //console.log(subtotal[i].getAttribute('id'))
+      //tot=tot+parseFloat(subtotal[i].innerHTML);
+    }
+    console.log(tot)
     //this.display = !this.display;
+    
+    const prodxcant={
+      'nombre': c,
+      'cantidad': parseInt(cantidad),
+      'correo': this.correo
+    }
+    this.shoppingCart.quitarCarrito(prodxcant).subscribe(data =>{
+      if(data.valid == "OK"){
+        this.mensajeCorrecto("Eliminación Exitosa","ha eliminado del carrito");
+      }else if (data.valid == "NOT"){
+        this.mensajeIncorrecto("No se pudo completar la operacion","Ha ocurrido un error, revise su conexión");
+
+      }else{
+        this.mensajeIncorrecto("No se pudo completar la operacion","Ha ocurrido un error, revise su conexión");
+      }
+    })
     div.style.display = "none";
-    console.log(this.display)
+    total2[0].innerHTML=""+tot+"";
+
+    console.log(prodxcant);
   }
   
 }

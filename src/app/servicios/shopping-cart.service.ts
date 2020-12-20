@@ -50,4 +50,17 @@ export class ShoppingCartService {
     console.log(body)
     return this.http.post(this.baseUrl+'carrito/',auth,{'headers':headers})
   }
+
+  quitarCarrito(producto_carrito: Producto_Carrito):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    console.log("sin transformar")
+    console.log(producto_carrito)
+    const body = JSON.stringify(producto_carrito);
+    console.log("Transformar")
+    console.log(body)
+    return this.http.post(this.baseUrl+'quitar/',producto_carrito,{'headers':headers})
+  }
 }
