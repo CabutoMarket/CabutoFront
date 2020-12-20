@@ -226,12 +226,21 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
   agregar(id:string){
+    var cantidad= document.querySelectorAll('#'+id);
+    console.log(cantidad);
+    //console.log(parseFloat(cantidad[1].innerHTML)+1)
+    cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
+    console.log(cantidad[0].innerHTML)
+    var precio_unitario=this.getPrecioUnitario(id);
+    console.log(precio_unitario);
+    cantidad[1].innerHTML=String(parseFloat(cantidad[1].innerHTML)+precio_unitario);
+    this.total=this.getTotalCart();
     //console.log(id)
     /*var cantidad = document.getElementById(id);
     console.log(cantidad.innerText)
     cantidad.innerText=String(parseInt(cantidad.innerText)+1);*/
     //this.tranformarId();
-    var cantidad= document.querySelectorAll('#'+id);
+    /*var cantidad= document.querySelectorAll('#'+id);
     console.log(cantidad);
     console.log(parseFloat(cantidad[1].innerHTML)+1)
     cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
@@ -239,7 +248,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     console.log(precio_unitario)
     cantidad[1].innerHTML=String(parseFloat(cantidad[1].innerHTML)+precio_unitario);
     this.total=this.getTotalCart();
-
+*/
 
     //cantidad.setAttribute('value',String(parseInt(cantidad.innerText)+1));
     /*var cantidad = document.getElementById(id);
@@ -272,8 +281,9 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
   quitar(id:string){
+    
     var cantidad= document.querySelectorAll('#'+id);
-    console.log(parseFloat(cantidad[1].innerHTML)-1)
+    //console.log(parseFloat(cantidad[1].innerHTML)-1)
 
     //var cantidad = document.getElementById(id);
     //var num  = cantidad.getAttribute('value')
