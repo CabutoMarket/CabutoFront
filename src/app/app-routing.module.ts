@@ -68,7 +68,11 @@ const routes: Routes = [
   {
     path: 'correcto',
     loadChildren: () => import('./aviso/correcto/correcto.module').then( m => m.CorrectoPageModule)
+  },  {
+    path: 'politicas',
+    loadChildren: () => import('./politicas/politicas.module').then( m => m.PoliticasPageModule)
   },
+
 
 ];
 

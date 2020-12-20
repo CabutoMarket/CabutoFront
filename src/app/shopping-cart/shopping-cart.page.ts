@@ -163,9 +163,31 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
 
   regresar() {
-    this.modalCtrl.dismiss();
-    
-    //this.router.navigateByUrl('/producto');
+    this.storage.get('producto').then((producto) => {
+      if(producto == true){
+        this.router.navigateByUrl('/producto');
+      }else{
+        this.storage.get('oferta').then((oferta) =>{
+          if(oferta == true){
+            this.router.navigateByUrl('/ofertas');
+          }else{
+            this.storage.get('politica').then((politica) =>{
+          	if(politica == true){
+            	this.router.navigateByUrl('/politicas');
+          	}else{
+            	this.storage.get('cupones').then((cupones) =>{
+          	   if(cupones == true){
+            	     this.router.navigateByUrl('/cupones');
+          	   }else{
+            	    this.router.navigateByUrl('/producto');
+          	   }
+                 });
+          	}
+            });
+          }
+        });
+      }
+    });
   }
 
   getCorreo(){
