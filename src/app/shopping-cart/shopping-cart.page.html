@@ -46,8 +46,8 @@
 </div>
 <div *ngIf="oferLen > 0">
   <div class="contener-producto"  *ngFor="let ofert of oferts">
-      <div class="div-producto" (onload) ="transformar(ofert.nombre_oferta)" >
-        <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
+      <div class="div-producto" id="{{ofert.id_oferta}}" >
+        <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar" (click)="eliminar(ofert.id_oferta)"></div>
           <div class="contener-columnaI">
               <div class="producto">
                   <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{ofert.imagen_oferta}}"  >
@@ -76,8 +76,8 @@
 </div>
 <div *ngIf="comdLen > 0">
   <div class="contener-producto"  *ngFor="let combo of combos">
-      <div class="div-producto">
-        <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
+      <div class="div-producto" id="{{combo.id_combo}}">
+        <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar" (click)="eliminar(combo.id_combo)"></div>
           <div class="contener-columnaI">
               <div class="producto">
                   <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{combo.imagen}}"  >
