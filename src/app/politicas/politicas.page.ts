@@ -26,7 +26,7 @@ export class PoliticasPage implements OnInit {
     this.storage.set('politica', true);
     //this.storage.set('cupones', false);
     //this.storage.set('producto', false);
-  } 
+  }  
 
   ionViewDidLoad(){
     console.log("refresh");
