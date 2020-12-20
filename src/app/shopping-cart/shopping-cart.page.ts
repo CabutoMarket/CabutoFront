@@ -175,7 +175,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
 
   regresar() {
-    
     console.log("Producto",this.producto,"Oferta",this.oferta,"Politica",this.politica,"Cupones",this.cupones);
     if(String(this.producto)== String("true")){
       //this.producto=String("false");

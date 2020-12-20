@@ -27,7 +27,6 @@ export class OfertasPage implements OnInit {
     //this.storage.set('producto', false);
     //this.storage.set('cupones', false);
     //this.storage.set('politica', false);
-    
   }
 
   ionViewDidLoad(){

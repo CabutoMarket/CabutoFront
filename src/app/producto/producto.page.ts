@@ -47,7 +47,6 @@ export class ProductoPage implements OnInit {
     //this.storage.set('oferta', false);
     //this.storage.set('politica', false);
     //this.storage.set('cupones', false);
-    
   }
 
   
