@@ -23,10 +23,11 @@ export class OfertasPage implements OnInit {
   ngOnInit() {
     this.cargaPantalla();
     this.getCorreo();
-    this.storage.set('producto', false);
-    this.storage.set('cupones', false);
-    this.storage.set('politica', false);
     this.storage.set('oferta', true);
+    //this.storage.set('producto', false);
+    //this.storage.set('cupones', false);
+    //this.storage.set('politica', false);
+    
   }
 
   ionViewDidLoad(){

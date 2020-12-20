@@ -43,10 +43,11 @@ export class ProductoPage implements OnInit {
 
     this.cargaPantalla();
     this.getCorreo();
-    this.storage.set('oferta', false);
-    this.storage.set('politica', false);
-    this.storage.set('cupones', false);
     this.storage.set('producto', true);
+    //this.storage.set('oferta', false);
+    //this.storage.set('politica', false);
+    //this.storage.set('cupones', false);
+    
   }
 
   

@@ -22,10 +22,10 @@ export class PoliticasPage implements OnInit {
     
   ngOnInit() {
     this.cargar();
-    this.storage.set('oferta', false);
+    //this.storage.set('oferta', false);
     this.storage.set('politica', true);
-    this.storage.set('cupones', false);
-    this.storage.set('producto', false);
+    //this.storage.set('cupones', false);
+    //this.storage.set('producto', false);
   }
 
   ionViewDidLoad(){

@@ -31,7 +31,12 @@ prodLen:number=0;
 oferLen:number=0;
 comLen:number=0;
 private correo:string="";
-display = true;
+private producto:string="";
+private oferta:string="";
+private cupones:string="";
+private politica:string="";
+
+
 //constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
 constructor(private modalCtrl: ModalController,  private  router:  Router, 
   private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
@@ -41,6 +46,11 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   ngOnInit() {
     this.showLoading(); 
     this.getCorreo();
+    this.getProducto();
+    this.getOferta();
+    this.getCupones()
+    this.getPolitica()
+    
 //    this.cart=this.productCartService.getCart();
   }
 
@@ -165,7 +175,29 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
 
   regresar() {
-    this.storage.get('producto').then((producto) => {
+    
+    console.log("Producto",this.producto,"Oferta",this.oferta,"Politica",this.politica,"Cupones",this.cupones);
+    if(String(this.producto)== String("true")){
+      //this.producto=String("false");
+      this.storage.set('producto', false);
+      this.router.navigateByUrl('/producto');
+    }else if (String(this.oferta)== String("true")){
+      //this.oferta=String("false");
+      this.storage.set('oferta', false);
+      this.router.navigateByUrl('/ofertas');
+    }else if (String(this.cupones)== String("true")){
+      //this.cupones=String("false");
+      this.storage.set('cupones', false)
+      this.router.navigateByUrl('/cupones');
+    }else if (String(this.politica)== String("true")){
+      //this.politica=String("false");
+      this.storage.set('politica', false);
+      this.router.navigateByUrl('/politicas');
+    }else {
+      this.router.navigateByUrl('/producto');
+      this.producto=String("true");
+    }
+    /*this.storage.get('producto').then((producto) => {
       if(producto == true){
         this.router.navigateByUrl('/producto');
       }else{
@@ -189,9 +221,30 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
           }
         });
       }
+    });*/
+  }
+
+  getProducto(){
+    this.storage.get('producto').then((producto) => {
+      this.producto=producto;
     });
   }
 
+  getOferta(){
+    this.storage.get('oferta').then((oferta) =>{
+      this.oferta=oferta;
+    });
+  }
+  getPolitica(){
+    this.storage.get('politica').then((politica) =>{
+      this.politica=politica;
+    });
+  }
+  getCupones(){
+    this.storage.get('cupones').then((cupones) =>{
+      this.cupones=cupones;
+    });
+  }
   getCorreo(){
     console.log(login.login)  
 		this.storage.get('correo').then((val) => {
