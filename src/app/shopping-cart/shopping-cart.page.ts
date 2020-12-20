@@ -416,19 +416,13 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     console.log("aqui esta el elemento que voy a eliminar",compara)
     for(var i=0;i<subtotal.length;i++){
       var name = subtotal[i].getAttribute('id')
-      //console.log(name)
       if(String(name)== compara){
-        //console.log("esto es lo que voy a sumar",subtotal[i])
         tot=tot-parseFloat(subtotal[i].innerHTML);
         subtot=subtot+parseFloat(subtotal[i].innerHTML);
         subtotal[i].innerHTML = "0";
       }
-      //console.log(subtotal[i].getAttribute('id'))
-      //tot=tot+parseFloat(subtotal[i].innerHTML);
     }
     console.log(tot)
-    //this.display = !this.display;
-    
     const prodxcant={
       'nombre': c,
       'cantidad': parseInt(cantidad),
