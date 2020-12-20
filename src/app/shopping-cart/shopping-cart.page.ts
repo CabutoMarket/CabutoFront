@@ -401,7 +401,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
   }
 
-
   eliminar(id:string,c:string,cantidad:string){
     var tot=this.getTotalCart();
     var subtot = 0
