@@ -29,16 +29,16 @@
           </div>
           <div class = "contenedor-centro">
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.nombre_producto)>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.id_unico)>
               <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value ={{productos.cantidad}} />-->
-              <div  id="{{productos.nombre_producto}}" class="cantidad" >{{productos.cantidad}}</div>
+              <div  id="{{productos.id_unico}}" class="cantidad" >{{productos.cantidad}}</div>
              <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{cantidadInput}}" value  = "{{cantidadInput}}" >-->
-              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.nombre_producto)>
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.id_unico)>
           </div>
           </div>
           <div class="contener-columna-centrar">
               <div class="precio">  
-                <p>$</p><h4 name="precio" class="subtotal" id="{{productos.nombre_producto}}">{{productos.subtotal}}</h4>
+                <p>$</p><h4 name="precio" class="subtotal" id="{{productos.id_unico}}">{{productos.subtotal}}</h4>
               </div>
           </div>
       </div>
@@ -60,15 +60,15 @@
           </div>
           <div class = "contenedor-centro">
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.nombre_oferta,ofert.cantidad_oferta)>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.id_unico)>
               <!--<input type="text" tag = "barra" name="" id="{{ofert.nombre_oferta}}" disabled="true" class="cantidad" placeholder="{{ofert.cantidad_oferta}}" value="{{ofert.cantidad_oferta}}" >-->
-              <div tag = "barra" id="{{ofert.nombre_oferta}}" class="cantidad">{{ofert.cantidad_oferta}}</div>
-              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.nombre_oferta,ofert.cantidad_oferta)>
+              <div tag = "barra" id="{{ofert.id_unico}}" class="cantidad">{{ofert.cantidad_oferta}}</div>
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.id_unico)>
           </div>
           </div>
           <div class="contener-columna-centrar">
               <div class="precio">
-                  <p>$</p><h4 name="precio" class="subtotal" id="{{ofert.nombre_oferta}}">{{ofert.subtotal_oferta}}</h4>
+                  <p>$</p><h4 name="precio" class="subtotal" id="{{ofert.id_unico}}">{{ofert.subtotal_oferta}}</h4>
               </div>
           </div>
       </div>
@@ -90,15 +90,15 @@
           </div>
           <div class = "contenedor-centro">
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.nombre_oferta)>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(combo.id_unico)>
               <!--<input type="text" tag = "barra" name="" id="{{ofert.nombre_oferta}}" disabled="true" class="cantidad" placeholder="{{ofert.cantidad_oferta}}" value  = "{{ofert.cantidad_oferta}}" >-->
-              <div tag = "barra" id="{{combo.nombre}}" class="cantidad">{{combo.cantidad_combo}}</div>
-              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.nombre_oferta)>
+              <div tag = "barra" id="{{combo.id_unico}}" class="cantidad">{{combo.cantidad_combo}}</div>
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(combo.id_unico)>
           </div>
           </div>
           <div class="contener-columna-centrar">
               <div class="precio">
-                  <p>$</p><h4 name="precio" class="subtotal" id="{{combo.nombre}}">{{combo.precio}}</h4>
+                  <p>$</p><h4 name="precio" class="subtotal" id="{{combo.id_unico}}">{{combo.precio}}</h4>
               </div>
           </div>
       </div>

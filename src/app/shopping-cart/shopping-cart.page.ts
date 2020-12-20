@@ -124,7 +124,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       ctotal=ctotal + parseFloat((this.combos[i]['precio']));
       console.log(ctotal);
     }
-    console.log(this.products[0]['subtotal'])
+    //console.log(this.products[0]['subtotal'])
     ttotal=ototal+ctotal+ptotal;
     console.log(ttotal)
     return ttotal;
@@ -203,18 +203,22 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     return await modal.present();
   }
 
-  agregar(id:string,cant:string){
+  agregar(id:string){
     //console.log(id)
     /*var cantidad = document.getElementById(id);
     console.log(cantidad.innerText)
     cantidad.innerText=String(parseInt(cantidad.innerText)+1);*/
+    //this.tranformarId();
     var cantidad= document.querySelectorAll('#'+id);
+    console.log(cantidad);
     console.log(parseFloat(cantidad[1].innerHTML)+1)
     cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
     var precio_unitario=this.getPrecioUnitario(id);
     console.log(precio_unitario)
     cantidad[1].innerHTML=String(parseFloat(cantidad[1].innerHTML)+precio_unitario);
     this.total=this.getTotalCart();
+
+
     //cantidad.setAttribute('value',String(parseInt(cantidad.innerText)+1));
     /*var cantidad = document.getElementById(id);
     console.log(cantidad)
@@ -265,17 +269,17 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
   getPrecioUnitario(id:string){
     for (let i=0; i< this.getProductLen(); i++){
-      if(id===this.products[i]['nombre_producto']){
+      if(id===this.products[i]['id_unico']){
         return this.products[i]['precio_producto'];
       }
     }
     for (let i=0; i< this.getOfertaLen(); i++){
-      if(id===this.oferts[i]['nombre_oferta']){
+      if(id===this.oferts[i]['id_unico']){
         return this.oferts[i]['precio_oferta'];
       }
     }
     for (let i=0; i< this.getComboLen(); i++){
-      if(id===this.combos[i]['nombre']){
+      if(id===this.combos[i]['id_unico']){
         return this.combos[i]['precio'];
       }
     }
@@ -293,6 +297,17 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     //this.total=tot;
     return tot;
   }
+
+  transformarId(id: string){
+    var ids=document.getElementsByClassName('cantidad');
+    for (let i=0; i< ids.length; i++){
+      if (id==ids[i].getAttribute('id')){
+        console.log(ids[i].getAttribute('id').replace(/ /g, "_"));
+        return ids[i].setAttribute('id', ids[i].getAttribute('id').replace(/ /g, "_"));
+      }
+    }
+  }
+  
 }
 
 
