@@ -30,6 +30,7 @@ prodLen:number=0;
 oferLen:number=0;
 comLen:number=0;
 private correo:string="";
+display = true;
 //constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
 constructor(private modalCtrl: ModalController,  private  router:  Router, 
   private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
@@ -226,6 +227,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
   agregar(id:string){
+    console.log("el id a recibir",id)
     var cantidad= document.querySelectorAll('#'+id);
     console.log(cantidad);
     //console.log(parseFloat(cantidad[1].innerHTML)+1)
@@ -281,7 +283,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
   quitar(id:string){
-    
+    console.log("el id a recibir",id)
     var cantidad= document.querySelectorAll('#'+id);
     //console.log(parseFloat(cantidad[1].innerHTML)-1)
 
@@ -338,6 +340,17 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         return ids[i].setAttribute('id', ids[i].getAttribute('id').replace(/ /g, "_"));
       }
     }
+  }
+
+
+  eliminar(id:string){
+    var div= document.getElementById(id);
+    console.log(div)
+    console.log("Primer parametro ",id)
+    console.log("voy a esconger")
+    //this.display = !this.display;
+    div.style.display = "none";
+    console.log(this.display)
   }
   
 }

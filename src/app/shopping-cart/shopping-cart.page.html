@@ -15,8 +15,8 @@
 
 <div *ngIf="prodLen > 0">
   <div class="contener-producto"  *ngFor="let productos of products">
-      <div class="div-producto" >
-        <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
+      <div class="div-producto" id="{{productos.id_producto}}"  >
+        <div class = "borrar_content" ><img src="../assets/img/borrar.png" class="borrar" (click)="eliminar(productos.id_producto)"></div>
           <div class="contener-columnaI">
               <div class="producto">
                   <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen_producto}}"  >
