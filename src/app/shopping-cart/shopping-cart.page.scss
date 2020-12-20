@@ -373,7 +373,7 @@ div.carrito img{
 
 
 .contenedor-centro{
-    padding-top: 3.5rem;
+    padding-top: 4rem;
     //padding-left: 22rem;
     float: center;
     position: relative;
@@ -382,6 +382,7 @@ div.carrito img{
     //text-align: center;
     justify-content: flex-end;
     width:5rem;
+    z-index: 9;
 }
 
 .btns{
