@@ -291,7 +291,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     console.log(precio_unitario);
     cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario).toFixed(2));
     this.total=this.getTotalCart();
-    this.total.toFixed(2);
     //console.log(id)
     /*var cantidad = document.getElementById(id);
     console.log(cantidad.innerText)
@@ -347,14 +346,20 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     //var num  = cantidad.getAttribute('value')
 
     if((parseInt(cantidad[0].innerHTML)-1)< 0){
-      cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
-    }else{
+      //cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
+      cantidad[0].innerHTML="0";
+      cantidad[1].innerHTML="0.00";
+    }
+    else if((parseInt(cantidad[0].innerHTML)-1)== 0){
+      cantidad[0].innerHTML="0";
+      cantidad[1].innerHTML="0.00";
+    }
+    else{
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
       var precio_unitario=this.getPrecioUnitario(id);
       console.log(precio_unitario)
       cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)-precio_unitario).toFixed(2));
       this.total=this.getTotalCart();
-      this.total.toFixed(2);
     } 
   }
 
@@ -437,7 +442,8 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       if(String(name)== compara){
         tot=tot-parseFloat(subtotal[i].innerHTML);
         subtot=subtot+parseFloat(subtotal[i].innerHTML);
-        subtotal[i].innerHTML = "0";
+        subtotal[i].innerHTML = "0.00";
+        
       }
     }
     console.log(tot)
