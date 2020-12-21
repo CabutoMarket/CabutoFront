@@ -72,6 +72,10 @@ const routes: Routes = [
     path: 'politicas',
     loadChildren: () => import('./politicas/politicas.module').then( m => m.PoliticasPageModule)
   },
+  {
+    path: 'pregunta',
+    loadChildren: () => import('./aviso/pregunta/pregunta.module').then( m => m.PreguntaPageModule)
+  },
 
 
 ];

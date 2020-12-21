@@ -4,6 +4,16 @@
 /** Ionic CSS Variables **/
 :root {
 
+  .pregunta .modal-wrapper{
+    padding-top: 50px;
+    width: 300px;
+    height: 200px; 
+    border-radius: 10px;
+    *{
+      font-family:'MyriadProSemibold' !important ;
+    }
+  }
+
   .DetallesProducto .modal-wrapper{
     padding-top: 50px;
     width: 300px;

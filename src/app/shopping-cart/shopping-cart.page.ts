@@ -10,6 +10,7 @@ import {login} from  './../global';
 import { AuthService } from '../auth/servicios/auth.service';
 import 'rxjs/add/operator/map';
 import { stringify } from '@angular/compiler/src/util';
+import {PreguntaPage} from '../aviso/pregunta/pregunta.page';
 
 
 
@@ -401,6 +402,23 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
   }
 
+  async mensajeEliminar(nombre:string,cantidad:string,div:object,valor:string,tot:string){
+    const modal = await this.modalCtrl.create({
+      component: PreguntaPage,
+      cssClass: 'pregunta',
+      componentProps: {
+        'nombre': nombre,
+        'cantidad': parseInt(cantidad),
+        'correo': this.correo,
+        'div': div,
+        'valor': valor,
+        'tot':tot,
+
+      }
+    });
+    return await modal.present();
+  }
+
   eliminar(id:string,c:string,cantidad:string){
     var tot=this.getTotalCart();
     var subtot = 0
@@ -410,7 +428,8 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     var subtotal=document.getElementsByClassName('subtotal');
     var compara = c.replace(/ /g, "_");
     console.log(total)
-    console.log(total2[0].innerHTML)
+    console.log(div,typeof(div))
+    console.log(total2[0].innerHTML,typeof(total2[0].innerHTML))
     console.log("estilo del display",div.style.display)
     console.log("aqui esta el elemento que voy a eliminar",compara)
     for(var i=0;i<subtotal.length;i++){
@@ -427,6 +446,8 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       'cantidad': parseInt(cantidad),
       'correo': this.correo
     }
+    this.mensajeEliminar(c,cantidad,div,total2[0].innerHTML,String(tot));
+    /*
     this.shoppingCart.quitarCarrito(prodxcant).subscribe(data =>{
       if(data.valid == "OK"){
         this.mensajeCorrecto("Eliminación Exitosa","ha eliminado del carrito");
@@ -440,7 +461,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     div.style.display = "none";
     total2[0].innerHTML=""+tot+"";
 
-    console.log(prodxcant);
+    console.log(prodxcant);*/
   }
   
 }

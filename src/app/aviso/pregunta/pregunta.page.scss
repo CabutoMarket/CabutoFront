@@ -1,0 +1,48 @@
+.btn-salir img{
+    height: 0.6rem;
+    width: 0.6rem;
+}
+
+
+.btn-salir{
+    text-align: right !important;
+    padding: 20px 20px 10px 10px;
+}
+
+
+.titulo{
+    padding-top: 0px;
+    //color:#0F195E !important;
+    font-size: 1rem;
+    color: var(--ion-color-azul-oscuro);
+}
+
+.btns{
+    padding-top: 1.5rem;
+    .btn-si{
+        float: left;
+        text-align: left;
+        justify-content: flex-end;
+        padding-left: 4rem;
+        //padding-right: 2rem;
+        //left: 5rem;
+        width: 4rem;
+        //right: 5rem;
+        
+    }
+
+    .btn-no{
+        float: right;
+        text-align: right;
+        justify-content: flex-end;
+        //padding-left: 2rem;
+        padding-right: 6rem;
+        //right: 5rem;
+        width: 4rem;
+        
+    }
+
+    ion-button{
+        --background: linear-gradient(to left,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
+    }
+}
