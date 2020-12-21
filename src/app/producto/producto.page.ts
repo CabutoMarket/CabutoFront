@@ -165,6 +165,8 @@ export class ProductoPage implements OnInit {
               }
               this.shoppingCart.addProduct(prodxcant).subscribe(data =>{
                 if(data.valid == "OK"){
+                  var number = this.getNumber();
+                this.actualizarNum(number);
                   this.mensajeCorrecto("Agregar Producto","El producto se ha agregado al carrito");
                 }else if (data.valid == "NOT"){
                   this.mensajeIncorrecto("Agregar Producto","Ha ocurrido un error, revise su conexión");
@@ -285,6 +287,29 @@ export class ProductoPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  actualizarNum(valor:string){
+    var tmp = valor;
+    console.log(tmp)
+    if(tmp == ""){
+      tmp = String(1);
+    }else{
+      var num = parseInt(tmp)
+      num = num+1;
+      tmp = String(num)
+    }
+    console.log("voy a cambiar el valor a",tmp)
+    this.storage.set('number', tmp);
+  }
+
+  getNumber(){
+    var dato = "";
+    this.storage.get('number').then((number) =>{
+     dato = number;
+    });
+    console.log("voy a devolver",dato)
+    return dato;
   }
 }
 

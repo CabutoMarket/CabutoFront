@@ -90,6 +90,7 @@ export class LoginPage implements OnInit {
         this.storage.set('name', nombre);
         this.storage.set('apellido', apellido);
         this.storage.set('correo', form.correo);
+        this.storage.set('number', "");
         this.component.name=nombre;
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
@@ -208,6 +209,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
           this.storage.set('name', nombre);
           this.storage.set('apellido', apellido);
           this.storage.set('correo', mail);
+          this.storage.set('number', "");
           this.component.name=nombre;
           this.component.lastname = apellido;
           this.component.action="Cerrar Sesión";
@@ -227,6 +229,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
               this.storage.set('name', nombre);
               this.storage.set('apellido', apellido);
               this.storage.set('correo', mail);
+              this.storage.set('number', "");
               this.component.name=nombre;
               this.component.lastname = apellido;
               this.router.navigateByUrl('/registro-exitoso');

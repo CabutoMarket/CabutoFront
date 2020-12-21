@@ -22,14 +22,16 @@ export class HeaderComponent implements OnInit {
     this.openCart();
   }
 
-
+  public number : string="";
   constructor(private modalCtrl: ModalController,
     private storage: Storage, 
     private shoppingCartPage: ShoppingCartPage,private  router:  Router,private alert: AlertController,
     private menuCtrl: MenuController, private loadingCtrl: LoadingController
     ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.number = this.getNumber();
+  }
 
   async openCart(){
     var bool =false
@@ -75,6 +77,13 @@ export class HeaderComponent implements OnInit {
   }
 
   
-
+  getNumber(){
+    var dato = "";
+    this.storage.get('number').then((number) =>{
+     dato = number;
+    });
+    console.log("voy a devolver",dato)
+    return dato;
+  }
 
 }
