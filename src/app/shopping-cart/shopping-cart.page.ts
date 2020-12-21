@@ -285,12 +285,13 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     console.log("el id a recibir",id)
     var cantidad= document.querySelectorAll('#'+id);
     console.log("Esto obtengo del query",cantidad);
-    //console.log(parseFloat(cantidad[1].innerHTML)+1)
+    console.log("esto es lo que voy a cambiar",cantidad[0].innerHTML)
     cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
-    console.log(cantidad[0].innerHTML)
+    console.log("esta es la cantidad",cantidad[0].innerHTML)
     var precio_unitario=this.getPrecioUnitario(id);
-    console.log(precio_unitario);
+    console.log("Este sería el precio unitario",precio_unitario);
     cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario).toFixed(2));
+    console.log("Este es el precio final",cantidad[1].innerHTML);
     this.total=this.getTotalCart();
     //console.log(id)
     /*var cantidad = document.getElementById(id);

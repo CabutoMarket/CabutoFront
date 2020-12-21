@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     this.openCart();
   }
 
-  public number : number=0;
+  public number :string= "";
   constructor(private modalCtrl: ModalController,
     private storage: Storage, 
     private shoppingCartPage: ShoppingCartPage,private  router:  Router,private alert: AlertController,
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.number = parseInt(this.getNumber());
+    this.number = this.getNumber();
   }
 
   async openCart(){
