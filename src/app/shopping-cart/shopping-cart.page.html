@@ -29,7 +29,7 @@
           </div>
           <div class = "contenedor-centro">
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.id_unico)>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.id_unico,productos.cantidad)>
               <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value ={{productos.cantidad}} />-->
               <div  id="{{productos.id_unico}}" class="cantidad" >{{productos.cantidad}}</div>
              <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{cantidadInput}}" value  = "{{cantidadInput}}" >-->
@@ -53,14 +53,14 @@
                   <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{ofert.imagen_oferta}}"  >
               </div>
           </div>
-          <div class="contener-columna">  
+          <div class="contener-columna"> 
               <div class="nombre">
                   <h6 class="nombre-producto" name="nombre">{{ofert.nombre_oferta}}</h6>
               </div>
           </div>
           <div class = "contenedor-centro">
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.id_unico)>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.id_unico,ofert.cantidad_oferta)>
               <!--<input type="text" tag = "barra" name="" id="{{ofert.nombre_oferta}}" disabled="true" class="cantidad" placeholder="{{ofert.cantidad_oferta}}" value="{{ofert.cantidad_oferta}}" >-->
               <div tag = "barra" id="{{ofert.id_unico}}" class="cantidad">{{ofert.cantidad_oferta}}</div>
               <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.id_unico)>
