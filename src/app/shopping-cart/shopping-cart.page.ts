@@ -407,7 +407,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
   }
 
-  async mensajeEliminar(nombre:string,cantidad:string,div:object,valor:string,tot:string){
+  async mensajeEliminar(nombre:string,cantidad:string,div:object,valor:object,tot:string,subtotal:object,compara:string){
     const modal = await this.modalCtrl.create({
       component: PreguntaPage,
       cssClass: 'pregunta',
@@ -418,7 +418,8 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         'div': div,
         'valor': valor,
         'tot':tot,
-
+        'subtotal':subtotal,
+        'compara':compara,
       }
     });
     return await modal.present();
@@ -426,33 +427,38 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
   eliminar(id:string,c:string,cantidad:string){
     var tot=this.getTotalCart();
-    var subtot = 0
+    var pos = 0;
+    var subtot = 0;
     var div= document.getElementById(id);
     var total=document.getElementById('A_pagar');
     var total2=document.getElementsByClassName('A_pagar');
     var subtotal=document.getElementsByClassName('subtotal');
     var compara = c.replace(/ /g, "_");
     console.log(total)
-    console.log(div,typeof(div))
-    console.log(total2[0].innerHTML,typeof(total2[0].innerHTML))
+    console.log("Esto voy a enviar ",div,typeof(div))
+    console.log("Estoy voy a enviarlo",total2[0].innerHTML,typeof(total2[0]))
     console.log("estilo del display",div.style.display)
     console.log("aqui esta el elemento que voy a eliminar",compara)
+    
     for(var i=0;i<subtotal.length;i++){
       var name = subtotal[i].getAttribute('id')
       if(String(name)== compara){
         tot=tot-parseFloat(subtotal[i].innerHTML);
         subtot=subtot+parseFloat(subtotal[i].innerHTML);
-        subtotal[i].innerHTML = "0.00";
-        
+        pos = i;
+        //subtotal[i].innerHTML = "0";
+        console.log("esto voy a encerar",subtotal[i].innerHTML)
       }
     }
+    //console.log("esta posicion", pos);
     console.log(tot)
+    //total2[0].innerHTML=""+tot+"";
     const prodxcant={
       'nombre': c,
       'cantidad': parseInt(cantidad),
       'correo': this.correo
     }
-    this.mensajeEliminar(c,cantidad,div,total2[0].innerHTML,String(tot));
+    this.mensajeEliminar(c,cantidad,div,total2[0],String(tot),subtotal,String(pos));
     /*
     this.shoppingCart.quitarCarrito(prodxcant).subscribe(data =>{
       if(data.valid == "OK"){

@@ -53,19 +53,22 @@ export class PreguntaPage implements OnInit {
     var div = this.navParams.get('div');
     var tot = this.navParams.get('tot');
     var total =this.navParams.get('valor');
+    var subtotal= this.navParams.get("subtotal");
+    var compara = this.navParams.get("compara");
+    var subtot = 0;
+    console.log("ahora esto en el otro tsd",div)
+    console.log("aqui estpa el totla a pagar",total)
 
     const prodxcant={
       'nombre': nombre,
       'cantidad': parseInt(cantidad),
       'correo': correo
     }
-
-    
-
     this.shoppingCart.quitarCarrito(prodxcant).subscribe(data =>{
       if(data.valid == "OK"){
         div.style.display = "none";
-        total=""+tot+"";
+        total.innerHTML=""+tot+"";
+        subtotal[parseInt(compara)].innerHTML = "0.00";
         this.mensajeCorrecto("Eliminación Exitosa","ha eliminado del carrito");
       }else if (data.valid == "NOT"){
         this.mensajeIncorrecto("No se pudo completar la operacion","Ha ocurrido un error, revise su conexión");
