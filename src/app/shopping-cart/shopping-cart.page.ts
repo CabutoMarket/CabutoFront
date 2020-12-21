@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from  "@angular/router";
 import {ShoppingCartService} from '../servicios/shopping-cart.service';
-import { AlertController, LoadingController,ModalController} from '@ionic/angular';
+import { AlertController, LoadingController,ModalController, NavController} from '@ionic/angular';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 import {HeaderComponent} from '../components/header/header.component';
@@ -41,7 +41,8 @@ private politica:string="";
 //constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
 constructor(private modalCtrl: ModalController,  private  router:  Router, 
   private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
-  private storage: Storage, private shoppingCart: ShoppingCartService, private auth: AuthService
+  private storage: Storage, private shoppingCart: ShoppingCartService, private auth: AuthService,
+  private navCtrl: NavController
   /*private header: HeaderComponent*/){}
 
   ngOnInit() {
