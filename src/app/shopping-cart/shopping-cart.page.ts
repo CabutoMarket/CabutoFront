@@ -308,7 +308,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
     var precio_unitario=this.getPrecioUnitario(id);
       console.log("Este sería el precio unitario",precio_unitario);
-      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario).toFixed(2));
+      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario));
       console.log("Este es el precio final",cantidad[1].innerHTML);
       this.total=this.getTotalCart();
     //console.log(id)
@@ -378,7 +378,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
       var precio_unitario=this.getPrecioUnitario(id);
       console.log(precio_unitario)
-      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)-precio_unitario).toFixed(2));
+      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)-precio_unitario));
       this.total=this.getTotalCart();
     } 
   }
