@@ -57,8 +57,8 @@
                 </div>
             </div> -->
             <div>
-                <div class="contener-producto"  *ngFor="let productos of producto">
-                    <div class="div-producto">
+                <div class="contener-producto"  *ngFor="let productos of producto" >
+                    <div class="div-producto" (onload)="cargarNum(productos.nombre)">
                         <div class="contener-columnaI">
                             <div class="producto">
                                 <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}"  >

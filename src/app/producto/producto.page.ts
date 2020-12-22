@@ -29,6 +29,7 @@ export class ProductoPage implements OnInit {
     n = 0;
     loaderToShow: any;
     private correo:String="";
+    public cantidad:string="0";
 
   constructor(
     public productoService: ProductoService, private  router:  Router,private alert: AlertController,
@@ -165,8 +166,9 @@ export class ProductoPage implements OnInit {
               }
               this.shoppingCart.addProduct(prodxcant).subscribe(data =>{
                 if(data.valid == "OK"){
+                  this.storage.set(id,parseInt(cantidad.getAttribute('value')));
                   var number = this.getNumber();
-                this.actualizarNum(number);
+                  this.actualizarNum(number);
                   this.mensajeCorrecto("Agregar Producto","El producto se ha agregado al carrito");
                 }else if (data.valid == "NOT"){
                   this.mensajeIncorrecto("Agregar Producto","Ha ocurrido un error, revise su conexión");
@@ -310,6 +312,32 @@ export class ProductoPage implements OnInit {
     });
     console.log("voy a devolver",dato)
     return dato;
+  }
+
+  getNum(id:string){
+    var dato = "";
+    this.storage.get(id).then((data) =>{
+      dato = data;
+     });
+    return dato;
+  }
+
+  cargarNum(id:string){
+    var cantidad = document.getElementById(id);
+    console.log(cantidad)
+    var num  = cantidad.getAttribute('value')
+    console.log(typeof(num))
+    var num =this.getNum(id);
+    console.log(num)
+    if(num != null){
+      console.log("existen datos :'v")
+      cantidad.setAttribute('value',String(parseInt(num)));
+    }else{
+      console.log("no existe datos :C")
+      cantidad.setAttribute('value',"0");
+    }
+        
+
   }
 }
 
