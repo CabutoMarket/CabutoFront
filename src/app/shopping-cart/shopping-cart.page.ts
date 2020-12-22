@@ -27,7 +27,7 @@ cart: {};
 products: {};
 oferts: {};
 combos: {};
-total:number=0.00;
+total:any=0.00;
 prodLen:number=0;
 oferLen:number=0;
 comLen:number=0;
@@ -85,10 +85,10 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         this.products=this.cart[0]['productos'];
         this.oferts=this.cart[0]['ofertas'];
         this.combos=this.cart[0]['combos'];
+        this.total=this.getTotal();
         console.log(this.cart[0]['productos']);
         console.log(this.cart[0]['ofertas']);
         console.log(this.cart[0]['combos']);
-        this.total=this.getTotal();
         console.log(this.total);
         console.log("Ya salio alv");
       },(error)=>{
@@ -141,7 +141,9 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     //console.log(this.products[0]['subtotal'])
     ttotal=ototal+ctotal+ptotal;
     console.log(ttotal)
-    return ttotal;
+    return ttotal.toFixed(2);
+    
+    
   }
 
   getProductLen(){
@@ -283,10 +285,11 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
   agregar(id:string,cantida:string){
     console.log("el id a recibir",id)
+    var precio_unitario=this.getPrecioUnitario(id);
     var cantidad= document.querySelectorAll('#'+id);
     console.log("Esto obtengo del query",cantidad);
     console.log("esto es lo que voy a cambiar",cantidad[0].innerHTML)
-    if(parseInt(cantidad[0].innerHTML)>0){
+    if(parseInt(cantidad[0].innerHTML)>=0){
       console.log("tengo una cantidad")
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
       console.log("esta es la cantidad",cantidad[0].innerHTML)
@@ -306,11 +309,15 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       console.log("Este es el precio final",cantidad[1].innerHTML);
       this.total=this.getTotalCart();*/
     }
-    var precio_unitario=this.getPrecioUnitario(id);
+
+    var subtotal=precio_unitario*parseInt(cantidad[0].innerHTML);
+    if(precio_unitario<=subtotal){
       console.log("Este sería el precio unitario",precio_unitario);
-      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario));
+      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario).toFixed(2));
       console.log("Este es el precio final",cantidad[1].innerHTML);
       this.total=this.getTotalCart();
+    }
+    
     //console.log(id)
     /*var cantidad = document.getElementById(id);
     console.log(cantidad.innerText)
@@ -358,6 +365,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
   quitar(id:string){
     console.log("el id a recibir",id)
+    var precio_unitario=this.getPrecioUnitario(id);
     var cantidad= document.querySelectorAll('#'+id);
     console.log("esto obtengo del query",cantidad)
     //console.log(parseFloat(cantidad[1].innerHTML)-1)
@@ -376,10 +384,12 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
     else{
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
-      var precio_unitario=this.getPrecioUnitario(id);
+      var subtotal=precio_unitario*parseInt(cantidad[0].innerHTML);
       console.log(precio_unitario)
-      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)-precio_unitario));
-      this.total=this.getTotalCart();
+      if (precio_unitario <= subtotal){
+        cantidad[1].innerHTML=String(String((parseFloat(cantidad[1].innerHTML)-precio_unitario).toFixed(2)));
+        this.total=this.getTotalCart();
+      }
     } 
   }
 
@@ -413,8 +423,14 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
     //total.innerHTML=String(tot);
     //this.total=tot;
+    if(tot==0){
+      this.total=0.00;
+      return 0.00;
+
+    }
     console.log(tot)
-    return tot;
+    
+    return tot.toFixed(2);
   }
 
   transformarId(id: string){
@@ -446,7 +462,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
   eliminar(id:string,c:string,cantidad:string){
-    var tot=this.getTotalCart();
+    var tot:any=this.getTotalCart();
     var pos = 0;
     var subtot = 0;
     var div= document.getElementById(id);
