@@ -26,6 +26,8 @@ import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'
 import {ModalPage} from '././modal/modal.page';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
+
 
 @NgModule({
   declarations: [AppComponent,ModalPage],
@@ -46,6 +48,7 @@ driverOrder: ['indexeddb', 'sqlite', 'websql']
     ProductoService,
     Facebook,
     SplashScreen,
+    FirebaseX,
     NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

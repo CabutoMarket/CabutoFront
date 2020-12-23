@@ -1,0 +1,38 @@
+ion-tab-bar {
+    --ion-background-color: linear-gradient(to right, #0F195E, #2153FF) !important;
+    --border:0px;
+}
+.tab-selected {
+    background-image: url('/assets/img/fondo.png');
+    background-position: top;
+    background-size: contain;
+    background-repeat: no-repeat;
+    .perfil ion-img, 
+    .notifications ion-img,
+    .home ion-img{
+        margin-top: 10px;
+        width: 40%;
+        height: 40%;
+    }
+}
+
+ion-tab-button {
+    background:none;
+}
+
+.perfil, .notifications,.home{
+ text-align: center;
+ padding: 10% 0% 10% 0%;
+ display:flex;
+ align-items:center;
+ ion-img{
+    margin: auto;
+    width: 50%;
+    height: 50%;
+ }
+}
+
+.perfil{
+    border-radius: 100%;
+}
+

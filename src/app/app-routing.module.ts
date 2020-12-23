@@ -8,25 +8,8 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: '',
-    redirectTo: 'producto',
-    pathMatch: 'full'
-  },
-  {
     path: 'registro',
     loadChildren: () => import('./auth/registro/registro/registro.module').then( m => m.RegistroPageModule)
-  },
-  {
-    path: 'producto',
-    loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule)
-  },
-  {
-    path: 'establecimiento',
-    loadChildren: () => import('./establecimiento/establecimiento.module').then( m => m.EstablecimientoPageModule)
-  },
-  {
-    path: 'shopping-cart',
-    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
   },
   {
     path: 'login',
@@ -37,24 +20,12 @@ const routes: Routes = [
     loadChildren: () => import('./auth/registro-fb/registro-fb.module').then( m => m.RegistroFbPageModule)
   },
   {
-    path: 'shopping-cart',
-    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
-  },
-  {
     path: 'modal',
     loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
   },
   {
     path: 'registro-exitoso',
     loadChildren: () => import('./auth/registro/registro-exitoso/registro-exitoso.module').then( m => m.RegistroExitosoPageModule)
-  },
-  {
-    path: 'establecimiento',
-    loadChildren: () => import('./establecimiento/establecimiento.module').then( m => m.EstablecimientoPageModule)
-  },
-  {
-    path: 'ofertas',
-    loadChildren: () => import('./ofertas/ofertas.module').then( m => m.OfertasPageModule)
   },
   {
     path: 'detalles-productos',
@@ -68,6 +39,20 @@ const routes: Routes = [
     path: 'correcto',
     loadChildren: () => import('./aviso/correcto/correcto.module').then( m => m.CorrectoPageModule)
   },
+  {
+    path: '',
+    loadChildren: () => import('./footer/footer.module').then( m => m.FooterPageModule)
+  },
+  {
+    path: 'direccion',
+    loadChildren: () => import('./direccion/direccion.module').then( m => m.DireccionPageModule)
+  },
+  
+
+
+
+
+
 
 ];
 

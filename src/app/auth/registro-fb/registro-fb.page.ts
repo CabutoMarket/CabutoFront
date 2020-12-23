@@ -62,7 +62,7 @@ export class RegistroFbPage implements OnInit {
           console.log("imprimiendo data",data, logR)
           if(data.valid == "OK"){
             this.mensaje("Registro","Registro","Registro exitoso");
-            this.router.navigateByUrl('/producto');
+            this.router.navigateByUrl('/footer/producto');
           }else{
             this.mensaje("Error", "Registro","Parece que algo ha ocurrido");
             this.router.navigateByUrl('/login'); 

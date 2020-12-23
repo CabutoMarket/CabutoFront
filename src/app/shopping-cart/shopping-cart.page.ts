@@ -89,7 +89,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   regresar() {
     this.modalCtrl.dismiss();
     
-    this.router.navigateByUrl('/producto');
+    this.router.navigateByUrl('/footer/producto');
   }
 
   async mensajeCorrecto(titulo:string,mensaje:string){

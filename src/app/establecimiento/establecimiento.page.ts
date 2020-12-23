@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { ModalMapaPage } from './modal-mapa/modal-mapa.page';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 
 @Component({
   selector: 'app-establecimiento',
@@ -20,7 +21,6 @@ export class EstablecimientoPage implements OnInit {
   constructor(
     public establecimientoService: EstablecimientoService,
     public loadingCtrl: LoadingController,
-    private alert: AlertController,
     public modalController: ModalController,
   ) { }
 
@@ -50,11 +50,11 @@ export class EstablecimientoPage implements OnInit {
             data => {
               this.establecimientos = data;
               if (Object.keys(this.establecimientos).length === 0) {
-                this.mensaje("Establecimiento No encontrado", "Intente de nuevo", "No se ha podido encontrar el establecimiento")
+                this.mensajeIncorrecto("Establecimiento No encontrado", "No se ha podido encontrar el establecimiento, intente de nuevo")
               }
             },
             err => {
-              this.mensaje("Algo Salio mal", "Fallo en la conexión", "Fallo en la red")
+              this.mensajeIncorrecto("Algo Salio mal","Fallo en la conexión")
             }
         );
   }
@@ -77,23 +77,16 @@ export class EstablecimientoPage implements OnInit {
     return await modal.present();
   }
 
-  async mensaje(titulo: string, subtitulo: string, mensaje: string) {
-    const alert = await this.alert.create({
-      cssClass: titulo,
-      header: titulo,
-      subHeader: subtitulo,
-      message: mensaje,
-      buttons: [
-        {
-          text: 'OK',
-          role: 'cancel',
-          handler: () => {
-          }
-        }
-      ]
+  async mensajeIncorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalController.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
     });
-
-    await alert.present();
+    return await modal.present();
   }
 
   async showLoading2() {

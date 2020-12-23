@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from  "@angular/router";
 import { AuthService } from '../../servicios/auth.service';
+import { FcmService } from 'src/app/servicios/fcm.service';
 import { LoadingController } from '@ionic/angular';
 import { AlertController, ToastController,Platform, ModalController } from '@ionic/angular';
 import {ModalPage} from './../../../modal/modal.page';
@@ -9,6 +10,7 @@ import { Storage } from '@ionic/storage';
 import {AppComponent} from  '../../../app.component'
 import {CorrectoPage} from '../../../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../../../aviso/incorrecto/incorrecto.page';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 /*import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -45,6 +47,8 @@ export class LoginPage implements OnInit {
     public modalCtrl: ModalController,
     private storage: Storage,
     private component: AppComponent,
+    private fcm: FcmService,
+    private firebase: FirebaseX
     /*private nativeStorage: NativeStorage
     private afAuth: AngularFireAuth,
     private afAuth2: AngularFireAuthModule,
@@ -84,6 +88,7 @@ export class LoginPage implements OnInit {
         //this.router.navigateByUrl('/producto');
         var nombre = data.nombre;
         var apellido = data.apellido;
+        var id = data.id;
         console.log(nombre)
         console.log(apellido)
         login.login = true;
@@ -93,10 +98,21 @@ export class LoginPage implements OnInit {
         this.component.name=nombre;
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
+      
+        this.firebase.getToken().then(token => {
+          var registro={
+            usuario : id,
+            token : token
+          }
+          console.log(registro);
+          this.fcm.registrarUsuario(registro).subscribe(data=> {
+          console.log(data.valid);
+          });
+        });
         if(login.oferta == true && (login.producto =false)){
-          this.router.navigateByUrl('/ofertas');
+          this.router.navigateByUrl('/footer/ofertas');
         }else if (login.producto == true){
-          this.router.navigateByUrl('/producto');
+          this.router.navigateByUrl('/footer/producto');
         }
         //this.router.navigateByUrl('/producto');
       }
@@ -209,7 +225,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
           this.component.name=nombre;
           this.component.lastname = apellido;
           this.component.action="Cerrar Sesión";
-          this.router.navigateByUrl('/producto');
+          this.router.navigateByUrl('/footer/producto');
         }
         else{
           this.authService.addUser(logR).subscribe(data=> {
