@@ -1,45 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
-import { finalize } from 'rxjs/operators';
-import { ModalController } from '@ionic/angular';
 import { PerfilService } from '../servicios/perfil.service';
-import { LoadingController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { NavigationExtras, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
+import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.page.html',
-  styleUrls: ['./perfil.page.scss'],
+  selector: 'app-pagar',
+  templateUrl: './pagar.page.html',
+  styleUrls: ['./pagar.page.scss'],
 })
-export class PerfilPage implements OnInit {
-  private correo: string = "";
-  perfil: any;
-  loading: any;
-  url = ""
-  date = "";
-
-
+export class PagarPage implements OnInit {
+  total:number;
+  perfil:any;
+  correo:any;
+  url;
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
-    public loadingCtrl: LoadingController,
+    private route: ActivatedRoute, 
     public modalController: ModalController,
     private http: HttpClient,
-    private router: Router,
-    
-  ) { }
+    private router: Router
+    ) {
+      
+    }
 
   ngOnInit() {
-
   }
 
   ionViewDidEnter() {
     console.log("didEnter");
+    this.storage.get('total').then((val) => {
+      console.log(val);
+      this.total=val;
+    });
     this.storage.get('perfil').then((val)=>{
-      
       if(val==null){
         this.storage.get('correo').then((val) => {
           this.correo = val;
@@ -78,50 +75,14 @@ export class PerfilPage implements OnInit {
           
         });
       }else{
+        console.log(val);
         this.perfil=val;
       }
     });
-  }
 
-  buscarPerfil(): Observable<object> {
     
-    return this.perfilService.getPerfil(this.correo);
   }
-  async buscar() {
-    await this.showLoading2();
-    this.buscarPerfil()
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
-      .subscribe(
-        data => {
-          this.perfil = data[0];
-          console.log(data);
-          this.perfil.fechaNac = new Date(this.perfil.fechaNac);
-          if (this.perfil.telefono == "NONE") {
-            this.perfil.telefono = "";
-          }
-          if (this.perfil.direccion == "NONE") {
-            this.perfil.direccion = "";
-          }
-          this.http.get("http://cabutoshop.pythonanywhere.com" + this.perfil.imagen).subscribe(data => {
-            this.url = "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen;
-          }, (error) => {
-            this.url = ""
-            console.error(error);
-          });
 
-          if (Object.keys(this.perfil).length === 0) {
-            this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-          }
-        },
-        err => {
-          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-        }
-      );
-  }
   async mensajeIncorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalController.create({
       component: IncorrectoPage,
@@ -133,12 +94,6 @@ export class PerfilPage implements OnInit {
     });
     return await modal.present();
   }
-  async showLoading2() {
-    this.loading = await this.loadingCtrl.create({
-      message: 'Loading.....'
-    });
-    await this.loading.present();
-  }
 
   editar() {
     
@@ -149,6 +104,15 @@ export class PerfilPage implements OnInit {
       }
     };
     this.router.navigate(['/footer/perfil/editar-perfil'], navigationExtras);
+  }
+  confirmar(){
+    this.router.navigate(['/footer/entrega']);
+  
+  }
+
+  regresar(){
+    this.router.navigate(['/footer/shopping-cart']);
+  
   }
 
 }

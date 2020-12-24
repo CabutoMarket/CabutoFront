@@ -7,44 +7,34 @@
         <div class="contenedor">
             <div>
                 <!--<div class="contener-oferta">-->
-                <div class="contener-oferta"  *ngFor="let ofertas of oferta">
-                    <div class="div-oferta">
-                        <div class="contener-columnaI">
-                            <div class="oferta">
-                                <img src="http://cabutoshop.pythonanywhere.com{{ofertas.imagen}}"  >
-                                <!--<img src="../assets/img/oferta.png"  >-->
+                    <div class="contener-producto"  *ngFor="let productos of oferta">
+                        <div class="div-producto">
+                            <div class="contener-columnaI">
+                                <div class="producto">
+                                    <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}"  >
+                                </div>
                             </div>
-                            
-                                <!--<h6 class="detalle">Ver detalle</h6>-->
-                            
-                        </div>
-                        <div class="contener-columna">
-                            <div class="nombre">
-                                <h6 class="nombre-oferta" >{{ofertas.nombre}}</h6>
-                                <!--<h6 class="nombre-oferta" >Nestle Svelty huesos y músculos 1 L</h6>-->
+                            <div class="contener-columna">
+                                <div class="nombre">
+                                    <h6 class="nombre-producto" name="nombre">{{productos.nombre}}</h6>
+                                </div>
+                                <div class="producto-carrito">
+                                    <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.nombre)>
+                                    <input type="text" tag = "barra" name="cantidad" id="{{productos.nombre}}" disabled="true" class="estilo-cantidad" placeholder="0" value ='0' >
+                                    <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.nombre)>
+                                </div>
                             </div>
-                            
-                        </div>
-                        <div class="contener-columna-centrar">
-                            <div class="precio">
-                                <h4 class ="original">${{ofertas.precioAntes}}</h4>
-                                <h4 class = "descuento">${{ofertas.precio}}</h4>
-                                <!--<h4 class ="original">$4,10</h4>
-                                <h4 class = "descuento">$2,05</h4>
-                                <h4>${{productos.precio}}</h4>-->
+                            <div class="contener-columna-centrar">
+                                <div class="precio">
+                                    <h4 class ="original">${{productos.precioAntes}}</h4>
+                                    <h4 class = "descuento">${{productos.precio}}</h4>
+                                </div>
+                                <div class="carrito">
+                                    <img src="../assets/img/carrito_activo.png" width="25" height="25" (click)=carrito(productos.nombre)>
+                                </div>
                             </div>
-                            <div class="oferta-carrito">
-                                <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofertas.nombre) >
-                                <!--<img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.nombre)>
-                                <input type="text" tag = "barra" name="" id="{{productos.nombre}}" disabled="true" class="estilo-cantidad" placeholder="0" value  = "0" >
-                                <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.nombre)>-->
-                            </div>
-                            <!--<div class="carrito">
-                                <img src="../assets/img/carrito_activo.png" width="25" height="25" (click)=showLoading(productos.nombre)>
-                            </div>-->
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

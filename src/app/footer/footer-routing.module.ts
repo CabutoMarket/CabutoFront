@@ -53,6 +53,18 @@ const routes: Routes = [
         path: 'sugerencia',
         loadChildren: () => import('../sugerencia/sugerencia.module').then( m => m.SugerenciaPageModule)
       },
+      {
+        path: 'pagar',
+        loadChildren: () => import('../pagar/pagar.module').then( m => m.PagarPageModule)
+      },
+      {
+        path: 'entrega',
+        loadChildren: () => import('../entrega/entrega.module').then( m => m.EntregaPageModule)
+      },
+      {
+        path: 'domicilio',
+        loadChildren: () => import('../domicilio/domicilio.module').then( m => m.DomicilioPageModule)
+      }
     ]
   },
   {

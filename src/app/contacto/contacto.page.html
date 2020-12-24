@@ -3,5 +3,32 @@
 <ion-content>
     <div class="contenedor-page">
         <ion-label class="titulo">Contáctanos</ion-label>
+        <div class="social-media">
+            <div class="red" *ngFor="let contacto of contactos">
+                <a [href]="contacto.link">
+                    <img [src]='"http://cabutoshop.pythonanywhere.com" + contacto.imagen'>
+                </a>
+            </div>
+        </div>
+        <div class="empresa">
+            <div class="info">
+                <div class="left">
+                    <img src='../assets/img/telefonos.png'>
+                </div>
+                <ion-label class="right">045931212 - 0423343434</ion-label>
+            </div>
+            <div class="info">
+                <div class="left">
+                    <img src='../assets/img/red.png'>
+                </div>
+                <ion-label class="right">www.cabuto.com.ec</ion-label>
+            </div>
+            <div class="info">
+                <div class="left">
+                    <img src='../assets/img/correo.png'>
+                </div>
+                <ion-label class="right">info@cabuto.com.ec</ion-label>
+            </div>       
+        </div>
     </div>
 </ion-content>

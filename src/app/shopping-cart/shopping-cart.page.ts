@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from  "@angular/router";
+import { NavigationExtras, Router } from  "@angular/router";
 import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import { AlertController, LoadingController,ModalController} from '@ionic/angular';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
-import {HeaderComponent} from '../components/header/header.component'
+import {HeaderComponent} from '../components/header/header.component';
+import { Storage } from '@ionic/storage';
+import {login} from  './../global';
+import { AuthService } from '../auth/servicios/auth.service';
+import 'rxjs/add/operator/map';
+
+
 
 @Component({
   selector: 'app-shopping-cart',
@@ -13,29 +19,85 @@ import {HeaderComponent} from '../components/header/header.component'
 })
 
 export class ShoppingCartPage implements OnInit {
-
+cantidadInput:number=0;
+act:number=0;
 cart: {};
+products: {};
+oferts: {};
+combos: {};
+total:number=0;
+prodLen:number=0;
+oferLen:number=0;
+comLen:number=0;
+public edited = true;
+private correo:string="";
 //constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
 constructor(private modalCtrl: ModalController,  private  router:  Router, 
   private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
+  private storage: Storage, private shoppingCart: ShoppingCartService, private auth: AuthService
   /*private header: HeaderComponent*/){}
 
   ngOnInit() {
-//    this.cart=this.productCartService.getCart();
-      this.showLoading();
+
   }
 
-  mostrarCarrito(){
-    this.shoppingService.showCart().subscribe(data=>{
-      this.cart=data;
-      console.log(this.cart);
-      console.log("Ya salio alv");
-    },(error)=>{
-      console.error(error);
-      //this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
-      this.mensajeIncorrecto("Algo Salio mal","Fallo en la conexión")
-    })
+  ionViewWillEnter() {
+    this.showLoading(); 
+    this.getCorreo();
+//    this.cart=this.productCartService.getCart();
   }
+
+/*  getClient(){
+      const user={
+        'correo': this.correo,
+        'contrasena': 'xxxxx'
+      };
+      this.auth.getUser(user).subscribe(data=>{
+      console.log(data)
+      });
+          //this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
+          /* aqui debers enviar el producto y cantidad al carrito */
+//  }
+
+  mostrarCarrito(){
+    this.storage.get('name').then((nombre) => {
+      console.log('Name is', nombre);
+      if(login.login ==false && nombre == null ){
+        login.producto = true;
+        this.router.navigateByUrl('/login');  
+      }else{
+        const user={
+          'correo': this.correo,
+          'contrasena': 'xxxxx'
+        };
+        console.log(user)
+      this.shoppingService.showCart(user).subscribe(data=>{
+        this.cart=data;
+        console.log(data)
+        console.log("esto va a tener el carrito");
+        console.log(this.cart[0]);
+        if(this.cart[0] != null){
+          this.products=this.cart[0]['productos'];
+          this.oferts=this.cart[0]['ofertas'];
+          this.combos=this.cart[0]['combos'];
+          console.log(this.cart[0]['productos']);
+          console.log(this.cart[0]['ofertas']);
+          console.log(this.cart[0]['combos']);
+          this.total=this.getTotal();
+          console.log(this.total);
+          console.log("Ya salio alv");
+        }else{
+          this.mensajeIncorrecto("Carrito vacío","No tiene nada en su carrito");
+        }
+      },(error)=>{
+        console.error(error);
+      //this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
+        this.mensajeIncorrecto("Algo Salio mal","Fallo en en el carrito.")
+      });
+      }
+    });
+  }
+
 
   showLoading() {  
     this.loadingCtrl.create({  
@@ -50,46 +112,104 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       });  
     } 
 
-  decreaseCartItem(id:string){
-    var cantidad = document.getElementById(id);
-    var num  = cantidad.getAttribute('value')
-    if((parseInt(num)-1)< 0){
-      cantidad.setAttribute('value',String(parseInt(num)));
-    }else{
-      cantidad.setAttribute('value',String(parseInt(num)-1));
-    } 
-//    this.productCartService.decreaseProduct(product);
-  }
-
-  increaseCartItem(id:string){
-    var cantidad = document.getElementById(id);
-    console.log(cantidad)
-    var num  = cantidad.getAttribute('value')
-    console.log(typeof(num))
-        //if(isNaN(String(num)) == false){
-        //var num2 = parseInt(num)+1
-        //var numS=String(num2);
-    cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
-//    this.productCartService.addProduct(product);
-  }
 
   removeCartItem(product){
 //    this.productCartService.removeProduct(product);
   }
 
   getTotal(){
-//    return this.cart.reduce((i,j) => j.price * j.amount, 0);
+    var ptotal=0;
+    var ototal=0;
+    var ctotal=0;
+    var ttotal=0;
+    
+    for (let i=0; i< this.getProductLen(); i++){
+      ptotal=ptotal + parseFloat((this.products[i]['subtotal']));
+      console.log(ptotal);
+    }
+    for (let i=0; i< this.getOfertaLen(); i++){
+      console.log(this.oferts[i]['subtotal_oferta']);
+      ototal=ototal + parseFloat((this.oferts[i]['subtotal_oferta']));
+      console.log(ototal);
+    }
+    for (let i=0; i< this.getComboLen(); i++){
+      ctotal=ctotal + parseFloat((this.combos[i]['precio']));
+      console.log(ctotal);
+    }
+    console.log(this.products[0]['subtotal'])
+    ttotal=ototal+ctotal+ptotal;
+    console.log(ttotal)
+    return ttotal;
+  }
+
+  getProductLen(){
+    var pindex=0;
+    for(let p in this.products){
+      pindex=+p+1;
+    }
+    this.prodLen=pindex;
+    return pindex;
+  }
+
+  getComboLen(){
+    var cindex=0;
+    for (let c in this.combos){
+      cindex=+c+1;
+    }
+    this.comLen=cindex;
+    return cindex;
+  }
+
+  getOfertaLen(){
+    var oindex=0;
+    for (let o in this.oferts){
+      oindex=+o+1;
+    }
+    this.oferLen=oindex;
+    return oindex;
   }
 
   checkout(){
 
   }
 
-
+/*
+  volver(){
+    this.storage.get('oferta').then((oferta) =>{});
+    this.storage.get('oferta').then((oferta) =>{});
+  }
+*/
   regresar() {
-    this.modalCtrl.dismiss();
+    //this.modalCtrl.dismiss();
     
-    this.router.navigateByUrl('/footer/producto');
+    //this.router.navigateByUrl('/producto');
+    this.storage.get('producto').then((producto) => {
+      if(producto == true){
+        this.router.navigateByUrl('/footer/producto');
+      }else{
+        this.storage.get('oferta').then((oferta) =>{
+          if(oferta == true){
+            this.router.navigateByUrl('/footer/ofertas');
+          }else{
+            this.router.navigateByUrl('/footer/producto');
+          }
+        });
+      }
+    });
+
+
+
+  }
+
+
+  getCorreo(){
+    console.log(login.login)  
+		this.storage.get('correo').then((val) => {
+      this.correo=val;
+      console.log('name: ',this.correo);
+      
+  });
+
   }
 
   async mensajeCorrecto(titulo:string,mensaje:string){
@@ -115,6 +235,110 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       }
     });
     return await modal.present();
+  }
+
+  agregar(id:string,cant:string){
+    //console.log(id)
+    /*var cantidad = document.getElementById(id);
+    console.log(cantidad.innerText)
+    cantidad.innerText=String(parseInt(cantidad.innerText)+1);*/
+    var cantidad= document.querySelectorAll('#'+id);
+    console.log(parseFloat(cantidad[1].innerHTML)+1)
+    cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
+    var precio_unitario=this.getPrecioUnitario(id);
+    console.log(precio_unitario)
+    cantidad[1].innerHTML=String(parseFloat(cantidad[1].innerHTML)+precio_unitario);
+    this.total=this.getTotalCart();
+    //cantidad.setAttribute('value',String(parseInt(cantidad.innerText)+1));
+    /*var cantidad = document.getElementById(id);
+    console.log(cantidad)
+    console.log(cant)
+    var place  = cantidad.getAttribute('placeholder')
+    var valor = parseInt(cant);
+    var total  = valor +1;
+    var valor2 =parseInt(place);
+    var total2 = valor2+1;
+    cantidad.setAttribute('placeholder',String(total2));
+    cantidad.setAttribute('value',String(total));*/
+    /*console.log(cantidad)
+    var st  = cantidad.getAttribute('value')
+    console.log(st)
+    var num = String(st)
+    console.log(num)
+    var place  = cantidad.getAttribute('placeholder')
+    console.log(typeof(num))
+    var valor = parseInt(num);
+    var total  = valor +1;
+    var valor2 =parseInt(place);
+    var total2 = valor2+1;
+    cantidad.setAttribute('placeholder',String(total2));
+    //if(isNaN(String(num)) == false){
+    //var num2 = parseInt(num)+1
+    //var numS=String(num2);
+    cantidad.setAttribute('value',String(total));*/
+    
+  }
+
+  quitar(id:string){
+    var cantidad= document.querySelectorAll('#'+id);
+    console.log(parseFloat(cantidad[1].innerHTML)-1)
+
+    //var cantidad = document.getElementById(id);
+    //var num  = cantidad.getAttribute('value')
+
+    if((parseInt(cantidad[0].innerHTML)-1)< 0){
+      cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
+    }else{
+      cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
+      var precio_unitario=this.getPrecioUnitario(id);
+      console.log(precio_unitario)
+      cantidad[1].innerHTML=String(parseFloat(cantidad[1].innerHTML)-precio_unitario);
+      this.total=this.getTotalCart();
+    } 
+  }
+
+  getPrecioUnitario(id:string){
+    for (let i=0; i< this.getProductLen(); i++){
+      if(id===this.products[i]['nombre_producto']){
+        return this.products[i]['precio_producto'];
+      }
+    }
+    for (let i=0; i< this.getOfertaLen(); i++){
+      if(id===this.oferts[i]['nombre_oferta']){
+        return this.oferts[i]['precio_oferta'];
+      }
+    }
+    for (let i=0; i< this.getComboLen(); i++){
+      if(id===this.combos[i]['nombre']){
+        return this.combos[i]['precio'];
+      }
+    }
+  }
+
+  getTotalCart(){
+    var total=document.getElementById('A_pagar');
+    var subtotal=document.getElementsByClassName('subtotal');
+    var tot=0;
+    for(var i=0;i<subtotal.length;i++){
+      console.log(subtotal[i])
+      tot=tot+parseFloat(subtotal[i].innerHTML);
+    }
+    //total.innerHTML=String(tot);
+    //this.total=tot;
+    
+    return tot;
+  }
+
+
+  eliminar(){
+    console.log("vamos a elminar");
+    this.mensajeCorrecto("eliminar","vamor a eliminarnos");
+  }
+
+  pagar(){
+    this.storage.set('total',this.total);
+    this.router.navigate(['/footer/pagar']);
+  
   }
 }
 

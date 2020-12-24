@@ -43,6 +43,8 @@ export class ProductoPage implements OnInit {
 
     this.cargaPantalla();
     this.getCorreo();
+    this.storage.set('oferta', false);
+    this.storage.set('producto', true);
   }
 
   
@@ -145,7 +147,7 @@ export class ProductoPage implements OnInit {
         console.log(datos)
         console.log("Datos 2")
         console.log(dato2)*/
-        
+        this.getCorreo();
          this.storage.get('name').then((nombre) => {
           console.log('Name is', nombre);
           if(login.login ==false && nombre == null ){

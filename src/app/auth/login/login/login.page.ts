@@ -113,6 +113,8 @@ export class LoginPage implements OnInit {
           this.router.navigateByUrl('/footer/ofertas');
         }else if (login.producto == true){
           this.router.navigateByUrl('/footer/producto');
+        }else{
+          this.router.navigateByUrl('/footer/producto');
         }
         //this.router.navigateByUrl('/producto');
       }

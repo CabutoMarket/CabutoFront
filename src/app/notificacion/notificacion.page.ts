@@ -37,7 +37,7 @@ export class NotificacionPage implements OnInit {
       .subscribe(
         data => {
           this.notificaciones = data;
-
+          this.parsearFechas();
           if (Object.keys(this.notificaciones).length === 0) {
             this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
           }
@@ -55,13 +55,7 @@ export class NotificacionPage implements OnInit {
 
   ionViewDidEnter() {
     console.log("didEnter");
-    this.notificacionService.getNotificacion().subscribe(data => {
-      this.notificaciones = data;
-      console.log(this.notificaciones);
-      this.parsearFechas();
-    }, (error) => {
-      console.error(error);
-    })
+    this.get();
   }
 
   private parsearFechas() {
@@ -89,10 +83,6 @@ export class NotificacionPage implements OnInit {
     });
     await this.loading.present();
 
-  }
-
-  ionViewWillLeave(){
-    console.log('Leaving notificacion Page');
   }
 
   async detalle(titulo:string,mensaje:string,imagen){

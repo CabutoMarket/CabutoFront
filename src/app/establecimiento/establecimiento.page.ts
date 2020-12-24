@@ -25,10 +25,10 @@ export class EstablecimientoPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.ionViewDidLoad();
+    
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log("refresh");
     this.establecimientoService.getEstablecimiento().subscribe(data => {
       this.establecimientos = data;

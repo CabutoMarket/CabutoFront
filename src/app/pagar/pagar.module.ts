@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { SugerenciaPageRoutingModule } from './sugerencia-routing.module';
-import { SugerenciaPage } from './sugerencia.page';
+import { PagarPageRoutingModule } from './pagar-routing.module';
+import { PagarPage } from './pagar.page';
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
@@ -11,9 +11,9 @@ import { ComponentsModule } from '../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SugerenciaPageRoutingModule,
+    PagarPageRoutingModule,
     ComponentsModule,
   ],
-  declarations: [SugerenciaPage]
+  declarations: [PagarPage]
 })
-export class SugerenciaPageModule {}
+export class PagarPageModule {}

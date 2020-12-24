@@ -3,12 +3,13 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController,ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { login } from '././global';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-
-import {DetalleNotificacionPage} from './notificacion/detalle-notificacion/detalle-notificacion.page';
+import { DetalleNotificacionPage } from './notificacion/detalle-notificacion/detalle-notificacion.page';
+import { CorrectoPage } from './aviso/correcto/correcto.page';
+import { IncorrectoPage } from './aviso/incorrecto/incorrecto.page';
 
 @Component({
   selector: 'app-root',
@@ -41,20 +42,22 @@ export class AppComponent {
         console.log(data);
         if (data.messageType === "notification") {
           console.log("Notification message received");
-          if (data.tap=="background") {
+          if (data.tap == "background") {
             console.log("Tapped in " + data.tap);
-            if(data.image){
-              this.notificacion(data.titulo,data.mensaje,data.image);
-            }else{
-              this.notificacion(data.titulo,data.mensaje,"");
+            if (data.image) {
+              this.notificacion(data.titulo, data.mensaje, data.image);
+            } else {
+              this.notificacion(data.titulo, data.mensaje, "");
             }
-            
-          }
-          if(data.image){
-            this.notificacion(data.titulo,data.mensaje,data.image);
+
           }else{
-            this.notificacion(data.titulo,data.mensaje,"");
+            if (data.image) {
+              this.notificacion(data.titulo, data.mensaje, data.image);
+            } else {
+              this.notificacion(data.titulo, data.mensaje, "");
+            }
           }
+          
         }
       }, function (error) {
         console.error(error);
@@ -159,7 +162,7 @@ export class AppComponent {
     }).then((loading) => {
       loading.present(); {
         this.logout();
-        this.mensaje("Cerrar Sesion", "", "Sesion cerrada exitosamente")
+        this.mensajeCorrecto("Cerrar Sesion", "Sesion cerrada exitosamente")
       }
       setTimeout(() => {
         loading.dismiss();
@@ -211,7 +214,7 @@ export class AppComponent {
     await alert.present();
   }
 
-  async notificacion(titulo:string,mensaje:string,imagen){
+  async notificacion(titulo: string, mensaje: string, imagen) {
     const modal = await this.modalCtrl.create({
       component: DetalleNotificacionPage,
       cssClass: 'CorrectoProducto',
@@ -219,6 +222,30 @@ export class AppComponent {
         'titulo': titulo,
         'mensaje': mensaje,
         'imagen': imagen
+      }
+    });
+    return await modal.present();
+  }
+  async mensajeCorrecto(titulo: string, mensaje: string) {
+    const modal = await this.modalCtrl.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
+
+  async mensajeIncorrecto(titulo: string, mensaje: string) {
+    const modal = await this.modalCtrl.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
       }
     });
     return await modal.present();

@@ -1,17 +1,22 @@
 <app-header></app-header>
 <!---->
 <ion-content>
+ <div class ="btn_regresar"> <img src="../assets/img/atras.png" class="atras" (click)="regresar()"> </div>
+  <!--<ion-button style="--background: var(--ion-color-naranja-oscuro)" (click)= regresar()>Regresar</ion-button>-->
 <h2 class="Titulo">Carrito</h2>
 <ion-row class="Total">
-  <ion-col size=8 class="A_pagar_header">Total a Pagar:</ion-col>
-  <ion-col size=4 class="A_pagar">$ 3,65</ion-col>
+  <ion-col size=7 class="A_pagar_header">Total a Pagar:</ion-col>
+  <ion-col size=5 style="display: inline-flex;">
+    <p style="color:#FE3A00;font-size: 2rem;padding-right: 0.2rem; margin-top: 0">$</p>
+    <div class="A_pagar" id="A_pagar">{{total}}</div>
+  </ion-col>
 </ion-row>
 
 
-<div>
-  <div class="contener-producto"  *ngFor="let productos of cart">
-      <div class="div-producto">
-        <div class = "borrar_content"><img src="../assets/img/borrar.png" class="borrar"></div>
+<div *ngIf="prodLen > 0">
+  <div class="contener-producto"  *ngFor="let productos of products">
+      <div class="div-producto" >
+        <div class = "borrar_content" (click)="eliminar()" ><img src="../assets/img/borrar.png" class="borrar" ></div>
           <div class="contener-columnaI">
               <div class="producto">
                   <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen_producto}}"  >
@@ -25,22 +30,84 @@
           <div class = "contenedor-centro">
             <div class="producto-carrito">
               <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.nombre_producto)>
-              <input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value  = "{{productos.cantidad_producto}}" >
+              <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value ={{productos.cantidad}} />-->
+              <div  id="{{productos.nombre_producto}}" class="cantidad" >{{productos.cantidad}}</div>
+             <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{cantidadInput}}" value  = "{{cantidadInput}}" >-->
               <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.nombre_producto)>
           </div>
           </div>
           <div class="contener-columna-centrar">
+              <div class="precio">  
+                <p>$</p><h4 name="precio" class="subtotal" id="{{productos.nombre_producto}}">{{productos.subtotal}}</h4>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div *ngIf="oferLen > 0">
+  <div class="contener-producto"  *ngFor="let ofert of oferts">
+      <div class="div-producto" >
+        <div class = "borrar_content" (click)="eliminar()"><img src="../assets/img/borrar.png" class="borrar"></div>
+          <div class="contener-columnaI">
+              <div class="producto">
+                  <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{ofert.imagen_oferta}}"  >
+              </div>
+          </div>
+          <div class="contener-columna">
+              <div class="nombre">
+                  <h6 class="nombre-producto" name="nombre">{{ofert.nombre_oferta}}</h6>
+              </div>
+          </div>
+          <div class = "contenedor-centro">
+            <div class="producto-carrito">
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.nombre_oferta,ofert.cantidad_oferta)>
+              <!--<input type="text" tag = "barra" name="" id="{{ofert.nombre_oferta}}" disabled="true" class="cantidad" placeholder="{{ofert.cantidad_oferta}}" value="{{ofert.cantidad_oferta}}" >-->
+              <div tag = "barra" id="{{ofert.nombre_oferta}}" class="cantidad">{{ofert.cantidad_oferta}}</div>
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.nombre_oferta,ofert.cantidad_oferta)>
+          </div>
+          </div>
+          <div class="contener-columna-centrar">
               <div class="precio">
-                  <h4 name="precio">${{productos.subtotal}}</h4>
+                  <p>$</p><h4 name="precio" class="subtotal" id="{{ofert.nombre_oferta}}">{{ofert.subtotal_oferta}}</h4>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div *ngIf="comdLen > 0">
+  <div class="contener-producto"  *ngFor="let combo of combos">
+      <div class="div-producto">
+        <div class = "borrar_content" (click)="eliminar()"><img src="../assets/img/borrar.png" class="borrar"></div>
+          <div class="contener-columnaI">
+              <div class="producto">
+                  <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{combo.imagen}}"  >
+              </div>
+          </div>
+          <div class="contener-columna">
+              <div class="nombre">
+                  <h6 class="nombre-producto" name="nombre">{{combo.nombre}}</h6>
+              </div>
+          </div>
+          <div class = "contenedor-centro">
+            <div class="producto-carrito">
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.nombre_oferta)>
+              <!--<input type="text" tag = "barra" name="" id="{{ofert.nombre_oferta}}" disabled="true" class="cantidad" placeholder="{{ofert.cantidad_oferta}}" value  = "{{ofert.cantidad_oferta}}" >-->
+              <div tag = "barra" id="{{combo.nombre}}" class="cantidad">{{combo.cantidad_combo}}</div>
+              <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.nombre_oferta)>
+          </div>
+          </div>
+          <div class="contener-columna-centrar">
+              <div class="precio">
+                  <p>$</p><h4 name="precio" class="subtotal" id="{{combo.nombre}}">{{combo.precio}}</h4>
               </div>
           </div>
       </div>
   </div>
 </div>
 <div class ="btns">
-  <div class ="btn-regresar"><ion-button style="--background: var(--ion-color-naranja-oscuro)" (click)= regresar()>Regresar</ion-button></div>
+  <div class ="btn-regresar"></div>
   <div class = "espacio"></div>
-  <div class ="btns-pago"><img src="../assets/img/pagar.png" class="pagar"><!--</ion-img>--></div>
+  <div class ="btns-pago"><img src="../assets/img/pagar.png" class="pagar" (click)="pagar()"><!--</ion-img>--></div>
 </div>
 </ion-content>
 

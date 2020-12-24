@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { PerfilService } from '../../servicios/perfil.service';
 import { LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
 import { IncorrectoPage } from '../../aviso/incorrecto/incorrecto.page';
 import { finalize } from 'rxjs/operators';
 import { FileUploader} from  'ng2-file-upload';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-editar-perfil',
@@ -25,19 +25,29 @@ export class EditarPerfilPage implements OnInit {
   url = "";
 
   constructor(
+    private storage: Storage,
     public perfilService: PerfilService,
     public loadingCtrl: LoadingController,
     public modalController: ModalController,
     private http: HttpClient,
     private route: ActivatedRoute, private router: Router
   ) { 
-    this.route.queryParams.subscribe(params => {
-      console.log(this.router.getCurrentNavigation().extras.state);
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.perfil = this.router.getCurrentNavigation().extras.state.user;
+
+    this.storage.get('perfil').then((val)=>{
+      if(val==null){
+        this.route.queryParams.subscribe(params => {
+          if (this.router.getCurrentNavigation().extras.state) {
+            this.perfil = this.router.getCurrentNavigation().extras.state.user;
+            this.url = this.router.getCurrentNavigation().extras.state.url;
+          }
+        });
+      }else{
+        this.perfil=val;
         this.url = this.router.getCurrentNavigation().extras.state.url;
+        
       }
     });
+    
   }
 
   ngOnInit() {
@@ -104,6 +114,7 @@ export class EditarPerfilPage implements OnInit {
       data => {
         console.log(data);
         if(data.valid == "ok"){
+          this.storage.set('perfil',this.perfil);
           this.router.navigateByUrl('/footer/perfil');
         }else{
           this.mensajeIncorrecto("Error","No se han guardado los datos modificados");

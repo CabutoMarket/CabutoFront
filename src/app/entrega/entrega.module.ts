@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { SugerenciaPageRoutingModule } from './sugerencia-routing.module';
-import { SugerenciaPage } from './sugerencia.page';
+import { EntregaPageRoutingModule } from './entrega-routing.module';
+import { EntregaPage } from './entrega.page';
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
@@ -11,9 +11,9 @@ import { ComponentsModule } from '../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SugerenciaPageRoutingModule,
+    EntregaPageRoutingModule,
     ComponentsModule,
   ],
-  declarations: [SugerenciaPage]
+  declarations: [EntregaPage]
 })
-export class SugerenciaPageModule {}
+export class EntregaPageModule {}

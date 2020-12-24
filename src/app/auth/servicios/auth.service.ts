@@ -13,9 +13,14 @@ import { auth } from 'firebase';
 import * as firebase from 'firebase/app';
 
 const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json'
-  })
+  
+    "Accept": "application/json, text/plain",
+      "Content-Type": "application/json", 
+      "cache-control": "no-cache", 
+      "Access-Control-Allow-Origin": "*", 
+      "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Accept, Authorization, X-Request-With, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "Access-Control-Allow-Credentials" : "true",
+      "Access-Control-Allow-Methods" : "GET, POST, DELETE, PUT, OPTIONS, TRACE, PATCH, CONNECT",  
 };
 
 @Injectable({
@@ -24,6 +29,7 @@ const httpOptions = {
 export class AuthService {
 	/*AUTH_SERVER_ADDRESS:  string  =  'http://127.0.0.1:8000'; cabutoshop.pythonanywhere.com/movil/login*/
   AUTH_SERVER_ADDRESS:  string  =  'http://cabutoshop.pythonanywhere.com/movil';
+  baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(private  httpClient:  HttpClient, private AFauth: AngularFireAuth, private db: AngularFirestore,
               private fb: Facebook ) { }
@@ -67,6 +73,20 @@ export class AuthService {
     const body = JSON.stringify(correo);
     console.log(body)
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/cambioContra/`,body,{'headers':headers})
+  }
+
+  getUser(auth:Auth):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin':'*',
+    }
+    console.log("sin transformar")
+    console.log(auth)
+    const body = JSON.stringify(auth);
+    console.log("Transformar")
+    console.log(body)
+    return this.httpClient.post(this.baseUrl+'carrito/',auth,{'headers':httpOptions})  
   }
 
 }

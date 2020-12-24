@@ -7,10 +7,21 @@ import { ContactoService } from '../servicios/contacto.service';
   styleUrls: ['./contacto.page.scss'],
 })
 export class ContactoPage implements OnInit {
-
-  constructor() { }
+  contactos;
+  constructor(
+    private contactoService: ContactoService
+  ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.contactoService.getContacto().subscribe(data => {
+      this.contactos = data;
+      console.log(this.contactos);
+    }, (error) => {
+      console.error(error);
+    })
   }
 
 }

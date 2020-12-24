@@ -23,6 +23,8 @@ export class OfertasPage implements OnInit {
   ngOnInit() {
     this.cargaPantalla();
     this.getCorreo();
+    this.storage.set('producto', false);
+    this.storage.set('oferta', true);
   }
 
   ionViewDidLoad(){
@@ -51,6 +53,30 @@ cargaPantalla() {
   } 
 
   agregar(id:string){
+    //console.log(id)
+  
+    var cantidad = document.getElementById(id);
+    console.log(cantidad)
+    var num  = cantidad.getAttribute('value')
+    console.log(typeof(num))
+    //if(isNaN(String(num)) == false){
+    //var num2 = parseInt(num)+1
+    //var numS=String(num2);
+    cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
+    
+  }
+
+  quitar(id:string){
+    var cantidad = document.getElementById(id);
+    var num  = cantidad.getAttribute('value')
+    if((parseInt(num)-1)< 0){
+      cantidad.setAttribute('value',String(parseInt(num)));
+    }else{
+      cantidad.setAttribute('value',String(parseInt(num)-1));
+    } 
+  }
+
+  carrito(id:string){
     console.log("voy a enviar la oferta al carrito")
     this.storage.get('name').then((nombre) =>{
       console.log('Name is', nombre);
@@ -60,19 +86,24 @@ cargaPantalla() {
       }else{
         var cantidad = document.getElementById(id);
         console.log(cantidad)
-        const oferta={
-          'nombre': id,
-          'correo': this.correo
+        if(parseInt(cantidad.getAttribute('value')) > 0){
+          const oferta={
+            'nombre': id,
+            'correo': this.correo,
+            'cantidad': parseInt(cantidad.getAttribute('value'))
+          }
+          this.productoService.addOferta(oferta).subscribe(data =>{
+            if(data.valid == "OK"){
+              this.mensajeCorrecto("Agregar Oferta","El producto se ha agregado al carrito");
+            }else if (data.valid == "NOT"){
+              this.mensajeIncorrecto("Agregar Oferta","Ha ocurrido un error, revise su conexión"); 
+            }  
+          })
+          /* Aqui tienes que enviar los datos que se obtengan de cantidad para el carrito*/
+        }else{
+          this.mensajeIncorrecto("Agregar Producto","No ha escogido la cantidad para agregar");
         }
-        this.productoService.addOferta(oferta).subscribe(data =>{
-          if(data.valid == "OK"){
-            this.mensajeCorrecto("Agregar Oferta","El producto se ha agregado al carrito");
-          }else if (data.valid == "NOT"){
-            this.mensajeIncorrecto("Agregar Oferta","Ha ocurrido un error, revise su conexión"); 
-          }  
-        })
-        /* Aqui tienes que enviar los datos que se obtengan de cantidad para el carrito*/
-      }
+        }
     });
   }
 
