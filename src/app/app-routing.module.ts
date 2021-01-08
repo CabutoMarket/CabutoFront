@@ -25,21 +25,12 @@ const routes: Routes = [
     loadChildren: () => import('./establecimiento/establecimiento.module').then( m => m.EstablecimientoPageModule)
   },
   {
-    path: 'shopping-cart',
-    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule),
-  
-  },
-  {
     path: 'login',
     loadChildren: () => import('./auth/login/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'registro-fb',
     loadChildren: () => import('./auth/registro-fb/registro-fb.module').then( m => m.RegistroFbPageModule)
-  },
-  {
-    path: 'shopping-cart',
-    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
   },
   {
     path: 'modal',
@@ -68,14 +59,19 @@ const routes: Routes = [
   {
     path: 'correcto',
     loadChildren: () => import('./aviso/correcto/correcto.module').then( m => m.CorrectoPageModule)
-  },  {
+  },
+  {
     path: 'politicas',
     loadChildren: () => import('./politicas/politicas.module').then( m => m.PoliticasPageModule)
   },
   {
     path: 'pregunta',
     loadChildren: () => import('./aviso/pregunta/pregunta.module').then( m => m.PreguntaPageModule)
+  },  {
+    path: 'shopping-cart',
+    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
   },
+
 
 
 ];

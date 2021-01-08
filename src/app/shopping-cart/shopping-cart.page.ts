@@ -12,61 +12,38 @@ import 'rxjs/add/operator/map';
 import { stringify } from '@angular/compiler/src/util';
 import {PreguntaPage} from '../aviso/pregunta/pregunta.page';
 
-
-
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.page.html',
   styleUrls: ['./shopping-cart.page.scss'],
 })
-
 export class ShoppingCartPage implements OnInit {
-cantidadInput:number=0;
-act:number=0;
-cart: {};
-products: {};
-oferts: {};
-combos: {};
-total:any=0.00;
-prodLen:number=0;
-oferLen:number=0;
-comLen:number=0;
-private correo:string="";
-private producto:string="";
-private oferta:string="";
-private cupones:string="";
-private politica:string="";
 
+  cantidadInput:number=0;
+  act:number=0;
+  cart: {};
+  products: {};
+  oferts: {};
+  combos: {};
+  total:any=0.00;
+  prodLen:number=0;
+  oferLen:number=0;
+  comLen:number=0;
+  private correo:string="";
+  private producto:string="";
+  private oferta:string="";
+  private cupones:string="";
+  private politica:string="";
 
-//constructor(private productCartService: ProductsCartService, private modalCtrl: ModalController) { }
-constructor(private modalCtrl: ModalController,  private  router:  Router, 
-  private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
-  private storage: Storage, private shoppingCart: ShoppingCartService, private auth: AuthService,
-  private navCtrl: NavController
-  /*private header: HeaderComponent*/){}
+  constructor(private modalCtrl: ModalController,  private  router:  Router, 
+    private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
+    private storage: Storage, private shoppingCart: ShoppingCartService, private auth: AuthService,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
-    this.showLoading(); 
+    this.showLoading();
     this.getCorreo();
-    this.getProducto();
-    this.getOferta();
-    this.getCupones()
-    this.getPolitica()
-    
-//    this.cart=this.productCartService.getCart();
   }
-
-/*  getClient(){
-      const user={
-        'correo': this.correo,
-        'contrasena': 'xxxxx'
-      };
-      this.auth.getUser(user).subscribe(data=>{
-      console.log(data)
-      });
-          //this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
-          /* aqui debers enviar el producto y cantidad al carrito */
-//  }
 
   mostrarCarrito(){
     this.storage.get('name').then((nombre) => {
@@ -85,11 +62,13 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         this.products=this.cart[0]['productos'];
         this.oferts=this.cart[0]['ofertas'];
         this.combos=this.cart[0]['combos'];
+        this.comLen=this.getComboLen();
+        this.prodLen=this.getProductLen();
+        this.oferLen=this.getOfertaLen();
         this.total=this.getTotal();
         console.log(this.cart[0]['productos']);
         console.log(this.cart[0]['ofertas']);
         console.log(this.cart[0]['combos']);
-        console.log(this.total);
         console.log("Ya salio alv");
       },(error)=>{
         console.error(error);
@@ -99,7 +78,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
       }
     });
   }
-
 
   showLoading() {  
     this.loadingCtrl.create({  
@@ -112,12 +90,42 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
          loading.dismiss();  
        }, 1000 );   
       });  
-    } 
-
-
-  removeCartItem(product){
-//    this.productCartService.removeProduct(product);
   }
+  
+  async mensajeCorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
+  async mensajeIncorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
+  getCorreo(){
+    console.log(login.login)  
+		this.storage.get('correo').then((val) => {
+      this.correo=val;
+      console.log('name: ',this.correo);
+      
+  });
+
+  }
+
 
   getTotal(){
     var ptotal=0;
@@ -146,12 +154,12 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     
   }
 
+
   getProductLen(){
     var pindex=0;
     for(let p in this.products){
       pindex=+p+1;
     }
-    this.prodLen=pindex;
     return pindex;
   }
 
@@ -160,7 +168,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     for (let c in this.combos){
       cindex=+c+1;
     }
-    this.comLen=cindex;
     return cindex;
   }
 
@@ -169,118 +176,26 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     for (let o in this.oferts){
       oindex=+o+1;
     }
-    this.oferLen=oindex;
     return oindex;
   }
 
-  checkout(){
-
-  }
-
-
-  regresar() {
-    console.log("Producto",this.producto,"Oferta",this.oferta,"Politica",this.politica,"Cupones",this.cupones);
-    if(String(this.producto)== String("true")){
-      //this.producto=String("false");
-      this.storage.set('producto', false);
-      this.router.navigateByUrl('/producto');
-    }else if (String(this.oferta)== String("true")){
-      //this.oferta=String("false");
-      this.storage.set('oferta', false);
-      this.router.navigateByUrl('/ofertas');
-    }else if (String(this.cupones)== String("true")){
-      //this.cupones=String("false");
-      this.storage.set('cupones', false)
-      this.router.navigateByUrl('/cupones');
-    }else if (String(this.politica)== String("true")){
-      //this.politica=String("false");
-      this.storage.set('politica', false);
-      this.router.navigateByUrl('/politicas');
-    }else {
-      this.router.navigateByUrl('/producto');
-      this.producto=String("true");
+  getPrecioUnitario(id:string){
+    console.log("estoy en getprcio unitario");
+    for (let i=0; i< this.getProductLen(); i++){
+      if(id===this.products[i]['id_unico']){
+        return this.products[i]['precio_producto'];
+      }
     }
-    /*this.storage.get('producto').then((producto) => {
-      if(producto == true){
-        this.router.navigateByUrl('/producto');
-      }else{
-        this.storage.get('oferta').then((oferta) =>{
-          if(oferta == true){
-            this.router.navigateByUrl('/ofertas');
-          }else{
-            this.storage.get('politica').then((politica) =>{
-          	if(politica == true){
-            	this.router.navigateByUrl('/politicas');
-          	}else{
-            	this.storage.get('cupones').then((cupones) =>{
-          	   if(cupones == true){
-            	     this.router.navigateByUrl('/cupones');
-          	   }else{
-            	    this.router.navigateByUrl('/producto');
-          	   }
-                 });
-          	}
-            });
-          }
-        });
+    for (let i=0; i< this.getOfertaLen(); i++){
+      if(id===this.oferts[i]['id_unico']){
+        return this.oferts[i]['precio_oferta'];
       }
-    });*/
-  }
-
-  getProducto(){
-    this.storage.get('producto').then((producto) => {
-      this.producto=producto;
-    });
-  }
-
-  getOferta(){
-    this.storage.get('oferta').then((oferta) =>{
-      this.oferta=oferta;
-    });
-  }
-  getPolitica(){
-    this.storage.get('politica').then((politica) =>{
-      this.politica=politica;
-    });
-  }
-  getCupones(){
-    this.storage.get('cupones').then((cupones) =>{
-      this.cupones=cupones;
-    });
-  }
-  getCorreo(){
-    console.log(login.login)  
-		this.storage.get('correo').then((val) => {
-      this.correo=val;
-      console.log('name: ',this.correo);
-      
-  });
-
-  }
-
-  async mensajeCorrecto(titulo:string,mensaje:string){
-    const modal = await this.modalCtrl.create({
-      component: CorrectoPage,
-      cssClass: 'CorrectoProducto',
-      componentProps: {
-        'titulo': titulo,
-        'mensaje': mensaje
+    }
+    for (let i=0; i< this.getComboLen(); i++){
+      if(id===this.combos[i]['id_unico']){
+        return this.combos[i]['precio'];
       }
-    });
-    return await modal.present();
-  }
-
-
-  async mensajeIncorrecto(titulo:string,mensaje:string){
-    const modal = await this.modalCtrl.create({
-      component: IncorrectoPage,
-      cssClass: 'IncorrectoProducto',
-      componentProps: {
-        'titulo': titulo,
-        'mensaje': mensaje
-      }
-    });
-    return await modal.present();
+    }
   }
 
   agregar(id:string,cantida:string){
@@ -373,14 +288,11 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     //var cantidad = document.getElementById(id);
     //var num  = cantidad.getAttribute('value')
 
-    if((parseInt(cantidad[0].innerHTML)-1)< 0){
+    if((parseInt(cantidad[0].innerHTML)-1)<= 0){
       //cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
       cantidad[0].innerHTML="0";
       cantidad[1].innerHTML="0.00";
-    }
-    else if((parseInt(cantidad[0].innerHTML)-1)== 0){
-      cantidad[0].innerHTML="0";
-      cantidad[1].innerHTML="0.00";
+      this.total=this.getTotalCart();
     }
     else{
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
@@ -393,24 +305,6 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     } 
   }
 
-  getPrecioUnitario(id:string){
-    console.log("estoy en getprcio unitario");
-    for (let i=0; i< this.getProductLen(); i++){
-      if(id===this.products[i]['id_unico']){
-        return this.products[i]['precio_producto'];
-      }
-    }
-    for (let i=0; i< this.getOfertaLen(); i++){
-      if(id===this.oferts[i]['id_unico']){
-        return this.oferts[i]['precio_oferta'];
-      }
-    }
-    for (let i=0; i< this.getComboLen(); i++){
-      if(id===this.combos[i]['id_unico']){
-        return this.combos[i]['precio'];
-      }
-    }
-  }
 
   getTotalCart(){
     console.log("estoy en total cart")
@@ -423,43 +317,29 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
     }
     //total.innerHTML=String(tot);
     //this.total=tot;
-    if(tot==0){
+    if(this.getCantidad()==0){
       this.total=0.00;
       return 0.00;
-
-    }
-    console.log(tot)
-    
-    return tot.toFixed(2);
-  }
-
-  transformarId(id: string){
-    var ids=document.getElementsByClassName('cantidad');
-    for (let i=0; i< ids.length; i++){
-      if (id==ids[i].getAttribute('id')){
-        console.log(ids[i].getAttribute('id').replace(/ /g, "_"));
-        return ids[i].setAttribute('id', ids[i].getAttribute('id').replace(/ /g, "_"));
-      }
+    }else{
+      console.log(this.getCantidad());
+      console.log(tot);
+      return tot.toFixed(2);
     }
   }
 
-  async mensajeEliminar(nombre:string,cantidad:string,div:object,valor:object,tot:string,subtotal:object,compara:string){
-    const modal = await this.modalCtrl.create({
-      component: PreguntaPage,
-      cssClass: 'pregunta',
-      componentProps: {
-        'nombre': nombre,
-        'cantidad': parseInt(cantidad),
-        'correo': this.correo,
-        'div': div,
-        'valor': valor,
-        'tot':tot,
-        'subtotal':subtotal,
-        'compara':compara,
-      }
-    });
-    return await modal.present();
+  getCantidad(){
+    var cantidades=document.getElementsByClassName('cantidad');
+    var suma=0;
+    for (var i=0;i<cantidades.length;i++){
+      suma=suma+parseInt(cantidades[i].innerHTML);
+    }
+    if(suma==0){
+      return 0;
+    }
+    return suma;
   }
+
+
 
   eliminar(id:string,c:string,cantidad:string){
     var tot:any=this.getTotalCart();
@@ -511,9 +391,27 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
 
     console.log(prodxcant);*/
   }
-  
+
+  async mensajeEliminar(nombre:string,cantidad:string,div:object,valor:object,tot:string,subtotal:object,compara:string){
+    const modal = await this.modalCtrl.create({
+      component: PreguntaPage,
+      cssClass: 'pregunta',
+      componentProps: {
+        'nombre': nombre,
+        'cantidad': parseInt(cantidad),
+        'correo': this.correo,
+        'div': div,
+        'valor': valor,
+        'tot':tot,
+        'subtotal':subtotal,
+        'compara':compara,
+      }
+    });
+    return await modal.present();
+  }
+
+
+
+
+
 }
-
-
-
-
