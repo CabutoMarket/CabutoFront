@@ -1,0 +1,85 @@
+ion-header{
+    height: 10px;
+    width: 100%;
+}
+
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+
+.titulo{
+    font-family: var(--ion-font-family);
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.7rem;
+    padding-left: 2rem;
+}
+
+.aviso{
+    //height: 1rem;
+    width: 1rem;
+    padding-top:1.8rem ;
+}
+.contenedor-imagen{
+    //height: 5rem;
+    width: 1rem;
+    
+}
+
+.noti{
+    display: flex;
+    //flex-flow: row nowrap; /* Align on the same line */
+    justify-content: space-around; 
+    vertical-align: middle;
+    box-shadow: 5px 5px 5px 5px #c2c2c2;
+    
+    border-radius: 20px;
+    height: 80px;
+}
+
+.contenedor-noti{
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+.fecha{
+    //width: 1rem;
+    //height: 1rem;
+    right:1rem;
+    top:1rem;
+    //position: relative;
+    //display: flex;
+    //justify-content: flex-end;
+    text-align: right!important;
+    //margin: 0% 0% 0% 80%;
+    z-index: 9;
+    display: block;
+    color: #a2a4ab;
+    font-size:0.7rem
+}
+
+.asunto{
+    font-size: 1rem;
+    color:#2153FF;
+}
+
+.mensaje{
+    font-size: 0.7rem;
+    color: #a2a4ab;
+}
+
+.contenido{
+    padding-top:1.5rem ;
+}
+
+ion-fab-button{
+    --background:#2153FF;
+    //bottom: 10rem;
+    padding-bottom: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+ion-fab{
+    padding-bottom: 10rem;
+}

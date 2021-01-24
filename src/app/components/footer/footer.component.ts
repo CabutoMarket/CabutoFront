@@ -25,9 +25,11 @@ export class FooterComponent implements OnInit {
   change_pic(url:String){
     if(this.usuario==url){
       this.usuario="../assets/img/avatar_perfil2.png";
-    }else if(this.notificacion==url){
-      this.notificacion="../assets/img/notificaciones_naranja.png";
-    }else{
+    }/*else if(this.notificacion==url){
+      //this.notificacion="../assets/img/notificaciones_naranja.png";
+      this.router.navigateByUrl('/notificaciones');
+
+    }*/else{
       this.home="../assets/img/home_activo.png";
       
     }
@@ -37,7 +39,7 @@ export class FooterComponent implements OnInit {
 
   constructor(private modalCtrl: ModalController,
     private storage: Storage, 
-    private productoPage: ProductoPage,private  router:  Router,private alert: AlertController,
+    private productoPage: ProductoPage,public  router:  Router,private alert: AlertController,
     private menuCtrl: MenuController) { }
 
   ngOnInit() {}
@@ -58,11 +60,12 @@ export class FooterComponent implements OnInit {
     }else{
       this.producto="../assets/img/home_activo.png";
       this.router.navigateByUrl('/producto');
-      /*let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
-      modal.present();*/
     }
-    /*let modal= await this.modalCtrl.create({component: ShoppingCartPage, cssClass: 'cart-modal'});
-    modal.present();*/
   }
 
+  noti(){
+    this.router.navigateByUrl('/notificaciones',{
+      replaceUrl :true
+    });
+  }
 }
