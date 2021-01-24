@@ -67,7 +67,7 @@ export class ProductoPage implements OnInit {
       this.producto=data;
       console.log(this.producto);
       this.dataFromCart=this.navParamsService.getNavData();
-      //this.getDataFromCarrito();
+      this.getDataFromCarrito();
       },(error)=>{
       	console.error(error);
       }) }
