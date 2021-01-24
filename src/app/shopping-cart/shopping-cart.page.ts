@@ -11,6 +11,8 @@ import { AuthService } from '../auth/servicios/auth.service';
 import 'rxjs/add/operator/map';
 import { stringify } from '@angular/compiler/src/util';
 import {PreguntaPage} from '../aviso/pregunta/pregunta.page';
+import { ProductoPage } from '../producto/producto.page';
+import {NavParamsService} from '../servicios/nav-params.service'
 
 @Component({
   selector: 'app-shopping-cart',
@@ -38,11 +40,13 @@ export class ShoppingCartPage implements OnInit {
   constructor(private modalCtrl: ModalController,  private  router:  Router, 
     private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
     private storage: Storage, private shoppingCart: ShoppingCartService, private auth: AuthService,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController, private navParamsService: NavParamsService) { }
 
   ngOnInit() {
     this.showLoading();
     this.getCorreo();
+   
+    
   }
 
   mostrarCarrito(){
@@ -198,33 +202,25 @@ export class ShoppingCartPage implements OnInit {
     }
   }
 
-  agregar(id:string,cantida:string){
-    console.log("el id a recibir",id)
+  agregar(id:string){
+    console.log("el id a recibir",id);
     var precio_unitario=this.getPrecioUnitario(id);
     var cantidad= document.querySelectorAll('#'+id);
     console.log("Esto obtengo del query",cantidad);
-    console.log("esto es lo que voy a cambiar",cantidad[0].innerHTML)
+    console.log("Esto obtengo del query 0",cantidad[0].innerHTML);
+    console.log("Esto obtengo del query 1",cantidad[1].innerHTML);
     if(parseInt(cantidad[0].innerHTML)>=0){
-      console.log("tengo una cantidad")
+      console.log("tengo una cantidad");
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
-      console.log("esta es la cantidad",cantidad[0].innerHTML)
-      /*var precio_unitario=this.getPrecioUnitario(id);
-      console.log("Este sería el precio unitario",precio_unitario);
-      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario).toFixed(2));
-      console.log("Este es el precio final",cantidad[1].innerHTML);
-      this.total=this.getTotalCart();*/
-    }else{
-      console.log("Tengo un NaN")
-      cantidad[0].innerHTML=String(parseInt(cantida)+1);
-      console.log("esta es la cantidad",cantidad[0].innerHTML)
-      /*
-      var precio_unitario=this.getPrecioUnitario(id);
-      console.log("Este sería el precio unitario",precio_unitario);
-      cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario).toFixed(2));
-      console.log("Este es el precio final",cantidad[1].innerHTML);
-      this.total=this.getTotalCart();*/
+      //this.saveData(id,cantidad[0].innerHTML);
+      console.log("esta es la cantidad",cantidad[0].innerHTML);
     }
-
+    else{
+      console.log("Tengo un NaN")
+      cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
+      //this.saveData(id,cantidad[0].innerHTML);
+      console.log("esta es la cantidad",cantidad[0].innerHTML)
+    }
     var subtotal=precio_unitario*parseInt(cantidad[0].innerHTML);
     if(precio_unitario<=subtotal){
       console.log("Este sería el precio unitario",precio_unitario);
@@ -233,69 +229,26 @@ export class ShoppingCartPage implements OnInit {
       this.total=this.getTotalCart();
     }
     
-    //console.log(id)
-    /*var cantidad = document.getElementById(id);
-    console.log(cantidad.innerText)
-    cantidad.innerText=String(parseInt(cantidad.innerText)+1);*/
-    //this.tranformarId();
-    /*var cantidad= document.querySelectorAll('#'+id);
-    console.log(cantidad);
-    console.log(parseFloat(cantidad[1].innerHTML)+1)
-    cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
-    var precio_unitario=this.getPrecioUnitario(id);
-    console.log(precio_unitario)
-    cantidad[1].innerHTML=String(parseFloat(cantidad[1].innerHTML)+precio_unitario);
-    this.total=this.getTotalCart();
-*/
-
-    //cantidad.setAttribute('value',String(parseInt(cantidad.innerText)+1));
-    /*var cantidad = document.getElementById(id);
-    console.log(cantidad)
-    console.log(cant)
-    var place  = cantidad.getAttribute('placeholder')
-    var valor = parseInt(cant);
-    var total  = valor +1;
-    var valor2 =parseInt(place);
-    var total2 = valor2+1;
-    cantidad.setAttribute('placeholder',String(total2));
-    cantidad.setAttribute('value',String(total));*/
-    /*console.log(cantidad)
-    var st  = cantidad.getAttribute('value')
-    console.log(st)
-    var num = String(st)
-    console.log(num)
-    var place  = cantidad.getAttribute('placeholder')
-    console.log(typeof(num))
-    var valor = parseInt(num);
-    var total  = valor +1;
-    var valor2 =parseInt(place);
-    var total2 = valor2+1;
-    cantidad.setAttribute('placeholder',String(total2));
-    //if(isNaN(String(num)) == false){
-    //var num2 = parseInt(num)+1
-    //var numS=String(num2);
-    cantidad.setAttribute('value',String(total));*/
     
   }
 
   quitar(id:string){
     console.log("el id a recibir",id)
     var precio_unitario=this.getPrecioUnitario(id);
+    //var cantidad= document.querySelectorAll('#'+id);
     var cantidad= document.querySelectorAll('#'+id);
     console.log("esto obtengo del query",cantidad)
-    //console.log(parseFloat(cantidad[1].innerHTML)-1)
-
-    //var cantidad = document.getElementById(id);
-    //var num  = cantidad.getAttribute('value')
 
     if((parseInt(cantidad[0].innerHTML)-1)<= 0){
       //cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
       cantidad[0].innerHTML="0";
+      //this.saveData(id,cantidad[0].innerHTML);
       cantidad[1].innerHTML="0.00";
       this.total=this.getTotalCart();
     }
     else{
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
+      //this.saveData(id,cantidad[0].innerHTML);
       var subtotal=precio_unitario*parseInt(cantidad[0].innerHTML);
       console.log(precio_unitario)
       if (precio_unitario <= subtotal){
@@ -308,7 +261,7 @@ export class ShoppingCartPage implements OnInit {
 
   getTotalCart(){
     console.log("estoy en total cart")
-    var total=document.getElementById('A_pagar');
+    //var total=document.getElementById('A_pagar');
     var subtotal=document.getElementsByClassName('subtotal');
     var tot=0;
     for(var i=0;i<subtotal.length;i++){
@@ -410,7 +363,76 @@ export class ShoppingCartPage implements OnInit {
     return await modal.present();
   }
 
+  getId(id:string){
+    console.log("estoy en getprcio unitario");
+    for (let i=0; i< this.getProductLen(); i++){
+      if(id===this.products[i]['id_unico']){
+        return this.products[i]['d_unico'];
+      }
+    }
+    for (let i=0; i< this.getOfertaLen(); i++){
+      if(id===this.oferts[i]['id_unico']){
+        return this.oferts[i]['id_unico'];
+      }
+    }
+    for (let i=0; i< this.getComboLen(); i++){
+      if(id===this.combos[i]['id_unico']){
+        return this.combos[i]['id_unico'];
+      }
+    }
+  }
 
+  saveData(id:string,cantidad:string){
+    this.storage.set(id,cantidad);
+    
+    //var cantidades=document.getElementsByClassName('cantidad');
+    //for(var i=0; i<cantidades.length;i++){
+      
+    //  var id=cantidades[i].getAttribute("id");
+    //  console.log(id);
+      
+      //if(this.getId(id)==id)
+      //this.storage.get(id).then((data)=>{
+      //    console.log(data);
+      //});
+    //}
+  }
+
+  loadData(){
+    var cantidades=document.getElementsByClassName('cantidad');
+    for(var i=0; i<cantidades.length;i++){
+      
+      var id=cantidades[i].getAttribute("id");
+      
+      //if(this.getId(id)==id)
+      this.storage.get(id).then((data)=>{
+        if(data===null){
+          cantidades[i].innerHTML=cantidades[i].innerHTML;
+        }else{
+          cantidades[i].innerHTML=data;
+        }
+      });
+    }
+
+  }
+
+  goProductPage(){
+    var cantidades=document.getElementsByClassName('cantidad');
+    var datos  = [];
+    for(var i=0; i<cantidades.length;i++){
+      var id=cantidades[i].getAttribute("id");
+          datos.push({"id":id,"cantidad":cantidades[i].innerHTML});
+      
+
+    }
+    //objeto[0].datos = datos;
+    //console.log(JSON.stringify(objeto));
+    
+    //this.navCtrl.push(ProductoPage, datos);
+    this.navParamsService.setNavData(datos);
+    this.router.navigate(['/producto']);
+
+  }
 
 
 

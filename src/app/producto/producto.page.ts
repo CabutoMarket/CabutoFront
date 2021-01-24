@@ -12,6 +12,9 @@ import {DetallesProductosPage} from '../detalles-productos/detalles-productos.pa
 import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
+import { database } from 'firebase';
+import {NavParamsService} from '../servicios/nav-params.service'
+
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 //FrontFinal\final\CabutoFront\src\app\global.ts
 
@@ -26,7 +29,9 @@ export class ProductoPage implements OnInit {
     productoInput: string ='';
     producto : {};
     verSeleccion: string = '';
+    dataFromCart: {};
     n = 0;
+    num:any=0;
     loaderToShow: any;
     private correo:String="";
     public cantidad:string="0";
@@ -36,7 +41,8 @@ export class ProductoPage implements OnInit {
     public loadingCtrl: LoadingController,
     private storage: Storage,
     public modalCtrl: ModalController,
-    private shoppingCart: ShoppingCartService
+    private shoppingCart: ShoppingCartService,
+    private navParamsService: NavParamsService
 
   	) { }
 
@@ -44,7 +50,9 @@ export class ProductoPage implements OnInit {
 
     this.cargaPantalla();
     this.getCorreo();
-    this.storage.set('producto', true);
+    
+    //this.storage.set('producto', true);
+    
     //this.storage.set('oferta', false);
     //this.storage.set('politica', false);
     //this.storage.set('cupones', false);
@@ -58,7 +66,8 @@ export class ProductoPage implements OnInit {
       //console.log("esta es la data "+data["nombre"])
       this.producto=data;
       console.log(this.producto);
-
+      this.dataFromCart=this.navParamsService.getNavData();
+      //this.getDataFromCarrito();
       },(error)=>{
       	console.error(error);
       }) }
@@ -70,6 +79,9 @@ export class ProductoPage implements OnInit {
         }).then((loading) => {  
           loading.present();{
             this.ionViewDidLoad();
+            
+            //this.loadData();
+            
         } 
         setTimeout(() => {   
           loading.dismiss();  
@@ -114,24 +126,35 @@ export class ProductoPage implements OnInit {
       agregar(id:string){
         //console.log(id)
       
-        var cantidad = document.getElementById(id);
-        console.log(cantidad)
-        var num  = cantidad.getAttribute('value')
+        //var cantidad = document.getElementById(id);
+        var cantidad= document.querySelectorAll('#'+id);
+        console.log(cantidad[0])
+        //console.log(cantidad)
+        var num  = cantidad[0].innerHTML
         console.log(typeof(num))
         //if(isNaN(String(num)) == false){
         //var num2 = parseInt(num)+1
         //var numS=String(num2);
-        cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
+        //cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
+        cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
+        //this.saveData(id,cantidad[0].innerHTML);
         
       }
 
       quitar(id:string){
-        var cantidad = document.getElementById(id);
-        var num  = cantidad.getAttribute('value')
+        //var cantidad = document.getElementById(id);
+        //var num  = cantidad.getAttribute('value')
+        var cantidad= document.querySelectorAll('#'+id);
+        var num  = cantidad[0].innerHTML
         if((parseInt(num)-1)< 0){
-          cantidad.setAttribute('value',String(parseInt(num)));
+          //cantidad.setAttribute('value',String(parseInt(num)));
+          cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
+
         }else{
-          cantidad.setAttribute('value',String(parseInt(num)-1));
+          //cantidad.setAttribute('value',String(parseInt(num)-1));
+          cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
+          //this.saveData(id,cantidad[0].innerHTML);
+
         } 
       }
 
@@ -158,15 +181,15 @@ export class ProductoPage implements OnInit {
             this.router.navigateByUrl('/login');  
           }else{
             var cantidad = document.getElementById(id);
-            if(parseInt(cantidad.getAttribute('value')) > 0){
+            if(parseInt(cantidad.innerHTML) > 0){
               const prodxcant={
-                'nombre': id,
-                'cantidad': parseInt(cantidad.getAttribute('value')),
+                'nombre': this.getNombre(id),
+                'cantidad': parseInt(cantidad.innerHTML),
                 'correo': this.correo
               }
               this.shoppingCart.addProduct(prodxcant).subscribe(data =>{
                 if(data.valid == "OK"){
-                  this.storage.set(id,parseInt(cantidad.getAttribute('value')));
+                  this.storage.set(id,parseInt(cantidad.innerHTML));
                   var number = this.getNumber();
                   this.actualizarNum(number);
                   this.mensajeCorrecto("Agregar Producto","El producto se ha agregado al carrito");
@@ -325,20 +348,85 @@ export class ProductoPage implements OnInit {
   cargarNum(id:string){
     var cantidad = document.getElementById(id);
     console.log(cantidad)
-    var num  = cantidad.getAttribute('value')
+    var num  = cantidad.innerHTML
     console.log(typeof(num))
     var num =this.getNum(id);
     console.log(num)
     if(num != null){
       console.log("existen datos :'v")
-      cantidad.setAttribute('value',String(parseInt(num)));
+      //cantidad.setAttribute('value',String(parseInt(num)));
+      cantidad.innerHTML=String(num);
     }else{
       console.log("no existe datos :C")
-      cantidad.setAttribute('value',"0");
+      //cantidad.setAttribute('value',"0");
+      cantidad.innerHTML="0";
     }
         
 
   }
+
+  getProductLen(){
+    var pindex=0;
+    for(let p in this.producto){
+      pindex=+p+1;
+    }
+    return pindex;
+  }
+
+  getNombre(id:string){
+    for (let i=0; i< this.getProductLen(); i++){
+      if(id===this.producto[i]['id_unico']){
+        return this.producto[i]['nombre'];
+      }
+    }
+
+  }
+
+  getDataFromCarritoLen(){
+    var pindex=0;
+    for(let p in this.dataFromCart){
+      pindex=+p+1;
+    }
+    return pindex;
+  }
+
+  getDataFromCarrito(){
+    console.log(this.dataFromCart)
+    var cantidades=document.getElementsByClassName('cantidad');
+    for(var j=0; j< cantidades.length; j++){
+      var id=cantidades[j].getAttribute('id');
+      console.log(id);
+      for (var i=0; i<this.getDataFromCarritoLen();i++){
+        if(this.dataFromCart[i]['id']===id){
+          console.log("Cantidad en el arreglo",this.dataFromCart[i]['cantidad']);
+          cantidades[j].innerHTML=String(this.dataFromCart[i]['cantidad']);
+          console.log(cantidades[j].innerHTML);
+        }
+      }
+      
+    }
+  }
+
+  /*saveData(id:string,cantidad:string){
+    this.storage.set(id,cantidad);
+  }*/
+
+  /*loadData(){
+    console.log("LoadData");
+    var cantidades=document.getElementsByClassName('cantidad');
+    for(var i=0; i<cantidades.length;i++){
+      var id=cantidades[i].getAttribute("id")
+      console.log(id);
+      this.storage.get(id).then((data)=>{
+        if(data == null){
+          cantidades[i].innerHTML="0";
+        }else{
+          cantidades[i].innerHTML=data;
+        }
+        
+      });
+    }
+  }*/
 }
 
 
