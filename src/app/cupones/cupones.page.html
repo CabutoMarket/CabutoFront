@@ -1,0 +1,12 @@
+<app-header></app-header>
+
+<ion-content>
+<div class= "contenedor">
+  <ion-label class="titulo">Cupones</ion-label>
+  <div class="contenedor-cupones" *ngFor="let cupones of cupon">
+    <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{cupon.imagen}}"  >
+  </div>
+</div>
+</ion-content>
+
+<app-footer></app-footer>
