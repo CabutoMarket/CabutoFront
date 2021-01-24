@@ -430,7 +430,7 @@ export class ShoppingCartPage implements OnInit {
     
     //this.navCtrl.push(ProductoPage, datos);
     this.navParamsService.setNavData(datos);
-    this.router.navigate(['/producto']);
+    this.router.navigate(['/producto'],{replaceUrl:true});
 
   }
 
