@@ -1,0 +1,27 @@
+ion-header{
+    height: 10px;
+    width: 100%;
+}
+
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+
+.titulo{
+    font-family: var(--ion-font-family);
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.7rem;
+    padding-left: 2rem;
+}
+
+.contenedor-cupones{
+    padding-left: 2.5rem;
+    padding-top: 1rem;
+}
+
+.contenedor-imagen{
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    
+}

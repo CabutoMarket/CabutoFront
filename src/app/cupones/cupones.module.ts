@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CuponesPageRoutingModule } from './cupones-routing.module';
 
 import { CuponesPage } from './cupones.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CuponesPageRoutingModule
+    CuponesPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [CuponesPage]
 })
