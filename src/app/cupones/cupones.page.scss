@@ -18,10 +18,29 @@ ion-header{
 
 .contenedor-cupones{
     padding-left: 2.5rem;
-    padding-top: 1rem;
+    //padding-top: 1rem;
 }
 
 .contenedor-imagen{
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    
+    padding: 0.5rem 0rem 0.5rem 0rem;
+    //position: absolute;
+    z-index: 0;
+    bottom: 0rem;
+    height: 12rem;
 }
+
+.agregar-imagen{
+    text-align: center;
+    display: flex;
+    position: relative;
+    width: 50px;
+    bottom: 6.8rem;
+    left: 7.5rem;
+    visibility: hidden;
+    z-index: 1;
+}
+
+/*
+.agregar:hover {
+    visibility: visible;
+  }*/
