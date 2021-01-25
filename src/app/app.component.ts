@@ -151,6 +151,9 @@ export class AppComponent {
         });  
       }
 
+  gotoOfertas(){
+    this.router.navigate(['/ofertas'],{replaceUrl:true});
+  }
 
 
 async mensaje(titulo:string,subtitulo:string,mensaje:string) {

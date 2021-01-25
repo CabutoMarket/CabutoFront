@@ -44,10 +44,10 @@ ion-input{
 .div-producto{
     display: flex;
      flex-flow: row nowrap; /* Align on the same line */
-  //justify-content: space-around; 
-vertical-align: middle;
-box-shadow: 5px 5px 5px 5px #c2c2c2;
-//padding: 20px 0px;
+    //justify-content: space-around; 
+    vertical-align: middle;
+    box-shadow: 5px 5px 5px 5px #c2c2c2;
+    //padding: 20px 0px;
     border-radius: 20px;
     height: 130px;
 
@@ -60,6 +60,7 @@ box-shadow: 5px 5px 5px 5px #c2c2c2;
     // width: 100%;
     position: absolute;
     left: 10rem;
+    display: -webkit-inline-box;
     //right: 30px;
     //bottom:150px;
     //padding-bottom: 100px ;

@@ -7,6 +7,8 @@ import {login} from  './../global';
 import { Router } from '@angular/router';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
+import {NavParamsService} from '../servicios/nav-params.service'
+
 
 @Component({
   selector: 'app-ofertas',
@@ -15,15 +17,16 @@ import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 })
 export class OfertasPage implements OnInit {
 
+  dataFromCart: {};
   oferta : {};
   private correo:String="";
   constructor(public productoService: ProductoService,public modalCtrl: ModalController, public loadingCtrl: LoadingController, 
-    private alert: AlertController,private storage: Storage,private  router:  Router) { }
+    private alert: AlertController,private storage: Storage,private  router:  Router, private navParamsService: NavParamsService) { }
 
   ngOnInit() {
     this.cargaPantalla();
     this.getCorreo();
-    this.storage.set('oferta', true);
+    //this.storage.set('oferta', true);
     //this.storage.set('producto', false);
     //this.storage.set('cupones', false);
     //this.storage.set('politica', false);
@@ -40,6 +43,11 @@ export class OfertasPage implements OnInit {
        },(error)=>{
          console.error(error);
        }) }
+  
+  /*ionViewDidEnter(){
+    this.dataFromCart=this.navParamsService.getNavData();
+    this.getDataFromCarrito();
+  }*/
  
 cargaPantalla() {  
   this.loadingCtrl.create({  
@@ -55,27 +63,34 @@ cargaPantalla() {
   } 
 
   agregar(id:string){
-    //console.log(id)
-  
-    var cantidad = document.getElementById(id);
-    console.log(cantidad)
-    var num  = cantidad.getAttribute('value')
-    console.log(typeof(num))
-    //if(isNaN(String(num)) == false){
-    //var num2 = parseInt(num)+1
-    //var numS=String(num2);
-    cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
-    
+    var cantidad= document.querySelectorAll('#'+id);
+        console.log(cantidad[0])
+        //console.log(cantidad)
+        var num  = cantidad[0].innerHTML
+        console.log(typeof(num))
+        //if(isNaN(String(num)) == false){
+        //var num2 = parseInt(num)+1
+        //var numS=String(num2);
+        //cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
+        cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
+        //this.saveData(id,cantidad[0].innerHTML);
   }
 
   quitar(id:string){
-    var cantidad = document.getElementById(id);
-    var num  = cantidad.getAttribute('value')
-    if((parseInt(num)-1)< 0){
-      cantidad.setAttribute('value',String(parseInt(num)));
-    }else{
-      cantidad.setAttribute('value',String(parseInt(num)-1));
-    } 
+    //var cantidad = document.getElementById(id);
+        //var num  = cantidad.getAttribute('value')
+        var cantidad= document.querySelectorAll('#'+id);
+        var num  = cantidad[0].innerHTML
+        if((parseInt(num)-1)< 0){
+          //cantidad.setAttribute('value',String(parseInt(num)));
+          cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
+
+        }else{
+          //cantidad.setAttribute('value',String(parseInt(num)-1));
+          cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
+          //this.saveData(id,cantidad[0].innerHTML);
+
+        } 
   }
 
   carrito(id:string){
@@ -88,11 +103,11 @@ cargaPantalla() {
       }else{
         var cantidad = document.getElementById(id);
         console.log(cantidad)
-        if(parseInt(cantidad.getAttribute('value')) > 0){
+        if(parseInt(cantidad.innerHTML) > 0){
           const oferta={
-            'nombre': id,
+            'nombre': this.getNombre(id),
             'correo': this.correo,
-            'cantidad': parseInt(cantidad.getAttribute('value'))
+            'cantidad': parseInt(cantidad.innerHTML)
           }
           this.productoService.addOferta(oferta).subscribe(data =>{
             if(data.valid == "OK"){
@@ -143,6 +158,42 @@ cargaPantalla() {
     });
     return await modal.present();
   }
+
+  getOfertLen(){
+    var pindex=0;
+    for(let p in this.oferta){
+      pindex=+p+1;
+    }
+    return pindex;
+  }
+
+  getNombre(id:string){
+    for (let i=0; i< this.getOfertLen(); i++){
+      if(id===this.oferta[i]['id_unico']){
+        return this.oferta[i]['nombre'];
+      }
+    }
+
+  }
+
+  /*getDataFromCarritoLen(){
+    var pindex=0;
+    for(let p in this.dataFromCart){
+      pindex=+p+1;
+    }
+    return pindex;
+  }
+
+  getDataFromCarrito(){
+    console.log(this.dataFromCart)
+    for (var i=0; i<this.getDataFromCarritoLen();i++){
+      var cantidad= document.querySelectorAll('#'+this.dataFromCart[i]['id']);
+      console.log(cantidad);
+      cantidad[2].innerHTML=this.dataFromCart[i]['cantidad'];
+      //id.innerHTML="100";
+      console.log(cantidad[2].innerHTML);
+    }
+  }*/
 
   
 }

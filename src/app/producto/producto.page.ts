@@ -66,12 +66,14 @@ export class ProductoPage implements OnInit {
       //console.log("esta es la data "+data["nombre"])
       this.producto=data;
       console.log(this.producto);
-      this.dataFromCart=this.navParamsService.getNavData();
-      this.getDataFromCarrito();
       },(error)=>{
       	console.error(error);
-      }) }
+      }); }
 
+      ionViewDidEnter(){
+        this.dataFromCart=this.navParamsService.getNavData();
+        this.getDataFromCarrito();
+      }
 
       cargaPantalla() {  
         this.loadingCtrl.create({  
@@ -79,7 +81,6 @@ export class ProductoPage implements OnInit {
         }).then((loading) => {  
           loading.present();{
             this.ionViewDidLoad();
-            
             //this.loadData();
             
         } 
@@ -138,7 +139,6 @@ export class ProductoPage implements OnInit {
         //cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
         cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
         //this.saveData(id,cantidad[0].innerHTML);
-        
       }
 
       quitar(id:string){
@@ -392,18 +392,12 @@ export class ProductoPage implements OnInit {
 
   getDataFromCarrito(){
     console.log(this.dataFromCart)
-    var cantidades=document.getElementsByClassName('cantidad');
-    for(var j=0; j< cantidades.length; j++){
-      var id=cantidades[j].getAttribute('id');
-      console.log(id);
-      for (var i=0; i<this.getDataFromCarritoLen();i++){
-        if(this.dataFromCart[i]['id']===id){
-          console.log("Cantidad en el arreglo",this.dataFromCart[i]['cantidad']);
-          cantidades[j].innerHTML=String(this.dataFromCart[i]['cantidad']);
-          console.log(cantidades[j].innerHTML);
-        }
-      }
-      
+    for (var i=0; i<this.getDataFromCarritoLen();i++){
+      var cantidad= document.querySelectorAll('#'+this.dataFromCart[i]['id']);
+      console.log(cantidad);
+      cantidad[2].innerHTML=this.dataFromCart[i]['cantidad'];
+      //id.innerHTML="100";
+      console.log(cantidad[2].innerHTML);
     }
   }
 

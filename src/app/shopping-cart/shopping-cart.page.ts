@@ -45,7 +45,6 @@ export class ShoppingCartPage implements OnInit {
   ngOnInit() {
     this.showLoading();
     this.getCorreo();
-   
     
   }
 
@@ -81,6 +80,10 @@ export class ShoppingCartPage implements OnInit {
       });
       }
     });
+  }
+
+  ionViewDidLeave(){
+    this.goProductPage();
   }
 
   showLoading() {  
@@ -433,6 +436,24 @@ export class ShoppingCartPage implements OnInit {
     this.router.navigate(['/producto'],{replaceUrl:true});
 
   }
+
+  /*goOfertPage(){
+    var cantidades=document.getElementsByClassName('cantidad');
+    var datos  = [];
+    for(var i=0; i<cantidades.length;i++){
+      var id=cantidades[i].getAttribute("id");
+          datos.push({"id":id,"cantidad":cantidades[i].innerHTML});
+      
+
+    }
+    //objeto[0].datos = datos;
+    //console.log(JSON.stringify(objeto));
+    
+    //this.navCtrl.push(ProductoPage, datos);
+    this.navParamsService.setNavData(datos);
+    this.router.navigate(['/ofertas'],{replaceUrl:true});
+
+  }*/
 
 
 
