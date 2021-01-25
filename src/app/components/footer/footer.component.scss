@@ -34,3 +34,20 @@ ion-toolbar{
     width: 20%;
     height: 30%;
 }
+
+.valor{
+    position:absolute;  
+    color:white;
+    left:4rem;
+    top:1.8rem;
+    border-radius: 50%;
+    height:15px;
+    width: 15px;
+    background: #FE3A00;
+    font-size: 0.9rem;
+    text-align: center;
+}
+p{
+    left:4rem;
+    padding: bottom 2rem;  
+}

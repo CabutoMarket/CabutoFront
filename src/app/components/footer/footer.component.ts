@@ -5,7 +5,8 @@ import { Storage } from '@ionic/storage';
 import { ProductoPage } from 'src/app/producto/producto.page';
 import { Router } from '@angular/router';
 import { AlertController, MenuController, ModalController } from '@ionic/angular';
-
+import {NotificacionesService} from '../../servicios/notificaciones.service';
+import {IncorrectoPage} from '../../aviso/incorrecto/incorrecto.page';
 
 
 
@@ -21,6 +22,8 @@ export class FooterComponent implements OnInit {
   notificacion:String="../assets/img/notificaciones.png";
   home:String="../assets/img/home.png";
   producto:String="";
+  notificaciones : {};
+  number:String="0";
 
   change_pic(url:String){
     if(this.usuario==url){
@@ -40,9 +43,11 @@ export class FooterComponent implements OnInit {
   constructor(private modalCtrl: ModalController,
     private storage: Storage, 
     private productoPage: ProductoPage,public  router:  Router,private alert: AlertController,
-    private menuCtrl: MenuController) { }
+    private menuCtrl: MenuController,public notificacionesService: NotificacionesService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+     this.datos()
+  }
 
   async openCart(){
     var bool =false
@@ -67,5 +72,35 @@ export class FooterComponent implements OnInit {
     this.router.navigateByUrl('/notificaciones',{
       replaceUrl :true
     });
+  }
+
+  async mensajeIncorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalCtrl.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
+  datos(){
+    console.log("refresh");
+     this.notificacionesService.getNotificaciones().subscribe(data => {
+       console.log(data)
+       this.notificaciones=data;
+       this.number =String(Object.entries(this.notificaciones).length)
+       },(error)=>{
+         console.log("algo salio mal")
+         this.mensajeIncorrecto("Algo salió mal","error de conexión");
+         console.error(error);
+       }) 
+  }
+
+  getNumber(){
+    var valor =String(Object.entries(this.notificaciones).length)
+    return String(valor)
   }
 }
