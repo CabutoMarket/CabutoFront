@@ -197,6 +197,7 @@ cargaPantalla() {
         console.log(cantidad[2].innerHTML);
       }catch(e){
         console.log(e);
+        cantidad[0].innerHTML=this.dataFromCart[i]['cantidad'];
         continue;
       }
     }

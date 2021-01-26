@@ -85,7 +85,9 @@ export class ShoppingCartPage implements OnInit {
     });
   }
 
-  
+  ionViewDidEnter(){
+    this.loadData();
+  }
 
   showLoading() {  
     this.loadingCtrl.create({  
@@ -216,13 +218,13 @@ export class ShoppingCartPage implements OnInit {
     if(parseInt(cantidad[0].innerHTML)>=0){
       console.log("tengo una cantidad");
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
-      //this.saveData(id,cantidad[0].innerHTML);
+      this.saveData(id,cantidad[0].innerHTML);
       console.log("esta es la cantidad",cantidad[0].innerHTML);
     }
     else{
       console.log("Tengo un NaN")
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
-      //this.saveData(id,cantidad[0].innerHTML);
+      this.saveData(id,cantidad[0].innerHTML);
       console.log("esta es la cantidad",cantidad[0].innerHTML)
     }
     var subtotal=precio_unitario*parseInt(cantidad[0].innerHTML);
@@ -246,13 +248,13 @@ export class ShoppingCartPage implements OnInit {
     if((parseInt(cantidad[0].innerHTML)-1)<= 0){
       //cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
       cantidad[0].innerHTML="0";
-      //this.saveData(id,cantidad[0].innerHTML);
+      this.saveData(id,cantidad[0].innerHTML);
       cantidad[1].innerHTML="0.00";
       this.total=this.getTotalCart();
     }
     else{
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
-      //this.saveData(id,cantidad[0].innerHTML);
+      this.saveData(id,cantidad[0].innerHTML);
       var subtotal=precio_unitario*parseInt(cantidad[0].innerHTML);
       console.log(precio_unitario)
       if (precio_unitario <= subtotal){
@@ -423,20 +425,35 @@ export class ShoppingCartPage implements OnInit {
   }
 
   loadData(){
-    var cantidades=document.getElementsByClassName('cantidad');
+/*    var cantidades=document.getElementsByClassName('cantidad');
     for(var i=0; i<cantidades.length;i++){
-      
+      try{
       var id=cantidades[i].getAttribute("id");
+      var cantidad= document.querySelectorAll('#'+id);
       
       //if(this.getId(id)==id)
       this.storage.get(id).then((data)=>{
+        console.log("Este es el id "+ id + "Esta es la cantidad "+ data);
         if(data===null){
-          cantidades[i].innerHTML=cantidades[i].innerHTML;
+          cantidad[0].innerHTML=cantidad[0].innerHTML;
         }else{
-          cantidades[i].innerHTML=data;
+          cantidad[0].innerHTML=data;
         }
       });
+    }catch(e){
+      console.log(e);
+      continue;
     }
+    }*/
+    var datos=[];
+    var cantidades=document.getElementsByClassName('cantidad');
+    for(var i=0; i<cantidades.length;i++){
+      var id=cantidades[i].getAttribute("id");
+      this.storage.get(id).then((data)=>{
+        datos.push({'id':id,'cantidad':data});
+      });
+    }
+    console.log(datos);
 
   }
 

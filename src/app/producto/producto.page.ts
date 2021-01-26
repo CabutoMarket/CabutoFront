@@ -402,16 +402,17 @@ export class ProductoPage implements OnInit {
         console.log(cantidad[2].innerHTML);
       }catch(e){
         console.log(e);
+        cantidad[0].innerHTML=this.dataFromCart[i]['cantidad'];
         continue;
       }
     }
   }
 
-  /*saveData(id:string,cantidad:string){
+  saveData(id:string,cantidad:string){
     this.storage.set(id,cantidad);
-  }*/
+  }
 
-  /*loadData(){
+  loadData(){
     console.log("LoadData");
     var cantidades=document.getElementsByClassName('cantidad');
     for(var i=0; i<cantidades.length;i++){
@@ -426,7 +427,7 @@ export class ProductoPage implements OnInit {
         
       });
     }
-  }*/
+  }
 }
 
 
