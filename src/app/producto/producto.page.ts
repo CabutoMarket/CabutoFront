@@ -394,11 +394,16 @@ export class ProductoPage implements OnInit {
   getDataFromCarrito(){
     console.log(this.dataFromCart)
     for (var i=0; i<this.getDataFromCarritoLen();i++){
-      var cantidad= document.querySelectorAll('#'+this.dataFromCart[i]['id']);
-      console.log(cantidad);
-      cantidad[2].innerHTML=this.dataFromCart[i]['cantidad'];
-      //id.innerHTML="100";
-      console.log(cantidad[2].innerHTML);
+      try{
+        var cantidad= document.querySelectorAll('#'+this.dataFromCart[i]['id']);
+        console.log(cantidad);
+        cantidad[2].innerHTML=this.dataFromCart[i]['cantidad'];
+        //id.innerHTML="100";
+        console.log(cantidad[2].innerHTML);
+      }catch(e){
+        console.log(e);
+        continue;
+      }
     }
   }
 
