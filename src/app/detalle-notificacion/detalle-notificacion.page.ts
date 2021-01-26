@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController, NavController, NavParams } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import {NotificacionesService} from '../servicios/notificaciones.service';
+//import {FooterComponent} from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-detalle-notificacion',
@@ -19,7 +20,7 @@ export class DetalleNotificacionPage implements OnInit {
     public modalCtrl: ModalController,
     private alert: AlertController,
     public notificacionService: NotificacionesService,
-    private loading: LoadingController) { }
+    private loading: LoadingController,/*public footer:FooterComponent*/) { }
 
   ngOnInit() {
     this.imagen = this.navParams.get('imagen')
@@ -32,6 +33,7 @@ export class DetalleNotificacionPage implements OnInit {
     console.log("notificacion abrir",this.id)
     this.notificacionService.actualizarEstado(this.id).subscribe(data => {
       console.log(data)
+      //this.footer.number=String(parseInt(String(this.footer.number))-1)
     })
     this.modalCtrl.dismiss();
   }

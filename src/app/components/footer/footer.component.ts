@@ -23,7 +23,7 @@ export class FooterComponent implements OnInit {
   home:String="../assets/img/home.png";
   producto:String="";
   notificaciones : {};
-  number:String="0";
+  public number:String="0";
 
   change_pic(url:String){
     if(this.usuario==url){

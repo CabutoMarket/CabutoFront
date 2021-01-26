@@ -34,6 +34,7 @@ export class NotificacionesPage implements OnInit {
        var tol =Object.entries(this.notificaciones).length
        console.log(this.notificaciones);
        console.log(tol)
+       this.storage.set('notis', this.notiNoLeidas());
        if(tol==0){
         this.mensajeIncorrecto("No existen notificaciones disponibles","no exiten novedades");
        }
@@ -106,6 +107,17 @@ export class NotificacionesPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  notiNoLeidas(){
+    var valor =0;
+    for(var i = 0;i<Object.entries(this.notificaciones).length;i++){
+      var estado=this.notificaciones[i].estado
+      if(estado == 'NOT'){
+        valor = valor + 1
+      }
+    }
+    return valor;
   }
 
 }
