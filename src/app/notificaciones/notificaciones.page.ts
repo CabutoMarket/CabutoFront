@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 import {NotificacionesService} from '../servicios/notificaciones.service';
+import {DetalleNotificacionPage} from '../detalle-notificacion/detalle-notificacion.page';
 
 @Component({
   selector: 'app-notificaciones',
@@ -90,5 +91,21 @@ export class NotificacionesPage implements OnInit {
     this.mensajeCorrecto("Ha activado las notificaciones","Notificaciones activadas");
   }
 
+  async abrir(imagen:string,asunto:string,mensaje:string,id:string){
+    console.log("asunto",asunto)
+    console.log("mensaje",mensaje)
+    console.log("id",id)
+    const modal = await this.modalCtrl.create({
+      component: DetalleNotificacionPage,
+      cssClass: 'DetalleNoti',
+      componentProps: {
+        'imagen': imagen,
+        'asunto': asunto,
+        'mensaje': mensaje,
+        'id':id
+      }
+    });
+    return await modal.present();
+  }
 
 }

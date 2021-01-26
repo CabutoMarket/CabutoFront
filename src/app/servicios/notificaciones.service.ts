@@ -37,4 +37,12 @@ export class NotificacionesService {
    return this.http.get(this.baseUrl+'notificaciones/')      
 
  }
+
+ actualizarEstado(estado: string):Observable<any>{
+  const headers = {
+    'Accept': 'application/json, text/plain',
+    'Content-Type': 'application/json'
+  }
+  return this.http.post(this.baseUrl+'actualizarNotificacion/',estado,{'headers':headers})
+ }
 }

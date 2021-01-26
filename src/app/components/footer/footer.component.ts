@@ -91,7 +91,15 @@ export class FooterComponent implements OnInit {
      this.notificacionesService.getNotificaciones().subscribe(data => {
        console.log(data)
        this.notificaciones=data;
-       this.number =String(Object.entries(this.notificaciones).length)
+       var valor = 0;
+       for(var i = 0;i<Object.entries(this.notificaciones).length;i++){
+         var estado=this.notificaciones[i].estado
+         if(estado == 'NOT'){
+           valor = valor + 1
+         }
+       }
+       this.number =String(valor)
+       //this.number =String(Object.entries(this.notificaciones).length)
        },(error)=>{
          console.log("algo salio mal")
          this.mensajeIncorrecto("Algo salió mal","error de conexión");
@@ -100,6 +108,7 @@ export class FooterComponent implements OnInit {
   }
 
   getNumber(){
+    
     var valor =String(Object.entries(this.notificaciones).length)
     return String(valor)
   }

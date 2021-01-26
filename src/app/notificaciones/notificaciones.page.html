@@ -1,6 +1,7 @@
 <app-header></app-header>
 
 <ion-content>
+  <!--
   <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="settings"></ion-icon>
@@ -11,14 +12,11 @@
     <ion-fab-list side="bottom">
       <ion-fab-button (click)="desactivar()"><ion-icon name="close-circle-outline"></ion-icon></ion-fab-button>
     </ion-fab-list>
-  </ion-fab>
-  <div class = "contenedor">
-    
-
-    
+  </ion-fab>-->
+  <div class = "contenedor">    
     <ion-label class="titulo">Notificaciones</ion-label>
     <div class =  "contenedor-noti" *ngFor="let noti of notificaciones">
-      <div class = "noti">
+      <div id=noti.id class = "noti" (click)="abrir(noti.imagen,noti.asunto,noti.mensaje,noti.id)">
         <div class="imagen-aviso"><img class = "aviso" src="../assets/img/notificaciones_naranja.png" size= 6></div>
         
         <div class = "contenido">
