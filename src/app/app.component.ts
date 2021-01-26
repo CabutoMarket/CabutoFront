@@ -155,7 +155,8 @@ export class AppComponent {
       }
 
   gotoOfertas(){
-    this.router.navigate(['/ofertas'],{replaceUrl:true});
+    //this.router.navigate(['/ofertas'],{replaceUrl:true});
+    window.cart.goOfertPage();
   }
 
   gotoProductos(){
