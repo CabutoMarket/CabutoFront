@@ -181,6 +181,7 @@ export class ProductoPage implements OnInit {
             this.router.navigateByUrl('/login');  
           }else{
             var cantidad = document.getElementById(id);
+            console.log("La cantidad que se agrega al carrito es: ", cantidad.innerHTML);
             if(parseInt(cantidad.innerHTML) > 0){
               const prodxcant={
                 'nombre': this.getNombre(id),
@@ -189,9 +190,9 @@ export class ProductoPage implements OnInit {
               }
               this.shoppingCart.addProduct(prodxcant).subscribe(data =>{
                 if(data.valid == "OK"){
-                  this.storage.set(id,parseInt(cantidad.innerHTML));
-                  var number = this.getNumber();
-                  this.actualizarNum(number);
+                  //this.storage.set(id,parseInt(cantidad.innerHTML));
+                  //var number = this.getNumber();
+                  //this.actualizarNum(number);
                   this.mensajeCorrecto("Agregar Producto","El producto se ha agregado al carrito");
                 }else if (data.valid == "NOT"){
                   this.mensajeIncorrecto("Agregar Producto","Ha ocurrido un error, revise su conexión");

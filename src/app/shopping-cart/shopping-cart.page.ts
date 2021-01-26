@@ -82,9 +82,9 @@ export class ShoppingCartPage implements OnInit {
     });
   }
 
-  ionViewDidLeave(){
+  /*ionViewDidLeave(){
     this.goProductPage();
-  }
+  }*/
 
   showLoading() {  
     this.loadingCtrl.create({  
@@ -305,16 +305,16 @@ export class ShoppingCartPage implements OnInit {
     var total=document.getElementById('A_pagar');
     var total2=document.getElementsByClassName('A_pagar');
     var subtotal=document.getElementsByClassName('subtotal');
-    var compara = c.replace(/ /g, "_");
+   //var compara = c.replace(/ /g, "_");
     console.log(total)
     console.log("Esto voy a enviar ",div,typeof(div))
     console.log("Estoy voy a enviarlo",total2[0].innerHTML,typeof(total2[0]))
     console.log("estilo del display",div.style.display)
-    console.log("aqui esta el elemento que voy a eliminar",compara)
+    console.log("aqui esta el elemento que voy a eliminar",this.getNombre(c))
     
     for(var i=0;i<subtotal.length;i++){
       var name = subtotal[i].getAttribute('id')
-      if(String(name)== compara){
+      if(String(name)== c){
         tot=tot-parseFloat(subtotal[i].innerHTML);
         subtot=subtot+parseFloat(subtotal[i].innerHTML);
         pos = i;
@@ -326,11 +326,12 @@ export class ShoppingCartPage implements OnInit {
     console.log(tot)
     //total2[0].innerHTML=""+tot+"";
     const prodxcant={
-      'nombre': c,
+      'nombre': this.getNombre(c),
       'cantidad': parseInt(cantidad),
       'correo': this.correo
     }
-    this.mensajeEliminar(c,cantidad,div,total2[0],String(tot),subtotal,String(pos));
+    console.log(this.getNombre(c));
+    this.mensajeEliminar(this.getNombre(c),cantidad,div,total2[0],String(tot),subtotal,String(pos));
     /*
     this.shoppingCart.quitarCarrito(prodxcant).subscribe(data =>{
       if(data.valid == "OK"){
@@ -364,6 +365,25 @@ export class ShoppingCartPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  getNombre(id:string){
+    for (let i=0; i< this.getProductLen(); i++){
+      if(id===this.products[i]['id_unico']){
+        return this.products[i]['nombre_producto'];
+      }
+    }
+    for (let i=0; i< this.getOfertaLen(); i++){
+      if(id===this.oferts[i]['id_unico']){
+        return this.oferts[i]['nombre_oferta'];
+      }
+    }
+    for (let i=0; i< this.getComboLen(); i++){
+      if(id===this.combos[i]['id_unico']){
+        return this.combos[i]['nombre'];
+      }
+    }
+
   }
 
   getId(id:string){
