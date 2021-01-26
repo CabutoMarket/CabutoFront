@@ -44,10 +44,10 @@ export class OfertasPage implements OnInit {
          console.error(error);
        }) }
   
-  /*ionViewDidEnter(){
-    this.dataFromCart=this.navParamsService.getNavData();
-    this.getDataFromCarrito();
-  }*/
+       ionViewDidEnter(){
+        this.dataFromCart=this.navParamsService.getNavData();
+        this.getDataFromCarrito();
+      }
  
 cargaPantalla() {  
   this.loadingCtrl.create({  
@@ -176,7 +176,7 @@ cargaPantalla() {
 
   }
 
-  /*getDataFromCarritoLen(){
+  getDataFromCarritoLen(){
     var pindex=0;
     for(let p in this.dataFromCart){
       pindex=+p+1;
@@ -193,7 +193,7 @@ cargaPantalla() {
       //id.innerHTML="100";
       console.log(cantidad[2].innerHTML);
     }
-  }*/
+  }
 
   
 }

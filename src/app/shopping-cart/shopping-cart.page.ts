@@ -85,9 +85,7 @@ export class ShoppingCartPage implements OnInit {
     });
   }
 
-  /*ionViewDidLeave(){
-    this.goProductPage();
-  }*/
+  
 
   showLoading() {  
     this.loadingCtrl.create({  
@@ -460,7 +458,7 @@ export class ShoppingCartPage implements OnInit {
 
   }
 
-  /*goOfertPage(){
+  goOfertPage(){
     var cantidades=document.getElementsByClassName('cantidad');
     var datos  = [];
     for(var i=0; i<cantidades.length;i++){
@@ -476,7 +474,7 @@ export class ShoppingCartPage implements OnInit {
     this.navParamsService.setNavData(datos);
     this.router.navigate(['/ofertas'],{replaceUrl:true});
 
-  }*/
+  }
 
 
 
