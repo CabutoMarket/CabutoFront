@@ -14,6 +14,7 @@ import {PreguntaPage} from '../aviso/pregunta/pregunta.page';
 import { ProductoPage } from '../producto/producto.page';
 import {NavParamsService} from '../servicios/nav-params.service'
 
+declare var window;
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.page.html',
@@ -40,7 +41,9 @@ export class ShoppingCartPage implements OnInit {
   constructor(private modalCtrl: ModalController,  private  router:  Router, 
     private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
     private storage: Storage, private shoppingCart: ShoppingCartService, private auth: AuthService,
-    private navCtrl: NavController, private navParamsService: NavParamsService) { }
+    private navCtrl: NavController, private navParamsService: NavParamsService) {
+      window.cart=this;
+  }
 
   ngOnInit() {
     this.showLoading();

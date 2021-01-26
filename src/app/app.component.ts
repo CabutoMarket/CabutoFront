@@ -9,6 +9,8 @@ import {login} from  '././global'
 import {CorrectoPage} from './aviso/correcto/correcto.page';
 import {IncorrectoPage} from './aviso/incorrecto/incorrecto.page';
 
+declare var window;
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -23,7 +25,8 @@ export class AppComponent {
     private storage: Storage,
     private loadingCtrl: LoadingController,
     private alert: AlertController,
-    private modalCtrl: ModalController,
+    private modalCtrl: ModalController
+    
   ) {
     this.initializeApp();
   }
@@ -153,6 +156,10 @@ export class AppComponent {
 
   gotoOfertas(){
     this.router.navigate(['/ofertas'],{replaceUrl:true});
+  }
+
+  gotoProductos(){
+    window.cart.goProductPage();
   }
 
 
