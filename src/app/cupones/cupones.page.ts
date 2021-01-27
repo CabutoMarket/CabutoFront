@@ -9,6 +9,7 @@ import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 import {CuponesService} from '../servicios/cupones.service';
 
+
 @Component({
   selector: 'app-cupones',
   templateUrl: './cupones.page.html',
@@ -19,6 +20,7 @@ export class CuponesPage implements OnInit {
   cupon : {};
   url= '' ;
   valor = 0;
+  private correo:String="";
   constructor(public cuponesService: CuponesService, private  router:  Router,private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
@@ -27,6 +29,7 @@ export class CuponesPage implements OnInit {
 
   ngOnInit() {
     this.cargaPantalla()
+    this.getCorreo();
   }
 
   pantalla(){
@@ -86,8 +89,26 @@ export class CuponesPage implements OnInit {
   }
 
 
+  getProductLen(){
+    var pindex=0;
+    for(let p in this.cupon){
+      pindex=+p+1;
+    }
+    return pindex;
+  }
+
+
+  getNombre(id:string){
+    for (let i=0; i< this.getProductLen(); i++){
+      if(id===this.cupon[i]['id']){
+        return this.cupon[i]['nombre'];
+      }
+    }
+
+  }
+
   agregar(id:string,id2:string){
-    this.mensajeCorrecto("Cupon Agregado","Cupon Agregado Exitosamente");
+    console.log(this.getNombre(id))
     console.log("esto en agregar y el id que tengo es",id)
     console.log("esto en agregar y el id2 que tengo es",id2)
     var doc=document.getElementById(id)
@@ -95,9 +116,46 @@ export class CuponesPage implements OnInit {
     var doc2=document.getElementById(id2)
     console.log("estoy en agregar",doc2.style.visibility)
     doc2.style.visibility = "hidden";
-    doc.style.visibility = "hidden";
+    //doc.style.visibility = "hidden";
+    this.storage.get('name').then((nombre) => {
+      console.log('Name is', nombre);
+      if(login.login ==false && nombre == null ){
+        login.producto = true;
+        this.router.navigateByUrl('/login');  
+      }else{
+        var cantidad = "1";
+        console.log("La cantidad que se agrega al carrito es: ", cantidad);
+        if(parseInt(cantidad) > 0){
+          const cupxcant={
+            'nombre': id,
+            'cantidad': parseInt(cantidad),
+            'correo': this.correo
+          }
+          this.shoppingCart.addCupon(cupxcant).subscribe(data =>{
+            if(data.valid == "OK"){
+              this.mensajeCorrecto("Cupon Agregado","Cupon Agregado Exitosamente");
+            }else if (data.valid == "NOT"){
+              this.mensajeIncorrecto("Agregar Producto","Ha ocurrido un error, revise su conexión");
+
+            }
+          })
+        }else{
+          this.mensajeIncorrecto("Agregar Cupon","No ha escogido la cantidad para agregar");
+        }
+      }
+      });
+
 
   }
+
+  getCorreo(){
+    console.log(login.login)  
+		this.storage.get('correo').then((val) => {
+      this.correo=val;
+      console.log('name: ',this.correo);
+      
+  });
+}
 
   mostrar(id:string){
     console.log("esto en mostrar y el id que tengo es",id)

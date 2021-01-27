@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Producto_Carrito} from '../modelo/producto_carrito';
+import {Cupon_Carrito} from '../modelo/cupon_carrito';
 import { Auth } from '../auth/servicios/auth';
 const httpOptions = {
   headers: new HttpHeaders({
@@ -62,5 +63,18 @@ export class ShoppingCartService {
     console.log("Transformar")
     console.log(body)
     return this.http.post(this.baseUrl+'quitar/',producto_carrito,{'headers':headers})
+  }
+
+  addCupon(cupon_carrito: Cupon_Carrito):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    console.log("sin transformar")
+    console.log(cupon_carrito)
+    const body = JSON.stringify(cupon_carrito);
+    console.log("Transformar")
+    console.log(body)
+    return this.http.post(this.baseUrl+'addCupon/',cupon_carrito,{'headers':headers})
   }
 }
