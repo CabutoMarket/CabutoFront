@@ -28,10 +28,12 @@ export class ShoppingCartPage implements OnInit {
   products: {};
   oferts: {};
   combos: {};
+  cupon:{};
   total:any=0.00;
   prodLen:number=0;
   oferLen:number=0;
   comLen:number=0;
+  cupLen:number=0;
   private correo:string="";
   private producto:string="";
   private oferta:string="";
@@ -68,13 +70,16 @@ export class ShoppingCartPage implements OnInit {
         this.products=this.cart[0]['productos'];
         this.oferts=this.cart[0]['ofertas'];
         this.combos=this.cart[0]['combos'];
+        this.cupon=this.cart[0]['cupon']
         this.comLen=this.getComboLen();
         this.prodLen=this.getProductLen();
         this.oferLen=this.getOfertaLen();
+        this.cupLen=this.getCuponLen();
         this.total=this.getTotal();
         console.log(this.cart[0]['productos']);
         console.log(this.cart[0]['ofertas']);
         console.log(this.cart[0]['combos']);
+        console.log(this.cart[0]['cupon']);
         console.log("Ya salio alv");
       },(error)=>{
         console.error(error);
@@ -142,6 +147,7 @@ export class ShoppingCartPage implements OnInit {
     var ototal=0;
     var ctotal=0;
     var ttotal=0;
+    var cptotal=0;
     
     for (let i=0; i< this.getProductLen(); i++){
       ptotal=ptotal + parseFloat((this.products[i]['subtotal']));
@@ -156,6 +162,11 @@ export class ShoppingCartPage implements OnInit {
       ctotal=ctotal + parseFloat((this.combos[i]['precio']));
       console.log(ctotal);
     }
+    /*
+    for (let i=0; i< this.getCuponLen(); i++){
+      cptotal=cptotal + parseFloat((this.cupon[i]['precio']));
+      console.log(ctotal);
+    }*/
     //console.log(this.products[0]['subtotal'])
     ttotal=ototal+ctotal+ptotal;
     console.log(ttotal)
@@ -184,6 +195,14 @@ export class ShoppingCartPage implements OnInit {
   getOfertaLen(){
     var oindex=0;
     for (let o in this.oferts){
+      oindex=+o+1;
+    }
+    return oindex;
+  }
+
+  getCuponLen(){
+    var oindex=0;
+    for (let o in this.cupon){
       oindex=+o+1;
     }
     return oindex;
@@ -301,6 +320,7 @@ export class ShoppingCartPage implements OnInit {
 
 
   eliminar(id:string,c:string,cantidad:string){
+    console.log("estoy dentro de elminar")
     var tot:any=this.getTotalCart();
     var pos = 0;
     var subtot = 0;
@@ -352,6 +372,9 @@ export class ShoppingCartPage implements OnInit {
     console.log(prodxcant);*/
   }
 
+
+  
+
   async mensajeEliminar(nombre:string,cantidad:string,div:object,valor:object,tot:string,subtotal:object,compara:string){
     const modal = await this.modalCtrl.create({
       component: PreguntaPage,
@@ -384,6 +407,11 @@ export class ShoppingCartPage implements OnInit {
     for (let i=0; i< this.getComboLen(); i++){
       if(id===this.combos[i]['id_unico']){
         return this.combos[i]['nombre'];
+      }
+    }
+    for (let i=0; i< this.getCuponLen(); i++){
+      if(id===this.cupon[i]['id_unico']){
+        return this.cupon[i]['nombre_cupon'];
       }
     }
 
@@ -445,6 +473,7 @@ export class ShoppingCartPage implements OnInit {
       continue;
     }
     }*/
+    console.log("estoy en loadDAta")
     var datos=[];
     var cantidades=document.getElementsByClassName('cantidad');
     for(var i=0; i<cantidades.length;i++){
@@ -453,7 +482,7 @@ export class ShoppingCartPage implements OnInit {
         datos.push({'id':id,'cantidad':data});
       });
     }
-    console.log(datos);
+    console.log(datos); 
 
   }
 
@@ -493,6 +522,7 @@ export class ShoppingCartPage implements OnInit {
 
   }
 
+  
 
 
 }

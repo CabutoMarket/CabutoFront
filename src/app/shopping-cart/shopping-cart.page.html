@@ -104,6 +104,38 @@
       </div>
   </div>
 </div>
+<div *ngIf="cupLen > 0">
+  <div class="contener-producto"  *ngFor="let cupons of cupon">
+      <div class="div-producto" id="{{cupons.id_cupon}}">  <!--productos.id_producto,productos.id_unico,productos.cantidad-->
+        <div class = "borrar_content2"><img src="../assets/img/borrar.png" class="borrar" (click)="eliminar(cupons.id_cupon,cupons.id_unico,cupons.cantidad_cupon)"></div>
+          <div class="contener-columnaI">
+              <div class="producto">
+                  <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{cupons.imagen_cupon}}"  >
+              </div>
+          </div>
+          <div class="contener-columna">
+              <div class="nombre">
+                  <h6 class="nombre-producto" name="nombre">{{cupons.nombre_cupon}}</h6>
+              </div>
+          </div>
+          
+          <div class = "contenedor-centro">
+            <div class="producto-cupon">
+              <!--<img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(cupons.id_unico)>-->
+              <div tag = "barra" id="{{cupons.id_unico}}" class="cantidad">{{cupons.cantidad_cupon}}</div>
+              <!--<img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(cupons.id_unico)>-->
+          </div>
+          </div>
+
+          <div class="contener-columna-centrar">
+              <div class="precio">
+                  <p></p><h4 name="precio" class="subtotal" id="{{cupons.id_unico}}">{{cupons.precio}}</h4>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
 <div class ="btns">
   <div class ="btn-regresar"></div>
   <div class = "espacio"></div>
