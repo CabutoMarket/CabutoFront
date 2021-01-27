@@ -361,6 +361,21 @@ vertical-align: middle;
     
 }
 
+.precio2{
+    color: var(--ion-color-naranja-oscuro);
+    font-weight: bolder;
+    //font-size: small;
+    position: relative;
+    //right:  3px;
+    padding-left: 0rem;
+    padding-right: 25px;
+    text-align: center;
+    display: inline-flex;
+    visibility: hidden;
+
+    
+}
+
 div.precio h4{
     position: relative;
     //padding-left: 1rem;
