@@ -53,7 +53,7 @@ export class ShoppingCartPage implements OnInit {
     
   }
 
-  mostrarCarrito(){
+  ionViewDidLoad(){
     this.storage.get('name').then((nombre) => {
       console.log('Name is', nombre);
       if(login.login ==false && nombre == null ){
@@ -94,12 +94,20 @@ export class ShoppingCartPage implements OnInit {
     this.loadData();
   }
 
+  ionViewWillLeave(){
+    var cantidades=document.getElementsByClassName('cantidad');
+    for(var i=0; i<cantidades.length;i++){
+      var id=cantidades[i].getAttribute("id");
+      this.saveData(id,cantidades[i].innerHTML);
+    }
+  }
+
   showLoading() {  
     this.loadingCtrl.create({  
       message: 'Loading.....'   
       }).then((loading) => {  
        loading.present();{
-        this.mostrarCarrito();
+        this.ionViewDidLoad();
       } 
        setTimeout(() => {   
          loading.dismiss();  
@@ -161,6 +169,11 @@ export class ShoppingCartPage implements OnInit {
     for (let i=0; i< this.getComboLen(); i++){
       ctotal=ctotal + parseFloat((this.combos[i]['precio']));
       console.log(ctotal);
+    }
+    for (let i=0; i< this.getCuponLen(); i++){
+      console.log(this.cupon[i]['subtotal_cupon']);
+      ototal=ototal + parseFloat((this.cupon[i]['subtotal_cupon']));
+      console.log(ototal);
     }
     /*
     for (let i=0; i< this.getCuponLen(); i++){
@@ -225,6 +238,11 @@ export class ShoppingCartPage implements OnInit {
         return this.combos[i]['precio'];
       }
     }
+    for (let i=0; i< this.getCuponLen(); i++){
+      if(id===this.cupon[i]['id_unico']){
+        return this.cupon[i]['precio_cupon'];
+      }
+    }
   }
 
   agregar(id:string){
@@ -237,13 +255,13 @@ export class ShoppingCartPage implements OnInit {
     if(parseInt(cantidad[0].innerHTML)>=0){
       console.log("tengo una cantidad");
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
-      this.saveData(id,cantidad[0].innerHTML);
+      //this.saveData(id,cantidad[0].innerHTML);
       console.log("esta es la cantidad",cantidad[0].innerHTML);
     }
     else{
       console.log("Tengo un NaN")
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
-      this.saveData(id,cantidad[0].innerHTML);
+      //this.saveData(id,cantidad[0].innerHTML);
       console.log("esta es la cantidad",cantidad[0].innerHTML)
     }
     var subtotal=precio_unitario*parseInt(cantidad[0].innerHTML);
@@ -252,6 +270,7 @@ export class ShoppingCartPage implements OnInit {
       cantidad[1].innerHTML=String((parseFloat(cantidad[1].innerHTML)+precio_unitario).toFixed(2));
       console.log("Este es el precio final",cantidad[1].innerHTML);
       this.total=this.getTotalCart();
+      console.log("El total actual", this.total)
     }
     
     
@@ -267,18 +286,19 @@ export class ShoppingCartPage implements OnInit {
     if((parseInt(cantidad[0].innerHTML)-1)<= 0){
       //cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
       cantidad[0].innerHTML="0";
-      this.saveData(id,cantidad[0].innerHTML);
+      //this.saveData(id,cantidad[0].innerHTML);
       cantidad[1].innerHTML="0.00";
       this.total=this.getTotalCart();
     }
     else{
       cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
-      this.saveData(id,cantidad[0].innerHTML);
+      //this.saveData(id,cantidad[0].innerHTML);
       var subtotal=precio_unitario*parseInt(cantidad[0].innerHTML);
       console.log(precio_unitario)
       if (precio_unitario <= subtotal){
         cantidad[1].innerHTML=String(String((parseFloat(cantidad[1].innerHTML)-precio_unitario).toFixed(2)));
         this.total=this.getTotalCart();
+        console.log("El total actual", this.total)
       }
     } 
   }
@@ -288,7 +308,7 @@ export class ShoppingCartPage implements OnInit {
     console.log("estoy en total cart")
     //var total=document.getElementById('A_pagar');
     var subtotal=document.getElementsByClassName('subtotal');
-    var tot=0;
+    var tot=0.00;
     for(var i=0;i<subtotal.length;i++){
       console.log(subtotal[i])
       tot=tot+parseFloat(subtotal[i].innerHTML);
@@ -320,7 +340,6 @@ export class ShoppingCartPage implements OnInit {
 
 
   eliminar(id:string,c:string,cantidad:string){
-    console.log("estoy dentro de elminar")
     var tot:any=this.getTotalCart();
     var pos = 0;
     var subtot = 0;
@@ -361,19 +380,14 @@ export class ShoppingCartPage implements OnInit {
         this.mensajeCorrecto("Eliminación Exitosa","ha eliminado del carrito");
       }else if (data.valid == "NOT"){
         this.mensajeIncorrecto("No se pudo completar la operacion","Ha ocurrido un error, revise su conexión");
-
       }else{
         this.mensajeIncorrecto("No se pudo completar la operacion","Ha ocurrido un error, revise su conexión");
       }
     })
     div.style.display = "none";
     total2[0].innerHTML=""+tot+"";
-
     console.log(prodxcant);*/
   }
-
-
-  
 
   async mensajeEliminar(nombre:string,cantidad:string,div:object,valor:object,tot:string,subtotal:object,compara:string){
     const modal = await this.modalCtrl.create({
@@ -453,7 +467,7 @@ export class ShoppingCartPage implements OnInit {
   }
 
   loadData(){
-/*    var cantidades=document.getElementsByClassName('cantidad');
+    var cantidades=document.getElementsByClassName('cantidad');
     for(var i=0; i<cantidades.length;i++){
       try{
       var id=cantidades[i].getAttribute("id");
@@ -472,8 +486,8 @@ export class ShoppingCartPage implements OnInit {
       console.log(e);
       continue;
     }
-    }*/
-    console.log("estoy en loadDAta")
+    }
+    /*console.log("estoy en loadDAta")
     var datos=[];
     var cantidades=document.getElementsByClassName('cantidad');
     for(var i=0; i<cantidades.length;i++){
@@ -482,7 +496,7 @@ export class ShoppingCartPage implements OnInit {
         datos.push({'id':id,'cantidad':data});
       });
     }
-    console.log(datos); 
+    console.log(datos); */
 
   }
 
@@ -491,7 +505,8 @@ export class ShoppingCartPage implements OnInit {
     var datos  = [];
     for(var i=0; i<cantidades.length;i++){
       var id=cantidades[i].getAttribute("id");
-          datos.push({"id":id,"cantidad":cantidades[i].innerHTML});
+      this.saveData(id,cantidades[i].innerHTML);
+      datos.push({"id":id,"cantidad":cantidades[i].innerHTML});
       
 
     }
@@ -509,7 +524,8 @@ export class ShoppingCartPage implements OnInit {
     var datos  = [];
     for(var i=0; i<cantidades.length;i++){
       var id=cantidades[i].getAttribute("id");
-          datos.push({"id":id,"cantidad":cantidades[i].innerHTML});
+      this.saveData(id,cantidades[i].innerHTML);
+      datos.push({"id":id,"cantidad":cantidades[i].innerHTML});
       
 
     }

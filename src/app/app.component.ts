@@ -163,6 +163,10 @@ export class AppComponent {
     window.cart.goProductPage();
   }
 
+  gotoCupons(){
+    this.router.navigateByUrl('/cupones',{replaceUrl:true});
+  }
+
 
 async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     const alert = await this.alert.create({

@@ -91,7 +91,7 @@ ion-row{
 
 .borrar_content > img{
     height: 1rem;
-    width: 1rem;
+    //width: 1rem;
 }
 
 .borrar_content2{
@@ -109,7 +109,7 @@ ion-row{
 
 .borrar_content2 > img{
     height: 1rem;
-    width: 1rem;
+    //width: 1rem;
 }
 
 .nombre_producto{
@@ -267,7 +267,7 @@ ion-input{
 }
 
 .btn-producto{
-vertical-align: middle;
+    vertical-align: middle;
 
 }
 
@@ -318,6 +318,23 @@ vertical-align: middle;
 .producto >img {
     height:80px!important ;
     width: 90px!important;
+    //padding-bottom: 5px;
+    //box-shadow: 3px 3px 3px 3px #c2c2c2;
+}
+
+.producto1{
+    position: relative;
+    //bottom: 20px;
+    //height: 5rem;
+    //width: 8rem;
+    padding-top:1.5rem;
+    left: 0rem;
+    //padding-left: 0.5rem;
+}
+
+.producto1 >img {
+    height:80px!important ;
+    width: 140px!important;
     //padding-bottom: 5px;
     //box-shadow: 3px 3px 3px 3px #c2c2c2;
 }

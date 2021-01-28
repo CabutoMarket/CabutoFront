@@ -29,7 +29,7 @@
           </div>
           <div class = "contenedor-centro">
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.id_unico,productos.cantidad)>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.id_unico)>
               <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value ={{productos.cantidad}} />-->
               <div  id="{{productos.id_unico}}" class="cantidad" >{{productos.cantidad}}</div>
              <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{cantidadInput}}" value  = "{{cantidadInput}}" >-->
@@ -60,7 +60,7 @@
           </div>
           <div class = "contenedor-centro">
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.id_unico,ofert.cantidad_oferta)>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(ofert.id_unico)>
               <!--<input type="text" tag = "barra" name="" id="{{ofert.nombre_oferta}}" disabled="true" class="cantidad" placeholder="{{ofert.cantidad_oferta}}" value="{{ofert.cantidad_oferta}}" >-->
               <div tag = "barra" id="{{ofert.id_unico}}" class="cantidad">{{ofert.cantidad_oferta}}</div>
               <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(ofert.id_unico)>
@@ -106,10 +106,10 @@
 </div>
 <div *ngIf="cupLen > 0">
   <div class="contener-producto"  *ngFor="let cupons of cupon">
-      <div class="div-producto" id="{{cupons.id_cupon}}">  <!--productos.id_producto,productos.id_unico,productos.cantidad-->
-        <div class = "borrar_content2"><img src="../assets/img/borrar.png" class="borrar" (click)="eliminar(cupons.id_cupon,cupons.id_unico,cupons.cantidad_cupon)"></div>
+      <div class="div-producto" id="{{cupons.id_cupon}}"  >
+        <div class = "borrar_content" ><img src="../assets/img/borrar.png" class="borrar" (click)="eliminar(cupons.id_cupon,cupons.id_unico,cupons.cantidad_cupon)"></div>
           <div class="contener-columnaI">
-              <div class="producto">
+              <div class="producto1">
                   <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{cupons.imagen_cupon}}"  >
               </div>
           </div>
@@ -118,24 +118,23 @@
                   <h6 class="nombre-producto" name="nombre">{{cupons.nombre_cupon}}</h6>
               </div>
           </div>
-          
           <div class = "contenedor-centro">
-            <div class="producto-cupon">
-              <!--<img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(cupons.id_unico)>-->
-              <div tag = "barra" id="{{cupons.id_unico}}" class="cantidad">{{cupons.cantidad_cupon}}</div>
-              <!--<img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(cupons.id_unico)>-->
+            <div class="producto-carrito">
+              <img src="../assets/img/agregar.png" style="display: none" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(cupons.id_unico)>
+              <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{productos.cantidad}}" value ={{productos.cantidad}} />-->
+              <div  id="{{cupon.id_unico}}" class="cantidad" >{{cupons.cantidad_cupon}}</div>
+             <!--<input type="text" tag = "barra" name="" id="{{productos.nombre_producto}}" disabled="true" class="cantidad" placeholder="{{cantidadInput}}" value  = "{{cantidadInput}}" >-->
+              <img src="../assets/img/restar.png" style="display: none" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(cupons.id_unico)>
           </div>
           </div>
-
           <div class="contener-columna-centrar">
-              <div class="precio2">
-                  <p></p><h4 name="precio" class="subtotal" id="{{cupons.id_unico}}">{{cupons.precio_cupon}}</h4>
+              <div class="precio" style="display: none">  
+                <p>$</p><h4 name="precio" class="subtotal" id="{{cupons.id_unico}}">{{cupons.subtotal_cupon}}</h4>
               </div>
           </div>
       </div>
   </div>
 </div>
-
 <div class ="btns">
   <div class ="btn-regresar"></div>
   <div class = "espacio"></div>

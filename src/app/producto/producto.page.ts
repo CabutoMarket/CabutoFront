@@ -58,7 +58,7 @@ export class ProductoPage implements OnInit {
     //this.storage.set('cupones', false);
   }
 
-  
+
 
  ionViewDidLoad(){
  	console.log("refresh");

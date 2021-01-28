@@ -78,6 +78,10 @@ export class PreguntaPage implements OnInit {
       }
     })
     this.modalCtrl.dismiss();
+    setTimeout(() => {   
+      window.location.reload();
+    }, 1800 );
+    
   }
 
   salir(){
