@@ -151,11 +151,11 @@ export class ShoppingCartPage implements OnInit {
 
 
   getTotal(){
-    var ptotal=0;
-    var ototal=0;
-    var ctotal=0;
-    var ttotal=0;
-    var cptotal=0;
+    var ptotal:any=0;
+    var ototal:any=0;
+    var ctotal:any=0;
+    var ttotal:any=0;
+    var cptotal:any=0;
     
     for (let i=0; i< this.getProductLen(); i++){
       ptotal=ptotal + parseFloat((this.products[i]['subtotal']));
@@ -308,7 +308,7 @@ export class ShoppingCartPage implements OnInit {
     console.log("estoy en total cart")
     //var total=document.getElementById('A_pagar');
     var subtotal=document.getElementsByClassName('subtotal');
-    var tot=0.00;
+    var tot:any=0.00;
     for(var i=0;i<subtotal.length;i++){
       console.log(subtotal[i])
       tot=tot+parseFloat(subtotal[i].innerHTML);

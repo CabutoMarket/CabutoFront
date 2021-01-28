@@ -70,6 +70,9 @@ export class PreguntaPage implements OnInit {
         total.innerHTML=""+tot+"";
         subtotal[parseInt(compara)].innerHTML = "0.00";
         this.mensajeCorrecto("Eliminación Exitosa","ha eliminado del carrito");
+        setTimeout(() => {   
+          window.location.reload();
+        }, 1800 );
       }else if (data.valid == "NOT"){
         this.mensajeIncorrecto("No se pudo completar la operacion","Ha ocurrido un error, revise su conexión");
 
@@ -78,9 +81,6 @@ export class PreguntaPage implements OnInit {
       }
     })
     this.modalCtrl.dismiss();
-    setTimeout(() => {   
-      window.location.reload();
-    }, 1800 );
     
   }
 
