@@ -36,6 +36,9 @@ export class DetalleNotificacionPage implements OnInit {
       //this.footer.number=String(parseInt(String(this.footer.number))-1)
     })
     this.modalCtrl.dismiss();
+    setTimeout(() => {   
+      window.location.reload();
+    }, 500 );
   }
 
 }
