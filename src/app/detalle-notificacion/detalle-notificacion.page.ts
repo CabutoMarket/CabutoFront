@@ -3,6 +3,7 @@ import { AlertController, LoadingController, ModalController, NavController, Nav
 import { Component, OnInit } from '@angular/core';
 import {NotificacionesService} from '../servicios/notificaciones.service';
 //import {FooterComponent} from '../components/footer/footer.component';
+declare var window;
 
 @Component({
   selector: 'app-detalle-notificacion',
@@ -36,9 +37,9 @@ export class DetalleNotificacionPage implements OnInit {
       //this.footer.number=String(parseInt(String(this.footer.number))-1)
     })
     this.modalCtrl.dismiss();
-    setTimeout(() => {   
-      window.location.reload();
-    }, 500 );
+     
+    window.notificacion.ngOnInit();
+    
   }
 
 }
