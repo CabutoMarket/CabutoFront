@@ -8,6 +8,8 @@ import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 import {NotificacionesService} from '../servicios/notificaciones.service';
 import {DetalleNotificacionPage} from '../detalle-notificacion/detalle-notificacion.page';
 
+declare var window;
+
 @Component({
   selector: 'app-notificaciones',
   templateUrl: './notificaciones.page.html',
@@ -20,7 +22,9 @@ export class NotificacionesPage implements OnInit {
   constructor(public notificacionesService: NotificacionesService, private  router:  Router,private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
-    public modalCtrl: ModalController,) { }
+    public modalCtrl: ModalController,) { 
+      window.notificacion = this;
+    }
 
   ngOnInit() {
     this.cargaPantalla()
