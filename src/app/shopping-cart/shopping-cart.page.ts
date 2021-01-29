@@ -29,6 +29,7 @@ export class ShoppingCartPage implements OnInit {
   oferts: {};
   combos: {};
   cupon:{};
+  load: {};
   total:any=0.00;
   prodLen:number=0;
   oferLen:number=0;
@@ -50,6 +51,7 @@ export class ShoppingCartPage implements OnInit {
   ngOnInit() {
     this.showLoading();
     this.getCorreo();
+    //this.loadData();
     
   }
 
@@ -90,14 +92,12 @@ export class ShoppingCartPage implements OnInit {
     });
   }
 
-  ionViewDidEnter(){
-    this.loadData();
-  }
-
   ionViewWillLeave(){
-    var cantidades=document.getElementsByClassName('cantidad');
+    var cantidades=document.querySelectorAll('.cantidad');
     for(var i=0; i<cantidades.length;i++){
       var id=cantidades[i].getAttribute("id");
+      console.log('Guardaré el id ',id)
+      console.log('Guardare la cantidad ',cantidades[i].innerHTML);
       this.saveData(id,cantidades[i].innerHTML);
     }
   }
@@ -286,7 +286,7 @@ export class ShoppingCartPage implements OnInit {
     if((parseInt(cantidad[0].innerHTML)-1)<= 0){
       //cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
       cantidad[0].innerHTML="0";
-      //this.saveData(id,cantidad[0].innerHTML);
+     //this.saveData(id,cantidad[0].innerHTML);
       cantidad[1].innerHTML="0.00";
       this.total=this.getTotalCart();
     }
@@ -435,7 +435,7 @@ export class ShoppingCartPage implements OnInit {
     console.log("estoy en getprcio unitario");
     for (let i=0; i< this.getProductLen(); i++){
       if(id===this.products[i]['id_unico']){
-        return this.products[i]['d_unico'];
+        return this.products[i]['id_unico'];
       }
     }
     for (let i=0; i< this.getOfertaLen(); i++){
@@ -451,19 +451,38 @@ export class ShoppingCartPage implements OnInit {
   }
 
   saveData(id:string,cantidad:string){
+    console.log('Estoy guardando data');
     this.storage.set(id,cantidad);
-    
-    //var cantidades=document.getElementsByClassName('cantidad');
-    //for(var i=0; i<cantidades.length;i++){
+    this.getData();
+    /*var cantidades=document.getElementsByClassName('cantidad');
+    for(var i=0; i<cantidades.length;i++){
       
-    //  var id=cantidades[i].getAttribute("id");
-    //  console.log(id);
-      
-      //if(this.getId(id)==id)
-      //this.storage.get(id).then((data)=>{
-      //    console.log(data);
-      //});
-    //}
+      var id=cantidades[i].getAttribute("id");
+      console.log(id);
+      this.storage.get(id).then((data)=>{
+          console.log(data);
+      });
+    }*/
+  }
+
+  getData(){
+    console.log('Estoy obteniendo datos');
+    var cantidades= document.querySelectorAll('.cantidad');
+    console.log(cantidades);
+    var datos  = [];
+    console.log('Exiten tantos items en el carrito',cantidades.length);
+    for(var i=0; i<cantidades.length;i++){
+      var id=cantidades[i].getAttribute("id");
+      console.log(id);
+      //this.saveData(id,cantidades[i].innerHTML);
+      this.storage.get(id).then((data)=>{
+        console.log('El id es ', id);
+        console.log('La data es: ', data);
+        datos.push({"id":id,"cantidad":data});
+      });
+    }
+    console.log(datos);
+    return datos;
   }
 
   loadData(){
@@ -505,15 +524,11 @@ export class ShoppingCartPage implements OnInit {
     var datos  = [];
     for(var i=0; i<cantidades.length;i++){
       var id=cantidades[i].getAttribute("id");
-      this.saveData(id,cantidades[i].innerHTML);
+      //this.saveData(id,cantidades[i].innerHTML);
       datos.push({"id":id,"cantidad":cantidades[i].innerHTML});
       
 
     }
-    //objeto[0].datos = datos;
-    //console.log(JSON.stringify(objeto));
-    
-    //this.navCtrl.push(ProductoPage, datos);
     this.navParamsService.setNavData(datos);
     this.router.navigate(['/producto'],{replaceUrl:true});
 
@@ -524,15 +539,11 @@ export class ShoppingCartPage implements OnInit {
     var datos  = [];
     for(var i=0; i<cantidades.length;i++){
       var id=cantidades[i].getAttribute("id");
-      this.saveData(id,cantidades[i].innerHTML);
+      //this.saveData(id,cantidades[i].innerHTML);
       datos.push({"id":id,"cantidad":cantidades[i].innerHTML});
       
 
     }
-    //objeto[0].datos = datos;
-    //console.log(JSON.stringify(objeto));
-    
-    //this.navCtrl.push(ProductoPage, datos);
     this.navParamsService.setNavData(datos);
     this.router.navigate(['/ofertas'],{replaceUrl:true});
 
