@@ -19,6 +19,7 @@ export class OfertasPage implements OnInit {
 
   dataFromCart: {};
   oferta : {};
+  almacenado : {};
   private correo:String="";
   constructor(public productoService: ProductoService,public modalCtrl: ModalController, public loadingCtrl: LoadingController, 
     private alert: AlertController,private storage: Storage,private  router:  Router, private navParamsService: NavParamsService) { }
@@ -26,13 +27,14 @@ export class OfertasPage implements OnInit {
   ngOnInit() {
     this.cargaPantalla();
     this.getCorreo();
+    this.loadData();
     //this.storage.set('oferta', true);
     //this.storage.set('producto', false);
     //this.storage.set('cupones', false);
     //this.storage.set('politica', false);
   }
 
-  ionViewDidLoad(){
+  ionViewWillEnter(){
     console.log("refresh");
      this.productoService.getOferta().subscribe(data => {
          //console.log("esta es la data "+data["nombre"])
@@ -47,6 +49,21 @@ export class OfertasPage implements OnInit {
        ionViewDidEnter(){
         this.dataFromCart=this.navParamsService.getNavData();
         this.getDataFromCarrito();
+        this.setData();
+      }
+
+      ionViewWillLeave(){
+        var cantidades=document.querySelectorAll('.cantidad');
+        console.log(cantidades);
+        let datos=[];
+        for(var i=0; i<cantidades.length;i++){
+          var id=cantidades[i].getAttribute("id");
+          console.log('Guardaré el id ',id)
+          console.log('Guardare la cantidad ',cantidades[i].innerHTML);
+          datos.push({'id':id,'cantidad':cantidades[i].innerHTML});
+        }
+        console.log(datos);
+        this.saveData(datos);
       }
  
 cargaPantalla() {  
@@ -54,7 +71,7 @@ cargaPantalla() {
     message: 'Loading.....'   
   }).then((loading) => {  
     loading.present();{
-      this.ionViewDidLoad();
+      this.ionViewDidEnter();
   } 
   setTimeout(() => {   
     loading.dismiss();  
@@ -203,6 +220,51 @@ cargaPantalla() {
     }
   }
 
+  getStoreLen(){
+    var pindex=0;
+    for(let p in this.almacenado){
+      pindex=+p+1;
+    }
+    return pindex;
+  }
+
+  saveData(estado:any){
+    this.storage.set('ofertas',estado);
+  }
+
+  loadData(){
+    console.log(login.login)  
+		this.storage.get('ofertas').then((val) => {
+      this.almacenado=val;
+      //console.log('productos: ',this.almacenado);
+      
+    });
+
+  }
+
+  setData(){
+    console.log("Estoy en el setData");
+    console.log(this.getStoreLen());
+    //var cantidades=document.getElementsByClassName('cantidad');
+    //console.log(cantidades);
+    var cantidad= document.querySelectorAll('.cantidad');
+    for (let i=0; i< this.getStoreLen(); i++){
+      try{
+      console.log(this.almacenado[i]['id']);
+      //var cantidad= document.querySelectorAll('.cantidad');
+      console.log(cantidad);
+      //var id=cantidades[i].getAttribute("id");
+      //console.log('Obtengo del getData ',cantidad)
+      
+      cantidad[i].innerHTML=this.almacenado[i]['cantidad'];
+      console.log('Seteo la siguiente cantidad ',cantidad[i].innerHTML);
+      }catch(e){
+        console.log(e);
+        continue;
+      }      
+    }
+  }
+
+
   
 }
-
