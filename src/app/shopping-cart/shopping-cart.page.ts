@@ -30,6 +30,7 @@ export class ShoppingCartPage implements OnInit {
   combos: {};
   cupon:{};
   load: {};
+  almacenado:{};
   total:any=0.00;
   prodLen:number=0;
   oferLen:number=0;
@@ -51,11 +52,11 @@ export class ShoppingCartPage implements OnInit {
   ngOnInit() {
     this.showLoading();
     this.getCorreo();
-    //this.loadData();
+    this.loadData();
     
   }
 
-  ionViewDidLoad(){
+  ionViewWillEnter(){
     this.storage.get('name').then((nombre) => {
       console.log('Name is', nombre);
       if(login.login ==false && nombre == null ){
@@ -92,14 +93,22 @@ export class ShoppingCartPage implements OnInit {
     });
   }
 
+  ionViewDidEnter(){
+    this.setData();
+  }
+
   ionViewWillLeave(){
     var cantidades=document.querySelectorAll('.cantidad');
-for(var i=0; i<cantidades.length;i++){
-  var id=cantidades[i].getAttribute("id");
-  console.log('Guardaré el id ',id)
-  console.log('Guardare la cantidad ',cantidades[i].innerHTML);
-  this.saveData(id,cantidades[i].innerHTML);
-}
+        console.log(cantidades);
+        let datos=[];
+        for(var i=0; i<cantidades.length;i++){
+          var id=cantidades[i].getAttribute("id");
+          console.log('Guardaré el id ',id)
+          console.log('Guardare la cantidad ',cantidades[i].innerHTML);
+          datos.push({'id':id,'cantidad':cantidades[i].innerHTML});
+        }
+        console.log(datos);
+        this.saveData(datos);
   }
 
   showLoading() {  
@@ -107,7 +116,7 @@ for(var i=0; i<cantidades.length;i++){
       message: 'Loading.....'   
       }).then((loading) => {  
        loading.present();{
-        this.ionViewDidLoad();
+        this.ionViewWillEnter();
       } 
        setTimeout(() => {   
          loading.dismiss();  
@@ -450,73 +459,48 @@ for(var i=0; i<cantidades.length;i++){
     }
   }
 
-  saveData(id:string,cantidad:string){
-    console.log('Estoy guardando data');
-    this.storage.set(id,cantidad);
-    this.getData();
-    /*var cantidades=document.getElementsByClassName('cantidad');
-    for(var i=0; i<cantidades.length;i++){
-      
-      var id=cantidades[i].getAttribute("id");
-      console.log(id);
-      this.storage.get(id).then((data)=>{
-          console.log(data);
-      });
-    }*/
-  }
-
-  getData(){
-    console.log('Estoy obteniendo datos');
-    var cantidades= document.querySelectorAll('.cantidad');
-    console.log(cantidades);
-    var datos  = [];
-    console.log('Exiten tantos items en el carrito',cantidades.length);
-    for(var i=0; i<cantidades.length;i++){
-      var id=cantidades[i].getAttribute("id");
-      console.log(id);
-      //this.saveData(id,cantidades[i].innerHTML);
-      this.storage.get(id).then((data)=>{
-        console.log('El id es ', id);
-        console.log('La data es: ', data);
-        datos.push({"id":id,"cantidad":data});
-      });
+  getStoreLen(){
+    var pindex=0;
+    for(let p in this.almacenado){
+      pindex=+p+1;
     }
-    console.log(datos);
-    return datos;
+    return pindex;
   }
 
+  saveData(estado:any){
+    this.storage.set('carrito',estado);
+  }
   loadData(){
-    var cantidades=document.getElementsByClassName('cantidad');
-    for(var i=0; i<cantidades.length;i++){
-      try{
-      var id=cantidades[i].getAttribute("id");
-      var cantidad= document.querySelectorAll('#'+id);
+    console.log(login.login)  
+		this.storage.get('carrito').then((val) => {
+      this.almacenado=val;
+      //console.log('productos: ',this.almacenado);
       
-      //if(this.getId(id)==id)
-      this.storage.get(id).then((data)=>{
-        console.log("Este es el id "+ id + "Esta es la cantidad "+ data);
-        if(data===null){
-          cantidad[0].innerHTML=cantidad[0].innerHTML;
-        }else{
-          cantidad[0].innerHTML=data;
-        }
-      });
-    }catch(e){
-      console.log(e);
-      continue;
-    }
-    }
-    /*console.log("estoy en loadDAta")
-    var datos=[];
-    var cantidades=document.getElementsByClassName('cantidad');
-    for(var i=0; i<cantidades.length;i++){
-      var id=cantidades[i].getAttribute("id");
-      this.storage.get(id).then((data)=>{
-        datos.push({'id':id,'cantidad':data});
-      });
-    }
-    console.log(datos); */
+    });
 
+  }
+
+  setData(){
+    console.log("Estoy en el setData");
+    console.log(this.getStoreLen());
+    //var cantidades=document.getElementsByClassName('cantidad');
+    //console.log(cantidades);
+    var cantidad= document.querySelectorAll('.cantidad');
+    for (let i=0; i< this.getStoreLen(); i++){
+      try{
+      console.log(this.almacenado[i]['id']);
+      //var cantidad= document.querySelectorAll('.cantidad');
+      console.log(cantidad);
+      //var id=cantidades[i].getAttribute("id");
+      //console.log('Obtengo del getData ',cantidad)
+      
+      cantidad[i].innerHTML=this.almacenado[i]['cantidad'];
+      console.log('Seteo la siguiente cantidad ',cantidad[i].innerHTML);
+      }catch(e){
+        console.log(e);
+        continue;
+      }      
+    }
   }
 
   goProductPage(){
@@ -530,7 +514,7 @@ for(var i=0; i<cantidades.length;i++){
 
     }
     this.navParamsService.setNavData(datos);
-    this.router.navigate(['/producto'],{replaceUrl:true});
+    this.router.navigateByUrl('/producto',{replaceUrl:true});
 
   }
 
@@ -545,7 +529,7 @@ for(var i=0; i<cantidades.length;i++){
 
     }
     this.navParamsService.setNavData(datos);
-    this.router.navigate(['/ofertas'],{replaceUrl:true});
+    this.router.navigateByUrl('/ofertas',{replaceUrl:true});
 
   }
 
@@ -553,3 +537,4 @@ for(var i=0; i<cantidades.length;i++){
 
 
 }
+
