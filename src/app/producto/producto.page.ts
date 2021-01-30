@@ -3,7 +3,7 @@ import {ProductoService} from '../servicios/producto.service';
 import {Producto} from '../modelo/producto';
 import {Producto_Carrito} from '../modelo/producto_carrito';
 import { Observable, Subject } from 'rxjs';
-  import {login} from  './../global'
+import {login} from  './../global'
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController,ModalController} from '@ionic/angular';
@@ -13,8 +13,8 @@ import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 import { database } from 'firebase';
-import {NavParamsService} from '../servicios/nav-params.service'
-
+import {NavParamsService} from '../servicios/nav-params.service';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 //FrontFinal\final\CabutoFront\src\app\global.ts
 
@@ -43,14 +43,15 @@ export class ProductoPage implements OnInit {
     private storage: Storage,
     public modalCtrl: ModalController,
     private shoppingCart: ShoppingCartService,
-    private navParamsService: NavParamsService
-
+    private navParamsService: NavParamsService,
   	) { }
 
   ngOnInit() {
 
     this.cargaPantalla();
     this.getCorreo();
+      
+    //this.setData();
     //this.loadData();
     //this.storage.set('producto', true);
     
@@ -61,41 +62,47 @@ export class ProductoPage implements OnInit {
 
 
 
- ionViewDidLoad(){
+ ionViewWillEnter(){
  	console.log("refresh");
     this.productoService.getProducto().subscribe(data => {
       //console.log("esta es la data "+data["nombre"])
       this.producto=data;
+      
       console.log(this.producto);
       },(error)=>{
       	console.error(error);
-      }); }
+      }); 
+      this.loadData();
+    }
 
       ionViewDidEnter(){
         this.dataFromCart=this.navParamsService.getNavData();
         this.getDataFromCarrito();
-        this.almacenado=this.loadData();
-        this.setData();
+        //this.setData();
+        //this.setData();
       }
 
       ionViewWillLeave(){
         var cantidades=document.querySelectorAll('.cantidad');
         console.log(cantidades);
-    for(var i=0; i<cantidades.length;i++){
-      var id=cantidades[i].getAttribute("id");
-      console.log('Guardaré el id ',id)
-      console.log('Guardare la cantidad ',cantidades[i].innerHTML);
-      this.saveData(id,cantidades[i].innerHTML);
-    }
+        let datos=[];
+        for(var i=0; i<cantidades.length;i++){
+          var id=cantidades[i].getAttribute("id");
+          console.log('Guardaré el id ',id)
+          console.log('Guardare la cantidad ',cantidades[i].innerHTML);
+          datos.push({'id':id,'cantidad':cantidades[i].innerHTML});
+        }
+        console.log(datos);
+        this.saveData(datos);
       }
+
 
       cargaPantalla() {  
         this.loadingCtrl.create({  
           message: 'Loading.....'   
         }).then((loading) => {  
           loading.present();{
-            this.ionViewDidLoad();
-            //this.loadData();
+            this.ionViewWillEnter();
             
         } 
         setTimeout(() => {   
@@ -168,6 +175,7 @@ export class ProductoPage implements OnInit {
           //cantidad.setAttribute('value',String(parseInt(num)-1));
           cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
           //this.saveData(id,cantidad[0].innerHTML);
+          
 
         } 
       }
@@ -388,6 +396,15 @@ export class ProductoPage implements OnInit {
     return pindex;
   }
 
+  getStoreLen(){
+    var pindex=0;
+    for(let p in this.almacenado){
+      pindex=+p+1;
+    }
+    return pindex;
+  }
+
+
   getNombre(id:string){
     for (let i=0; i< this.getProductLen(); i++){
       if(id===this.producto[i]['id_unico']){
@@ -411,9 +428,9 @@ export class ProductoPage implements OnInit {
       try{
         var cantidad= document.querySelectorAll('#'+this.dataFromCart[i]['id']);
         console.log(cantidad);
-        cantidad[2].innerHTML=this.dataFromCart[i]['cantidad'];
+        cantidad[0].innerHTML=this.dataFromCart[i]['cantidad'];
         //id.innerHTML="100";
-        console.log(cantidad[2].innerHTML);
+        console.log(cantidad[0].innerHTML);
       }catch(e){
         console.log(e);
         cantidad[0].innerHTML=this.dataFromCart[i]['cantidad'];
@@ -422,84 +439,45 @@ export class ProductoPage implements OnInit {
     }
   }
 
-  saveData(id:string,cantidad:string){
-    this.storage.set(id,cantidad);
+  saveData(estado:any){
+    this.storage.set('productos',estado);
   }
 
   loadData(){
-    /*console.log("LoadData");
-    var cantidades=document.getElementsByClassName('cantidad');
-    for(var i=0; i<cantidades.length;i++){
-      var id=cantidades[i].getAttribute("id")
-      console.log(id);
-      this.storage.get(id).then((data)=>{
-        if(data == null){
-          cantidades[i].innerHTML="0";
-        }else{
-          cantidades[i].innerHTML=data;
-        }
-        
-      });
-      console.log('Estoy obteniendo datos');
-    var cantidades= document.querySelectorAll('.cantidad');
-    console.log(cantidades);
-    var datos  = [];
-    console.log('Exiten tantos items en el carrito',cantidades.length);
-    for(var i=0; i<cantidades.length;i++){
-      var id=cantidades[i].getAttribute("id");
-      console.log(id);
-      //this.saveData(id,cantidades[i].innerHTML);
-      this.storage.get(id).then((data)=>{
-        console.log('El id es ', id);
-        console.log('La data es: ', data);
-        datos.push({"id":id,"cantidad":data});
-      });
-    }
-    console.log(datos);
-    return datos;
-    }*/
-    console.log('Estoy en el load');
-    var datos  = [];
-    for (let i=0; i< this.getProductLen(); i++){
-        var cantidad= document.querySelectorAll('#'+this.producto[i]['id_unico']);
-        console.log(cantidad);
-        this.storage.get(this.producto[i]['id_unico']).then((data)=>{
-          //console.log('El id es ', this.producto[i]['id_unico']);
-          //console.log('La data es: ', data);
-          datos.push({"id":this.producto[i]['id_unico'],"cantidad":data});
-          //cantidad[0].innerHTML=String(data);
-          //id.innerHTML="100";
-          //console.log(cantidad[0].innerHTML);
-        },(error)=>{
-          console.error(error);
-          }
-        );
-    }
-    console.log(datos);
-    return datos;
-    
-  }
+    console.log(login.login)  
+		this.storage.get('productos').then((val) => {
+      this.almacenado=val;
+      //console.log('productos: ',this.almacenado);
+      
+    });
 
-  getDataFromLocalLen(){
-    var pindex=0;
-    for(let p in this.almacenado){
-      pindex=+p+1;
-    }
-    return pindex;
   }
 
   setData(){
     console.log("Estoy en el setData");
-    console.log(this.almacenado);
-    for (let i=0; i< this.getDataFromLocalLen(); i++){
-      var cantidad= document.querySelectorAll('#'+this.almacenado[i]['id']);
-      console.log('Obtengo del getData ',cantidad)
-      cantidad[0].innerHTML=String(this.almacenado[i]['cantidad']);
-      console.log('Seteo la siguiente cantidad ',cantidad[0].innerHTML);      
+    console.log(this.getStoreLen());
+    //var cantidades=document.getElementsByClassName('cantidad');
+    //console.log(cantidades);
+    var cantidad= document.querySelectorAll('.cantidad');
+    for (let i=0; i< this.getStoreLen(); i++){
+      try{
+      console.log(this.almacenado[i]['id']);
+      //var cantidad= document.querySelectorAll('.cantidad');
+      console.log(cantidad);
+      //var id=cantidades[i].getAttribute("id");
+      //console.log('Obtengo del getData ',cantidad)
+      
+      cantidad[i].innerHTML=this.almacenado[i]['cantidad'];
+      console.log('Seteo la siguiente cantidad ',cantidad[i].innerHTML);
+      }catch(e){
+        console.log(e);
+        continue;
+      }      
     }
   }
 
 }
+
 
 
 
