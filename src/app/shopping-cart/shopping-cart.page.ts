@@ -94,12 +94,12 @@ export class ShoppingCartPage implements OnInit {
 
   ionViewWillLeave(){
     var cantidades=document.querySelectorAll('.cantidad');
-    for(var i=0; i<cantidades.length;i++){
-      var id=cantidades[i].getAttribute("id");
-      console.log('Guardaré el id ',id)
-      console.log('Guardare la cantidad ',cantidades[i].innerHTML);
-      this.saveData(id,cantidades[i].innerHTML);
-    }
+for(var i=0; i<cantidades.length;i++){
+  var id=cantidades[i].getAttribute("id");
+  console.log('Guardaré el id ',id)
+  console.log('Guardare la cantidad ',cantidades[i].innerHTML);
+  this.saveData(id,cantidades[i].innerHTML);
+}
   }
 
   showLoading() {  

@@ -33,6 +33,7 @@ export class ProductoPage implements OnInit {
     n = 0;
     num:any=0;
     loaderToShow: any;
+    almacenado:{};
     private correo:String="";
     public cantidad:string="0";
 
@@ -50,7 +51,7 @@ export class ProductoPage implements OnInit {
 
     this.cargaPantalla();
     this.getCorreo();
-    
+    //this.loadData();
     //this.storage.set('producto', true);
     
     //this.storage.set('oferta', false);
@@ -73,6 +74,19 @@ export class ProductoPage implements OnInit {
       ionViewDidEnter(){
         this.dataFromCart=this.navParamsService.getNavData();
         this.getDataFromCarrito();
+        this.almacenado=this.loadData();
+        this.setData();
+      }
+
+      ionViewWillLeave(){
+        var cantidades=document.querySelectorAll('.cantidad');
+        console.log(cantidades);
+    for(var i=0; i<cantidades.length;i++){
+      var id=cantidades[i].getAttribute("id");
+      console.log('Guardaré el id ',id)
+      console.log('Guardare la cantidad ',cantidades[i].innerHTML);
+      this.saveData(id,cantidades[i].innerHTML);
+    }
       }
 
       cargaPantalla() {  
@@ -413,7 +427,7 @@ export class ProductoPage implements OnInit {
   }
 
   loadData(){
-    console.log("LoadData");
+    /*console.log("LoadData");
     var cantidades=document.getElementsByClassName('cantidad');
     for(var i=0; i<cantidades.length;i++){
       var id=cantidades[i].getAttribute("id")
@@ -426,8 +440,65 @@ export class ProductoPage implements OnInit {
         }
         
       });
+      console.log('Estoy obteniendo datos');
+    var cantidades= document.querySelectorAll('.cantidad');
+    console.log(cantidades);
+    var datos  = [];
+    console.log('Exiten tantos items en el carrito',cantidades.length);
+    for(var i=0; i<cantidades.length;i++){
+      var id=cantidades[i].getAttribute("id");
+      console.log(id);
+      //this.saveData(id,cantidades[i].innerHTML);
+      this.storage.get(id).then((data)=>{
+        console.log('El id es ', id);
+        console.log('La data es: ', data);
+        datos.push({"id":id,"cantidad":data});
+      });
+    }
+    console.log(datos);
+    return datos;
+    }*/
+    console.log('Estoy en el load');
+    var datos  = [];
+    for (let i=0; i< this.getProductLen(); i++){
+        var cantidad= document.querySelectorAll('#'+this.producto[i]['id_unico']);
+        console.log(cantidad);
+        this.storage.get(this.producto[i]['id_unico']).then((data)=>{
+          //console.log('El id es ', this.producto[i]['id_unico']);
+          //console.log('La data es: ', data);
+          datos.push({"id":this.producto[i]['id_unico'],"cantidad":data});
+          //cantidad[0].innerHTML=String(data);
+          //id.innerHTML="100";
+          //console.log(cantidad[0].innerHTML);
+        },(error)=>{
+          console.error(error);
+          }
+        );
+    }
+    console.log(datos);
+    return datos;
+    
+  }
+
+  getDataFromLocalLen(){
+    var pindex=0;
+    for(let p in this.almacenado){
+      pindex=+p+1;
+    }
+    return pindex;
+  }
+
+  setData(){
+    console.log("Estoy en el setData");
+    console.log(this.almacenado);
+    for (let i=0; i< this.getDataFromLocalLen(); i++){
+      var cantidad= document.querySelectorAll('#'+this.almacenado[i]['id']);
+      console.log('Obtengo del getData ',cantidad)
+      cantidad[0].innerHTML=String(this.almacenado[i]['cantidad']);
+      console.log('Seteo la siguiente cantidad ',cantidad[0].innerHTML);      
     }
   }
+
 }
 
 
