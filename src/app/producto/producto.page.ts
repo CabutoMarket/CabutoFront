@@ -130,72 +130,39 @@ export class ProductoPage implements OnInit {
         this.productoInput= this.textInput;
         console.log(this.productoInput)
         this.productoService.getProductoBuscar(this.productoInput).subscribe(data => {
-        //console.log("esta es la data "+data["nombre"])
        
        this.producto=data;
         console.log(this.producto);
         if(Object.keys(this.producto).length === 0){
-          //this.mensaje("Producto No encontrado","Intente de nuevo","No se ha podido encontrar el producto")
           this.mensajeIncorrecto("Producto no encontrado","No se ha podido encontrar el producto, intente de nuevo")
         }
 
       },(error)=>{
         console.error(error);
-        //this.mensaje("Algo Salio mal","Fallo en la conexión","Fallo en la red")
         this.mensajeIncorrecto("Algo Salio mal","Fallo en la conexión")
       }) }
 
       agregar(id:string){
-        //console.log(id)
-      
-        //var cantidad = document.getElementById(id);
+
         var cantidad= document.querySelectorAll('#'+id);
         console.log(cantidad[0])
-        //console.log(cantidad)
         var num  = cantidad[0].innerHTML
         console.log(typeof(num))
-        //if(isNaN(String(num)) == false){
-        //var num2 = parseInt(num)+1
-        //var numS=String(num2);
-        //cantidad.setAttribute('value',String(parseInt(cantidad.getAttribute('value'))+1));
         cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)+1);
-        //this.saveData(id,cantidad[0].innerHTML);
       }
 
       quitar(id:string){
-        //var cantidad = document.getElementById(id);
-        //var num  = cantidad.getAttribute('value')
         var cantidad= document.querySelectorAll('#'+id);
         var num  = cantidad[0].innerHTML
         if((parseInt(num)-1)< 0){
-          //cantidad.setAttribute('value',String(parseInt(num)));
           cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));
 
         }else{
-          //cantidad.setAttribute('value',String(parseInt(num)-1));
           cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML)-1);
-          //this.saveData(id,cantidad[0].innerHTML);
-          
-
         } 
       }
 
       carrito(id:string){
-        /*var datos = this.nativeStorage.getItem('user')
-        .then(
-          //datos => console.log(datos),
-          error => console.error(error)
-        );
-        var dato2 = this.nativeStorage.keys()
-        .then(
-          dato2 => console.log(datos),
-          error => console.error(error)
-        );
-        console.log("Datos 1")
-        console.log(datos)
-        console.log("Datos 2")
-        console.log(dato2)*/
-        
          this.storage.get('name').then((nombre) => {
           console.log('Name is', nombre);
           if(login.login ==false && nombre == null ){
@@ -221,10 +188,7 @@ export class ProductoPage implements OnInit {
 
                 }
               })
-              //this.mensaje("Agregar Producto","Agregar producto","el producto se ha agregado al carrito");
-              /* aqui debers enviar el producto y cantidad al carrito */
             }else{
-              //this.mensaje("Agregar Producto","No hay cantidad","No ha escogido la cantidad para agregar");
               this.mensajeIncorrecto("Agregar Producto","No ha escogido la cantidad para agregar");
             }
           }
@@ -377,11 +341,9 @@ export class ProductoPage implements OnInit {
     console.log(num)
     if(num != null){
       console.log("existen datos :'v")
-      //cantidad.setAttribute('value',String(parseInt(num)));
       cantidad.innerHTML=String(num);
     }else{
       console.log("no existe datos :C")
-      //cantidad.setAttribute('value',"0");
       cantidad.innerHTML="0";
     }
         
@@ -429,7 +391,6 @@ export class ProductoPage implements OnInit {
         var cantidad= document.querySelectorAll('#'+this.dataFromCart[i]['id']);
         console.log(cantidad);
         cantidad[0].innerHTML=this.dataFromCart[i]['cantidad'];
-        //id.innerHTML="100";
         console.log(cantidad[0].innerHTML);
       }catch(e){
         console.log(e);
@@ -446,9 +407,7 @@ export class ProductoPage implements OnInit {
   loadData(){
     console.log(login.login)  
 		this.storage.get('productos').then((val) => {
-      this.almacenado=val;
-      //console.log('productos: ',this.almacenado);
-      
+      this.almacenado=val;      
     });
 
   }
@@ -456,17 +415,11 @@ export class ProductoPage implements OnInit {
   setData(){
     console.log("Estoy en el setData");
     console.log(this.getStoreLen());
-    //var cantidades=document.getElementsByClassName('cantidad');
-    //console.log(cantidades);
     var cantidad= document.querySelectorAll('.cantidad');
     for (let i=0; i< this.getStoreLen(); i++){
       try{
       console.log(this.almacenado[i]['id']);
-      //var cantidad= document.querySelectorAll('.cantidad');
-      console.log(cantidad);
-      //var id=cantidades[i].getAttribute("id");
-      //console.log('Obtengo del getData ',cantidad)
-      
+      console.log(cantidad);      
       cantidad[i].innerHTML=this.almacenado[i]['cantidad'];
       console.log('Seteo la siguiente cantidad ',cantidad[i].innerHTML);
       }catch(e){

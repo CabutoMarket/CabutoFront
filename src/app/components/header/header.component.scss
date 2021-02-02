@@ -83,11 +83,17 @@ ion-header{
 }
 
 .header{
-    height: 20%!important;
+    height: 5rem!important;
+    background-color: var(--ion-color-naranja-oscuro);
+    text-align: center;
 }
 
 .headerR >img{
-    width: 100%;
+    padding-top:1rem;
+    padding-left:1rem;
+    width: 9rem!important;
+    height:4em!important;
+    
 }
 
 ion-menu-button{
