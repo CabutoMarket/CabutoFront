@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: DireccionPage
+  },
+  {
+    path: 'nueva-direccion',
+    loadChildren: () => import('./nueva-direccion/nueva-direccion.module').then( m => m.NuevaDireccionPageModule)
+  },
+  {
+    path: 'confirmar-direccion',
+    loadChildren: () => import('./confirmar-direccion/confirmar-direccion.module').then( m => m.ConfirmarDireccionPageModule)
   }
 ];
 

@@ -29,13 +29,28 @@ export class EstablecimientoPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log("refresh");
-    this.establecimientoService.getEstablecimiento().subscribe(data => {
-      this.establecimientos = data;
-      console.log(this.establecimientos);
-    }, (error) => {
-      console.error(error);
-    })
+    this.datos();
+  }
+
+  async datos(){
+    await this.showLoading2();
+    this.establecimientoService.getEstablecimiento()
+        .pipe(
+            finalize(async () => {
+              await this.loading.dismiss();
+            })
+        )
+        .subscribe(
+            data => {
+              this.establecimientos = data;
+              if (Object.keys(this.establecimientos).length === 0) {
+                this.mensajeIncorrecto("Establecimientos no encontrados", "No existen establecimientos para presentar")
+              }
+            },
+            err => {
+              this.mensajeIncorrecto("Algo Salio mal","Fallo en la conexión")
+            }
+        );
   }
 
   async buscar() {

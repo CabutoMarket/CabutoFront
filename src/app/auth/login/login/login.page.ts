@@ -92,6 +92,7 @@ export class LoginPage implements OnInit {
         console.log(nombre)
         console.log(apellido)
         login.login = true;
+        this.storage.set('id', id);
         this.storage.set('name', nombre);
         this.storage.set('apellido', apellido);
         this.storage.set('correo', form.correo);

@@ -28,6 +28,7 @@ export class EntregaPage implements OnInit {
 
   domicilio(){
     this.router.navigate(['/footer/domicilio']); 
+    this.storage.set('tipoEntrega','Domicilio');
   }
 
   recoger(){

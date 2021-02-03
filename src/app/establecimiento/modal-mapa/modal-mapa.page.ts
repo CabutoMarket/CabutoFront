@@ -23,7 +23,8 @@ export class ModalMapaPage implements OnInit {
     let marker = new google.maps.Marker({
       map: map,
       animation: google.maps.Animation.DROP,
-      position: map.getCenter()
+      position: map.getCenter(),
+      draggable:true
     });
     
   }

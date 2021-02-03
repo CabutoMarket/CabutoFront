@@ -64,7 +64,28 @@ const routes: Routes = [
       {
         path: 'domicilio',
         loadChildren: () => import('../domicilio/domicilio.module').then( m => m.DomicilioPageModule)
-      }
+      },
+      {
+        path: 'historial',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../historial/historial.module').then( m => m.HistorialPageModule)
+          },
+          {
+            path: 'detalle-historial',
+            loadChildren: () => import('../historial/detalle-historial/detalle-historial.module').then( m => m.DetalleHistorialPageModule)
+          }
+        ]
+      },
+      {
+        path: 'pago',
+        loadChildren: () => import('../pago/pago.module').then( m => m.PagoPageModule)
+      },
+      {
+        path: 'efectivo',
+        loadChildren: () => import('../efectivo/efectivo.module').then( m => m.EfectivoPageModule)
+      },
     ]
   },
   {

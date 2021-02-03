@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { DomicilioPageRoutingModule } from './domicilio-routing.module';
 import { DomicilioPage } from './domicilio.page';
 import { ComponentsModule } from '../components/components.module';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { ComponentsModule } from '../components/components.module';
     DomicilioPageRoutingModule,
     ComponentsModule,
   ],
-  declarations: [DomicilioPage]
+  declarations: [DomicilioPage],
+  providers: [Geolocation]
 })
 export class DomicilioPageModule {}

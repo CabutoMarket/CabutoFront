@@ -1,0 +1,63 @@
+<app-header></app-header>
+
+<ion-content>
+  <div class="contenedor-page">
+    <ion-label class="titulo">Pagar</ion-label>
+    <div class="total">
+      <ion-label class="A_pagar_header">Total a Pagar:</ion-label>
+      <div style="display: flex;">
+        <ion-label style="color:#FE3A00;font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
+        <div class="A_pagar" id="A_pagar" *ngIf="total">{{total}}</div>
+      </div>
+    </div>
+
+    <div class="datos">Opción de pago</div>
+    <div class="confirmar">Confirme los datos</div>
+    
+    <form #form="ngForm" (ngSubmit)="confirmar(form)">
+    <div>
+        <div class="campos" *ngIf="pago">
+          <ion-label class="left">Opción de Pago: </ion-label>
+          <ion-label class="right">{{tipoPago}}</ion-label>
+          <ion-input name="tipoPago" type="text" [(ngModel)]="tipoPago" hidden required></ion-input>
+        </div>
+        <div class="campos" *ngIf="perfil">
+          <ion-label class="left">Nombres: </ion-label>
+          <ion-label class="right">{{perfil.nombre}} {{perfil.apellido}}</ion-label>
+        </div>
+        <div class="campos" *ngIf="perfil">
+          <ion-label class="left">Contacto: </ion-label>
+          <ion-label class="right">{{perfil.telefono}}</ion-label>
+        </div>
+        <div class="campos" *ngIf="direccion">
+          <ion-label class="left">Direccion: </ion-label>
+          <ion-label class="right">{{direccion.direccion}}</ion-label>
+        </div>
+        <div class="campos" *ngIf="envio">
+          <ion-label class="left">Sub-total a pagar: </ion-label>
+          <ion-label class="right">${{total | number : '1.2-2'}}</ion-label>
+          <ion-input name="subtotal" type="text" [(ngModel)]="total" hidden required></ion-input>
+        
+        </div>
+        <div class="campos" *ngIf="envio">
+          <ion-label class="left">Delivery: </ion-label>
+          <ion-label class="right">${{envio | number : '1.2-2'}}</ion-label>
+          <ion-input name="envio" type="text" [(ngModel)]="envio" hidden required></ion-input>
+        
+        </div>
+        <div class="campos" *ngIf="pago">
+          <ion-label class="left">Total a pagar: </ion-label>
+          <ion-label class="right">${{pago | number : '1.2-2'}}</ion-label>
+        </div>
+
+    </div>
+
+    <div class="button-content">
+      <div class="btn_regresar"> <img src="../assets/img/atras.png" class="atras" (click)="regresar()"> </div>
+      <ion-button class="btn-registro" size="large" type="submit">
+        <p class="registro">Confirmar</p>
+      </ion-button>
+    </div>
+    </form>
+  </div>
+</ion-content>

@@ -77,6 +77,7 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
         console.log("esto va a tener el carrito");
         console.log(this.cart[0]);
         if(this.cart[0] != null){
+          this.storage.set('id_carrito',this.cart[0]['id']);
           this.products=this.cart[0]['productos'];
           this.oferts=this.cart[0]['ofertas'];
           this.combos=this.cart[0]['combos'];
@@ -336,8 +337,13 @@ constructor(private modalCtrl: ModalController,  private  router:  Router,
   }
 
   pagar(){
-    this.storage.set('total',this.total);
-    this.router.navigate(['/footer/pagar']);
+    if(this.oferLen+this.prodLen+this.comLen>0){
+      this.storage.set('total',this.total);
+      this.router.navigate(['/footer/pagar']);
+    }else{
+      this.mensajeIncorrecto("Carrito vacío","No tiene nada en su carrito");
+    }
+    
   
   }
 }

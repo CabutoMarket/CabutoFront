@@ -50,7 +50,11 @@ const routes: Routes = [
   {
     path: 'domicilio',
     loadChildren: () => import('./domicilio/domicilio.module').then( m => m.DomicilioPageModule)
-  }
+  },
+  
+
+  
+
 
 
   
