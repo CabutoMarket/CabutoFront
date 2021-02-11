@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from  "@angular/router";
+import { NavigationExtras, Router } from  "@angular/router";
 import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import { AlertController, LoadingController,ModalController, NavController} from '@ionic/angular';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
@@ -57,6 +57,7 @@ export class ShoppingCartPage implements OnInit {
   }
 
   ionViewWillEnter(){
+    this.getCorreo();
     this.storage.get('name').then((nombre) => {
       console.log('Name is', nombre);
       if(login.login ==false && nombre == null ){
@@ -257,7 +258,7 @@ export class ShoppingCartPage implements OnInit {
   agregar(id:string){
     console.log("el id a recibir",id);
     var precio_unitario=this.getPrecioUnitario(id);
-    var cantidad= document.querySelectorAll('#'+id);
+    var cantidad= document.querySelectorAll("[id='"+id+"']");
     console.log("Esto obtengo del query",cantidad);
     console.log("Esto obtengo del query 0",cantidad[0].innerHTML);
     console.log("Esto obtengo del query 1",cantidad[1].innerHTML);
@@ -288,8 +289,8 @@ export class ShoppingCartPage implements OnInit {
   quitar(id:string){
     console.log("el id a recibir",id)
     var precio_unitario=this.getPrecioUnitario(id);
-    //var cantidad= document.querySelectorAll('#'+id);
-    var cantidad= document.querySelectorAll('#'+id);
+    //var cantidad= document.querySelectorAll("[id='"+id+"']");
+    var cantidad= document.querySelectorAll("[id='"+id+"']");
     console.log("esto obtengo del query",cantidad)
 
     if((parseInt(cantidad[0].innerHTML)-1)<= 0){
@@ -465,6 +466,15 @@ export class ShoppingCartPage implements OnInit {
       pindex=+p+1;
     }
     return pindex;
+  }
+
+  pagar(){
+    if(this.oferLen+this.prodLen+this.comLen>0){
+      this.storage.set('total',this.total);
+      this.router.navigate(['/footer/pagar']);
+    }else{
+      this.mensajeIncorrecto("Carrito vacío","No tiene nada en su carrito");
+    }
   }
 
   saveData(estado:any){

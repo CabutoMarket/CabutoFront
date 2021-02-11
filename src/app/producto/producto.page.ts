@@ -144,7 +144,7 @@ export class ProductoPage implements OnInit {
 
       agregar(id:string){
 
-        var cantidad= document.querySelectorAll('#'+id);
+        var cantidad= document.querySelectorAll("[id='"+id+"']");
         console.log(cantidad[0])
         var num  = cantidad[0].innerHTML
         console.log(typeof(num))
@@ -152,7 +152,7 @@ export class ProductoPage implements OnInit {
       }
 
       quitar(id:string){
-        var cantidad= document.querySelectorAll('#'+id);
+        var cantidad= document.querySelectorAll("[id='"+id+"']");
         var num  = cantidad[0].innerHTML
         if((parseInt(num)-1)< 0){
           cantidad[0].innerHTML=String(parseInt(cantidad[0].innerHTML));

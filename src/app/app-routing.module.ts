@@ -8,21 +8,8 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: '',
-    redirectTo: 'producto',
-    pathMatch: 'full'
-  },
-  {
     path: 'registro',
     loadChildren: () => import('./auth/registro/registro/registro.module').then( m => m.RegistroPageModule)
-  },
-  {
-    path: 'producto',
-    loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule)
-  },
-  {
-    path: 'establecimiento',
-    loadChildren: () => import('./establecimiento/establecimiento.module').then( m => m.EstablecimientoPageModule)
   },
   {
     path: 'login',
@@ -41,14 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./auth/registro/registro-exitoso/registro-exitoso.module').then( m => m.RegistroExitosoPageModule)
   },
   {
-    path: 'establecimiento',
-    loadChildren: () => import('./establecimiento/establecimiento.module').then( m => m.EstablecimientoPageModule)
-  },
-  {
-    path: 'ofertas',
-    loadChildren: () => import('./ofertas/ofertas.module').then( m => m.OfertasPageModule)
-  },
-  {
     path: 'detalles-productos',
     loadChildren: () => import('./detalles-productos/detalles-productos.module').then( m => m.DetallesProductosPageModule)
   },
@@ -61,32 +40,23 @@ const routes: Routes = [
     loadChildren: () => import('./aviso/correcto/correcto.module').then( m => m.CorrectoPageModule)
   },
   {
-    path: 'politicas',
-    loadChildren: () => import('./politicas/politicas.module').then( m => m.PoliticasPageModule)
+    path: '',
+    loadChildren: () => import('./footer/footer.module').then( m => m.FooterPageModule)
+  },
+  {
+    path: 'direccion',
+    loadChildren: () => import('./direccion/direccion.module').then( m => m.DireccionPageModule)
+  },
+  {
+    path: 'domicilio',
+    loadChildren: () => import('./domicilio/domicilio.module').then( m => m.DomicilioPageModule)
   },
   {
     path: 'pregunta',
     loadChildren: () => import('./aviso/pregunta/pregunta.module').then( m => m.PreguntaPageModule)
-  },  {
-    path: 'shopping-cart',
-    loadChildren: () => import('./shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
   },
-  {
-    path: 'cupones',
-    loadChildren: () => import('./cupones/cupones.module').then( m => m.CuponesPageModule)
-  },
-  {
-    path: 'notificaciones',
-    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
-  },
-  {
-    path: 'detalle-notificacion',
-    loadChildren: () => import('./detalle-notificacion/detalle-notificacion.module').then( m => m.DetalleNotificacionPageModule)
-  },
-
-
-
 ];
+
 
 
 @NgModule({

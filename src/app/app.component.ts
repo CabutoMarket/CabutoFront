@@ -3,11 +3,13 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController,ModalController} from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import {login} from  '././global'
-import {CorrectoPage} from './aviso/correcto/correcto.page';
-import {IncorrectoPage} from './aviso/incorrecto/incorrecto.page';
+import { login } from '././global';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
+import { DetalleNotificacionPage } from './notificacion/detalle-notificacion/detalle-notificacion.page';
+import { CorrectoPage } from './aviso/correcto/correcto.page';
+import { IncorrectoPage } from './aviso/incorrecto/incorrecto.page';
 
 declare var window;
 
@@ -25,8 +27,8 @@ export class AppComponent {
     private storage: Storage,
     private loadingCtrl: LoadingController,
     private alert: AlertController,
-    private modalCtrl: ModalController
-    
+    private modalCtrl: ModalController,
+    private fcm: FirebaseX
   ) {
     this.initializeApp();
   }
@@ -38,137 +40,164 @@ export class AppComponent {
       this.getStorage();
       this.getImage();
       this.cargarBtn();
+      this.fcm.onMessageReceived().subscribe(data => {
+        console.log(data);
+        if (data.messageType === "notification") {
+          console.log("Notification message received");
+          if (data.tap == "background") {
+            console.log("Tapped in " + data.tap);
+            if (data.image) {
+              this.notificacion(data.titulo, data.mensaje, data.image);
+            } else {
+              this.notificacion(data.titulo, data.mensaje, "");
+            }
+
+          }else{
+            if (data.image) {
+              this.notificacion(data.titulo, data.mensaje, data.image);
+            } else {
+              this.notificacion(data.titulo, data.mensaje, "");
+            }
+          }
+          
+        }
+      }, function (error) {
+        console.error(error);
+      });
+
+      // refresh the FCM token
+      this.fcm.onTokenRefresh().subscribe(token => {
+        console.log(token);
+      });
     });
   }
 
-  public name : String="";
-  public lastname: String=""; 
-  private fullname:String="";
-  private image:String="";
+  public name: String = "";
+  public lastname: String = "";
+  private fullname: String = "";
+  private image: String = "";
 
-  getStorage(){
-    console.log(login.login)  
-		this.storage.get('name').then((val) => {
-      if(val ==null){
+  getStorage() {
+    console.log(login.login)
+    this.storage.get('name').then((val) => {
+      if (val == null) {
         this.name = "";
-      }else{
-        this.name=val.toUpperCase();
-        console.log('name: ',this.name.toUpperCase());
+      } else {
+        this.name = val.toUpperCase();
+        console.log('name: ', this.name.toUpperCase());
         this.storage.get('apellido').then((val) => {
-          if(val == null){
+          if (val == null) {
             this.lastname = "";
-          }else{
-            this.lastname=val.toUpperCase();
-            console.log('apellido: ',this.lastname.toUpperCase());
+          } else {
+            this.lastname = val.toUpperCase();
+            console.log('apellido: ', this.lastname.toUpperCase());
             console.log(this.fullname.toUpperCase())
           }
         });
       }
-  });
+    });
   }
 
-  
-  getImage(){
+
+  getImage() {
     this.storage.get('name').then((val) => {
-      if(val ==null){
+      if (val == null) {
         this.image = "../assets/img/avatar.png";
-      }else{
-        this.image=val;
+      } else {
+        this.image = val;
       }
     });
   }
 
-  public action: String =" ";
-  
-  initOrOut(){
-    console.log("Estado del login",login.login)
+  public action: String = " ";
+
+  initOrOut() {
+    console.log("Estado del login", login.login)
     this.storage.get('name').then((nombre) => {
-      console.log("Estoy por definir el boton del menu",nombre)
-      if(this.action == "Iniciar Sesión"){
+      console.log("Estoy por definir el boton del menu", nombre)
+      if (this.action == "Iniciar Sesión") {
         this.showLoadingIn();
         //this.action="Iniciar Sesión";
-      }else{ 
+      } else {
         this.showLoadingOut();
         //this.action="Cerrar Sesión";
       }
-    }); 
+    });
   }
 
-  cargarBtn(){
-    console.log("Estado del login",login.login)
+  cargarBtn() {
+    console.log("Estado del login", login.login)
     this.storage.get('name').then((nombre) => {
-      console.log("Estoy por definir el boton del menu",nombre)
-      if(login.login ==false && nombre == null ){
+      console.log("Estoy por definir el boton del menu", nombre)
+      if (login.login == false && nombre == null) {
         //this.showLoadingOut();
-        this.action="Iniciar Sesión";
-      }else{ 
+        this.action = "Iniciar Sesión";
+      } else {
         //this.showLoadingIn();
-        this.action="Cerrar Sesión";
+        this.action = "Cerrar Sesión";
       }
-    }); 
+    });
   }
-  
+
 
   logout() {
     this.storage.clear()
       .then(
         data => {
           console.log(data)
-          login.login =false;
+          login.login = false;
           console.log(login.login)
           //this.ngOnInit()
           this.name = "";
-          this.lastname= "";
-          this.action="Iniciar Sesión";
-          
-          this.router.navigateByUrl('/producto');
+          this.lastname = "";
+          this.action = "Iniciar Sesión";
+
+          this.router.navigateByUrl('/footer/producto');
         },
         error => console.error(error)
       );
   }
 
-  showLoadingOut() {  
-    this.loadingCtrl.create({  
-      message: 'Loading.....'   
-      }).then((loading) => {  
-       loading.present();{
+  showLoadingOut() {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
         this.logout();
         this.mensajeCorrecto("Cerrar Sesion", "Sesion cerrada exitosamente")
-      } 
-       setTimeout(() => {   
-         loading.dismiss();  
-       }, 1000 );   
-      });  
-    }
-
-    showLoadingIn() {  
-      this.loadingCtrl.create({  
-        message: 'Loading.....'   
-        }).then((loading) => {  
-         loading.present();{
-          this.router.navigateByUrl('/login');
-        } 
-         setTimeout(() => {   
-           loading.dismiss();  
-         }, 1000 );   
-        });  
       }
-
-  gotoOfertas(){
-    //this.router.navigate(['/ofertas'],{replaceUrl:true});
-    window.cart.goOfertPage();
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
   }
 
-  gotoProductos(){
-    window.cart.goProductPage();
+  showLoadingIn() {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.router.navigateByUrl('/login');
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
   }
 
-  gotoCupons(){
-    this.router.navigateByUrl('/cupones',{replaceUrl:true});
+  perfil() {
+    this.storage.get('name').then((nombre) => {
+      console.log('Name is', nombre);
+      if (login.login == false && nombre == null) {
+        login.producto = true;
+        this.router.navigateByUrl('footer/login');
+      } else {
+        this.router.navigateByUrl('/footer/perfil');
+      }
+    });
   }
 
-
-async mensaje(titulo:string,subtitulo:string,mensaje:string) {
+  async mensaje(titulo: string, subtitulo: string, mensaje: string) {
     const alert = await this.alert.create({
       cssClass: titulo,
       header: titulo,
@@ -187,7 +216,19 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     await alert.present();
   }
 
-  async mensajeCorrecto(titulo:string,mensaje:string){
+  async notificacion(titulo: string, mensaje: string, imagen) {
+    const modal = await this.modalCtrl.create({
+      component: DetalleNotificacionPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje,
+        'imagen': imagen
+      }
+    });
+    return await modal.present();
+  }
+  async mensajeCorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
       component: CorrectoPage,
       cssClass: 'CorrectoProducto',
@@ -200,7 +241,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
   }
 
 
-  async mensajeIncorrecto(titulo:string,mensaje:string){
+  async mensajeIncorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
       component: IncorrectoPage,
       cssClass: 'IncorrectoProducto',

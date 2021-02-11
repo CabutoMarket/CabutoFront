@@ -9,33 +9,33 @@
       
     </div>
     <ion-content style="--background: #2153FF !important;" >
-      <ion-list>
+      <ion-list>        
         <ion-menu-toggle auto-hide="true">
-          <ion-item  class="menu-items" (click)="gotoProductos()">Productos</ion-item>
+          <ion-item routerLink="/footer/producto">Productos</ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" (click)="gotoOfertas()">Ofertas</ion-item>
+          <ion-item routerLink="/footer/ofertas">Ofertas</ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" (click)="gotoCupons()">Cupones</ion-item>
+          <ion-item routerLink="/footer/cupones">Cupones</ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" routerLink="ofertas">Historial de Compras</ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" routerLink="establecimiento">Locales</ion-item>
+          <ion-item routerLink="/footer/historial">Historial de Compras</ion-item>
         </ion-menu-toggle>  
         <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" routerLink="producto">Reclamos y Sugerencias</ion-item>
+          <ion-item class="menu-items" routerLink="/footer/establecimiento">Locales</ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" routerLink="producto">Perfil</ion-item>
+          <ion-item routerLink="/footer/sugerencia">Reclamos y Sugerencias</ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" routerLink="politicas">Políticas de Privacidad</ion-item>
+        <ion-item (click)=perfil()>Perfil</ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" routerLink="politicas">Contáctanos</ion-item>
+          <ion-item routerLink="/footer/shopping-cart">Políticas de Privacidad</ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/footer/contacto">Contáctanos</ion-item> 
         </ion-menu-toggle>
       </ion-list>
       <div class="social-media" style="background: #2153FF !important; ">

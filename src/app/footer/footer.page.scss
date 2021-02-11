@@ -1,0 +1,59 @@
+ion-tab-bar {
+    --ion-background-color: linear-gradient(to right, #0F195E, #2153FF) !important;
+    --border:0px;
+}
+.tab-selected {
+    background-image: url('/assets/img/fondo.png');
+    background-position: top;
+    background-size: contain;
+    background-repeat: no-repeat;
+    .perfil ion-img, 
+    .notifications ion-img,
+    .home ion-img{
+        margin-top: 10px;
+        width: 40%;
+        height: 40%;
+    }
+    .valor{
+        right: 7vw;
+        top: 4vh;
+        border-radius: 50%;
+        height: 13px;
+        width: 12px;
+        font-size: smaller;
+        text-align: center;
+    }
+}
+
+ion-tab-button {
+    background:none;
+}
+
+.perfil, .notifications,.home{
+ text-align: center;
+ padding: 10% 0% 10% 0%;
+ display:flex;
+ align-items:center;
+ ion-img{
+    margin: auto;
+    width: 50%;
+    height: 50%;
+ }
+}
+
+.perfil{
+    border-radius: 100%;
+}
+
+.valor{
+    position:absolute;  
+    color:white;
+    right: 5vw;
+    top: 5vh;
+    border-radius: 50%;
+    height:15px;
+    width: 15px;
+    background: #FE3A00;
+    text-align: center;
+}
+

@@ -1,0 +1,109 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    padding: 20px 30px;
+}
+.titulo{
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+
+ion-item{
+    --background: #e7e7e7;
+    --color: rgb(112, 106, 106);
+    font-size: 1rem;
+    width: 90%;
+    --highlight-height: 0px !important;
+    margin: 5% auto;
+    border-radius: 10px;
+    ion-textarea{
+        color: var(--ion-color-azul-oscuro);
+        margin-left:10px;
+        height: 150px;
+    }
+  }
+
+  ion-button{
+    --background: var(--ion-color-naranja-oscuro);
+    font-size: 0.8rem;
+}
+
+.form{
+    padding:20px 0px;
+  }
+  .perfil{
+    background: #e7e7e7;
+    border-radius: 15px;
+    text-align: center;
+  }
+
+  .perfil img{
+    height: 2rem;
+  }
+
+  .select-profile-picture{
+    text-align: left;
+    font-size: 12px;
+    margin: 0 auto;
+  }
+  .hoverable > img {
+    height: 25%;
+    padding: 0%;
+    margin: 30% 0;
+  }
+  .hoverable{
+    display: inline-block;
+    cursor: pointer;
+    background: #e7e7e7;
+    height: 200px;
+    width: 250px;
+    margin: auto;
+    padding: 5px 0;
+  }
+  
+  #fileInput{
+    display: none;
+    height: 20%;
+    padding-top: 0px; 
+  }
+
+.delete{
+  justify-content: left;
+    align-content: left;
+    align-items: left;
+    text-align: start;
+}
+
+#button {
+    line-height: 12px;
+    width: 30px;
+    height: 30px;
+    font-size: 20pt;
+    margin-top: 1px;
+    margin-right: 95px;
+    position:absolute;
+    top:0;
+    right:0;
+    border:none!important;
+    border-radius: 20px;
+    background-color: transparent;
+    text-align:start!important;
+  }
+  
+  .button-content{
+    display: flex;
+    justify-content: center;
+  }
+  .btn-registro{
+    width:55%;
+    line-height: 0px;
+  }
+  .registro{
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }

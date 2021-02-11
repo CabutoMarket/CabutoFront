@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<ion-content>
+    <div class="contenedor-page">
+        <ion-label class="titulo">Reclamos y Sugerencias</ion-label>
+        <form #form="ngForm" (ngSubmit)="enviar(form)" >
+            <div class="form">
+              <div class="perfil">
+                <label class="hoverable" for="fileInput">
+                  <img [ngStyle]="{'heigth': divStyle}" [src]="url ? url : '../assets/img/agregar_imagen.png'">
+                </label>
+                <input id="fileInput" name="imagen" type='file' (change)="onSelectFile($event)">
+                <div class="delete">
+                  <input id="button" type="button" *ngIf="url" (click)="delete()" value="X">
+                </div>
+              </div>
+              <ion-item>
+                <ion-textarea name="descripcion" type="text" placeholder="Escribe aquí" ngModel required></ion-textarea>
+              </ion-item>              
+            </div>
+            <div class="button-content">
+              <ion-button class="btn-registro" size="large" type="submit">
+                <p class="registro">Enviar</p>
+              </ion-button>
+            </div>
+      
+          </form>
+    </div>
+</ion-content>

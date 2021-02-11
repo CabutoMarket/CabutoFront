@@ -7,7 +7,7 @@ import {login} from  './../global';
 import { Router } from '@angular/router';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
-import {NavParamsService} from '../servicios/nav-params.service'
+import { NavParamsService } from '../servicios/nav-params.service';
 
 
 @Component({
@@ -80,7 +80,7 @@ cargaPantalla() {
   } 
 
   agregar(id:string){
-    var cantidad= document.querySelectorAll('#'+id);
+    var cantidad= document.querySelectorAll("[id='"+id+"']");
         console.log(cantidad[0])
         //console.log(cantidad)
         var num  = cantidad[0].innerHTML
@@ -96,7 +96,7 @@ cargaPantalla() {
   quitar(id:string){
     //var cantidad = document.getElementById(id);
         //var num  = cantidad.getAttribute('value')
-        var cantidad= document.querySelectorAll('#'+id);
+        var cantidad= document.querySelectorAll("[id='"+id+"']");
         var num  = cantidad[0].innerHTML
         if((parseInt(num)-1)< 0){
           //cantidad.setAttribute('value',String(parseInt(num)));

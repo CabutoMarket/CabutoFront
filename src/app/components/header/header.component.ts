@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
     }else{
       //this.carritoModal();
       this.carrito="../assets/img/carrito_activo.png";
-      this.router.navigateByUrl('/shopping-cart', {replaceUrl:true});
+      this.router.navigateByUrl('/footer/shopping-cart');
       
          
       

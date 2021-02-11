@@ -1,0 +1,48 @@
+*{
+    font-family: 'MyriadProSemibold' !important;
+}
+.contenedor-page{
+    padding: 0px 30px 20px 30px ;
+}
+.titulo{
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+}
+.social-media{
+    display:flex;
+    justify-content:center;
+    margin: 10% auto;
+    padding-bottom: 10%;
+    border-bottom: 1px solid var(--ion-color-azul-oscuro);
+    box-shadow: 0 4px 6px -6px #c2c2c2;
+    img{
+        height: 1.8rem;
+        width: 1.8rem;
+    }
+}
+
+.info{
+    display: flex;
+    justify-content:center;
+    margin:5% auto;
+    img{
+        height: 1rem;
+    }
+}
+
+.left {
+    text-align: right;
+    font-size: 70%;
+    margin-right:  10px;
+    width:30%;
+}
+.right {
+    text-align: left;
+    width: 70%;
+    margin-left:  10px;
+    font-size: 80%;
+    color:gray
+}

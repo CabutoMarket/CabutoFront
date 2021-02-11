@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<ion-content>
+  <div class="contenedor-page">
+    <ion-label class="titulo">Pagar</ion-label>
+    <div class="total" >
+      <ion-label class="A_pagar_header">Total a Pagar:</ion-label>
+      <div style="display: flex;">
+        <ion-label style="color:#FE3A00;font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
+        <div class="A_pagar" id="A_pagar" *ngIf="total">{{total}}</div>
+      </div>
+    </div>
+    
+    <div class="datos">Opción de entrega</div>
+    <div class="button-content">
+      <ion-button class="btn-registro" (click)=domicilio()>
+        <p class="registro">A DOMICILIO</p>
+      </ion-button>
+    </div>
+    <div class="button-content">
+      <ion-button class="btn-registro" (click)=recoger()>
+        <p class="registro">RECOGER PEDIDO</p>
+      </ion-button>
+    </div>
+
+    <div class ="btn_regresar"> <img src="../assets/img/atras.png" class="atras" (click)="regresar()"> </div>
+
+  </div>  
+</ion-content>
