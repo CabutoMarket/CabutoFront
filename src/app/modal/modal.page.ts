@@ -14,7 +14,7 @@ export class ModalPage implements OnInit {
 
   ngOnInit() {
   }
-  dismiss() {
+  atras() {
     this.modalCtrl.dismiss();
   }
 
@@ -75,17 +75,5 @@ showLoadingE() {
      }, 2000 );   
     });  
   }
-  showLoadingD() {  
-    this.loading.create({  
-      message: 'Loading.....'   
-      }).then((loading) => {  
-       loading.present();{
-        this.dismiss()
-      } 
-       setTimeout(() => {   
-         loading.dismiss();  
-       }, 1000 );   
-      });  
-    }
 }
 

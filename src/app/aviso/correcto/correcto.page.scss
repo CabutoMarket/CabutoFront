@@ -6,14 +6,16 @@
 
 .btn-salir{
     text-align: right !important;
-    padding: 20px 20px 10px 10px;
+    margin: 20px 20px 10px 10px;
 }
 
-.img-correcto img{
-    height: 9em;
-    width: 9.5rem;
-}
+.img-correcto{
 
+    margin: 2rem 0px 20px 0px;
+    img{
+        height: 5rem;
+    }
+}
 .titulo{
     padding-top: 0px;
     //color:#0F195E !important;
@@ -21,7 +23,7 @@
 }
 
 .mensaje{
-    padding: 25px 20px 20px 20px;
+    margin: 25px 20px 20px 20px;
     color:#87868A !important;
     font-size: 0.9rem;
 }

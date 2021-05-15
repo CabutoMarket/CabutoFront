@@ -11,38 +11,32 @@
 
 
 .titulo{
-    padding-top: 0px;
-    //color:#0F195E !important;
-    font-size: 1rem;
     color: var(--ion-color-azul-oscuro);
+    margin: 10px 20px 20px 20px;
+    padding-bottom: 0px;
+    font-size: 1rem;
 }
 
 .btns{
-    padding-top: 1.5rem;
-    .btn-si{
-        float: left;
-        text-align: left;
-        justify-content: flex-end;
-        padding-left: 4rem;
-        //padding-right: 2rem;
-        //left: 5rem;
-        width: 4rem;
-        //right: 5rem;
-        
+    display: flex;
+    justify-content: center;
+    .btn{
+        color: white;
+        width: 3rem;
+        height: 3rem;
+        font-size: large;
+        margin: 0px 15px 15px 15px;
+        background: var(--ion-color-naranja-oscuro);
+        border-radius: 50%;
+        padding: 3px;
+        display: grid;
+        span{
+            justify-content: center;
+            align-items: center;
+            border: white dashed 1.5px;
+            border-radius: 50%;
+            display: flex;
+        }
     }
 
-    .btn-no{
-        float: right;
-        text-align: right;
-        justify-content: flex-end;
-        //padding-left: 2rem;
-        padding-right: 6rem;
-        //right: 5rem;
-        width: 4rem;
-        
-    }
-
-    ion-button{
-        --background: linear-gradient(to left,var(--ion-color-naranja-oscuro),var(--ion-color-naranja-claro));
-    }
 }

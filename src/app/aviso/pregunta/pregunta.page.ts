@@ -4,6 +4,7 @@ import { AlertController, LoadingController, ModalController, NavController, Nav
 import {ShoppingCartService} from '../.././servicios/shopping-cart.service';
 import {CorrectoPage} from '../../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../../aviso/incorrecto/incorrecto.page';
+declare var window;
 @Component({
   selector: 'app-pregunta',
   templateUrl: './pregunta.page.html',
@@ -70,15 +71,12 @@ export class PreguntaPage implements OnInit {
         total.innerHTML=""+tot+"";
         subtotal[parseInt(compara)].innerHTML = "0.00";
         this.mensajeCorrecto("Eliminación Exitosa","ha eliminado del carrito");
-        setTimeout(() => {   
-          window.location.reload();
-        }, 1800 );
       }else if (data.valid == "NOT"){
         this.mensajeIncorrecto("No se pudo completar la operacion","Ha ocurrido un error, revise su conexión");
-
       }else{
         this.mensajeIncorrecto("No se pudo completar la operacion","Ha ocurrido un error, revise su conexión");
       }
+      window.footer.datos();
     })
     this.modalCtrl.dismiss();
     
