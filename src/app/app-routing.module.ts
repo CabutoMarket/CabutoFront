@@ -55,6 +55,12 @@ const routes: Routes = [
     path: 'pregunta',
     loadChildren: () => import('./aviso/pregunta/pregunta.module').then( m => m.PreguntaPageModule)
   },
+  {
+    path: 'calificar',
+    loadChildren: () => import('./calificar/calificar.module').then( m => m.CalificarPageModule)
+  },
+  
+  
 ];
 
 

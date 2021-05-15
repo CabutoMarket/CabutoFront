@@ -29,14 +29,21 @@ export class ModalMapaPage implements OnInit {
     
   }
   ngAfterViewInit(): void {
+    setTimeout(() => {
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
       center: {lat: this.latitud, lng: this.longitud},
-      zoom: 15
+      zoom: 16
     });
     this.addMarker(this.map);
+  }, 600);
+    
   }
 
   dismiss(){
     this.modalController.dismiss();
+  }
+
+  ionViewWillLeave() {
+    console.log("elimina--")    
   }
 }

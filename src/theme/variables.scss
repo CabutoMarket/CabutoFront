@@ -15,50 +15,76 @@
   }
 
   .DetallesProducto .modal-wrapper{
-    padding-top: 50px;
-    width: 300px;
-    height: 380px; 
-    border-radius: 10px;
+    top: 25%;
+    width: 80%;
+    position: absolute;
+    height: 45%;
+    border-radius: 20px;
     *{
       font-family:'MyriadProSemibold' !important ;
     }
   }
 
-  .DetalleNoti .modal-wrapper{
-    padding-top: 50px;
-    width: 300px;
-    height: 300px; 
-    border-radius: 10px;
-    *{
-      font-family:'MyriadProSemibold' !important ;
+  ion-modal.DetalleNoti {
+    &.bottom {
+        align-items: flex-end;
     }
-  }
+    --height: auto;
+    .modal-wrapper{
+      width: 80%;
+      border-radius: 20px;    
+    }
+    .ion-page {
+        position: relative;
+        display: block;
+        contain: content;
+        .inner-content {
+            max-height: 80vh;
+            overflow: auto;
+            padding: 10px;
+        }
+    }
+}
 
   .CorrectoOferta .modal-wrapper{
-    padding-top: 50px;
-    width: 300px;
-    height: 380px; 
-    border-radius: 10px;
+    top: 25%;
+    width: 17rem;
+    position: absolute;
+    height: 19rem;
+    border-radius: 20px;
+    *{
+      font-family:'MyriadProSemibold' !important ;
+    }
+  }
+
+  .Politicas .modal-wrapper{
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    height: 20rem;
+    border-radius: 20px 20px 0px 0px;
     *{
       font-family:'MyriadProSemibold' !important ;
     }
   }
 
   .CorrectoProducto .modal-wrapper{
-    padding-top: 50px;
-    width: 300px;
-    height: 380px; 
-    border-radius: 10px;
+    top: 25%;
+    width: 17rem;
+    position: absolute;
+    height: 19rem;
+    border-radius: 20px;
     *{
       font-family:'MyriadProSemibold' !important ;
     }
   }
 
   .IncorrectoProducto .modal-wrapper{
-    padding-top: 50px;
-    width: 300px;
-    height: 380px; 
-    border-radius: 10px;
+    top: 25%;
+    width: 17rem;
+    position: absolute;
+    height: 19rem;
+    border-radius: 20px;
     *{
       font-family:'MyriadProSemibold' !important ;
     }
@@ -86,6 +112,8 @@
     .correo{
       padding-top: 50px;
       padding-bottom: 20px;
+      text-align: center;
+      margin: 0px 25px;
     }
     .cancelar{
       width: 40%;

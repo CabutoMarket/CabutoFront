@@ -21,7 +21,8 @@ import { AngularFirestoreModule } from "@angular/fire/firestore"; //Modulo Fires
 import { AngularFireAuthModule } from "@angular/fire/auth";  //Modulo de authenticacion
 import { AngularFireModule } from "@angular/fire";            //Modulo para inicializar y que todo funcione bien vergas
 import { firebaseConfig} from "../environments/environment";     // aqui se encuentra una variable de configuracion para inicializar firebase
-
+import {FooterPage} from 'src/app/footer/footer.page'
+import { HTTP } from '@ionic-native/http/ngx';
 import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'; //Modulo de Facebook
 import {ModalPage} from '././modal/modal.page';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
@@ -30,7 +31,7 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 
 @NgModule({
-  declarations: [AppComponent,ModalPage],
+  declarations: [AppComponent],
 //  declarations: [AppComponent],
   entryComponents: [ModalPage],
 
@@ -50,6 +51,8 @@ driverOrder: ['indexeddb', 'sqlite', 'websql']
     SplashScreen,
     FirebaseX,
     NativeStorage,
+    HTTP,
+    FooterPage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

@@ -35,12 +35,21 @@
  }
 
  .confirm-modal .modal-wrapper {
-   height: 55%;
+   height: 23rem;
    top: 25%;
    width: 80%;
    position: absolute; 
    display: block;  
    border-radius: 20px; 
+}
+
+.modal-tarjeta .modal-wrapper {
+   height: 20rem;
+   top: 25%;
+   width: 85%;
+   position: absolute;
+   display: block;
+   border-radius: 20px;
 }
 
  .modal-direccion .modal-wrapper {
@@ -51,3 +60,39 @@
     display: block;  
     border-radius: 20px; 
  }
+ ion-content.mapa{
+   --background: transparent;
+ }
+
+.alertClass .alert-wrapper{
+   border-radius: 10px; 
+   *{
+      font-family:'MyriadProSemibold' !important ;
+    }
+   .alert-message{
+      color: var(--ion-color-azul-oscuro);
+      margin: 10px auto;
+      padding-bottom: 0px;
+      text-align: center;
+   }
+   .alert-button-group {
+      justify-content: center;
+   }
+   .alert-button{
+      color: white;
+      width: 3rem;
+      height: 3rem;
+      font-size: large;
+      margin: 0px 15px 15px 15px;
+      background: var(--ion-color-naranja-oscuro);
+      border-radius: 50%;
+      padding: 3px;
+      .alert-button-inner{
+         justify-content: center;
+         align-items: center;
+         border: white dashed 1.5px;
+         border-radius: 50%;
+         text-transform: none;
+      }
+   }
+}

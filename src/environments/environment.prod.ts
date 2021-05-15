@@ -15,3 +15,10 @@ export const firebaseConfig={
 export const login = {
   login: false
 };
+
+export const paymentez ={
+  app_code_client : "INNOVA-EC-CLIENT",
+  app_key_client:"ZjgaQCbgAzNF7k8Fb1Qf4yYLHUsePk",
+  app_code_server : "INNOVA-EC-SERVER",
+  app_key_server:"Y5FnbpWYtULtj1Muvw3cl8LJ7FVQfM"
+}

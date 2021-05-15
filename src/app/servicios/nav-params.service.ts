@@ -10,11 +10,13 @@ export class NavParamsService {
 
   setNavData(navObj){
     this.navData=navObj;
+    console.log(this.navData)
   }
 
   getNavData(){
     if(this.navData == null || this.navData == undefined)
       return 0;
+    console.log(this.navData)
     return this.navData;
   }
 }

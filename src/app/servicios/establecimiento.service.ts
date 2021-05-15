@@ -6,20 +6,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EstablecimientoService {
-  baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
+  baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(
     private http: HttpClient
   	) { }
 
   getEstablecimiento() {
-     let headers=
-          new HttpHeaders(
-            {
-                            'Access-Control-Allow-Origin':'*',
-"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-            });
-    return this.http.get(this.baseUrl+'establecimiento/')            
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl+'establecimiento/',{'headers':headers})            
   }
   getEstablecimientoBuscar(filtro: string){
     let parametro= new HttpParams().set('nombre',filtro);
@@ -29,7 +27,17 @@ export class EstablecimientoService {
               'Content-Type':  'application/json',
             })
          };
-        return this.http.get(this.baseUrl+'establecimiento/',{params:parametro});
+        return this.http.get(this.baseUrl+'establecimiento/',{params:parametro, headers:httpOptions.headers});
+  }
 
+  getEstablecimientoId(filtro: string){
+    let parametro= new HttpParams().set('id',filtro);
+    const httpOptions = {
+          headers: new HttpHeaders({
+              'Accept': 'application/json, text/plain',
+              'Content-Type':  'application/json',
+            })
+         };
+        return this.http.get(this.baseUrl+'establecimiento/',{params:parametro, headers:httpOptions.headers});
   }
 }

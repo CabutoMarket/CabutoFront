@@ -3,4 +3,7 @@ export const login = {
     oferta:false,
     producto:false,
     combo:false,
+    pago:false,
+    perfil:false,
+    categoria:false,
   };

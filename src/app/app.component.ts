@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { login } from '././global';
@@ -10,6 +10,9 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { DetalleNotificacionPage } from './notificacion/detalle-notificacion/detalle-notificacion.page';
 import { CorrectoPage } from './aviso/correcto/correcto.page';
 import { IncorrectoPage } from './aviso/incorrecto/incorrecto.page';
+import { IonContent } from '@ionic/angular';
+import { FooterPage } from 'src/app/footer/footer.page'
+import { FcmService } from './servicios/fcm.service';
 
 declare var window;
 
@@ -19,18 +22,28 @@ declare var window;
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  inicio = login.login
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
+    private fcm: FcmService,
     private storage: Storage,
     private loadingCtrl: LoadingController,
     private alert: AlertController,
     private modalCtrl: ModalController,
-    private fcm: FirebaseX
+    private firebase: FirebaseX,
+    private footer: FooterPage
   ) {
     this.initializeApp();
+  }
+
+
+  @ViewChild('navChild') private content: IonContent;
+  closingNavCallback() {
+    console.log("Cerrando")
+    this.content.scrollToTop();
   }
 
   initializeApp() {
@@ -40,42 +53,56 @@ export class AppComponent {
       this.getStorage();
       this.getImage();
       this.cargarBtn();
-      this.fcm.onMessageReceived().subscribe(data => {
+      this.firebase.getToken().then(token => {
+        var id = -1
+        this.storage.get('id').then((val) => {
+          if (val != null) {
+            id = val;
+          }
+          var registro = {
+            usuario: id,
+            token: token
+          }
+          console.log(registro);
+          this.fcm.registrarUsuario(registro).subscribe(data => {
+            console.log(data.valid);
+          });
+        });
+      });
+      this.firebase.onMessageReceived().subscribe(data => {
         console.log(data);
         if (data.messageType === "notification") {
-          console.log("Notification message received");
-          if (data.tap == "background") {
-            console.log("Tapped in " + data.tap);
+          if (data.tap) {
+            if (data.id) {
+              console.log("voy a historial")
+              let navigationExtras: NavigationExtras = {
+                state: {
+                  id: data.id,
+                }
+              };
+              this.router.navigate(['/footer/historial/detalle-historial'], navigationExtras);
+            } 
             if (data.image) {
               this.notificacion(data.titulo, data.mensaje, data.image);
             } else {
               this.notificacion(data.titulo, data.mensaje, "");
             }
-
-          }else{
-            if (data.image) {
-              this.notificacion(data.titulo, data.mensaje, data.image);
-            } else {
-              this.notificacion(data.titulo, data.mensaje, "");
-            }
+          } else {
+            window.footer.datos();
           }
-          
+
         }
       }, function (error) {
         console.error(error);
       });
 
-      // refresh the FCM token
-      this.fcm.onTokenRefresh().subscribe(token => {
-        console.log(token);
-      });
     });
   }
 
   public name: String = "";
   public lastname: String = "";
   private fullname: String = "";
-  private image: String = "";
+  public image;
 
   getStorage() {
     console.log(login.login)
@@ -100,11 +127,14 @@ export class AppComponent {
 
 
   getImage() {
-    this.storage.get('name').then((val) => {
-      if (val == null) {
-        this.image = "../assets/img/avatar.png";
-      } else {
-        this.image = val;
+    this.storage.get('perfil').then((val) => {
+      console.log(val)
+      if (val != null) {
+        if (val.url != undefined) {
+          this.image = val.url
+        } else {
+          this.image = "../assets/img/avatar.png";
+        }
       }
     });
   }
@@ -150,9 +180,10 @@ export class AppComponent {
           //this.ngOnInit()
           this.name = "";
           this.lastname = "";
+          this.footer.cosas = 0
           this.action = "Iniciar Sesión";
-
-          this.router.navigateByUrl('/footer/producto');
+          this.image = "../assets/img/avatar.png";
+          this.router.navigateByUrl('/');
         },
         error => console.error(error)
       );
@@ -164,7 +195,7 @@ export class AppComponent {
     }).then((loading) => {
       loading.present(); {
         this.logout();
-        this.mensajeCorrecto("Cerrar Sesion", "Sesion cerrada exitosamente")
+        this.mensajeCorrecto("Cerrar Sesión", "Sesión cerrada exitosamente")
       }
       setTimeout(() => {
         loading.dismiss();
@@ -189,7 +220,6 @@ export class AppComponent {
     this.storage.get('name').then((nombre) => {
       console.log('Name is', nombre);
       if (login.login == false && nombre == null) {
-        login.producto = true;
         this.router.navigateByUrl('footer/login');
       } else {
         this.router.navigateByUrl('/footer/perfil');
@@ -217,9 +247,10 @@ export class AppComponent {
   }
 
   async notificacion(titulo: string, mensaje: string, imagen) {
+    console.log(imagen)
     const modal = await this.modalCtrl.create({
       component: DetalleNotificacionPage,
-      cssClass: 'CorrectoProducto',
+      cssClass: 'DetalleNoti',
       componentProps: {
         'titulo': titulo,
         'mensaje': mensaje,
