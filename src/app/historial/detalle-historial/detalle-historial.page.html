@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="contenedor-page">
   <ion-label ion-fixed class="titulo">Historial de compras</ion-label>
   <div class="contenedor" *ngIf="historial">
@@ -63,7 +62,7 @@
         </div>
         <div class="div-producto" *ngFor="let producto of ofertas">
           <div class="contenedor-columna">
-            <div class="nombre-producto">{{producto.producto__nombre}}</div>
+            <div class="nombre-producto">{{producto.oferta__nombre}}</div>
           </div>
           <div class="contenedor-centro">
             <div id="" class="cantidad">{{producto.cantidad}}</div>
@@ -76,7 +75,7 @@
         </div>
         <div class="div-producto" *ngFor="let producto of combos">
           <div class="contenedor-columna">
-            <div class="nombre-producto">{{producto.producto__nombre}}</div>
+            <div class="nombre-producto">{{producto.combo__nombre}}</div>
           </div>
           <div class="contenedor-centro">
             <div id="" class="cantidad">{{producto.cantidad}}</div>
@@ -89,7 +88,7 @@
         </div>
         <div class="div-producto" *ngFor="let producto of cupones">
           <div class="contenedor-columna">
-            <div class="nombre-producto">{{producto.producto__nombre}}</div>
+            <div class="nombre-producto">{{producto.cupon__nombre}}</div>
           </div>
           <div class="contenedor-centro">
             <div id="" class="cantidad">{{producto.cantidad}}</div>
@@ -116,6 +115,18 @@
           <ion-label class="left">Total: </ion-label>
           <ion-label class="right">${{ historial.total | number : '1.2-2' }}</ion-label>
         </div>
+      </div>
+
+      <div class="button-content">
+        <ion-button class="btn-cancelar" size="large" *ngIf="historial.estado != 'Anulado'" (click)="anular(historial.id_pedido, historial.cliente_id)">
+          <p class="registro">Anular</p>
+        </ion-button>
+        <ion-button class="btn-registro" size="large" *ngIf="historial.tipo_pago == 'Tarjeta' && !historial.pagado && historial.estado != 'Anulado'" (click)="pagar(historial.id_pedido)">
+          <p class="registro">Pagar</p>
+        </ion-button>
+        <ion-button class="btn-registro" size="large" *ngIf="historial.estado == 'Entregado'" (click)="calificar(historial.id_pedido)">
+          <p class="registro">Calificar</p>
+        </ion-button>
       </div>
     </div>
   </div>

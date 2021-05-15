@@ -30,6 +30,7 @@ export class HistorialPage implements OnInit {
   }
   
   ionViewDidEnter(){
+    this.historiales = null;
     this.storage.get('id').then((val)=>{
       if(val!=null){
         this.buscar(val);

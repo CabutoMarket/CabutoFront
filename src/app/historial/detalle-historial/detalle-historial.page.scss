@@ -133,7 +133,7 @@
     border-radius: 15px;
     height: 80px;
     border: 2px solid var(--ion-color-azul-oscuro);
-    margin: 20px 0px;
+    margin: 10px 0px;
 }
 .contener-columna-centrar{
     width: 20%;
@@ -161,4 +161,29 @@
         color:#5b5b5f;
         font-size: 12px;
     }
+}
+.button-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0px 20px;
+}
+ion-button{
+    font-size: 0.7rem;
+    line-height: 0px;
+    width: 35%;
+    height: 2.2rem;
+
+}
+.btn-cancelar{
+    --background: var(--ion-color-gris-oscuro);
+}
+.btn-registro{
+    --background: var(--ion-color-naranja-oscuro);
+}
+.registro{
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
