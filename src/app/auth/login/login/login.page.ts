@@ -1,25 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from  "@angular/router";
 import { AuthService } from '../../servicios/auth.service';
 import { FcmService } from 'src/app/servicios/fcm.service';
 import { LoadingController } from '@ionic/angular';
-import { AlertController, ToastController,Platform, ModalController } from '@ionic/angular';
+import { AlertController, NavController,ToastController,Platform, ModalController } from '@ionic/angular';
 import {ModalPage} from './../../../modal/modal.page';
 import {login} from  '../../../global'
 import { Storage } from '@ionic/storage';
 import {AppComponent} from  '../../../app.component'
+import {FooterPage} from 'src/app/footer/footer.page'
 import {CorrectoPage} from '../../../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../../../aviso/incorrecto/incorrecto.page';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-/*import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-
-import * as firebase from 'firebase/app';
-
-import { Platform } from '@ionic/angular';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-*/
+import { PerfilService } from 'src/app/servicios/perfil.service';
+import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +29,7 @@ export class LoginPage implements OnInit {
   picture:string ;
   name:string;
   email:string;
-
+  perfil;
   isLoggedIn: boolean = false
   user: any
   public type = "password"; 
@@ -43,18 +38,16 @@ export class LoginPage implements OnInit {
   constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
+    private navCtrlr: NavController,
     private platform: Platform,
     public modalCtrl: ModalController,
     private storage: Storage,
     private component: AppComponent,
+    private footer: FooterPage,
     private fcm: FcmService,
-    private firebase: FirebaseX
-    /*private nativeStorage: NativeStorage
-    private afAuth: AngularFireAuth,
-    private afAuth2: AngularFireAuthModule,
-    private platform: Platform,
-    private googlePlus: GooglePlus,
-    private fb: Facebook*/) { }
+    private firebase: FirebaseX,
+    private perfilService: PerfilService,
+    private shoppingService: ShoppingCartService) { }
 	
   ngOnInit() {
   }
@@ -81,10 +74,27 @@ export class LoginPage implements OnInit {
   }
   }
 
-  verificarB(form){
+  async verificarB(form){
     this.authService.VerificarUser(form).subscribe(data=> {
       console.log(data.valid)
       if (data.valid == "OK"){
+        let info = {
+          'correo': form.correo,
+          'contrasena': 'xxxxx'
+        };
+        this.shoppingService.showCart(info)
+          .subscribe(data => {
+            console.log(data)
+            if (data.hasOwnProperty(0)) {
+              this.footer.cosas=data[0].total
+              this.storage.set('cosas', this.footer.cosas);
+            }else{
+              this.footer.cosas=data.total
+              this.storage.set('cosas', this.footer.cosas)
+            }
+          }, (error) => {
+            console.error(error);
+          });    
         //this.router.navigateByUrl('/producto');
         var nombre = data.nombre;
         var apellido = data.apellido;
@@ -100,7 +110,7 @@ export class LoginPage implements OnInit {
         this.component.name=nombre;
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
-      
+        this.perfilS(form.correo)
         this.firebase.getToken().then(token => {
           var registro={
             usuario : id,
@@ -111,14 +121,16 @@ export class LoginPage implements OnInit {
           console.log(data.valid);
           });
         });
-        if(login.oferta == true && (login.producto =false)){
+        console.log(login)
+        if(login.categoria == true){
+          this.router.navigateByUrl('/footer/categorias/detalle-categoria');
+        }else if(login.oferta == true && (login.producto =false)){
           this.router.navigateByUrl('/footer/ofertas');
         }else if (login.producto == true){
           this.router.navigateByUrl('/footer/producto');
         }else{
-          this.router.navigateByUrl('/footer/producto');
+          this.router.navigateByUrl('/');
         }
-        //this.router.navigateByUrl('/producto');
       }
       else{
         //this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
@@ -127,6 +139,59 @@ export class LoginPage implements OnInit {
       }
       
       })
+  }
+
+  perfilS(correo){
+    this.perfilService.getPerfil(correo).subscribe(
+      data => {
+        this.perfil = data[0];
+        console.log(data);
+        if (this.perfil.telefono == "NONE") {
+          this.perfil.telefono = "";
+        }
+        if (this.perfil.direccion == "NONE") {
+          this.perfil.direccion = "";
+        }
+        this.imageURL()
+        if (Object.keys(this.perfil).length === 0) {
+          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+        } else {
+          this.storage.set('perfil', this.perfil);
+          console.log("se guardo el perfil")
+        }
+
+      },
+      err => {
+        this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+      }
+    );
+  }
+
+  imageURL():any {
+    const getImageOrFallback = (path, fallback) => {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.src = path;
+        img.onload = () => resolve(path);
+        img.onerror = () => resolve(fallback);
+      });
+    };
+    getImageOrFallback(
+      "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen,
+      "../assets/img/avatar_perfil2.png"
+      ).then(result => {
+        this.component.image=result
+        this.perfil.url=result
+        this.storage.set("perfil", this.perfil)
+      })
+  }
+
+  atras(){
+    let animations:AnimationOptions={
+      animated: true,
+      animationDirection: "back"
+    }
+    this.navCtrlr.back(animations)
   }
 
   async forgotPass() {
@@ -195,12 +260,16 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
   }
 
   facebook(){
-    //this.router.navigateByUrl('/registro-fb');
     this.authService.loginwithFacebook().then(res=>{
+      console.log(res)
       const usuario = res.user;
       var mail = usuario.email;
-      var contra = usuario.displayName;
+      var nombre = usuario.displayName;
       var foto = usuario.photoURL;
+      
+      console.log(nombre)
+      console.log(foto)
+      var contra = usuario.displayName;
       const logR ={
         'cedula': " ",
         'email': mail,
@@ -230,7 +299,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
           this.component.name=nombre;
           this.component.lastname = apellido;
           this.component.action="Cerrar Sesión";
-          this.router.navigateByUrl('/footer/producto');
+          this.router.navigateByUrl('/');
         }
         else{
           this.authService.addUser(logR).subscribe(data=> {

@@ -1,4 +1,3 @@
-<app-header></app-header>
 
 <ion-content>
   <div class="contenedor-page">
@@ -40,25 +39,6 @@
           <ion-input type="text" [value]="perfil.fechaNac | date:'dd/MM/yyyy'" readonly></ion-input>
         </ion-item>
 
-        <div class="direccion-reparto" *ngIf="reparto">
-          <ion-label class="repartos">Direcciones guardadas</ion-label>
-          <div class="div-perfil" *ngFor="let reparto of repartos">
-            <div class="contener-columna">
-              <h6 class="nombre-perfil">{{reparto.direccion}}</h6>
-              <img src="../assets/img/borrar.png">
-            </div>
-          </div>
-        </div>
-        
-        <div class="" *ngIf="tarjetas">
-          <ion-label class="reparto">Tarjetas guardadas</ion-label>
-          <div class="div-perfil" *ngFor="let tarjeta of tarjetas">
-            <div class="contener-columna">
-              <h6 class="nombre-perfil">{{tarjeta.tipo}} {{tarjeta.numero}}</h6>
-              <img src="../assets/img/borrar.png">
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

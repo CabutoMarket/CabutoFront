@@ -8,6 +8,7 @@ import { LoadingController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NavigationExtras, Router } from '@angular/router';
+import { login } from 'src/app/global';
 
 @Component({
   selector: 'app-perfil',
@@ -18,7 +19,7 @@ export class PerfilPage implements OnInit {
   private correo: string = "";
   perfil: any;
   loading: any;
-  url = ""
+  url;
   date = "";
 
 
@@ -29,7 +30,7 @@ export class PerfilPage implements OnInit {
     public modalController: ModalController,
     private http: HttpClient,
     private router: Router,
-    
+
   ) { }
 
   ngOnInit() {
@@ -38,9 +39,9 @@ export class PerfilPage implements OnInit {
 
   ionViewDidEnter() {
     console.log("didEnter");
-    this.storage.get('perfil').then((val)=>{
-      
-      if(val==null){
+    this.storage.get('perfil').then((val) => {
+
+      if (val == null) {
         this.storage.get('correo').then((val) => {
           this.correo = val;
           if (this.correo != null) {
@@ -54,17 +55,13 @@ export class PerfilPage implements OnInit {
                 if (this.perfil.direccion == "NONE") {
                   this.perfil.direccion = "";
                 }
-                this.http.get("http://cabutoshop.pythonanywhere.com" + this.perfil.imagen).subscribe(data => {
-                  this.url = "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen;
-                }, (error) => {
-                  this.url = ""
-                  console.error(error);
-                });
-      
+                this.imageURL()
+                console.log(this.url)
                 if (Object.keys(this.perfil).length === 0) {
                   this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-                }else{
-                  this.storage.set('perfil',this.perfil);
+                } else {
+                  this.storage.set('perfil', this.perfil);
+                  console.log("se guardo el perfil")
                 }
 
               },
@@ -75,53 +72,20 @@ export class PerfilPage implements OnInit {
           } else {
             this.correo = "";
           }
-          
+
         });
-      }else{
-        this.perfil=val;
+      } else {
+        console.log(val)
+        this.perfil = val;
+        if (this.perfil.url != undefined) {
+          this.url = this.perfil.url;
+        } else {
+          this.imageURL()
+        }
       }
     });
   }
 
-  buscarPerfil(): Observable<object> {
-    
-    return this.perfilService.getPerfil(this.correo);
-  }
-  async buscar() {
-    await this.showLoading2();
-    this.buscarPerfil()
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
-      .subscribe(
-        data => {
-          this.perfil = data[0];
-          console.log(data);
-          this.perfil.fechaNac = new Date(this.perfil.fechaNac);
-          if (this.perfil.telefono == "NONE") {
-            this.perfil.telefono = "";
-          }
-          if (this.perfil.direccion == "NONE") {
-            this.perfil.direccion = "";
-          }
-          this.http.get("http://cabutoshop.pythonanywhere.com" + this.perfil.imagen).subscribe(data => {
-            this.url = "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen;
-          }, (error) => {
-            this.url = ""
-            console.error(error);
-          });
-
-          if (Object.keys(this.perfil).length === 0) {
-            this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-          }
-        },
-        err => {
-          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-        }
-      );
-  }
   async mensajeIncorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalController.create({
       component: IncorrectoPage,
@@ -141,14 +105,25 @@ export class PerfilPage implements OnInit {
   }
 
   editar() {
-    
-    let navigationExtras: NavigationExtras = {
-      state: {
-        user: this.perfil,
-        url: this.url,
-      }
-    };
-    this.router.navigate(['/footer/perfil/editar-perfil'], navigationExtras);
+    this.router.navigate(['/footer/perfil/editar-perfil']);
   }
 
+  imageURL():any {
+    const getImageOrFallback = (path, fallback) => {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.src = path;
+        img.onload = () => resolve(path);
+        img.onerror = () => resolve(fallback);
+      });
+    };
+    getImageOrFallback(
+      "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen,
+      "../assets/img/avatar_perfil2.png"
+      ).then(result => {
+        this.url=result
+        this.perfil.url=result
+        this.storage.set("perfil", this.perfil)
+      })
+  }
 }

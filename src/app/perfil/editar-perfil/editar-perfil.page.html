@@ -1,7 +1,9 @@
-<app-header></app-header>
 
 <ion-content>
   <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+    </div>
     <div class="contenedor-titulo">
       <ion-label class="titulo">Editar Perfil</ion-label>
     </div>
@@ -9,12 +11,10 @@
       <div class="form">
         <div class="perfil">
           <label class="hoverable" for="fileInput">
-            <img [src]="url ? url : '../assets/img/avatar_perfil2.png'">
+            <img id="editar" src="../assets/img/editar-imagen.png">
+            <img [src]="imagenUrl ? imagenUrl : '../assets/img/avatar_perfil2.png'">
           </label>
-          <input id="fileInput" type='file' (change)="onSelectFile($event)">
-          <div class="delete">
-            <input id="button" type="button" *ngIf="url" (click)="delete()" value="X">
-          </div>
+          <input id="fileInput" name="foto" type='file' accept="image/x-png, image/jpg, image/jpeg" (change)="onSelectFile($event)">
         </div>
 
         <ion-label>Nombres</ion-label>
@@ -25,7 +25,7 @@
         <ion-item>
           <ion-input id="3" name="apellido" type="text" [(ngModel)]="perfil.apellido" required></ion-input>
         </ion-item>
-        <ion-label>RUC/Cedula</ion-label>
+        <ion-label>RUC/Cédula</ion-label>
         <ion-item>
           <ion-input id="1" name="cedula" type="tel" [(ngModel)]="perfil.cedula" readonly></ion-input>
         </ion-item>

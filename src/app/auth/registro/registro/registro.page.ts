@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from  "@angular/router";
+import { Router } from "@angular/router";
 import { AuthService } from '../../servicios/auth.service';
-import { AlertController, ToastController,ModalController,LoadingController } from '@ionic/angular';
-import { buffer } from 'rxjs/operators';
-import { FileUploader, FileLikeObject } from  'ng2-file-upload';
-import { concat } from  'rxjs';
-import {CorrectoPage} from '../../../aviso/correcto/correcto.page';
-import {IncorrectoPage} from '../../../aviso/incorrecto/incorrecto.page';
+import { ModalController, LoadingController, NavController  } from '@ionic/angular';
+import { FileUploader} from 'ng2-file-upload';
+import {login} from  '../../../global'
+import { Storage } from '@ionic/storage';
+import {AppComponent} from  '../../../app.component'
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
+import { FcmService } from 'src/app/servicios/fcm.service';
+import { PerfilService } from 'src/app/servicios/perfil.service';
+import { CorrectoPage } from '../../../aviso/correcto/correcto.page';
+import { IncorrectoPage } from '../../../aviso/incorrecto/incorrecto.page';
+import { PoliticasPage } from 'src/app/politicas/politicas.page';
+import { AnimationOptions} from '@ionic/angular/providers/nav-controller';
 
 @Component({
   selector: 'app-registro',
@@ -19,306 +25,363 @@ export class RegistroPage implements OnInit {
 
   public fileUploader: FileUploader = new FileUploader({});
   formData = new FormData();
-  url= '' ;
+  url = '';
   x = '';
-  public type = "password"; 
+  perfil;
+  public type = "password";
   passwordToggleIcon = 'eye';
-  public showPass = false; 
-	constructor(private  authService:  AuthService, private  router:  Router, private loading: LoadingController,
-    private alert: AlertController,
-    private toast: ToastController,
-    public modalCtrl: ModalController
-    
-    
-    /*private emailComposer: EmailComposer,*/) { }
-	
+  public showPass = false;
+  constructor(private authService: AuthService, private router: Router, private loading: LoadingController,
+    private navCtrlr: NavController,
+    public modalCtrl: ModalController,
+    private fcm: FcmService,
+    private firebase: FirebaseX,
+    private perfilService: PerfilService,
+    private storage: Storage,
+    private component: AppComponent,) { }
+
   ngOnInit() {
-    
-  } 
-  
-register(form){
-	form = form.value
-	console.log(form)
-  console.log(form.confirmar)
-  console.log(form.contrasena)
-  var contra = form.contrasena;
-  var conf = form.confirmar
-  var cedula =form.cedula
-  //var int_length = (''+cedula).length;
-  console.log(typeof(cedula));
-  console.log(cedula);
-  //console.log(this.url)
-  //console.log(typeof(form.nombre));
-  //console.log(typeof(form.apellido));
-  //console.log(isNaN(form.apellido));
-  //this.formData.append('file' ,this.url);
-  console.log(this.formData.getAll('file'));
-  //console.log(int_length);
-  //console.log(this.validarEmail(form.email));
-  console.log(isNaN(cedula));
-  const foto = {
-    'url': this.formData.getAll('file')
+
   }
-  const formR={
-    //'foto': this.formData.getAll('file'),
-    'cedula': form.cedula,
-    'nombre': form.nombre,
-    'apellido': form.apellido,
-    'email':form.email,
-    'contrasena': form.contrasena,
-    'confirmar': form.confirmar
-  }
-  console.log(formR)
-  if(form.cedula == ''|| form.nombre == '' || form.apellido == '' ||form.correo == "" || form.contrasena == "" ||form.confirmar == "" ){
-    //this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
-    this.mensajeIncorrecto("Campos Incompletos","Por favor complete los campos");
-  }else{
-    if(isNaN(cedula) == false){
-      //var int_length = (''+cedula).length;
-      var int_length = cedula.length;
-      console.log(int_length);
-      if(int_length<10 ){
-        //this.mensaje("Error","Revisar cedula","Recuerde que si ingresa cedula deben ser 10 dígitos ");
-        this.mensajeIncorrecto("Revisar cedula","Recuerde que si ingresa cedula deben ser 10 dígitos ");
-      }else if((int_length<10 && int_length <13 )|| int_length >13){
-        //this.mensaje("Error","Revisar RUC","Recuerde que si ingresa cedula deben ser  RUC 13 dígitos");
-        this.mensajeIncorrecto("Revisar RUC","Recuerde que si ingresa cedula deben ser  RUC 13 dígitos");
-      }
-      if(this.validarEmail(form.email) == false){
-        //this.mensaje("Error","Revisar correo","Escriba de su correo de manera correcta");
-        this.mensajeIncorrecto("Revisar correo","Escriba de su correo de manera correcta");
-        //this.router.navigateByUrl('/registro'); 
-      }
-      if (contra!= conf){
-        //this.mensaje("Registro Fallido","Las contraseñas no coinciden","Verifique que las contraseñas sean iguales");
-        this.mensajeIncorrecto("Registro Fallido","Las contraseñas no coinciden, verifique que las contraseñas sean iguales");
-        //this.router.navigateByUrl('/registro'); 
-      } 
-      console.log("voy a comparar");
-          console.log(this.isEqual(form.nombre,form.apellido));
-      
-      if(contra == conf && (int_length == 10 || int_length == 13)&& this.validarEmail(form.email) == true){
-        if(isNaN(form.nombre) && isNaN(form.apellido)){
-          console.log("voy a comparar");
-          console.log(this.isEqual(form.nombre,form.apellido));
-          if(this.isEqual(form.nombre,form.apellido)){
-            //this.mensaje("Registro Fallido","Las problemas con nombre ","el nombre y apellido registrado son iguales");
-            this.mensajeIncorrecto("Registro Fallido","El nombre y apellido registrado son iguales");
-          }else{
-            this.showLoading(formR)
+
+  register(form) {
+    form = form.value
+    console.log(form)
+    console.log(form.confirmar)
+    console.log(form.contrasena)
+    var contra = form.contrasena;
+    var conf = form.confirmar
+    var cedula = form.cedula
+    console.log(typeof (cedula));
+    console.log(cedula);
+    console.log(this.formData.getAll('file'));
+    console.log(isNaN(cedula));
+    const foto = {
+      'url': this.formData.getAll('file')
+    }
+    const formR = {
+      'cedula': form.cedula,
+      'nombre': form.nombre,
+      'apellido': form.apellido,
+      'email': form.email,
+      'contrasena': form.contrasena,
+      'confirmar': form.confirmar
+    }
+    console.log(formR)
+    if (form.cedula == '' || form.nombre == '' || form.apellido == '' || form.correo == "" || form.contrasena == "" || form.confirmar == "") {
+      this.mensajeIncorrecto("Campos Incompletos", "Por favor complete los campos");
+    } else {
+      if (isNaN(cedula) == false) {
+        var int_length = cedula.length;
+        console.log(int_length);
+        if (!this.validarCedula(cedula)) {
+          this.mensajeIncorrecto("Revisar cédula", "Su cédula no es válida");
+        } else if ((int_length < 10 && int_length < 13) || int_length > 13) {
+          this.mensajeIncorrecto("Revisar RUC", "Recuerde que si ingresa cédula deben ser  RUC 13 dígitos");
+        }else if (this.validarEmail(form.email) == false) {
+          this.mensajeIncorrecto("Revisar correo", "Escriba de su correo de manera correcta");
+        }else if (contra != conf) {
+          this.mensajeIncorrecto("Registro Fallido", "Las contraseñas no coinciden, verifique que las contraseñas sean iguales");
+        }
+        console.log("voy a comparar");
+        console.log(this.isEqual(form.nombre, form.apellido));
+
+        if (contra == conf && (this.validarCedula(cedula) || int_length == 13) && this.validarEmail(form.email)) {
+          if (isNaN(form.nombre) && isNaN(form.apellido)) {
+            console.log("voy a comparar");
+            console.log(this.isEqual(form.nombre, form.apellido));
+            if (this.isEqual(form.nombre, form.apellido)) {this.mensajeIncorrecto("Registro Fallido", "El nombre y apellido registrado son iguales");
+            } else {
+              this.showLoading(formR)
+            }
+          } else {
+            this.mensajeIncorrecto("Registro Fallido", "Por favor ingrese un nombre y apellido de manera  correcta");
           }
+        }
+      } else {
+        this.mensajeIncorrecto("Ruc/Cédula ", "Su Cédula debe contener solo numeros");
+      }
+    }
+  }
+
+  regresar(){
+    let animations:AnimationOptions={
+      animated: true,
+      animationDirection: "back"
+    }
+    this.navCtrlr.back(animations)
+  }
+
+
+  registroR(formR) {
+    this.authService.addUser(formR).subscribe(data => {
+      console.log("imprimiendo data", data, formR)
+      if (data.valid == "OK") {
+        this.mensajeCorrecto("Registro exitoso", "");
+        var nombre = data.nombre;
+        var apellido = data.apellido;
+        var id = data.id;
+        console.log(nombre)
+        console.log(apellido)
+        login.login = true;
+        this.storage.set('id', id);
+        this.storage.set('name', nombre);
+        this.storage.set('apellido', apellido);
+        this.storage.set('correo', formR.email);
+        this.storage.set('number', "");
+        this.component.name=nombre;
+        this.component.lastname = apellido;
+        this.component.action="Cerrar Sesión";
+        this.perfilS(formR.email)
+        this.firebase.getToken().then(token => {
+          var registro={
+            usuario : id,
+            token : token
+          }
+          console.log(registro);
+          this.fcm.registrarUsuario(registro).subscribe(data=> {
+          console.log(data.valid);
+          });
+        });
+        console.log(login)
+        if(login.categoria == true){
+          this.router.navigateByUrl('/footer/categorias/detalle-categoria');
+        }else if(login.oferta == true && (login.producto =false)){
+          this.router.navigateByUrl('/footer/ofertas');
+        }else if (login.producto == true){
+          this.router.navigateByUrl('/footer/producto');
         }else{
-          //this.mensaje("Registro Fallido","Las problemas con nombre ","Por favor ingrese un nombre y apellido de manera  correcta");
-          this.mensajeIncorrecto("Registro Fallido","Por favor ingrese un nombre y apellido de manera  correcta");         
+          this.router.navigateByUrl('/');
         }
-        
+      } else if (data.valid == 'CED') {
+        this.mensajeIncorrecto("Error", "La cédula ya se encuentra registrada");
+        this.router.navigateByUrl('/registro');
+      } else if (data.valid == 'EMAIL') {
+        this.mensajeIncorrecto("Error", "El correo ya se encuentra registrado");
+        this.router.navigateByUrl('/registro');
       }
-      
-    }else{
-      //this.mensaje("Registro Fallido","Ruc/Cedula ","Su Cedula debe contener solo numeros");
-      this.mensajeIncorrecto("Ruc/Cedula ","Su Cedula debe contener solo numeros");
-      
-    }
+      else {
+        this.mensajeIncorrecto("Error", "Ha ocurrido un error, intentar de nuevo");
+        this.router.navigateByUrl('/registro');
+      }
+
+    })
   }
 
-  
-  
-}
-
-
-registroR(formR){
-  this.authService.addUser(formR).subscribe(data=> {
-    console.log("imprimiendo data",data, formR)
-    if(data.valid == "OK"){
-      //this.mensaje("Registro","Registro exitoso","Registro Completado");
-      this.router.navigateByUrl('/registro-exitoso');
-    }else if(data.valid == 'CED'){
-      //this.mensaje("Error", "No se ha podido completar el registro","La cedula ya se encuentra registrada");
-      this.mensajeIncorrecto("Error", "La cedula ya se encuentra registrada");
-      this.router.navigateByUrl('/registro'); 
-    }
-    else{
-      //this.mensaje("Error", "No se ha podido completar el registro","El correo ya esta registrado");
-      this.mensajeIncorrecto("Error","El correo ya se encuentra registrado");
-      this.router.navigateByUrl('/registro'); 
-    }
-
-  })
-}
-
-async mensaje(titulo:string,subtitulo:string,mensaje:string) {
-    const alert = await this.alert.create({
-      cssClass: titulo,
-      header: titulo,
-      subHeader: subtitulo,
-      message: mensaje,
-      buttons: [
-        {
-          text: 'OK',
-          role: 'cancel',
-          handler: () => {
-          }
+  validarCedula(cedula: string) {
+    // Créditos: Victor Diaz De La Gasca.
+    // Autor: Adrián Egüez
+    console.log(cedula)
+    if (cedula.length === 10) {
+      const digitoRegion = cedula.substring(0, 2);
+      console.log(digitoRegion)
+      if (Number(digitoRegion) >= 1 && Number(digitoRegion) <= 24) {
+        const ultimoDigito = Number(cedula.substring(9, 10));
+        const pares = Number(cedula.substring(1, 2)) + Number(cedula.substring(3, 4)) + Number(cedula.substring(5, 6)) + Number(cedula.substring(7, 8));
+        let numeroUno: any = cedula.substring(0, 1);
+        numeroUno = (numeroUno * 2);
+        if (numeroUno > 9) {
+          numeroUno = (numeroUno - 9);
         }
-      ]
-    });
-
-    await alert.present();
-  }
   
+        let numeroTres: any = cedula.substring(2, 3);
+        numeroTres = (numeroTres * 2);
+        if (numeroTres > 9) {
+          numeroTres = (numeroTres - 9);
+        }
+  
+        let numeroCinco: any = cedula.substring(4, 5);
+        numeroCinco = (numeroCinco * 2);
+        if (numeroCinco > 9) {
+          numeroCinco = (numeroCinco - 9);
+        }
+  
+        let numeroSiete: any = cedula.substring(6, 7);
+        numeroSiete = (numeroSiete * 2);
+        if (numeroSiete > 9) {
+          numeroSiete = (numeroSiete - 9);
+        }
+  
+        let numeroNueve: any = cedula.substring(8, 9);
+        numeroNueve = (numeroNueve * 2);
+        if (numeroNueve > 9) {
+          numeroNueve = (numeroNueve - 9);
+        }
+        const impares = numeroUno + numeroTres + numeroCinco + numeroSiete + numeroNueve;
+        const sumaTotal = (pares + impares);
+        const primerDigitoSuma = String(sumaTotal).substring(0, 1);
+        const decena = (Number(primerDigitoSuma) + 1) * 10;
+        console.log(decena)
+        let digitoValidador = decena - sumaTotal;
+        console.log(digitoValidador)
+        if (digitoValidador === 10) {
+          digitoValidador = 0;
+        }
+        console.log(digitoValidador)
+        if (digitoValidador === ultimoDigito) {
+          return true;
+        } else {
+          return false;
+        }
+  
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  
+  }
+
+  perfilS(correo){
+    this.perfilService.getPerfil(correo).subscribe(
+      data => {
+        this.perfil = data[0];
+        console.log(data);
+        if (this.perfil.telefono == "NONE") {
+          this.perfil.telefono = "";
+        }
+        if (this.perfil.direccion == "NONE") {
+          this.perfil.direccion = "";
+        }
+        this.imageURL()
+        if (Object.keys(this.perfil).length === 0) {
+          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+        } else {
+          this.storage.set('perfil', this.perfil);
+          console.log("se guardo el perfil")
+        }
+
+      },
+      err => {
+        this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+      }
+    );
+  }
+
+  imageURL():any {
+    const getImageOrFallback = (path, fallback) => {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.src = path;
+        img.onload = () => resolve(path);
+        img.onerror = () => resolve(fallback);
+      });
+    };
+    getImageOrFallback(
+      "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen,
+      "../assets/img/avatar_perfil2.png"
+      ).then(result => {
+        this.component.image=result
+        this.perfil.url=result
+        this.storage.set("perfil", this.perfil)
+      })
+  }
+
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       console.log(event.target.files)
       console.log(event.target.files[0])
       console.log(event.target.files[0].name)
-      this.formData.append('file' ,event.target.files[0]);
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        //console.log(event.target.result);
-        //console.log(this.ab2str(event.target.result))
-        //this.url = this.url + event.target.result
-        //this.converTo(event.target.result,this.x)
-        //this.url = event.target.result
-        //this.converTo(event.target.result,this.url)
-        //this.formData.append('file' , file.rawFile, file.name); 
-        
+      this.formData.append('file', event.target.files[0]);
+      reader.onload = (event) => {
         var ul = ""
-        var buf = this.convert(event.target.result,ul)
+        var buf = this.convert(event.target.result, ul)
         this.url = buf;
-        
-        
-
-        
       }
-
     }
   }
-  public delete(){
+  public delete() {
     this.url = '';
   }
 
   uploadPersonaImage(e) {
-    //this.url = e.target.src;
-    console.log(e.target.src)  
+    console.log(e.target.src)
   }
 
-  convert(buff,buff2){
-    for (var i=0, strLen=buff.length; i < strLen; i++) {
-      buff2= buff2 + buff[i];
+  convert(buff, buff2) {
+    for (var i = 0, strLen = buff.length; i < strLen; i++) {
+      buff2 = buff2 + buff[i];
     }
     var buff3 = buff2
-    //console.log(buff2)
     return buff3;
   }
 
-  togglePasswordClick():void{
-    this.showPass=!this.showPass;   
-    if(this.passwordToggleIcon == 'eye'){
+  togglePasswordClick(): void {
+    this.showPass = !this.showPass;
+    if (this.passwordToggleIcon == 'eye') {
       this.passwordToggleIcon = 'eye-off';
-    }else{
+    } else {
       this.passwordToggleIcon = 'eye';
     }
   }
   showPassword() {
     this.showPass = !this.showPass;
-          if(this.showPass){
-              this.type = "text";
-               } else {
-         this.type = "password";
-       }
-     }
-
-
-     validarEmail(valor){
-      var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-      return regex.test(valor) ? true : false;
-  }
-
-
-    isEqual(str1, str2){
-    return str1.toUpperCase() === str2.toUpperCase()
-}
-
-
-//https://www.youtube.com/watch?v=dPUmskG_-y0
-//https://forum.ionicframework.com/t/how-i-can-change-my-app-name/20458/14
-
-
-showLoading(form) {  
-  this.loading.create({  
-    message: 'Loading.....'   
-    }).then((loading) => {  
-     loading.present();{
-      this.registroR(form);
-    } 
-     setTimeout(() => {   
-       loading.dismiss();  
-     }, 2000 );   
-    });  
-  }
-
-  showLoadingR() {  
-    this.router.navigateByUrl('/login');
-    /*this.loading.create({  
-      message: 'Loading.....'   
-      }).then((loading) => {  
-       loading.present();{
-        this.router.navigateByUrl('/login');
-      } 
-       setTimeout(() => {   
-         loading.dismiss();  
-       }, 1000 );   
-      });  */
+    if (this.showPass) {
+      this.type = "text";
+    } else {
+      this.type = "password";
     }
+  }
 
 
+  validarEmail(valor) {
+    var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(valor) ? true : false;
+  }
 
-async mensajeCorrecto(titulo:string,mensaje:string){
-  const modal = await this.modalCtrl.create({
-    component: CorrectoPage,
-    cssClass: 'CorrectoProducto',
-    componentProps: {
-      'titulo': titulo,
-      'mensaje': mensaje
+
+  isEqual(str1, str2) {
+    return str1.toUpperCase() === str2.toUpperCase()
+  }
+
+  showLoading(form) {
+    this.loading.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.registroR(form);
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 2000);
+    });
+  }
+
+  async mensajeCorrecto(titulo: string, mensaje: string) {
+    const modal = await this.modalCtrl.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
       }
     });
     return await modal.present();
-}
-  
-  
-async mensajeIncorrecto(titulo:string,mensaje:string){
-  const modal = await this.modalCtrl.create({
-    component: IncorrectoPage,
-    cssClass: 'IncorrectoProducto',
-    componentProps: {
-      'titulo': titulo,
-      'mensaje': mensaje
+  }
+
+  async politicas() {
+    const modal = await this.modalCtrl.create({
+      component: PoliticasPage,
+      cssClass: 'Politicas',
+    });
+    return await modal.present();
+  }
+
+  async mensajeIncorrecto(titulo: string, mensaje: string) {
+    const modal = await this.modalCtrl.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
       }
     });
     return await modal.present();
-}
-    /*getFiles(): FileLikeObject[] {
-      return this.fileUploader.queue.map((fileItem) => {
-        return fileItem.file;
-  
-      });
-    }*/
+  }
 
-
-    /*uploadFiles() {
-
-      //let files = this.getFiles();
-      let requests = [];
-      let formData = new FormData();
-        formData.append('file' , file.rawFile, file.name);
-      //files.forEach((file) => {
-        //let formData = new FormData();
-        //formData.append('file' , file.rawFile, file.name);
-        //requests.push(this.uploadingService.uploadFormData(formData));
-  
-      });
-    }*/
 }
 
 

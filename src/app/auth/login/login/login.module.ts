@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPageRoutingModule } from './login-routing.module';
-
+import {FooterPage} from 'src/app/footer/footer.page'
 import { LoginPage } from './login.page';
 
 @NgModule({
