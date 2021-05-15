@@ -7,6 +7,7 @@ import { LoadingController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
+import { CorrectoPage } from '../aviso/correcto/correcto.page';
 
 @Component({
   selector: 'app-sugerencia',
@@ -17,6 +18,7 @@ export class SugerenciaPage implements OnInit {
   public fileUploader: FileUploader = new FileUploader({});
   formData = new FormData();
   url = "";
+  descripcion = "";
   loading;
 
   constructor(
@@ -28,27 +30,29 @@ export class SugerenciaPage implements OnInit {
   ngOnInit() {
   }
   
-  onSelectFile(event) {
+  changeFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       console.log(event.target.files)
       console.log(event.target.files[0])
       console.log(event.target.files[0].name)
-      this.formData.append('file', event.target.files[0]);
+      this.formData.set("url", event.target.files[0]);
       reader.onload = (event) => { 
         var ul = ""
         var buf = this.convert(event.target.result, ul)
         this.url = buf;
+        (document.querySelector('.div-sugerencia > img') as HTMLElement).style.height = '100%';
+        (document.querySelector('.div-sugerencia > img') as HTMLElement).style.margin = '0';
       }
-      (document.querySelector('.hoverable > img') as HTMLElement).style.height = '100%';
-      (document.querySelector('.hoverable > img') as HTMLElement).style.margin = '0';
       
     }
   }
 
   public delete() {
     this.url = '';
+    (document.querySelector('.div-sugerencia > img') as HTMLElement).style.height = '25%';
+
   }
 
   convert(buff,buff2){
@@ -66,13 +70,14 @@ export class SugerenciaPage implements OnInit {
     if(form.descripcion == ''){
       this.mensajeIncorrecto("Campos Incompletos","Por favor complete el campo descripción");
     }else{
-      this.enviarReclamo(form);
+      this.formData.append("descripcion", form.descripcion);
+      this.enviarReclamo();
     }
   }
 
-  async enviarReclamo(form){
+  async enviarReclamo(){
     await this.showLoading2();
-    this.reclamoService.envioReclamo(form)
+    this.reclamoService.envioReclamo(this.formData)
     .pipe(
       finalize(async () => {
         await this.loading.dismiss();
@@ -82,7 +87,11 @@ export class SugerenciaPage implements OnInit {
       data => {
         console.log(data);
         if(data.valid == "ok"){
-          
+          this.mensajeCorrecto("Comentario enviado","Su comentario ha sido enviado con éxito.");
+          this.url="";
+          (document.querySelector('.div-sugerencia > img') as HTMLElement).style.height = '25%';
+          (document.querySelector('.div-sugerencia > img') as HTMLElement).style.margin = 'auto';
+          this.descripcion=""
         }else{
           this.mensajeIncorrecto("Error","No se ha completado su solicitud");
         }
@@ -91,6 +100,18 @@ export class SugerenciaPage implements OnInit {
         this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
       }
     );
+  }
+
+  async mensajeCorrecto(titulo: string, mensaje: string) {
+    const modal = await this.modalController.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
   }
 
   async mensajeIncorrecto(titulo:string,mensaje:string){

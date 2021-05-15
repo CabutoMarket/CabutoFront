@@ -5,13 +5,17 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class ContactoService {
-  baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
+  baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(
     private http: HttpClient
   ) { }
 
   getContacto(){
-    return this.http.get(this.baseUrl+'contacto/')
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl+'contacto/',{headers:headers})
   }
 }

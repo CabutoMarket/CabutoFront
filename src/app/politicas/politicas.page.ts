@@ -22,13 +22,9 @@ export class PoliticasPage implements OnInit {
     
   ngOnInit() {
     this.cargar();
-    //this.storage.set('oferta', false);
-    this.storage.set('politica', true);
-    //this.storage.set('cupones', false);
-    //this.storage.set('producto', false);
   }
 
-  ionViewDidLoad(){
+  politicas(){
     console.log("refresh");
      this.productoService.getPolitica().subscribe(data => {
        //console.log("esta es la data "+data["nombre"])
@@ -50,7 +46,7 @@ export class PoliticasPage implements OnInit {
       message: 'Loading.....'   
     }).then((loading) => {  
       loading.present();{
-        this.ionViewDidLoad();
+        this.politicas();
     } 
     setTimeout(() => {   
       loading.dismiss();  

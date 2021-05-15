@@ -7,19 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class ReclamoService {
 
-  baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
+  baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(
     private http: HttpClient
   ) { }
 
   envioReclamo(reclamo):Observable<any>{
-    const headers = {
-      'Accept': 'application/json, text/plain',
-      'Access-Control-Allow-Origin':'*',
-      'Content-Type': 'application/json'
-    }
-    const body = JSON.stringify(reclamo);
-    return this.http.post(this.baseUrl+`reclamo/`,body,{'headers':headers})
+    return this.http.post(this.baseUrl+`reclamo/`,reclamo)
   }
 }
