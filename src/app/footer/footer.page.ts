@@ -4,6 +4,8 @@ import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import {NotificacionesService} from '../servicios/notificaciones.service';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
+import { ShoppingCartService } from '../servicios/shopping-cart.service';
+declare var window;
 
 @Component({
   selector: 'app-footer',
@@ -14,28 +16,53 @@ export class FooterPage implements OnInit {
   usuario:String="../assets/img/avatar.png";
   notificacion:String="../assets/img/notificaciones.png";
   home:String="../assets/img/home.png";
-  tab:String;
+  carrito:String="../assets/img/carrito.png";
+  selectedPath = '';
+  tab:String;tab_carrito:String;
   notificaciones : {};
   public number:String="0";
+  public cosas=0;
   constructor(private router: Router,
     private storage: Storage,
-    private notificacionesService: NotificacionesService) { }
+    private notificacionesService: NotificacionesService,
+    private shoppingService: ShoppingCartService) {
+      window.footer=this
+     }
 
   ngOnInit() {
     
     this.router.events.subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
         this.datos();
+        if(event && event.url){
+          this.selectedPath = event.url;
+          
+          console.log(this.selectedPath)
+        }
         console.log(event.url);
+        this.storage.get('cosas').then((valor)=>{
+          console.log(valor)
+          if(valor!= null){
+            this.cosas=valor;
+          }else{
+            this.cosas=0;
+          }
+        })
         this.storage.get('name').then((nombre) => {
           console.log('Name is', nombre);
           if(login.login ==false && nombre == null ){
-            login.producto = true;
             this.tab="login";
+            this.tab_carrito="login";
           }else{
             this.tab="perfil";
+            this.tab_carrito="shopping-cart";
           }
         });
+        if(event.url=="/footer/shopping-cart"){
+          this.carrito="../assets/img/carrito_activo.png";
+        }else{
+          this.carrito="../assets/img/carrito.png";
+        }
         if(event.url=="/footer/perfil"){
           this.usuario="../assets/img/avatar_perfil2.png";
           this.notificacion="../assets/img/notificaciones.png";
@@ -44,7 +71,7 @@ export class FooterPage implements OnInit {
           this.usuario="../assets/img/avatar.png";
           this.notificacion="../assets/img/notificaciones_activo.png";
           this.home="../assets/img/home.png";
-        }else if(event.url=="/footer/producto" || event.url=="/"){
+        }else if(event.url=="/footer/inicio" || event.url=="/"){
           this.usuario="../assets/img/avatar.png";
           this.home="../assets/img/home_activo.png";
           this.notificacion="../assets/img/notificaciones.png";
@@ -59,6 +86,30 @@ export class FooterPage implements OnInit {
 
   datos(){
     console.log("refresh");
+    this.storage.get('correo').then((val) => {
+      if(val != null){
+        let info = {
+          'correo': val,
+          'contrasena': 'xxxxx'
+        };
+        this.shoppingService.showCart(info)
+      .subscribe(data => {
+        console.log(data)
+        if (data.hasOwnProperty(0)) {
+          this.cosas=data[0].total
+          this.storage.set('cosas', this.cosas);
+        }else{
+          this.cosas=data.total
+          this.storage.set('cosas', this.cosas)
+        }
+      }, (error) => {
+        console.error(error);
+      }); 
+      }
+
+    });
+    
+      
      this.notificacionesService.getNotificaciones().subscribe(data => {
        console.log(data)
        this.notificaciones=data;

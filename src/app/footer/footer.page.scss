@@ -1,8 +1,9 @@
-ion-tab-bar {
+.footer {
     --ion-background-color: linear-gradient(to right, #0F195E, #2153FF) !important;
     --border:0px;
 }
-.tab-selected {
+
+.active-item{
     background-image: url('/assets/img/fondo.png');
     background-position: top;
     background-size: contain;
@@ -15,13 +16,12 @@ ion-tab-bar {
         height: 40%;
     }
     .valor{
-        right: 7vw;
-        top: 4vh;
+        right: 8vw;
+        bottom: 2.5vh;
         border-radius: 50%;
-        height: 13px;
-        width: 12px;
+        height: 11px;
+        width: 11px;
         font-size: smaller;
-        text-align: center;
     }
 }
 
@@ -49,11 +49,48 @@ ion-tab-button {
     position:absolute;  
     color:white;
     right: 5vw;
-    top: 5vh;
+    bottom: 1vh;
     border-radius: 50%;
-    height:15px;
-    width: 15px;
+    height: 16px;
+    width: 16px;
     background: #FE3A00;
     text-align: center;
 }
 
+.valor_c{
+    position: absolute;
+    color: white;
+    right: 3vw;
+    bottom: 0.6rem;
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    background: var(--ion-color-azul-oscuro);
+    text-align: center;
+    margin: 5px;
+}
+
+ion-menu-button{
+    --color: white;
+}
+
+.header{
+    height: 5rem!important;
+    background-color: var(--ion-color-naranja-oscuro);
+    text-align: center;
+}
+
+.headerR >img{
+    margin: 1rem 0rem 0rem 0rem;
+    height: 3rem !important;
+}
+
+.carrito_logo{
+    text-align: center;
+    display:flex;
+    align-items:center;
+    ion-img{
+       margin: auto;
+       height: 2rem;
+    }
+   }
