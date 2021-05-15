@@ -28,30 +28,25 @@ export class NotificacionPage implements OnInit {
 
   async get() {
     await this.showLoading2();
-    this.getNotificaciones()
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
-      .subscribe(
-        data => {
-          this.notificaciones = data;
+    this.notificacionService.getN()
+      .then(
+        response => {
+          this.loading.dismiss();
+          this.notificaciones = JSON.parse(response.data);
+          console.log(this.notificaciones)
           this.parsearFechas();
           if (Object.keys(this.notificaciones).length === 0) {
             this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
           }
         },
         err => {
+          this.loading.dismiss();
+          console.log(err);
           this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
         }
       );
   }
 
-  getNotificaciones(): Observable<object> {
-
-    return this.notificacionService.getNotificacion();
-  }
 
   ionViewDidEnter() {
     console.log("didEnter");
@@ -88,7 +83,7 @@ export class NotificacionPage implements OnInit {
   async detalle(id,titulo:string,mensaje:string,imagen){
     const modal = await this.modalController.create({
       component: DetalleNotificacionPage,
-      cssClass: 'CorrectoProducto',
+      cssClass: 'DetalleNoti',
       componentProps: {
         'id':id,
         'titulo': titulo,

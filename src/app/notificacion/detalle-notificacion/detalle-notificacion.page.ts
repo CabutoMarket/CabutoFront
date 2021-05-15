@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController, NavParams } from '@ionic/angular';
 import {NotificacionesService} from '../../servicios/notificaciones.service';
 
+declare var window;
 @Component({
   selector: 'app-detalle-notificacion',
   templateUrl: './detalle-notificacion.page.html',
@@ -21,8 +22,10 @@ export class DetalleNotificacionPage implements OnInit {
       this.id = this.navParams.get('id')
       this.titulo = this.navParams.get('titulo')
       this.mensaje = this.navParams.get('mensaje')
-      this.imagen = "http://cabutoshop.pythonanywhere.com"+this.navParams.get('imagen')
-    }
+      if(this.navParams.get('imagen')!= ""){
+        this.imagen = "http://cabutoshop.pythonanywhere.com"+this.navParams.get('imagen')
+      }
+      }
   
     salir(){
       console.log("notificacion abrir",this.id)
@@ -31,7 +34,7 @@ export class DetalleNotificacionPage implements OnInit {
         //this.footer.number=String(parseInt(String(this.footer.number))-1)
       })
       
-      
+      window.footer.datos()
       this.modalCtrl.dismiss();
     }
 

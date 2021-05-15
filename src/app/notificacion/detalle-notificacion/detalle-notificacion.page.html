@@ -1,6 +1,20 @@
-<ion-content padding text-center style="text-align: center !important;">
-  <div class = "btn-salir"><img src="../assets/img/salir.png" (click)=salir()></div>
-  <div *ngIf="imagen" class = "img-correcto"><img [src]="imagen"></div>
-  <div class = "titulo">{{titulo}}</div>
-  <div class = "mensaje">{{mensaje}}</div>
-</ion-content>
+<div class="inner-content">
+  <div class="btn-salir">
+    <div class="aside">
+      <div class="titulo">
+        {{titulo}}
+      </div>
+      <div class="mensaje">
+        <div *ngIf="imagen != '' " class="img-correcto">
+          <img [src]="imagen">
+        </div>
+        <div class="texto">
+          {{mensaje}}
+        </div>
+      </div>
+    </div>
+
+    <img src="../assets/img/salir.png" (click)=salir()>
+  </div>
+
+</div>

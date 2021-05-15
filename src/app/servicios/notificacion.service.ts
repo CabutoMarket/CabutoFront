@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { HTTP } from '@ionic-native/http/ngx';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -19,19 +20,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class NotificacionService {
-  baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
+  baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(
-    private http: HttpClient
+    private http1: HTTP
   ) { }
 
-  getNotificacion() {
-    let headers=
-         new HttpHeaders(
-           {
-                           'Access-Control-Allow-Origin':'*',
-"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-           });
-   return this.http.get(this.baseUrl+'notificacion/')            
- }
+  getN() {
+    return this.http1.get(this.baseUrl+'notificacion/',{},{})            
+  }
 }
