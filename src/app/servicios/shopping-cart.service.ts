@@ -22,7 +22,7 @@ const httpOptions = {
 
 export class ShoppingCartService {
 
-  baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
+  baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(private http: HttpClient) { }
 
@@ -37,6 +37,18 @@ export class ShoppingCartService {
     console.log("Transformar")
     console.log(body)
     return this.http.post(this.baseUrl+'producto/',producto_carrito,{'headers':headers})
+  }
+
+  updateCart(carrito):Observable<any>{
+    return this.http.post(this.baseUrl+'cantidadesCarrito/',carrito)
+  }
+
+  getHorario(establecimiento, dia) {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl+'horario/?id='+establecimiento+'&dia='+dia,{'headers':headers})        
   }
 
   showCart(auth:Auth):Observable<any>{

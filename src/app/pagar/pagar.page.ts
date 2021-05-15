@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfilService } from '../servicios/perfil.service';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { ModalController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
+import { ModalController, NavController } from '@ionic/angular';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { Storage } from '@ionic/storage';
+import { login } from 'src/app/global';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 
 @Component({
   selector: 'app-pagar',
@@ -19,9 +20,8 @@ export class PagarPage implements OnInit {
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
-    private route: ActivatedRoute, 
     public modalController: ModalController,
-    private http: HttpClient,
+    private navCtrlr: NavController, 
     private router: Router
     ) {
       
@@ -51,12 +51,6 @@ export class PagarPage implements OnInit {
                 if (this.perfil.direccion == "NONE") {
                   this.perfil.direccion = "";
                 }
-                this.http.get("http://cabutoshop.pythonanywhere.com" + this.perfil.imagen).subscribe(data => {
-                  this.url = "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen;
-                }, (error) => {
-                  this.url = ""
-                  console.error(error);
-                });
       
                 if (Object.keys(this.perfil).length === 0) {
                   this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
@@ -103,6 +97,7 @@ export class PagarPage implements OnInit {
         url: this.url,
       }
     };
+    login.pago=true;
     this.router.navigate(['/footer/perfil/editar-perfil'], navigationExtras);
   }
   confirmar(){
@@ -110,9 +105,12 @@ export class PagarPage implements OnInit {
   
   }
 
-  regresar(){
-    this.router.navigate(['/footer/shopping-cart']);
-  
+  atras(){
+    let animations:AnimationOptions={
+      animated: true,
+      animationDirection: "back"
+    }
+    this.navCtrlr.back(animations)
   }
 
 }

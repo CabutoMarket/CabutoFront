@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { finalize } from 'rxjs/operators';
 import { IncorrectoPage } from '../../aviso/incorrecto/incorrecto.page';
@@ -24,20 +24,21 @@ export class NuevaDireccionPage implements OnInit {
   map;
   marker;
   loading: any;
-  direccion; envio="";
+  direccion; envio = "";
   constructor(
     public modalController: ModalController,
     private geolocation: Geolocation,
     public coberturaService: CoberturaService,
     private loadingCtrl: LoadingController,
     public direccionService: DireccionEntregaService,
-    public storage: Storage) { }
+    public storage: Storage,
+    private platform: Platform) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    this.datos();
+    this.initMap()
   }
 
   async datos() {
@@ -59,22 +60,33 @@ export class NuevaDireccionPage implements OnInit {
       );
   }
 
-  ngAfterViewInit(): void {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.latitud = resp.coords.latitude;
-      this.longitud = resp.coords.longitude;
+  initMap(): void {
+    setTimeout(() => {
       this.map = new google.maps.Map(this.mapElement.nativeElement, {
         center: { lat: this.latitud, lng: this.longitud },
-        zoom: 11
+        zoom: 12
       });
+      this.addMarker(this.map);
       google.maps.event.addListener(this.map, 'click', (event) => {
         this.verificarPosicion(event.latLng, "red");
-        
       })
-    }).catch((error) => {
-      console.log('Error getting location', error);
+    }, 200);
+  }
+
+  addMarker(map: any) {
+    this.platform.ready().then(() => {
+      console.log("resp")
+      this.geolocation.getCurrentPosition().then((resp) => {
+        this.latitud = resp.coords.latitude;
+        this.longitud = resp.coords.longitude;
+        this.map.setCenter({ lat: this.latitud, lng: this.longitud });
+        this.datos();
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
     });
   }
+
   drawPolygon() {
     var color = "blue";
     this.zonas.forEach(element => {
@@ -88,7 +100,7 @@ export class NuevaDireccionPage implements OnInit {
       var $this = this;
       google.maps.event.addListener(poligono, 'click', function (e) {
         $this.verificarPosicion(e.latLng, "blue");
-        $this.envio=element.envio;
+        $this.envio = element.envio;
       });
     });
   }
@@ -105,8 +117,8 @@ export class NuevaDireccionPage implements OnInit {
     if (color == "red") {
       let content = "<p>Aún no existe cobertura para esta zona!</p>";
       this.addInfoWindow(this.marker, content);
-      this.envio="";
-    }else{
+      this.envio = "";
+    } else {
       this.latitud = event.lat();
       this.longitud = event.lng();
     }
@@ -156,54 +168,54 @@ export class NuevaDireccionPage implements OnInit {
 
   }
 
-  guardar(form){
+  guardar(form) {
     form = form.value;
     console.log(form);
-    if(form.direccion == ''|| form.descripcion == '' || this.envio == ''){
-      this.mensajeIncorrecto("Campos Incompletos","Por favor complete los campos requeridos");
-    }else{
-      form.latitud=this.latitud;
-      form.longitud=this.longitud;
-      form.envio=this.envio;
-      this.storage.get('id').then((val)=>{
-        if(val!=null){
-          form.id=val;
+    if (form.direccion == '' || form.descripcion == '' || this.envio == '') {
+      this.mensajeIncorrecto("Campos Incompletos", "Por favor complete los campos requeridos");
+    } else {
+      form.latitud = this.latitud;
+      form.longitud = this.longitud;
+      form.envio = this.envio;
+      this.storage.get('id').then((val) => {
+        if (val != null) {
+          form.id = val;
         }
       });
       this.guardarDireccion(form);
     }
   }
 
-  async guardarDireccion(form){
+  async guardarDireccion(form) {
     await this.showLoading2();
     this.direccionService.nuevaDireccion(form)
-    .pipe(
-      finalize(async () => {
-        await this.loading.dismiss();
-      })
-    )
-    .subscribe(
-      data => {
-        console.log(data);
-        if(data.valid == "ok"){
-          this.confirmar(data.id);
-        }else{
-          this.mensajeIncorrecto("Error","No se han guardado los datos modificados");
-          this.modalController.dismiss(); 
+      .pipe(
+        finalize(async () => {
+          await this.loading.dismiss();
+        })
+      )
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.valid == "ok") {
+            this.confirmar(data.id);
+          } else {
+            this.mensajeIncorrecto("Error", "No se han guardado los datos modificados");
+            this.modalController.dismiss();
+          }
+        },
+        err => {
+          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
         }
-      },
-      err => {
-        this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-      }
-    );
+      );
   }
-  
-  async confirmar(id){
+
+  async confirmar(id) {
     this.modalController.dismiss();
     const modal = await this.modalController.create({
       component: ConfirmarDireccionPage,
-      cssClass: 'confirmar-modal',
-      componentProps: {id} 
+      cssClass: 'confirm-modal',
+      componentProps: { id }
     });
     return await modal.present();
   }

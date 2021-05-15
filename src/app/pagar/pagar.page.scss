@@ -4,6 +4,16 @@
 .contenedor-page{
     padding: 20px 30px;
 }
+
+.titulo_atras{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.atras{
+    height: 25px;
+}
+
 .titulo{
     font-weight: bold;
     font-size: larger;
@@ -82,14 +92,3 @@ ion-button{
     padding-top: 20px;
     padding-bottom: 20px;
   }
-
-  .btn-regresar{
-    text-align: left;
-    width: 7rem;
-}
-.atras{
-    height: 2rem;
-    width: 2rem;
-    bottom: 5%;
-    position: absolute;
-}

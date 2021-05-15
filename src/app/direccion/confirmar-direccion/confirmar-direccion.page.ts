@@ -6,6 +6,7 @@ import { CorrectoPage } from 'src/app/aviso/correcto/correcto.page';
 import { IncorrectoPage } from 'src/app/aviso/incorrecto/incorrecto.page';
 import { DireccionEntregaService } from 'src/app/servicios/direccion-entrega.service';
 import { Storage } from '@ionic/storage';
+import { ModalMapaPage } from 'src/app/establecimiento/modal-mapa/modal-mapa.page';
 
 @Component({
   selector: 'app-confirmar-direccion',
@@ -45,6 +46,7 @@ export class ConfirmarDireccionPage implements OnInit {
       .subscribe(
         data => {
           this.direccion = data[0];
+          console.log(this.direccion)
         },
         err => {
           this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")        
@@ -87,12 +89,21 @@ export class ConfirmarDireccionPage implements OnInit {
   confirmar(){
     this.modalController.dismiss();
     this.storage.set('direccionEntrega',this.id);
-    this.mensajeCorrecto("Direccion de entrega seleccionada","")
+    this.mensajeCorrecto("¡Dirección de entrega confirmada!","")
     this.router.navigate(['/footer/pago']); 
   }
 
   dismiss(){
     this.modalController.dismiss();
+  }
+
+  async verMapa(latitud, longitud) {
+    const modal = await this.modalController.create({
+      component: ModalMapaPage,
+      componentProps: { latitud, longitud }, 
+      cssClass: 'select-modal' 
+    });
+    return await modal.present();
   }
 
 }

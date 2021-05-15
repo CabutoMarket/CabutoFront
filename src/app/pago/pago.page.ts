@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 
 @Component({
   selector: 'app-pago',
@@ -10,7 +12,8 @@ import { Router } from '@angular/router';
 export class PagoPage implements OnInit {
   total:number;
   constructor(private storage: Storage,
-    private router: Router
+    private router: Router,
+    private navCtrlr: NavController, 
   ) { }
 
   ngOnInit() {
@@ -29,11 +32,16 @@ export class PagoPage implements OnInit {
   }
 
   tarjeta(){
-
+    this.router.navigate(['/footer/tarjeta']); 
+    this.storage.set('tipoPago','Tarjeta');
   }
 
-  regresar(){
-    this.router.navigate(['/footer/entrega']);
+  atras(){
+    let animations:AnimationOptions={
+      animated: true,
+      animationDirection: "back"
+    }
+    this.navCtrlr.back(animations)
   }
 
 }

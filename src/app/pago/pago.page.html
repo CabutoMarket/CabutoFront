@@ -1,8 +1,10 @@
-<app-header></app-header>
 
 <ion-content>
   <div class="contenedor-page">
-    <ion-label class="titulo">Pagar</ion-label>
+    <div class="titulo_atras">
+      <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+        <ion-label class="titulo">Pagar</ion-label>
+    </div>
     <div class="total" >
       <ion-label class="A_pagar_header">Total a Pagar:</ion-label>
       <div style="display: flex;">
@@ -22,8 +24,5 @@
         <p class="registro">TARJETAS</p>
       </ion-button>
     </div>
-
-    <div class ="btn_regresar"> <img src="../assets/img/atras.png" class="atras" (click)="regresar()"> </div>
-
   </div>  
 </ion-content>

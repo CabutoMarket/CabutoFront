@@ -69,24 +69,23 @@
     font-size: 4vw;
     color:var(--ion-color-azul-oscuro)
 }
-.btn-regresar{
-    text-align: left;
-    width: 7rem;
+.titulo_atras{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 .atras{
-    height: 2rem;
-    width: 2rem;
-    
+    height: 25px;
 }
 .button-content{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     bottom: 5%;
     left: 0%;
     align-items: center;
     position: absolute;
     width: 100%;
-    padding: 0px 25px;
+    padding: 0px 30px;
 }
 ion-button{
     font-size: 2.8vw;
