@@ -8,7 +8,7 @@ import {ShoppingCartService} from '../servicios/shopping-cart.service';
 import {CorrectoPage} from '../aviso/correcto/correcto.page';
 import {IncorrectoPage} from '../aviso/incorrecto/incorrecto.page';
 import {CuponesService} from '../servicios/cupones.service';
-
+declare var window;
 
 @Component({
   selector: 'app-cupones',
@@ -28,11 +28,14 @@ export class CuponesPage implements OnInit {
     private shoppingCart: ShoppingCartService) { }
 
   ngOnInit() {
+  }
+  
+  ionViewWillEnter(){
     this.cargaPantalla()
-    this.getCorreo();
+
   }
 
-  pantalla(){
+  pantalla(event){
     console.log("refresh");
      this.cuponesService.getCupon().subscribe(data => {
        //console.log("esta es la data "+data["nombre"])
@@ -41,12 +44,16 @@ export class CuponesPage implements OnInit {
        console.log(this.cupon);
        console.log(tol)
        if(tol==0){
-        this.mensajeIncorrecto("No existen cupones disponibles","agregaramos nuevos cupos más adelantes");
+        this.mensajeIncorrecto("No existen cupones disponibles","Agregaramos nuevos más adelante");
        }
+       if (event)
+          event.target.complete();
        },(error)=>{
          console.log("algo salio mal")
          this.mensajeIncorrecto("Algo salió mal","error de conexión");
          console.error(error);
+         if (event)
+          event.target.complete();
        }) 
   }
   
@@ -55,7 +62,7 @@ export class CuponesPage implements OnInit {
       message: 'Loading.....'   
     }).then((loading) => {  
       loading.present();{
-        this.pantalla();
+        this.pantalla(null);
     } 
     setTimeout(() => {   
       loading.dismiss();  
@@ -108,15 +115,10 @@ export class CuponesPage implements OnInit {
   }
 
   agregar(id:string,id2:string){
-    console.log(this.getNombre(id))
-    console.log("esto en agregar y el id que tengo es",id)
-    console.log("esto en agregar y el id2 que tengo es",id2)
+    this.getCorreo();
     var doc=document.getElementById(id)
-    console.log(doc)
-    var doc2=document.getElementById(id2)
-    console.log("estoy en agregar",doc2.style.visibility)
+    var doc2=document.getElementById("Cupon"+id2)
     doc2.style.visibility = "hidden";
-    //doc.style.visibility = "hidden";
     this.storage.get('name').then((nombre) => {
       console.log('Name is', nombre);
       if(login.login ==false && nombre == null ){
@@ -133,14 +135,17 @@ export class CuponesPage implements OnInit {
           }
           this.shoppingCart.addCupon(cupxcant).subscribe(data =>{
             if(data.valid == "OK"){
-              this.mensajeCorrecto("Cupon Agregado","Cupon Agregado Exitosamente");
+              this.mensajeCorrecto("Cupón Agregado","Cupón Agregado Exitosamente");
+            }else if (data.valid == "IN"){
+              this.mensajeIncorrecto("Agregar Cupón","Cupón ya existe en carrito");
             }else if (data.valid == "NOT"){
-              this.mensajeIncorrecto("Agregar Producto","Ha ocurrido un error, revise su conexión");
+              this.mensajeIncorrecto("Agregar Cupón","Ha ocurrido un error, revise su conexión");
 
             }
           })
+          window.footer.datos();
         }else{
-          this.mensajeIncorrecto("Agregar Cupon","No ha escogido la cantidad para agregar");
+          this.mensajeIncorrecto("Agregar Cupón","No ha escogido la cantidad para agregar");
         }
       }
       });
@@ -159,18 +164,13 @@ export class CuponesPage implements OnInit {
 
   mostrar(id:string){
     console.log("esto en mostrar y el id que tengo es",id)
-    var doc=document.getElementById(id)
+    var doc=document.getElementById("Cupon"+id)
     console.log(doc)
     console.log(doc.style.visibility)
-    //doc.style.visibility = "hidden";
-    //this.agregar()
-    if(this.valor ==0){
-      doc.style.visibility = "visible";
-      this.valor= 1;
-    }else{
+    if(doc.style.visibility === "visible"){
       doc.style.visibility = "hidden";
-      this.valor = 0;
+    }else{
+      doc.style.visibility = "visible";
     }
-    //doc.style.visibility = "visible";
   }
 }

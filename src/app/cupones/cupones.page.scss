@@ -7,35 +7,60 @@ ion-header{
     font-family: 'MyriadProSemibold' !important;
 }
 
-.titulo{
-    font-family: var(--ion-font-family);
+.contenedor{
+    padding: 20px 30px;
+}
+
+.contenedor-titulo{
+    
     font-weight: bold;
-    font-size: larger;
-    color: var(--ion-color-azul-oscuro);
-    font-size: 1.7rem;
-    padding-left: 2rem;
+    display:flex;
+    justify-content: center;
+    align-items: baseline;
+    .titulo{
+        color: var(--ion-color-azul-oscuro);
+        font-size: larger;
+        font-size: 1.5rem;
+        margin-bottom: 0px;
+    }
 }
 
 .contenedor-cupones{
-    padding-left: 2.5rem;
-    //padding-top: 1rem;
+    margin: 15px 0px;
+    border: 2px dashed var(--ion-color-azul-oscuro);
+    border-radius: 20px;
+    padding: 10px;
+    .descripcion{
+        align-self: flex-start;
+        width: 40%;
+    }
+    .nombre{
+        color:var(--ion-color-azul-oscuro);
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
 }
 
 .contenedor-imagen{
-    padding: 0.5rem 0rem 0.5rem 0rem;
-    //position: absolute;
+    padding-bottom: 0.5rem;
     z-index: 0;
     bottom: 0rem;
-    height: 12rem;
+    height: 8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .imagen{
+        height:100%;
+        overflow:hidden;
+        margin:auto
+    }
 }
 
 .agregar-imagen{
-    text-align: center;
-    display: flex;
-    position: relative;
+    position: absolute;
     width: 50px;
-    bottom: 6.8rem;
-    left: 7.5rem;
+    margin: 3rem auto;
+    left: calc(50% - 30px);
     visibility: hidden;
     z-index: 1;
 }

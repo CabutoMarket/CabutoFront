@@ -187,19 +187,11 @@ div.precio h4{
     padding-left: 0px;
     text-align: right;
     font-size: 1rem;
-        //padding-right: 20px;
-    //padding-right: 30px;
-
 }
 
 div.carrito img{
-    //position: relative;
     position: absolute;
     top: 95px;
-    width:1.6rem !important;
-    height:1.3rem!important ;
-    //left: 3px;
-    //text-align: right;
     right: 2rem;
 }
 
@@ -227,5 +219,15 @@ div.carrito img{
 .carrito{
     padding-left: 0px;
     padding-right: 30px;
+}
+.available.div-producto {
+    position: absolute;
+    box-shadow: none;
+    z-index: 9;
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255,255,255,0.8);
 }
 

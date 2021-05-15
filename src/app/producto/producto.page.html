@@ -1,44 +1,15 @@
-<!-- <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button defaultHref="home"></ion-menu-button>
-        </ion-buttons>
-        <ion-title class="ion-text-center fondo-toolbar">
-            <ion-row>
-                <ion-col> <img src="../assets/img/cabuto.png" width="150" height="70"></ion-col>
-            </ion-row>
-        </ion-title>
-    </ion-toolbar>
-    <ion-menu side="start" menuId="custom" contentId="main" class="my-custom-menu">
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>Menu</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content>
-            <ion-list>
-                <ion-item>Menu Item</ion-item>
-                <ion-item>Menu Item</ion-item>
-                <ion-item>Menu Item</ion-item>
-                <ion-item>Menu Item</ion-item>
-                <ion-item>Menu Item</ion-item>
-            </ion-list>
-        </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main"></ion-router-outlet>
-</ion-header> -->
-<app-header></app-header>
-
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="datos($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <div class="contenedor-page">
         <ion-label class="titulo">Productos</ion-label>
-        <!-- Default Searchbar -->
         <div class="contenedor">
             <div class="contenedor-searchbar">
                 <ion-input placeholder="    ¿Qué necesitas?" [(ngModel)]="textInput"></ion-input>
-                <img src="../assets/img/buscar.png" class="icono"  (click)="showLoading2()">
+                <img src="../assets/img/buscar.png" class="icono" (click)="showLoading2()">
             </div>
-            <div class="contenedor-filtro"> 
+            <div class="contenedor-filtro">
                 <div class="contenedor-selector">
                     <ion-label class="subtitulo">Filtrar por:</ion-label>
                     <select [(ngModel)]="opcion" class="selector" (change)="showLoading3()">
@@ -50,34 +21,28 @@
                     </select>
                 </div>
             </div>
-           <!--  <div>
-                <div class="div-producto" *ngFor="let productos of producto">
-                    <h5>{{productos.nombre}}</h5>
-                    <img src="../assets/img/deja.png" width="100" height="80">
-                </div>
-            </div> -->
             <div>
-                <div class="contener-producto"  *ngFor="let productos of producto" >
+                <div class="contener-producto" *ngFor="let productos of producto">
+                    <div class="available div-producto" *ngIf="productos.suma==null || productos.suma <= 0">Agotado</div>
                     <div class="div-producto" (onload)="cargarNum(productos.nombre)">
                         <div class="contener-columnaI">
                             <div class="producto">
-                                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}"  >
+                                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}">
                             </div>
-                            
-                                <h6 class="detalle" (click)=detalle(productos.imagen,productos.nombre,productos.descripcion,productos.precio)>Ver detalle</h6>
-                            
+                            <h6 class="detalle"
+                                (click)=detalle(productos.imagen,productos.nombre,productos.descripcion,productos.precio)>
+                                Ver detalle</h6>
                         </div>
                         <div class="contener-columna">
                             <div class="nombre">
                                 <h6 class="nombre-producto" name="nombre">{{productos.nombre}}</h6>
                             </div>
                             <div class="producto-carrito">
-                                <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas" (click)= agregar(productos.id_unico)>
-                                <!--<input type="text" tag = "barra" name="cantidad" id="{{productos.nombre}}" disabled="true" class="estilo-cantidad" placeholder="0" value ='0' >-->
-
-                                <div  id="{{productos.id_unico}}" class="cantidad estilo-cantidad" >0</div>
-
-                                <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)= quitar(productos.id_unico)>
+                                <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto"
+                                    id="mas" (click)=agregar(productos.id_unico,productos.suma)>
+                                <div id="{{productos.id_unico}}" class="cantidad estilo-cantidad">0</div>
+                                <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto"
+                                    id="menos" (click)=quitar(productos.id_unico)>
                             </div>
                         </div>
                         <div class="contener-columna-centrar">
@@ -85,19 +50,13 @@
                                 <h4 name="precio">${{productos.precio}}</h4>
                             </div>
                             <div class="carrito">
-                                <img src="../assets/img/carrito_activo.png" width="25" height="25" (click)=carrito(productos.id_unico)>
+                                <img src="../assets/img/carrito_activo.png" height="23"
+                                    (click)=carrito(productos.id_unico)>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--  <tbody>
-                <tr *ngFor="let productos of producto">
-                    <td>{{productos.nombre}}</td>
-                    <td>{{productos.descripcion}}</td>
-                    <td>{{productos.precio}}</td>
-                </tr>
-            </tbody> -->
         </div>
     </div>
 </ion-content>

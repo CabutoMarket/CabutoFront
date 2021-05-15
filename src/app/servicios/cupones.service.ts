@@ -19,19 +19,17 @@ const httpOptions = {
 })
 export class CuponesService {
 
-  baseUrl :string= "http://cabutoshop.pythonanywhere.com/movil/";
+  baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(private http: HttpClient) { }
 
   getCupon() {
-    let headers=
-         new HttpHeaders(
-           {
-                           'Access-Control-Allow-Origin':'*',
-"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-           });
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
 
-   return this.http.get(this.baseUrl+'cupones/')      
+   return this.http.get(this.baseUrl+'cupones/',{headers:headers})      
 
  }
 }
