@@ -27,7 +27,7 @@ export class NuevaTarjetaPage implements OnInit {
     private loadingCtrl: LoadingController,
     public storage: Storage
   ) {
-    Payment.init('stg', paymentez.app_code_client,paymentez.app_key_client);
+    Payment.init('prod', paymentez.app_code_client,paymentez.app_key_client);
     setTimeout(() => {
       this.card = new PaymentForm(this.cardForm.nativeElement);
     }, 400);

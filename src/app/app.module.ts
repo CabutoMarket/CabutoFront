@@ -33,7 +33,6 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 @NgModule({
   declarations: [AppComponent],
 //  declarations: [AppComponent],
-  entryComponents: [ModalPage],
 
   imports: [BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
