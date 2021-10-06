@@ -31,6 +31,7 @@ export class DomicilioPage implements OnInit {
   loading: any;
   direccion = "Ubicación actual"; envio = "";
   id: any;
+  colorPrincipal;
   constructor(
     private storage: Storage,
     private geolocation: Geolocation,
@@ -57,6 +58,7 @@ export class DomicilioPage implements OnInit {
       this.total = val;
     });
     this.initMap()
+    this.verificarPosicion(this.map.getCenter(), this.colorPrincipal);
   }
   async datos() {
     await this.showLoading2();
@@ -110,7 +112,8 @@ export class DomicilioPage implements OnInit {
       var contain = google.maps.geometry.poly.containsLocation(
         this.map.getCenter(), poligono);
       color = (contain ? "blue" : "red");
-      this.verificarPosicion(this.map.getCenter(), color);
+      this.colorPrincipal=color;
+      //this.verificarPosicion(this.map.getCenter(), color);
       var $this = this;
       google.maps.event.addListener(poligono, 'click', function (e) {
         $this.verificarPosicion(e.latLng, "blue");
