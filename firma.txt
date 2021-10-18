@@ -1,0 +1,28 @@
+ionic cordova plugin rm cordova-plugin-facebook4 --variable APP_ID="1024293451317205" --variable APP_NAME="cabutos"
+
+
+------
+ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="240773558019222" --variable APP_NAME="cabuto"
+
+#se lo crea desde build (generated signed apk) android studio 
+.\keytool -exportcert -list -v -alias masterkey -keystore C:\Users\axela\masterkey.jks
+
+
+#anadir firebase a tu app- android el sha-1
+.\jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore C:\Users\axela\masterkey.jks D:\GIT\CabutoFront\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk masterkey
+
+
+------
+
+.\keytool -list -printcert -jarfile D:\GIT\CabutoFront\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk 
+
+F1:48:B5:A1:BB:6B:8E:64:94:A8:DD:3E:38:B3:12:3D:70:02:C7:FE
+
+
+D:\Programas\sdk\platform-tools>adb install "D:\GIT\CabutoFront\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk"
+
+.\jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore D:\GIT\CabutoFront\masterkey.jks D:\GIT\CabutoFront\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk masterkey
+
+
+adb shell pm uninstall <package name>
+

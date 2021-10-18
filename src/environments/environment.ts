@@ -7,13 +7,13 @@ export const environment = {
 };
 
 export const firebaseConfig={
-  apiKey: "AIzaSyBHNQjXsH7nxkpzOMTJ1w8L0nFW1mR6noY",
-  authDomain: "cabutos.firebaseapp.com",
-  databaseURL: "https://cabutos.firebaseio.com",
-  projectId: "cabutos",
-  storageBucket: "cabutos.appspot.com",
-  messagingSenderId: "535520824503",
-  appId: "1:535520824503:android:2bd9590883c1e09137d132"
+  apiKey: "AIzaSyD-3ZerJ7cu_74jou6hqOlJspTC-BH3zzM",
+  authDomain: "cabuto-305805.firebaseapp.com",
+  projectId: "cabuto-305805",
+  storageBucket: "cabuto-305805.appspot.com",
+  messagingSenderId: "281585304478",
+  appId: "1:281585304478:web:884de5e6aa087e73ea0c8f",
+  measurementId: "G-X80P2PDP8V"
 
 };
 

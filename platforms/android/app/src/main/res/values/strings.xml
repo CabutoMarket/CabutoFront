@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Cabuto\'s</string>
+    <string name="launcher_name">@string/app_name</string>
+    <string name="activity_name">@string/launcher_name</string>
+
+    <string name="fb_login_protocol_scheme">fb240773558019222</string>
+
+
+</resources>

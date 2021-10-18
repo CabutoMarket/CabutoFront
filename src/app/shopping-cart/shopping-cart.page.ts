@@ -434,6 +434,7 @@ export class ShoppingCartPage implements OnInit {
       })
     )
     .subscribe(data => {
+      console.log(data);
       this.currentTimeHours = currentDate.getHours();
       this.currentTimeHours = this.currentTimeHours < 10 ? "0" + this.currentTimeHours : this.currentTimeHours;
       var currentTimeMinutes = currentDate.getMinutes();
@@ -448,6 +449,7 @@ export class ShoppingCartPage implements OnInit {
         } else {
           this.open=false;
         }
+        console.log(this.open)
       });
 
       
@@ -459,7 +461,7 @@ export class ShoppingCartPage implements OnInit {
 
   pagar() {
     if (this.oferLen + this.prodLen + this.comLen > 0) {
-      if(this.horario()){
+      if(this.open){
         this.storage.set('total', this.total);
         this.router.navigate(['/footer/pagar']);
       }else{
