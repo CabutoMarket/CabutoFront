@@ -286,6 +286,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       }
       this.authService.VerificarUser(log).subscribe(data=> {
         console.log(data.valid)
+        console.log("holaaaa ajajaajja")
         if (data.valid == "OK"){
           var nombre = data.nombre;
           var apellido = data.apellido;

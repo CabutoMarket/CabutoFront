@@ -42,7 +42,6 @@ export class AppComponent {
 
   @ViewChild('navChild') private content: IonContent;
   closingNavCallback() {
-    console.log("Cerrando")
     this.content.scrollToTop();
   }
 
@@ -63,18 +62,18 @@ export class AppComponent {
             usuario: id,
             token: token
           }
-          console.log(registro);
+
           this.fcm.registrarUsuario(registro).subscribe(data => {
             console.log(data.valid);
           });
         });
       });
       this.firebase.onMessageReceived().subscribe(data => {
-        console.log(data);
+
         if (data.messageType === "notification") {
           if (data.tap) {
             if (data.id) {
-              console.log("voy a historial")
+
               let navigationExtras: NavigationExtras = {
                 state: {
                   id: data.id,
@@ -128,7 +127,7 @@ export class AppComponent {
 
   getImage() {
     this.storage.get('perfil').then((val) => {
-      console.log(val)
+
       if (val != null) {
         if (val.url != undefined) {
           this.image = val.url
@@ -142,9 +141,7 @@ export class AppComponent {
   public action: String = " ";
 
   initOrOut() {
-    console.log("Estado del login", login.login)
     this.storage.get('name').then((nombre) => {
-      console.log("Estoy por definir el boton del menu", nombre)
       if (this.action == "Iniciar Sesión") {
         this.showLoadingIn();
         //this.action="Iniciar Sesión";
@@ -156,9 +153,9 @@ export class AppComponent {
   }
 
   cargarBtn() {
-    console.log("Estado del login", login.login)
+
     this.storage.get('name').then((nombre) => {
-      console.log("Estoy por definir el boton del menu", nombre)
+
       if (login.login == false && nombre == null) {
         //this.showLoadingOut();
         this.action = "Iniciar Sesión";
@@ -174,9 +171,7 @@ export class AppComponent {
     this.storage.clear()
       .then(
         data => {
-          console.log(data)
           login.login = false;
-          console.log(login.login)
           //this.ngOnInit()
           this.name = "";
           this.lastname = "";
@@ -218,7 +213,6 @@ export class AppComponent {
 
   perfil() {
     this.storage.get('name').then((nombre) => {
-      console.log('Name is', nombre);
       if (login.login == false && nombre == null) {
         this.router.navigateByUrl('footer/login');
       } else {
@@ -247,7 +241,6 @@ export class AppComponent {
   }
 
   async notificacion(titulo: string, mensaje: string, imagen) {
-    console.log(imagen)
     const modal = await this.modalCtrl.create({
       component: DetalleNotificacionPage,
       cssClass: 'DetalleNoti',

@@ -37,11 +37,11 @@ export class FooterPage implements OnInit {
         if(event && event.url){
           this.selectedPath = event.url;
           
-          console.log(this.selectedPath)
+
         }
-        console.log(event.url);
+
         this.storage.get('cosas').then((valor)=>{
-          console.log(valor)
+
           if(valor!= null){
             this.cosas=valor;
           }else{
@@ -49,7 +49,7 @@ export class FooterPage implements OnInit {
           }
         })
         this.storage.get('name').then((nombre) => {
-          console.log('Name is', nombre);
+
           if(login.login ==false && nombre == null ){
             this.tab="login";
             this.tab_carrito="login";
@@ -85,7 +85,7 @@ export class FooterPage implements OnInit {
   }
 
   datos(){
-    console.log("refresh");
+
     this.storage.get('correo').then((val) => {
       if(val != null){
         let info = {
@@ -94,7 +94,7 @@ export class FooterPage implements OnInit {
         };
         this.shoppingService.showCart(info)
       .subscribe(data => {
-        console.log(data)
+
         if (data.hasOwnProperty(0)) {
           this.cosas=data[0].total
           this.storage.set('cosas', this.cosas);
@@ -111,7 +111,7 @@ export class FooterPage implements OnInit {
     
       
      this.notificacionesService.getNotificaciones().subscribe(data => {
-       console.log(data)
+
        this.notificaciones=data;
        var valor = 0;
        for(var i = 0;i<Object.entries(this.notificaciones).length;i++){
@@ -122,7 +122,6 @@ export class FooterPage implements OnInit {
        }
        this.number =String(valor)
        },(error)=>{
-         console.log("algo salio mal")
          console.error(error);
        }) 
   }
