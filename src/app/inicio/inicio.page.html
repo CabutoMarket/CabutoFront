@@ -7,6 +7,9 @@
       <ion-input placeholder="    ¿Qué necesitas?" [(ngModel)]="textInput"></ion-input>
       <img src="../assets/img/buscar.png" class="icono" (click)="buscar()">
     </div>
+    <div class="contenedor-publicidad">
+      <img src="../assets/img/publicidad-ej1.jpg" >
+    </div>
     <div class="contenedor-titulo" *ngIf="categorias.length >0">
       <ion-label class="titulo">Categorías</ion-label>
       <a class="todos" (click)="categoriasPage()">Ver todo</a>
@@ -57,7 +60,9 @@
           </div>
         </div>
       </div>
-
+    </div>
+    <div class="contenedor-publicidad">
+      <img src="../assets/img/publicidad-ej1.jpg" >
     </div>
   </div>
 </ion-content>

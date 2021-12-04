@@ -16,14 +16,18 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./detalle-categoria.page.scss'],
 })
 export class DetalleCategoriaPage implements OnInit {
-
+  opcion: string = '0';
+  textInput: string = null;
   categoria;
   producto: {};
   loader:any;
   private correo: String = "";
+  productoInput: string = '';
+  verSeleccion: string = '';
 
   constructor(
     public productoService: ProductoService,
+    
     private router: Router,
     private shoppingCart: ShoppingCartService,
     public loadingCtrl: LoadingController,
@@ -56,19 +60,78 @@ export class DetalleCategoriaPage implements OnInit {
     )
     .subscribe(data => {
       this.producto=data
-      console.log(data);
     }, (error) => {
       console.error(error);
     });
 
   }
 
-  async showLoading2() {
-    this.loader = await this.loadingCtrl.create({
-      message: 'Loading.....'
-    });
-    await this.loader.present();
 
+
+  ordenarDescendente(data) { 
+
+    let orderedListZA = data.sort(function(a,b){
+      if(a.nombre>b.nombre){
+        return -1
+      }
+      else if(a.nombre < b.nombre){
+          return 1
+      }
+      else{return 0}
+    })
+    this.producto = orderedListZA;
+  }
+
+  capturar() {
+    let data = JSON.parse(JSON.stringify(this.producto));
+    console.log(this.opcion)
+    if (this.opcion.localeCompare("descendente")==0){
+      console.log("entra")
+      this.ordenarDescendente(data);
+    }
+    else if (this.opcion.localeCompare("ascendente")==0){
+      this.producto = data.sort(function(a,b){
+        
+        if(a.nombre<b.nombre){
+          return -1
+        }
+        else if(a.nombre > b.nombre){
+            return 1
+        }
+        else{return 0}
+      })
+    }
+    else if(this.opcion.localeCompare("menor")==0){
+      this.producto = data.sort(function(a,b){
+        return a.precio - b.precio
+      });
+    }
+    else if(this.opcion.localeCompare("mayor")==0){
+      this.producto = data.sort(function(a,b){
+        console.log(a)
+        return b.precio - a.precio
+      });
+    }
+    
+  }
+
+  
+
+  buscarProducto() {
+    this.productoInput = this.textInput;
+    console.log(this.productoInput)
+    this.productoService.getProductoBuscar(this.productoInput).subscribe(data => {
+
+      this.producto = data;
+      console.log(this.producto);
+      if (Object.keys(this.producto).length === 0) {
+        this.mensajeIncorrecto("Producto no encontrado", "No se ha podido encontrar el producto, intente de nuevo")
+      }
+
+    }, (error) => {
+      console.error(error);
+      this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+    })
   }
 
   agregar(id: string) {
@@ -186,5 +249,46 @@ export class DetalleCategoriaPage implements OnInit {
     });
 
   }
+  showLoading(id: string) {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.carrito(id);
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
+  }
 
+  async showLoading2() {
+    this.loader = await this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.buscarProducto();
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
+
+  }
+
+  showLoading3() {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.capturar();
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
+  }
+  
+ 
+  
 }
