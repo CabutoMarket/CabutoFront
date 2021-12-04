@@ -1,10 +1,30 @@
 <ion-content>
   <div class="contenedor-page">
+    
     <ion-label class="titulo" *ngIf=categoria>{{categoria}}</ion-label>
     <div class="contenedor">
+
+      <div class="contenedor-searchbar">
+        <ion-input placeholder="    ¿Qué necesitas?"  [(ngModel)]="textInput"></ion-input>
+        <img src="../assets/img/buscar.png" class="icono" (click)="showLoading2()">
+      </div>
+      <div class="contenedor-filtro">
+              <div class="contenedor-selector">
+                  <ion-label class="subtitulo">Filtrar por:</ion-label>
+                  <select [(ngModel)]="opcion" class="selector" (change)="showLoading3()">
+                      <option value="menor">Precio: más bajo</option>
+                      <option value="mayor">Precio: más alto</option>
+                      <option value="ascendente">A a Z</option>
+                      <option value="descendente">Z a A</option>
+                  </select>
+              </div>
+      </div>
+
+
       <div class="contener-producto" *ngFor="let productos of producto">
         <div class="div-producto">
           <div class="contener-columnaI">
+            
             <div class="producto">
               <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{productos.imagen}}">
             </div>
