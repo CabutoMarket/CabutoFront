@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">cabuto</string>
+    <string name="title_activity_main">cabuto</string>
+    <string name="package_name">io.cabutos.starter.v2</string>
+    <string name="custom_url_scheme">io.cabutos.starter.v2</string>
+</resources>

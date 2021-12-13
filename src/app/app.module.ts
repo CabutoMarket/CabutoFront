@@ -23,7 +23,7 @@ import { AngularFireModule } from "@angular/fire";            //Modulo para inic
 import { firebaseConfig} from "../environments/environment";     // aqui se encuentra una variable de configuracion para inicializar firebase
 import {FooterPage} from 'src/app/footer/footer.page'
 import { HTTP } from '@ionic-native/http/ngx';
-import { Facebook/*, FacebookLoginResponse*/ } from '@ionic-native/facebook/ngx'; //Modulo de Facebook
+import { Facebook } from '@ionic-native/facebook/ngx'; //Modulo de Facebook
 import {ModalPage} from '././modal/modal.page';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { IonicStorageModule } from '@ionic/storage';

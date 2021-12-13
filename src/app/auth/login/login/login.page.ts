@@ -446,6 +446,15 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       });
       return await modal.present();
   }
+
+  loginFacebook(){
+    this.authService.loginwithFacebook().then((res)=>{
+      console.log(res);
+      this.router.navigate(['/']);
+    }).catch(err =>{
+      console.log(err);
+    })
+  }
 }
 
 
