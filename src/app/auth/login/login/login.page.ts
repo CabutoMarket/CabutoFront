@@ -286,7 +286,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       }
       this.authService.VerificarUser(log).subscribe(data=> {
         console.log(data.valid)
-        console.log("holaaaa ajajaajja")
+
         if (data.valid == "OK"){
           var nombre = data.nombre;
           var apellido = data.apellido;
@@ -448,11 +448,13 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
   }
 
   loginFacebook(){
+    
     this.authService.loginwithFacebook().then((res)=>{
       console.log(res);
       this.router.navigate(['/']);
     }).catch(err =>{
       console.log(err);
+      this.mensajeIncorrecto("Fallo de conexión","Algo salio mal no se pudo iniciar sesión");
     })
   }
 }

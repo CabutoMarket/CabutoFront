@@ -58,7 +58,9 @@ export class AuthService {
   }
 
   loginwithFacebook(){
+    
     return this.fb.login(['email','public_profile']).then((response: FacebookLoginResponse)=>{
+      console.log(response)
       const credencial_fb = auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
       return this.AFauth.signInWithCredential(credencial_fb);
     })
