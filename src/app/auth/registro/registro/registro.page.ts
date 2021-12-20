@@ -254,7 +254,7 @@ export class RegistroPage implements OnInit {
 
       },
       err => {
-        this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+        this.mensajeIncorrecto("Algo salió mal", "Fallo en la conexión")
       }
     );
   }

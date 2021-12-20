@@ -134,7 +134,7 @@ export class LoginPage implements OnInit {
       }
       else{
         //this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
-        this.mensajeIncorrecto("Acceso Incorrecto","Algo salió mal su correo o contraseña están incorrectos");
+        this.mensajeIncorrecto("Acceso Incorrecto","Algo salió mal, su correo o contraseña están incorrectos.");
         this.router.navigateByUrl('/login');
       }
       
@@ -154,10 +154,10 @@ export class LoginPage implements OnInit {
         }
         this.imageURL()
         if (Object.keys(this.perfil).length === 0) {
-          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+          this.mensajeIncorrecto("Algo salió mal", "Fallo en la conexión")
         } else {
           this.storage.set('perfil', this.perfil);
-          console.log("se guardo el perfil")
+          console.log("Se guardó el perfil")
         }
 
       },
@@ -198,7 +198,7 @@ export class LoginPage implements OnInit {
     const forgot = await this.alert.create({
       cssClass: 'Forgot Password?',
       header:'Forgot Password?',
-      message: "Enter you email address to send a reset link password.",
+      message: "Enter your email address to send a password reset link.",
       inputs: [
         {
           name: 'email',
@@ -229,7 +229,7 @@ export class LoginPage implements OnInit {
 
 async presentToast() {
     const toast = await this.toast.create({
-              message: 'Email was sended successfully',
+              message: 'Email was sent successfully',
               duration: 3000,
               position: 'top',
               cssClass: 'dark-trans',
@@ -333,7 +333,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       
       }).catch(err =>{
         //this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
-        this.mensajeIncorrecto("Fallo de conexión","Algo salio mal no se pudo iniciar sesión");
+        this.mensajeIncorrecto("Fallo de conexión","Algo salió mal, no se pudo iniciar sesión.");
       })
     }
 
@@ -454,7 +454,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       this.router.navigate(['/']);
     }).catch(err =>{
       console.log(err);
-      this.mensajeIncorrecto("Fallo de conexión","Algo salio mal no se pudo iniciar sesión");
+      this.mensajeIncorrecto("Fallo de conexión","Algo salió mal, no se pudo iniciar sesión.");
     })
   }
 }

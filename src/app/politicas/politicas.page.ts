@@ -32,7 +32,7 @@ export class PoliticasPage implements OnInit {
        if(this.contenido[0]!= null){
         this.detalle = this.contenido[0].detalle;
        }else{
-         this.mensajeIncorrecto("Algo sucedio","Ocurrio un poblema, lo estamos solucionando")
+         this.mensajeIncorrecto("Algo sucedió","Ocurrió un problema, lo estamos solucionando")
        }
        console.log(this.contenido);
  
