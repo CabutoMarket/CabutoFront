@@ -95,7 +95,7 @@ export class DomicilioPage implements OnInit {
   initMap(): void {
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
       center: { lat: this.latitud, lng: this.longitud },
-      zoom: 12
+      zoom: 16
     });
     this.addMarker(this.map);
     google.maps.event.addListener(this.map, 'click', (event) => {
@@ -109,13 +109,14 @@ export class DomicilioPage implements OnInit {
       var coords = JSON.parse(element.zona);
       var poligono = this.makePolygon(coords, "blue");
       poligono.setMap(this.map);
-      var contain = google.maps.geometry.poly.containsLocation(
-        this.map.getCenter(), poligono);
+      var contain = google.maps.geometry.poly.containsLocation(this.map.getCenter(), poligono);
+      
       color = (contain ? "blue" : "red");
+      console.log(poligono)
       this.colorPrincipal=color;
-      //this.verificarPosicion(this.map.getCenter(), color);
       var $this = this;
       google.maps.event.addListener(poligono, 'click', function (e) {
+        console.log(e)
         $this.verificarPosicion(e.latLng, "blue");
         $this.envio = element.envio;
       });
@@ -123,7 +124,6 @@ export class DomicilioPage implements OnInit {
   }
 
   verificarPosicion(event, color) {
-    console.log(color);
     if (this.marker != undefined) {
       this.marker.setMap(null);
     }

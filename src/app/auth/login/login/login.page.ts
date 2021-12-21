@@ -333,6 +333,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       
       }).catch(err =>{
         //this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
+        console.log(err)
         this.mensajeIncorrecto("Fallo de conexión","Algo salio mal no se pudo iniciar sesión");
       })
     }
@@ -454,7 +455,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       this.router.navigate(['/']);
     }).catch(err =>{
       console.log(err);
-      this.mensajeIncorrecto("Fallo de conexión","Algo salio mal no se pudo iniciar sesión");
+      this.mensajeIncorrecto(err,"Algo salio mal no se pudo iniciar sesión");
     })
   }
 }
