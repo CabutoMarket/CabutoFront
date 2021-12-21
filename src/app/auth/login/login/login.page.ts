@@ -332,8 +332,8 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
       })
       
       }).catch(err =>{
-        //this.mensaje("Fallo de conexión","algo salio mal","No se pudo iniciar sesión");
         this.mensajeIncorrecto("Fallo de conexión","Algo salió mal, no se pudo iniciar sesión.");
+
       })
     }
 
@@ -455,6 +455,7 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     }).catch(err =>{
       console.log(err);
       this.mensajeIncorrecto("Fallo de conexión","Algo salió mal, no se pudo iniciar sesión.");
+
     })
   }
 }
