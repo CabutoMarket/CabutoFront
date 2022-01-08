@@ -57,8 +57,7 @@ export class DomicilioPage implements OnInit {
       console.log(val);
       this.total = val;
     });
-    this.initMap()
-    this.verificarPosicion(this.map.getCenter(), this.colorPrincipal);
+    this.initMap()    
   }
   async datos() {
     await this.showLoading2();
@@ -71,7 +70,7 @@ export class DomicilioPage implements OnInit {
       .subscribe(
         data => {
           this.zonas = data;
-          this.drawPolygon();
+          this.drawPolygon();          
         },
         err => {
           this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
@@ -112,14 +111,28 @@ export class DomicilioPage implements OnInit {
       var contain = google.maps.geometry.poly.containsLocation(
         this.map.getCenter(), poligono);
       color = (contain ? "blue" : "red");
-      this.colorPrincipal=color;
+      //this.colorPrincipal=color;
       //this.verificarPosicion(this.map.getCenter(), color);
       var $this = this;
       google.maps.event.addListener(poligono, 'click', function (e) {
         $this.verificarPosicion(e.latLng, "blue");
         $this.envio = element.envio;
+        console.log(element.envio)
       });
+      if (color =="blue") {
+        this.colorPrincipal=color;
+        this.envio=element.envio;
+      }
+      
     });
+    console.log(color)
+    if (this.colorPrincipal =="blue") {
+      this.verificarPosicion(this.map.getCenter(), this.colorPrincipal);
+    }
+    else{
+      this.verificarPosicion(this.map.getCenter(), "red");
+    }
+    
   }
 
   verificarPosicion(event, color) {

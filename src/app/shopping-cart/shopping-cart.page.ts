@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TestabilityRegistry } from '@angular/core';
 import { Router } from "@angular/router";
 import { ShoppingCartService } from '../servicios/shopping-cart.service';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
@@ -12,6 +12,7 @@ import { PreguntaPage } from '../aviso/pregunta/pregunta.page';
 import { NavParamsService } from '../servicios/nav-params.service'
 import { finalize } from 'rxjs/operators';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
+import { exit } from 'process';
 declare var window;
 
 @Component({
@@ -443,14 +444,28 @@ export class ShoppingCartPage implements OnInit {
         var openTimex = openSplit[0] + openSplit[1];
         var closeTimeSplit = horario.hora_fin.split(":");
         var closeTimex = closeTimeSplit[0] + closeTimeSplit[1];
+        console.log(timeNow);
+        console.log(openTimex)
+        console.log(closeTimex)
+
         if (this.open || timeNow >= openTimex && timeNow <= closeTimex) {
           this.open=true;
         } else {
           this.open=false;
         }
       });
-
-      
+      console.log(this.open);
+      if (this.oferLen + this.prodLen + this.comLen > 0) {        
+        console.log(this.open);
+        if(this.open){
+          this.storage.set('total', this.total);
+          this.router.navigate(['/footer/pagar']);
+        }else{
+          this.mensajeIncorrecto("Establecimiento cerrado", "Estaremos receptando sus pedidos el día de mañana");
+        }
+      } else {
+        this.mensajeIncorrecto("Carrito vacío", "No tiene nada en su carrito");
+      }      
     }, (error) => {
       console.error(error);
     });
@@ -458,17 +473,8 @@ export class ShoppingCartPage implements OnInit {
   }
 
   pagar() {
-    if (this.oferLen + this.prodLen + this.comLen > 0) {
-      if(this.horario()){
-        this.storage.set('total', this.total);
-        this.router.navigate(['/footer/pagar']);
-      }else{
-        this.mensajeIncorrecto("Establecimiento cerrado", "Estaremos receptando sus pedidos el día de mañana");
-      }
-    } else {
-      this.mensajeIncorrecto("Carrito vacío", "No tiene nada en su carrito");
-    }
-  }
+    this.horario();
+  }  
 
   saveData(estado: any) {
     console.log("Estoy en el saveData");
