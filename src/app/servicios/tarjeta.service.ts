@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {paymentez} from 'src/environments/environment';
+import {paymentez} from 'src/environments/environment.prod';
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { Observable } from 'rxjs';
@@ -23,6 +23,7 @@ export class TarjetaService {
     const body = JSON.stringify(tarjeta);
     return this.http.post(this.baseUrl+'card/add/',body,{'headers':headers})
   }
+
 
   eliminarTarjeta(tarjeta):Observable<any>{
     const headers = {

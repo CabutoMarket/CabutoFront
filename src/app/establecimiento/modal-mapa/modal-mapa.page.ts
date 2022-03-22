@@ -18,6 +18,7 @@ export class ModalMapaPage implements OnInit {
   ngOnInit() {
   }
 
+  
   addMarker(map:any){
 
     let marker = new google.maps.Marker({

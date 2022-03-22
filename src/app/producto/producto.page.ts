@@ -102,18 +102,51 @@ export class ProductoPage implements OnInit {
     });
   }
 
-  capturar() {
-    this.verSeleccion = this.opcion;
-    //console.log(this.verSeleccion);
-    this.productoService.getProductosByFiltro(this.opcion).subscribe(data => {
-      console.log("esta es la data " + data["imagen"])
-      console.log(data);
-      this.producto = data;
-      console.log(this.producto);
+  ordenarDescendente(data) { 
 
-    }, (error) => {
-      console.error(error);
+    let orderedListZA = data.sort(function(a,b){
+      if(a.nombre>b.nombre){
+        return -1
+      }
+      else if(a.nombre < b.nombre){
+          return 1
+      }
+      else{return 0}
     })
+    this.producto = orderedListZA;
+  }
+
+  capturar() {
+    let data = JSON.parse(JSON.stringify(this.producto));
+    console.log(this.opcion)
+    if (this.opcion.localeCompare("descendente")==0){
+      console.log("entra")
+      this.ordenarDescendente(data);
+    }
+    else if (this.opcion.localeCompare("ascendente")==0){
+      this.producto = data.sort(function(a,b){
+        
+        if(a.nombre<b.nombre){
+          return -1
+        }
+        else if(a.nombre > b.nombre){
+            return 1
+        }
+        else{return 0}
+      })
+    }
+    else if(this.opcion.localeCompare("menor")==0){
+      this.producto = data.sort(function(a,b){
+        return a.precio - b.precio
+      });
+    }
+    else if(this.opcion.localeCompare("mayor")==0){
+      this.producto = data.sort(function(a,b){
+        console.log(a)
+        return b.precio - a.precio
+      });
+    }
+    
   }
 
 
@@ -224,6 +257,7 @@ export class ProductoPage implements OnInit {
     await alert.present();
   }
 
+
   showLoading(id: string) {
     this.loadingCtrl.create({
       message: 'Loading.....'
@@ -248,6 +282,9 @@ export class ProductoPage implements OnInit {
       }, 1000);
     });
   }
+
+
+
   showLoading3() {
     this.loadingCtrl.create({
       message: 'Loading.....'
@@ -260,6 +297,7 @@ export class ProductoPage implements OnInit {
       }, 1000);
     });
   }
+
 
   async detalle(imagen: string, nombre: string, descripcion: string, precio: string) {
     const modal = await this.modalCtrl.create({

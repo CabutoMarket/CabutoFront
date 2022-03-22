@@ -22,14 +22,14 @@ declare var google;
 })
 export class DomicilioPage implements OnInit {
   total: number;
-  latitud: any=-2.19616;
-  longitud: any=-79.88621;
+  latitud: any;
+  longitud: any;
   zonas: any;
   @ViewChild('mapaUbicacion', { static: true }) mapElement;
   map;
   marker;
   loading: any;
-  direccion = "Ubicación actual"; envio = "";
+  direccion = ""; envio = "";
   id: any;
   colorPrincipal;
   constructor(
@@ -44,21 +44,27 @@ export class DomicilioPage implements OnInit {
     private navCtrlr: NavController,) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    
     this.storage.get('id').then((val) => {
       if (val != null) {
         this.id = val;
       }
     });
-  }
-
-  ionViewWillEnter() {
-    console.log("didEnter");
     this.storage.get('total').then((val) => {
-      console.log(val);
       this.total = val;
     });
-    this.initMap()    
+    
+    this.initMap()  
+    this.Marker();
+
+    if(this.direccion!=""){
+      location.reload();
+    }
   }
+
   async datos() {
     await this.showLoading2();
     this.coberturaService.getCobertura()
@@ -70,7 +76,7 @@ export class DomicilioPage implements OnInit {
       .subscribe(
         data => {
           this.zonas = data;
-          this.drawPolygon();          
+          this.drawPolygon();
         },
         err => {
           this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
@@ -78,9 +84,27 @@ export class DomicilioPage implements OnInit {
       );
   }
 
+  initMap(): void {
+    setTimeout(() => {
+      this.map = new google.maps.Map(this.mapElement.nativeElement, {
+        center: { lat: this.latitud, lng: this.longitud },
+        zoom: 12
+      });
+      google.maps.event.addListener(this.map, 'click', (event) => {
+        this.verificarPosicion(event.latLng, "red");
+      })
+
+      this.addMarker(this.map);
+    }, 200);
+  }
+
+  Marker(){
+    var latlng = new google.maps.LatLng(this.latitud, this.longitud);
+    this.marker.setPosition(latlng);
+  }
+
   addMarker(map: any) {
     this.platform.ready().then(() => {
-      console.log("resp")
       this.geolocation.getCurrentPosition().then((resp) => {
         this.latitud = resp.coords.latitude;
         this.longitud = resp.coords.longitude;
@@ -90,16 +114,6 @@ export class DomicilioPage implements OnInit {
         console.log('Error getting location', error);
       });
     });
-  }
-  initMap(): void {
-    this.map = new google.maps.Map(this.mapElement.nativeElement, {
-      center: { lat: this.latitud, lng: this.longitud },
-      zoom: 12
-    });
-    this.addMarker(this.map);
-    google.maps.event.addListener(this.map, 'click', (event) => {
-      this.verificarPosicion(event.latLng, "red");
-    })
   }
 
   drawPolygon() {
@@ -111,30 +125,16 @@ export class DomicilioPage implements OnInit {
       var contain = google.maps.geometry.poly.containsLocation(
         this.map.getCenter(), poligono);
       color = (contain ? "blue" : "red");
-      //this.colorPrincipal=color;
-      //this.verificarPosicion(this.map.getCenter(), color);
+      this.verificarPosicion(this.map.getCenter(), color);
       var $this = this;
       google.maps.event.addListener(poligono, 'click', function (e) {
         $this.verificarPosicion(e.latLng, "blue");
         $this.envio = element.envio;
-        console.log(element.envio)
       });
-      if (color =="blue") {
-        this.colorPrincipal=color;
-        this.envio=element.envio;
-      }
-      
     });
-    console.log(color)
-    if (this.colorPrincipal =="blue") {
-      this.verificarPosicion(this.map.getCenter(), this.colorPrincipal);
-    }
-    else{
-      this.verificarPosicion(this.map.getCenter(), "red");
-    }
-    
   }
 
+  
   verificarPosicion(event, color) {
     console.log(color);
     if (this.marker != undefined) {
@@ -154,6 +154,7 @@ export class DomicilioPage implements OnInit {
     }
 
   }
+
 
   addInfoWindow(marker, content) {
 

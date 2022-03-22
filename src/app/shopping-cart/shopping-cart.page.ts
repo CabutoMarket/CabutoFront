@@ -102,7 +102,6 @@ export class ShoppingCartPage implements OnInit {
         this.prodLen = this.getProductLen();
         this.oferLen = this.getOfertaLen();
         this.cupLen = this.getCuponLen();
-        console.log("llamo a total")
         this.total = this.getTotal();
         var divTotal = document.querySelectorAll("[id='A_pagar']");
         divTotal[0].innerHTML=""+this.total+"";
@@ -116,7 +115,6 @@ export class ShoppingCartPage implements OnInit {
         }
         
       }, (error) => {
-        console.error(error);
         this.mensajeIncorrecto("Algo Salio mal", "Fallo en en el carrito.")
       });
   }
@@ -199,7 +197,7 @@ export class ShoppingCartPage implements OnInit {
       ototal = ototal + parseFloat((this.cupon[i]['subtotal_cupon']));
     }
     ttotal = ototal + ctotal + ptotal;
-    return ttotal.toFixed(2);
+    return Number.parseFloat(ttotal).toFixed(2);
 
   }
 
@@ -260,7 +258,7 @@ export class ShoppingCartPage implements OnInit {
   }
 
   agregar(id: string, max) {
-    console.log("el id a recibir", id);
+    //console.log("el id a recibir", id);
     this.modificado = true;
     var precio_unitario = this.getPrecioUnitario(id);
     var cantidad = document.querySelectorAll("[id='" + id + "']");
@@ -339,11 +337,10 @@ export class ShoppingCartPage implements OnInit {
   }
 
   eliminar(id: string, c: string, cantidad: string) {
-    var tot: any = this.getTotalCart();
+    var tot = this.getTotalCart();
     var pos = 0;
     var subtot = 0;
     var div = document.getElementById(id);
-    var total = document.getElementById('A_pagar');
     var total2 = document.getElementsByClassName('A_pagar');
     var subtotal = document.getElementsByClassName('subtotal');
 
@@ -444,9 +441,9 @@ export class ShoppingCartPage implements OnInit {
         var openTimex = openSplit[0] + openSplit[1];
         var closeTimeSplit = horario.hora_fin.split(":");
         var closeTimex = closeTimeSplit[0] + closeTimeSplit[1];
-        console.log(timeNow);
-        console.log(openTimex)
-        console.log(closeTimex)
+        //console.log(timeNow);
+        //console.log(openTimex)
+        //console.log(closeTimex)
 
         if (this.open || timeNow >= openTimex && timeNow <= closeTimex) {
           this.open=true;
@@ -454,9 +451,9 @@ export class ShoppingCartPage implements OnInit {
           this.open=false;
         }
       });
-      console.log(this.open);
+      //console.log(this.open);
       if (this.oferLen + this.prodLen + this.comLen > 0) {        
-        console.log(this.open);
+        //console.log(this.open);
         if(this.open){
           this.storage.set('total', this.total);
           this.router.navigate(['/footer/pagar']);
@@ -465,6 +462,8 @@ export class ShoppingCartPage implements OnInit {
         }
       } else {
         this.mensajeIncorrecto("Carrito vacío", "No tiene nada en su carrito");
+        this.router.navigate(['']);
+
       }      
     }, (error) => {
       console.error(error);

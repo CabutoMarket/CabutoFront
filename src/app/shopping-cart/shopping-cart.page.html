@@ -28,12 +28,14 @@
               <h6 class="nombre-producto" name="nombre">{{productos.nombre_producto}}</h6>
             </div>
             <div class="producto-carrito">
-              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas"
-                (click)=agregar(productos.id_unico,productos.suma)>
-              <div id="{{productos.id_unico}}" class="cantidad">{{productos.cantidad}}</div>
               <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos"
                 (click)=quitar(productos.id_unico)>
-            </div>
+            
+              <div id="{{productos.id_unico}}" class="cantidad">{{productos.cantidad}}</div>
+              <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas"
+                (click)=agregar(productos.id_unico,productos.suma)>
+      
+              </div>
             <div class="precio">
               <p>$</p><p name="precio" class="subtotal" id="{{productos.id_unico}}">{{productos.subtotal| number : '1.2-2'}}</p>
             </div>

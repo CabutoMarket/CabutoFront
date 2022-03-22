@@ -34,14 +34,11 @@ export class InfoLocalPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    console.log("didEnter");
     this.storage.get('total').then((val) => {
-      console.log(val);
       this.total=val;
     });
     this.storage.get('direccionEntrega').then((val) => {
       if (val != null) {
-        console.log(val);
         this.datos(val);
       }
 
@@ -71,6 +68,7 @@ export class InfoLocalPage implements OnInit {
       center: {lat: this.direccion.latitud, lng: this.direccion.longitud},
       zoom: 15
     }); 
+    
     this.addMarker(this.map)
   }
 

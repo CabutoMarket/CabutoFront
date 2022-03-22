@@ -24,6 +24,7 @@ export class EfectivoPage implements OnInit {
   direccion: any;
   tipoPago: any;
   pago: any;
+  iva: any;
   loading: any;
   envio: any;
   numero: any;
@@ -149,7 +150,7 @@ export class EfectivoPage implements OnInit {
   }
   
   async datos(val) {
-    await this.showLoading2();
+    //await this.showLoading2();
     this.direccionService.getDireccion(val)
       .pipe(
         finalize(async () => {
@@ -158,10 +159,10 @@ export class EfectivoPage implements OnInit {
       )
       .subscribe(
         data => {
-          console.log(data);
           this.direccion = data[0];
           this.envio = this.direccion.envio;
           this.pago = this.total + this.envio;
+         
         },
         err => {
           this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
@@ -200,74 +201,6 @@ export class EfectivoPage implements OnInit {
     return await modal.present();
   }
 
-  async pagar(pedido) {
-    await this.showLoading2();
-    let tot=this.pago/1.12
-    let vat = this.pago * 0.12;
-    let num = Number(vat.toFixed(2))
-    let info = {
-      "card": {
-        "token": this.token
-      },
-      "user": {
-        "id": this.id + "",
-        "email": this.perfil.correo
-      },
-      "order": {
-        "amount": this.pago+vat,
-        "description": "Compra",
-        "dev_reference": pedido + "",
-        "vat": num
-      }
-    }
-    console.log(info);
-    this.tarjetaService.pagar(info)
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
-      .subscribe(
-        data => {
-          console.log(data);
-          if(data.transaction.status=="success"){
-            this.pagado(pedido,data.transaction.id, data.transaction.authorization_code)
-          }
-        },
-        err => {
-          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-        }
-      );
-  }
-
-  async pagado(id_pedido,transaccion, autorizacion) {
-    await this.showLoading2();
-    let info = {
-      "pedido": id_pedido,
-      "transaccion": transaccion,
-      "autorizacion": autorizacion
-    }
-    console.log(info);
-    this.pedidoService.pagarPedido(info)
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
-      .subscribe(
-        data => {
-          console.log(data);          
-          this.mensajeCorrecto("Pago exitoso", "Su pedido ha sido pagado con exito");
-          this.router.navigate(['']);
-        },
-        err => {
-          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-          this.router.navigate(['']);
-        }
-      );
-
-  }
-
   confirmar(form) {
     var form = form.value;
     form.tipoPago = this.tipoPago;
@@ -278,7 +211,6 @@ export class EfectivoPage implements OnInit {
     form.descuento = 0;
     this.storage.get('tipoEntrega').then((val) => {
       if (val != null) {
-        console.log(val);
         form.tipoEntrega = (val);
         if (val === "Local"){
           form.envio = 0;
@@ -288,16 +220,70 @@ export class EfectivoPage implements OnInit {
     });
     this.storage.get('id_carrito').then((val) => {
       if (val != null) {
-        console.log(val);
         form.carrito = (val);
       }
     });
-    this.guardarPedido(form);
 
+    if (this.tipoPago == "Tarjeta") {
+      this.pagar(form);
+    }else{
+      this.guardarPedido(form, null, null);
+    }
   }
 
-  async guardarPedido(form) {
-    await this.showLoading2();
+  async pagar(form) {
+
+    //await this.showLoading2();  
+
+    let completo = this.total + this.envio;
+    let sub=this.total/1.12; 
+    this.iva = sub*0.12; 
+
+    let tax = Number(sub.toFixed(2));
+    let vat = Number(this.iva.toFixed(2));
+    let tot = Number(completo.toFixed(2));
+
+    let info = {
+      "card": {
+        "token": this.token
+      },
+      "user": {
+        "id": this.id + "",
+        "email": this.perfil.correo
+      },
+      "order": {
+        "amount": tot,
+        "description": "Pedido Cabuto",
+        "dev_reference": "Pedido de Compra a Domicilio",
+        "vat": vat,
+        "tax_percentage": 12,
+        "taxable_amount": tax
+      }
+    }
+
+
+    this.tarjetaService.pagar(info)
+      .pipe(
+        finalize(async () => {
+          await this.loading.dismiss();
+        })
+      )
+      .subscribe(
+        data => {
+          if(data.transaction.status=="success"){
+            this.guardarPedido(form, data.transaction.id, data.transaction.authorization_code);
+          }
+        },
+        err => {
+          this.mensajeIncorrecto("Algo Salio mal", "Error con el Pago de su Tarjeta")
+          this.router.navigate([''])
+        }
+      );
+      
+  }
+
+  async guardarPedido(form, transaccion, autorizacion) {
+    //await this.showLoading2();
     this.pedidoService.nuevoPedido(form)
       .pipe(
         finalize(async () => {
@@ -306,14 +292,26 @@ export class EfectivoPage implements OnInit {
       )
       .subscribe(
         data => {
-          console.log(data);
+       
           if (data.valid == "ok") {
+
             if (this.tipoPago == "Tarjeta") {
-              this.pagar(data.pedido)
-            } else {
-              this.mensajeCorrecto("Su pedido ha sido enviado con exito", "");
-              this.router.navigate(['']);
+              this.pagado(data.pedido, transaccion, autorizacion)
             }
+
+            this.storage.get('tipoEntrega').then((val) => {
+              if (val != null) {
+                if (val === "Local"){
+                  this.mensajeCorrecto("Estaremos esperando por Usted", "");
+                }else{
+                  this.mensajeCorrecto("Su pedido ha sido enviado con exito", "");
+                }
+              }
+        
+            });
+            
+            this.router.navigate(['']);
+
           } else {
             this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
             this.router.navigate(['']);
@@ -325,6 +323,34 @@ export class EfectivoPage implements OnInit {
         }
       );
   }
+
+  async pagado(id_pedido,transaccion, autorizacion) {
+    //await this.showLoading2();
+    let info = {
+      "pedido": id_pedido,
+      "transaccion": transaccion,
+      "autorizacion": autorizacion
+    }
+  
+    this.pedidoService.pagarPedido(info)
+      .pipe(
+        finalize(async () => {
+          await this.loading.dismiss();
+        })
+      )
+      .subscribe(
+        data => {     
+          this.mensajeCorrecto("Pago exitoso", "Su pedido ha sido pagado con exito");
+          this.router.navigate(['']);
+        },
+        err => {
+          this.mensajeIncorrecto("Algo Salio mal", "Error con el Pago de su Tarjetao")
+          this.router.navigate(['']);
+        }
+      );
+
+  }
+
 
   atras(){
     let animations:AnimationOptions={

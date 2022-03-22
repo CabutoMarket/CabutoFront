@@ -275,6 +275,7 @@ export class DetalleCategoriaPage implements OnInit {
     });
 
   }
+  
 
   showLoading3() {
     this.loadingCtrl.create({
